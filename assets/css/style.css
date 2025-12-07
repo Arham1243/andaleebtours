@@ -1354,29 +1354,14 @@ i.bx {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 1.6rem;
+  margin-top: 1.5rem;
 }
 
 .sidebar-btns-wrapper .themeBtn {
   font-size: 13px;
   color: #fff;
-
-  /* 1. Translucent Background (White with low opacity) */
-  padding: 9px 20px;
-  background: rgba(255, 255, 255, 0.2);
-
-  /* 2. The Blur Effect (The magic part) */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* For Safari support */
-
-  /* 3. Glass Edge / Border */
-  border: 1px solid rgba(255, 255, 255, 0.3);
-
-  /* Optional: Soft shadow to lift it off the background */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  /* Smooth transition for hover effects */
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ffffff42;
 }
 /* sideber */
 /* header */
