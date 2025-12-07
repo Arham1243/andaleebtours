@@ -75,16 +75,22 @@ i.bx {
 
 /* ThemeBtn */
 .themeBtn {
-  padding: 15px 20px;
+  padding: 10px 25px;
   width: fit-content;
   display: block;
-  border-radius: 8px;
-  background-color: red;
-  font-size: 13px;
-  font-weight: 400;
+  background-color: #000;
+  font-size: 16px;
+  border-radius: 50px;
+  font-weight: 600;
   color: #fff;
-  border-radius: 0.25rem;
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+.themeBtn i {
+  font-size: 1.1rem;
 }
 .themeBtn:hover {
   color: #fff;
@@ -386,6 +392,10 @@ i.bx {
 /* newsletter */
 
 /* category-card */
+.categories--padd{
+  padding: 4rem 0;
+
+}
 .category-card {
   background: #fff;
   border: 1px solid #d4d4d4;
@@ -1069,9 +1079,9 @@ i.bx {
 /* banner */
 .banner {
   width: 100%;
-  min-height: 75vh;
-  height: 100%;
-  padding: 2rem 1.5rem;
+  height: auto;
+  padding: 2rem 1.5rem 0;
+  cursor: pointer;
 }
 .banner__img {
   width: 100%;
@@ -1222,6 +1232,9 @@ i.bx {
   transition: color 0.2s;
 }
 
+.mh-icon-link.menu-btn i {
+  font-size: 1.85rem;
+}
 .mh-icon-link:hover {
   color: var(--mh-primary);
 }
@@ -1258,21 +1271,108 @@ i.bx {
     gap: 12px;
   }
   .mh-icons-group {
-    gap: 10px;
+    gap: 17px;
   }
-
-  .mh-btn-primary {
-    padding: 0;
-    width: 38px;
-    height: 38px;
-    justify-content: center;
-    border-radius: 50%;
-  }
-
   .mh-logo img {
     width: 130px;
   }
 }
+
+/* sideber */
+.sideBar {
+  position: fixed;
+  overflow-y: auto;
+  top: 0px;
+  background: linear-gradient(135deg, #2c3e50 0%, #0e1317 100%);
+  padding: 1rem 0;
+  transform: translateX(-100%);
+  height: 100%;
+  z-index: 1111;
+  width: 310px;
+  box-shadow: rgba(0, 0, 0, 0.125) 0px 0px 20px 5px;
+  transition: all 0.3s ease 0s;
+}
+.sideBar.show {
+  transform: translateX(0px);
+}
+.sideBar__close {
+  position: absolute;
+  top: 5px;
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  display: flex;
+  right: 9px;
+  color: rgb(255, 255, 255) !important;
+}
+.sideBar__close:hover {
+  background: #ffffff17;
+}
+.sideBar__logo {
+  width: 180px;
+  display: block;
+  margin: 0rem 2rem 2rem;
+}
+.sideBar__logo img {
+  width: 100%;
+  object-fit: cover;
+}
+.sideBar__nav > li > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sideBar__nav {
+  margin: 1rem 0 0;
+}
+.sideBar__nav > li > a {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  gap: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+  padding: 0.75rem 2rem;
+}
+.sideBar__nav > li > a i {
+  font-size: 1.25rem;
+  pointer-events: none;
+}
+
+.sideBar__nav li {
+  width: 100%;
+  border-bottom: 1px solid #cccccc3b;
+}
+.sidebar-btns-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.sidebar-btns-wrapper .themeBtn {
+  font-size: 13px;
+  color: #fff;
+  
+  /* 1. Translucent Background (White with low opacity) */
+  background: rgba(255, 255, 255, 0.2); 
+  
+  /* 2. The Blur Effect (The magic part) */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  
+  /* 3. Glass Edge / Border */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  
+  /* Optional: Soft shadow to lift it off the background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  /* Smooth transition for hover effects */
+  transition: all 0.3s ease;
+}
+/* sideber */
 /* header */
-
-

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/slick-theme.css" />
     <link rel="stylesheet" href="assets/fonts/boxicons/boxicons.css" />
     <link rel="stylesheet" href="assets/fonts/font-awesome/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/responsive.css" />
   </head>
@@ -18,7 +18,7 @@
     <div id="page-progress"></div>
 
 <header class="mh-header">
-  <div class="mh-container">
+  <div class="container">
     <div class="mh-row">
       
       <!-- Logo -->
@@ -65,39 +65,63 @@
             <i class='bx bx-shopping-bag'></i>
             <span class="mh-badge">0</span>
           </a>
+          <a href="javascript:void(0);" class="mh-icon-link menu-btn" data-menu-button onclick="openSideBar()">
+<i class="bx bx-menu"></i>
+</a>
         </div>
 
       </div>
     </div>
   </div>
 </header>
+
+<div class="sideBar" id="sideBar">
+  <a href="javascript:void(0)" class="sideBar__close" onclick="closeSideBar()">×</a>
+  <a href="https://andaleebtours.com/" class="sideBar__logo">
+    <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp" alt="Logo" class="imgFluid">
+  </a>
+  <ul class="sideBar__nav">
+    <li><a href="#">About Us </a></li>
+    <li><a href="#">Dubai Tour Packages</a></li>
+    <li><a href="#">Holiday Packages</a></li>
+    <li><a href="#">Hotels</a></li>
+    <li><a href="#">Travel Insurance</a></li>
+    <li><a href="#">Contact Us</a></li>
+  </ul>
+<div class="sidebar-btns-wrapper">
+    <a href="tel:+971 45766068" class="themeBtn"><i class="bx bx-phone"></i>Helpline</a>
+    <a href="tel:+971 525748986" class="themeBtn"><i class="bx bxl-whatsapp"></i>WhatsApp</a>
+</div>
+</div>
+
+
     <div class="first-section"></div>
 
 <div class="banner-slider">
     <div class="banner">
       <div class="banner__img">
-        <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20429/https://d31sl6cu4pqx6g.cloudfront.net/CMS/Media/1763454743591.png?_a=BAVAZGE70" alt="Image" class="imgFluid">
+        <img src="https://andaleebtours.com/assets/uploads/banner/tabby_banner176314308936.webp" alt="Image" class="imgFluid">
       </div>
     </div>
     <div class="banner">
       <div class="banner__img">
-        <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20429/https://d31sl6cu4pqx6g.cloudfront.net/CMS/Media/1763454743591.png?_a=BAVAZGE70" alt="Image" class="imgFluid">
+        <img src="https://andaleebtours.com/assets/uploads/banner/baku_now176314245084.webp" alt="Image" class="imgFluid">
       </div>
     </div>
     <div class="banner">
       <div class="banner__img">
-        <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20429/https://d31sl6cu4pqx6g.cloudfront.net/CMS/Media/1763454743591.png?_a=BAVAZGE70" alt="Image" class="imgFluid">
+        <img src="https://andaleebtours.com/assets/uploads/banner/dubai_city_tour176314429547.webp" alt="Image" class="imgFluid">
       </div>
     </div>
   </div>
 
 
-<section class="categories mar-y">
+<section class="categories categories--padd">
 <div class="container">
   <div class="section-content mb-4">
     <h3 class="heading">Best Cities to Visit</h3>
   </div>
-    <div class="row">
+     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-3">
         <div class="col">
           <a href="#" class="category-card">
               <div class="category-card__img">
@@ -732,8 +756,6 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/slick.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
     <script src="assets/js/custom.js"></script>
   </body>
 </html>

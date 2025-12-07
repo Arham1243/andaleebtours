@@ -65,19 +65,49 @@ $(document).ready(function () {
   });
   /* activity slider  */
 
-
-    /* travel stories slider */
+  /* banner slider */
   $(".banner-slider").slick({
     dots: false,
     infinite: true,
-    speed: 600,
     centerMode: true,
-    centerPadding: '60px',
+    centerPadding: "60px",
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
-    autoplay: false,
-    autoplaySpeed: 4000,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    responsive: [
+      {
+        breakpoint: 768, // or whatever you call mobile
+        settings: {
+          centerMode: false,
+          centerPadding: "0px",
+        },
+      },
+    ],
   });
-  /* travel stories slider */
+
+  /* travel slider */
 });
+
+/* sideBar */
+
+// Close sidebar when clicking outside
+document.addEventListener("click", function (e) {
+  const sidebar = document.getElementById("sideBar");
+  const isClickInside = sidebar.contains(e.target);
+  const isToggleButton = e.target.closest("[data-menu-button]"); // example trigger class
+
+  // If sidebar is open, you clicked outside, and it's not the toggle button
+  if (sidebar.classList.contains("show") && !isClickInside && !isToggleButton) {
+    closeSideBar();
+  }
+});
+
+function openSideBar() {
+  document.getElementById("sideBar").classList.add("show");
+}
+function closeSideBar() {
+  document.getElementById("sideBar").classList.remove("show");
+}
+/* sideBar */
