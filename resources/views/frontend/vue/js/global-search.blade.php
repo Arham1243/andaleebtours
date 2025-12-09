@@ -1,10 +1,10 @@
 <script>
     const GlobalSearch = createApp({
         setup() {
-            const count = ref(0);
+            const tripType = ref('one-way');
 
             return {
-                count,
+                tripType,
             };
         },
     });
