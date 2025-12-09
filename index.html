@@ -1,991 +1,1021 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Andaleeb Travel Agency</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/slick.css" />
-    <link rel="stylesheet" href="assets/css/slick-theme.css" />
-    <link rel="stylesheet" href="assets/fonts/boxicons/boxicons.css" />
-    <link rel="stylesheet" href="assets/fonts/font-awesome/all.min.css" />
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/responsive.css" />
-  </head>
-  <body>
 
-    <div id="page-progress"></div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andaleeb Travel Agency</title>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/slick.css" />
+  <link rel="stylesheet" href="assets/css/slick-theme.css" />
+  <link rel="stylesheet" href="assets/fonts/boxicons/boxicons.css" />
+  <link rel="stylesheet" href="assets/fonts/font-awesome/all.min.css" />
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
 
-<header class="mh-header">
-  <div class="container">
-    <div class="mh-row">
-      
-      <!-- Logo -->
-      <a href="" class="mh-logo">
-        <img
-          src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp"
-          alt="Andaleeb Travel Agency"
-        />
-      </a>
+<body>
 
-      <!-- Navigation -->
-      <nav class="mh-nav">
-        <ul class="mh-nav-list">
-          <li><a href="">Dubai Tours</a></li>
-          <li><a href="">Holidays</a></li>
-          <li><a href="">Hotels</a></li>
-          <li><a href="">Insurance</a></li>
-        </ul>
-      </nav>
+  <div id="page-progress"></div>
 
-      <!-- Actions -->
-      <div class="mh-actions">
-        
-        <!-- Contact -->
-        <div class="mh-contact-group">
-          <a href="tel:+971525748986" class="mh-link">
-            <i class="bx bxl-whatsapp"></i>
-            <span>WhatsApp</span>
-          </a>
-          <a href="tel:+97145766068" class="mh-btn-primary">
-            <i class="bx bx-phone"></i>
-            <span>Helpline</span>
-          </a>
-        </div>
-
-        <span class="mh-divider"></span>
-
-        <!-- User/Cart -->
-        <div class="mh-icons-group">
-          <a href="" class="mh-icon-link">
-            <i class="bx bx-user"></i>
-          </a>
-          <a href="" class="mh-icon-link mh-cart">
-            <i class='bx bx-shopping-bag'></i>
-            <span class="mh-badge">0</span>
-          </a>
-          <a href="javascript:void(0);" class="mh-icon-link menu-btn" data-menu-button onclick="openSideBar()">
-<i class="bx bx-menu"></i>
-</a>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</header>
-
-<div class="sideBar" id="sideBar">
-  <a href="javascript:void(0)" class="sideBar__close" onclick="closeSideBar()">×</a>
-  <a href="https://andaleebtours.com/" class="sideBar__logo">
-    <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp" alt="Logo" class="imgFluid">
-  </a>
-  <ul class="sideBar__nav">
-    <li><a href="#">About Us </a></li>
-    <li><a href="#">Dubai Tour Packages</a></li>
-    <li><a href="#">Holiday Packages</a></li>
-    <li><a href="#">Hotels</a></li>
-    <li><a href="#">Travel Insurance</a></li>
-    <li><a href="#">Contact Us</a></li>
-  </ul>
-<div class="sidebar-btns-wrapper">
-    <a href="tel:+971 45766068" class="themeBtn"><i class="bx bx-phone"></i>Helpline</a>
-    <a href="tel:+971 525748986" class="themeBtn"><i class="bx bxl-whatsapp"></i>WhatsApp</a>
-</div>
-</div>
-
-
-    <div class="first-section"></div>
-
-<div class="banner-slider">
-    <div class="banner">
-      <div class="banner__img">
-        <img src="https://andaleebtours.com/assets/uploads/banner/tabby_banner176314308936.webp" alt="Image" class="imgFluid">
-      </div>
-    </div>
-    <div class="banner">
-      <div class="banner__img">
-        <img src="https://andaleebtours.com/assets/uploads/banner/baku_now176314245084.webp" alt="Image" class="imgFluid">
-      </div>
-    </div>
-    <div class="banner">
-      <div class="banner__img">
-        <img src="https://andaleebtours.com/assets/uploads/banner/dubai_city_tour176314429547.webp" alt="Image" class="imgFluid">
-      </div>
-    </div>
-  </div>
-
-
-<section class="categories categories--padd">
-<div class="container">
-  <div class="section-content mb-4">
-    <h3 class="heading">Best Cities to Visit</h3>
-  </div>
-     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-3">
-        <div class="col">
-          <a href="#" class="category-card">
-              <div class="category-card__img">
-                  <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70" alt="Dubai" class="imgFluid">
-              </div>
-              <div class="category-card__content">
-                  <div class="title line-clamp-1">Things to do in Dubai</div>
-                  <div class="desc line-clamp-1">United Arab Emirates</div>
-              </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="#" class="category-card">
-              <div class="category-card__img">
-                  <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70" alt="Dubai" class="imgFluid">
-              </div>
-              <div class="category-card__content">
-                  <div class="title line-clamp-1">Things to do in Abu Dhabi</div>
-                  <div class="desc line-clamp-1">United Arab Emirates</div>
-              </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="#" class="category-card">
-              <div class="category-card__img">
-                  <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/14644/ras-al-khaimah-city.png?_a=BAVAZGE70" alt="Dubai" class="imgFluid">
-              </div>
-              <div class="category-card__content">
-                  <div class="title line-clamp-1">Things to do in Ras al Khaimah</div>
-                  <div class="desc line-clamp-1">United Arab Emirates</div>
-              </div>
-          </a>
-        </div>
-        <div class="col">
-          <a href="#" class="category-card">
-              <div class="category-card__img">
-                  <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70" alt="Dubai" class="imgFluid">
-              </div>
-              <div class="category-card__content">
-                  <div class="title line-clamp-1">Things to do in Singapore</div>
-                  <div class="desc line-clamp-1">United Arab Emirates</div>
-              </div>
-          </a>
-        </div>
-        <div class="col">
-        <a href="#" class="category-card">
-              <div class="category-card__img">
-                  <img src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70" alt="Dubai" class="imgFluid">
-              </div>
-              <div class="category-card__content">
-                  <div class="title line-clamp-1">Things to do in Dubai</div>
-                  <div class="desc line-clamp-1">United Arab Emirates</div>
-              </div>
-          </a>
-        </div>
-    </div>
-  </div>
-</section>
-
-
-
-<section class="pro-dest-section">
+  <header class="mh-header">
     <div class="container">
-        <div class="row">
-            
-            <!-- LEFT: Sticky Header -->
-            <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="pro-dest">
-                    <span class="pro-badge">Popular Destinations</span>
-                    <h2 class="pro-heading">Experience UAE</h2>
-                    <p class="pro-desc">
-                        From futuristic skylines to timeless desert dunes, discover the iconic landmarks that define the United Arab Emirates.
-                    </p>
-                    <a href="#" class="themeBtn">
-                        View All Attractions <i class='bx bx-right-arrow-alt'></i>
-                    </a>
-                </div>
-            </div>
+      <div class="mh-row">
 
-            <!-- RIGHT: The Interactive List -->
-            <div class="col-lg-7 offset-lg-1">
-                <div class="pro-list-container">
+        <!-- Logo -->
+        <a href="" class="mh-logo">
+          <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp"
+            alt="Andaleeb Travel Agency" />
+        </a>
 
-                    <!-- Item 01: Downtown -->
-                    <a href="#" class="pro-item">
-                        <span class="pro-num">01</span>
-                        <div class="pro-info">
-                            <h3 class="pro-city">Downtown Dubai</h3>
-                            <span class="pro-cat">Burj Khalifa & The Mall</span>
-                        </div>
-                        <div class="pro-action">
-                            <i class='bx bx-right-arrow-alt'></i>
-                        </div>
-                        <!-- Large Reveal Image -->
-                        <div class="pro-reveal-card" style="background-image: url('https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=800&auto=format&fit=crop');">
-                            <div class="pro-card-meta">
-                                <span><i class='bx bx-map'></i> City Center</span>
-                            </div>
-                        </div>
-                    </a>
+        <!-- Navigation -->
+        <nav class="mh-nav">
+          <ul class="mh-nav-list">
+            <li><a href="">Dubai Tours</a></li>
+            <li><a href="">Holidays</a></li>
+            <li><a href="">Hotels</a></li>
+            <li><a href="">Insurance</a></li>
+          </ul>
+        </nav>
 
-                    <!-- Item 02: The Palm -->
-                    <a href="#" class="pro-item">
-                        <span class="pro-num">02</span>
-                        <div class="pro-info">
-                            <h3 class="pro-city">Palm Jumeirah</h3>
-                            <span class="pro-cat">Luxury Resorts & Beaches</span>
-                        </div>
-                        <div class="pro-action">
-                            <i class='bx bx-right-arrow-alt'></i>
-                        </div>
-                        <div class="pro-reveal-card" style="background-image: url('https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iqbNmB9j8Z2Y/v1/2000x1092.webp');">
-                            <div class="pro-card-meta">
-                                <span><i class='bx bx-map'></i> The Island</span>
-                            </div>
-                        </div>
-                    </a>
+        <!-- Actions -->
+        <div class="mh-actions">
 
-                    <!-- Item 03: Dubai Marina -->
-                    <a href="#" class="pro-item">
-                        <span class="pro-num">03</span>
-                        <div class="pro-info">
-                            <h3 class="pro-city">Dubai Marina</h3>
-                            <span class="pro-cat">Yachts & Skyline Views</span>
-                        </div>
-                        <div class="pro-action">
-                            <i class='bx bx-right-arrow-alt'></i>
-                        </div>
-                        <div class="pro-reveal-card" style="background-image: url('https://images.unsplash.com/photo-1526495124232-a04e1849168c?q=80&w=800&auto=format&fit=crop');">
-                            <div class="pro-card-meta">
-                                <span><i class='bx bx-map'></i> Waterfront</span>
-                            </div>
-                        </div>
-                    </a>
+          <!-- Contact -->
+          <div class="mh-contact-group">
+            <a href="tel:+971525748986" class="mh-link">
+              <i class="bx bxl-whatsapp"></i>
+              <span>WhatsApp</span>
+            </a>
+            <a href="tel:+97145766068" class="mh-btn-primary">
+              <i class="bx bx-phone"></i>
+              <span>Helpline</span>
+            </a>
+          </div>
 
-                    <!-- Item 04: Desert Safari -->
-                    <a href="#" class="pro-item">
-                        <span class="pro-num">04</span>
-                        <div class="pro-info">
-                            <h3 class="pro-city">Arabian Desert</h3>
-                            <span class="pro-cat">Safari & Dunes</span>
-                        </div>
-                        <div class="pro-action">
-                            <i class='bx bx-right-arrow-alt'></i>
-                        </div>
-                        <div class="pro-reveal-card" style="background-image: url('https://avatars.mds.yandex.net/get-altay/15343885/2a00000196e568e5785ae838d0fdb2d8f17a/XXL_height');">
-                            <div class="pro-card-meta">
-                                <span><i class='bx bx-map'></i> Adventure</span>
-                            </div>
-                        </div>
-                    </a>
+          <span class="mh-divider"></span>
 
-                </div>
-            </div>
+          <!-- User/Cart -->
+          <div class="mh-icons-group">
+            <a href="" class="mh-icon-link">
+              <i class="bx bx-user"></i>
+            </a>
+            <a href="" class="mh-icon-link mh-cart">
+              <i class='bx bx-shopping-bag'></i>
+              <span class="mh-badge">0</span>
+            </a>
+            <a href="javascript:void(0);" class="mh-icon-link menu-btn" data-menu-button onclick="openSideBar()">
+              <i class="bx bx-menu"></i>
+            </a>
+          </div>
+
         </div>
+      </div>
     </div>
-</section>
+  </header>
+
+  <div class="sideBar" id="sideBar">
+    <a href="javascript:void(0)" class="sideBar__close" onclick="closeSideBar()">×</a>
+    <a href="https://andaleebtours.com/" class="sideBar__logo">
+      <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp" alt="Logo"
+        class="imgFluid">
+    </a>
+    <ul class="sideBar__nav">
+      <li><a href="#">About Us </a></li>
+      <li><a href="#">Dubai Tour Packages</a></li>
+      <li><a href="#">Holiday Packages</a></li>
+      <li><a href="#">Hotels</a></li>
+      <li><a href="#">Travel Insurance</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+    <div class="sidebar-btns-wrapper">
+      <a href="tel:+971 45766068" class="themeBtn"><i class="bx bx-phone"></i>Helpline</a>
+      <a href="tel:+971 525748986" class="themeBtn"><i class="bx bxl-whatsapp"></i>WhatsApp</a>
+    </div>
+  </div>
+
+
+  <div class="first-section"></div>
+
+  <div class="banner-slider">
+    <div class="banner">
+      <div class="banner__img">
+        <img src="https://andaleebtours.com/assets/uploads/banner/tabby_banner176314308936.webp" alt="Image"
+          class="imgFluid">
+      </div>
+    </div>
+    <div class="banner">
+      <div class="banner__img">
+        <img src="https://andaleebtours.com/assets/uploads/banner/baku_now176314245084.webp" alt="Image"
+          class="imgFluid">
+      </div>
+    </div>
+    <div class="banner">
+      <div class="banner__img">
+        <img src="https://andaleebtours.com/assets/uploads/banner/dubai_city_tour176314429547.webp" alt="Image"
+          class="imgFluid">
+      </div>
+    </div>
+  </div>
+
+
+  <section class="categories categories--padd">
+    <div class="container">
+      <div class="section-content mb-4">
+        <h3 class="heading">Best Cities to Visit</h3>
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-3">
+        <div class="col">
+          <a href="#" class="category-card">
+            <div class="category-card__img">
+              <img
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                alt="Dubai" class="imgFluid">
+            </div>
+            <div class="category-card__content">
+              <div class="title line-clamp-1">Things to do in Dubai</div>
+              <div class="desc line-clamp-1">United Arab Emirates</div>
+            </div>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="category-card">
+            <div class="category-card__img">
+              <img
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
+                alt="Dubai" class="imgFluid">
+            </div>
+            <div class="category-card__content">
+              <div class="title line-clamp-1">Things to do in Abu Dhabi</div>
+              <div class="desc line-clamp-1">United Arab Emirates</div>
+            </div>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="category-card">
+            <div class="category-card__img">
+              <img
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/14644/ras-al-khaimah-city.png?_a=BAVAZGE70"
+                alt="Dubai" class="imgFluid">
+            </div>
+            <div class="category-card__content">
+              <div class="title line-clamp-1">Things to do in Ras al Khaimah</div>
+              <div class="desc line-clamp-1">United Arab Emirates</div>
+            </div>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="category-card">
+            <div class="category-card__img">
+              <img
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
+                alt="Dubai" class="imgFluid">
+            </div>
+            <div class="category-card__content">
+              <div class="title line-clamp-1">Things to do in Singapore</div>
+              <div class="desc line-clamp-1">United Arab Emirates</div>
+            </div>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="category-card">
+            <div class="category-card__img">
+              <img
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
+                alt="Dubai" class="imgFluid">
+            </div>
+            <div class="category-card__content">
+              <div class="title line-clamp-1">Things to do in Dubai</div>
+              <div class="desc line-clamp-1">United Arab Emirates</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
 
-<section class="activities mar-y">
-<div class="container">
-    <div class="section-header">
+  <section class="pro-dest-section">
+    <div class="container">
+      <div class="row">
+
+        <!-- LEFT: Sticky Header -->
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <div class="pro-dest">
+            <span class="pro-badge">Popular Destinations</span>
+            <h2 class="pro-heading">Experience UAE</h2>
+            <p class="pro-desc">
+              From futuristic skylines to timeless desert dunes, discover the iconic landmarks that define the United
+              Arab Emirates.
+            </p>
+            <a href="#" class="themeBtn">
+              View All Attractions <i class='bx bx-right-arrow-alt'></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT: The Interactive List -->
+        <div class="col-lg-7 offset-lg-1">
+          <div class="pro-list-container">
+
+            <!-- Item 01: Downtown -->
+            <a href="#" class="pro-item">
+              <span class="pro-num">01</span>
+              <div class="pro-info">
+                <h3 class="pro-city">Downtown Dubai</h3>
+                <span class="pro-cat">Burj Khalifa & The Mall</span>
+              </div>
+              <div class="pro-action">
+                <i class='bx bx-right-arrow-alt'></i>
+              </div>
+              <!-- Large Reveal Image -->
+              <div class="pro-reveal-card"
+                style="background-image: url('https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=800&auto=format&fit=crop');">
+                <div class="pro-card-meta">
+                  <span><i class='bx bx-map'></i> City Center</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Item 02: The Palm -->
+            <a href="#" class="pro-item">
+              <span class="pro-num">02</span>
+              <div class="pro-info">
+                <h3 class="pro-city">Palm Jumeirah</h3>
+                <span class="pro-cat">Luxury Resorts & Beaches</span>
+              </div>
+              <div class="pro-action">
+                <i class='bx bx-right-arrow-alt'></i>
+              </div>
+              <div class="pro-reveal-card"
+                style="background-image: url('https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iqbNmB9j8Z2Y/v1/2000x1092.webp');">
+                <div class="pro-card-meta">
+                  <span><i class='bx bx-map'></i> The Island</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Item 03: Dubai Marina -->
+            <a href="#" class="pro-item">
+              <span class="pro-num">03</span>
+              <div class="pro-info">
+                <h3 class="pro-city">Dubai Marina</h3>
+                <span class="pro-cat">Yachts & Skyline Views</span>
+              </div>
+              <div class="pro-action">
+                <i class='bx bx-right-arrow-alt'></i>
+              </div>
+              <div class="pro-reveal-card"
+                style="background-image: url('https://images.unsplash.com/photo-1526495124232-a04e1849168c?q=80&w=800&auto=format&fit=crop');">
+                <div class="pro-card-meta">
+                  <span><i class='bx bx-map'></i> Waterfront</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Item 04: Desert Safari -->
+            <a href="#" class="pro-item">
+              <span class="pro-num">04</span>
+              <div class="pro-info">
+                <h3 class="pro-city">Arabian Desert</h3>
+                <span class="pro-cat">Safari & Dunes</span>
+              </div>
+              <div class="pro-action">
+                <i class='bx bx-right-arrow-alt'></i>
+              </div>
+              <div class="pro-reveal-card"
+                style="background-image: url('https://avatars.mds.yandex.net/get-altay/15343885/2a00000196e568e5785ae838d0fdb2d8f17a/XXL_height');">
+                <div class="pro-card-meta">
+                  <span><i class='bx bx-map'></i> Adventure</span>
+                </div>
+              </div>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="activities mar-y">
+    <div class="container">
+      <div class="section-header">
         <div class="section-content">
-            <h3 class="heading mb-0">Best Activities in Dubai</h3>
+          <h3 class="heading mb-0">Best Activities in Dubai</h3>
         </div>
         <div class="slider-arrows">
-            <div class="arrow-btn activity-prev-slide"><i class='bx bx-chevron-left'></i></div>
-            <div class="arrow-btn activity-next-slide"><i class='bx bx-chevron-right'></i></div>
+          <div class="arrow-btn activity-prev-slide"><i class='bx bx-chevron-left'></i></div>
+          <div class="arrow-btn activity-next-slide"><i class='bx bx-chevron-right'></i></div>
         </div>
-    </div>
+      </div>
 
-    <div class="row activity-slider">
-      <div class="col-md-4">
-        <div class="activity-card">
-            <div class="act-img-box">
-                <img  class="imgFluid" src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70" alt="Burj Khalifa">
-                <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-            </div>
-            <div class="act-details">
-                <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                <div class="act-rating">
-                    <i class='bx bxs-star star-icon'></i>
-                    <span class="rating-num">4.9</span>
-                    <span class="review-count">(374 Reviews)</span>
-                </div>
-                <div class="act-price">AED 199</div>
-            </div>
-        </div>
-        </div>
+      <div class="row activity-slider">
         <div class="col-md-4">
-        <div class="activity-card">
+          <div class="activity-card">
             <div class="act-img-box">
-                <img  class="imgFluid" src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70" alt="Burj Khalifa">
-                <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+              <img class="imgFluid"
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                alt="Burj Khalifa">
+              <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
             </div>
             <div class="act-details">
-                <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                <div class="act-rating">
-                    <i class='bx bxs-star star-icon'></i>
-                    <span class="rating-num">4.9</span>
-                    <span class="review-count">(374 Reviews)</span>
-                </div>
-                <div class="act-price">AED 199</div>
+              <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+              <div class="act-rating">
+                <i class='bx bxs-star star-icon'></i>
+                <span class="rating-num">4.9</span>
+                <span class="review-count">(374 Reviews)</span>
+              </div>
+              <div class="act-price">AED 199</div>
             </div>
-        </div>
-        </div>
-        <div class="col-md-4">
-        <div class="activity-card">
-            <div class="act-img-box">
-                <img  class="imgFluid" src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70" alt="Burj Khalifa">
-                <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-            </div>
-            <div class="act-details">
-                <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                <div class="act-rating">
-                    <i class='bx bxs-star star-icon'></i>
-                    <span class="rating-num">4.9</span>
-                    <span class="review-count">(374 Reviews)</span>
-                </div>
-                <div class="act-price">AED 199</div>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-4">
-        <div class="activity-card">
-            <div class="act-img-box">
-                <img  class="imgFluid" src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70" alt="Burj Khalifa">
-                <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-            </div>
-            <div class="act-details">
-                <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                <div class="act-rating">
-                    <i class='bx bxs-star star-icon'></i>
-                    <span class="rating-num">4.9</span>
-                    <span class="review-count">(374 Reviews)</span>
-                </div>
-                <div class="act-price">AED 199</div>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-4">
-        <div class="activity-card">
-            <div class="act-img-box">
-                <img  class="imgFluid" src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70" alt="Burj Khalifa">
-                <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
-            </div>
-            <div class="act-details">
-                <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                <div class="act-rating">
-                    <i class='bx bxs-star star-icon'></i>
-                    <span class="rating-num">4.9</span>
-                    <span class="review-count">(374 Reviews)</span>
-                </div>
-                <div class="act-price">AED 199</div>
-            </div>
-        </div>
+          </div>
         </div>
         <div class="col-md-4">
           <div class="activity-card">
-              <div class="act-img-box">
-                  <img  class="imgFluid" src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70" alt="Burj Khalifa">
-                  <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+            <div class="act-img-box">
+              <img class="imgFluid"
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
+                alt="Burj Khalifa">
+              <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+            </div>
+            <div class="act-details">
+              <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+              <div class="act-rating">
+                <i class='bx bxs-star star-icon'></i>
+                <span class="rating-num">4.9</span>
+                <span class="review-count">(374 Reviews)</span>
               </div>
-              <div class="act-details">
-                  <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                  <div class="act-rating">
-                      <i class='bx bxs-star star-icon'></i>
-                      <span class="rating-num">4.9</span>
-                      <span class="review-count">(374 Reviews)</span>
+              <div class="act-price">AED 199</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="activity-card">
+            <div class="act-img-box">
+              <img class="imgFluid"
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
+                alt="Burj Khalifa">
+              <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+            </div>
+            <div class="act-details">
+              <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+              <div class="act-rating">
+                <i class='bx bxs-star star-icon'></i>
+                <span class="rating-num">4.9</span>
+                <span class="review-count">(374 Reviews)</span>
+              </div>
+              <div class="act-price">AED 199</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="activity-card">
+            <div class="act-img-box">
+              <img class="imgFluid"
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
+                alt="Burj Khalifa">
+              <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+            </div>
+            <div class="act-details">
+              <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+              <div class="act-rating">
+                <i class='bx bxs-star star-icon'></i>
+                <span class="rating-num">4.9</span>
+                <span class="review-count">(374 Reviews)</span>
+              </div>
+              <div class="act-price">AED 199</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="activity-card">
+            <div class="act-img-box">
+              <img class="imgFluid"
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
+                alt="Burj Khalifa">
+              <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+            </div>
+            <div class="act-details">
+              <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+              <div class="act-rating">
+                <i class='bx bxs-star star-icon'></i>
+                <span class="rating-num">4.9</span>
+                <span class="review-count">(374 Reviews)</span>
+              </div>
+              <div class="act-price">AED 199</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="activity-card">
+            <div class="act-img-box">
+              <img class="imgFluid"
+                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                alt="Burj Khalifa">
+              <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
+            </div>
+            <div class="act-details">
+              <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
+              <div class="act-rating">
+                <i class='bx bxs-star star-icon'></i>
+                <span class="rating-num">4.9</span>
+                <span class="review-count">(374 Reviews)</span>
+              </div>
+              <div class="act-price">AED 199</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section class="holiday-section mar-y">
+    <div class="container">
+      <div class="section-content mb-4">
+        <h3 class="heading">Trending Holiday Packages</h3>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-6 col-md-12">
+          <a href="#" class="promo-card h-500">
+            <img
+              src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763450754WhatsApp%20Image%202025-11-18%20at%2012.25.10_da9451c2.jpg"
+              alt="Turkey">
+
+            <span class="duration-badge">5 Nights / 6 Days</span>
+
+            <div class="card-overlay">
+              <div class="promo-info">
+                <div class="title">Turkish Delight</div>
+                <p>Starts AED 1,299</p>
+                <div class="btn-explore">
+                  Explore now <i class='bx bx-right-arrow-alt'></i>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-12">
+          <div class="row g-3 h-100">
+            <div class="col-md-6">
+              <a href="#" class="promo-card h-240">
+                <img
+                  src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763463484egypt%20pic.jpg"
+                  alt="Egypt">
+                <span class="duration-badge">3 Nights / 4 Days</span>
+                <div class="card-overlay">
+                  <div class="promo-info">
+                    <div class="title">Egypt</div>
+                    <p class="fs-6">Starts AED 999</p>
+                    <div class="btn-explore">
+                      Explore now <i class='bx bx-right-arrow-alt'></i>
+                    </div>
                   </div>
-                  <div class="act-price">AED 199</div>
+                </div>
+              </a>
+            </div>
+
+            <div class="col-md-6">
+              <a href="#" class="promo-card h-240">
+                <img src="https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=800&auto=format&fit=crop"
+                  alt="Singapore">
+                <span class="duration-badge">4 Nights / 5 Days</span>
+                <div class="card-overlay">
+                  <div class="promo-info">
+                    <div class="title">Singapore</div>
+                    <p class="fs-6">Starts AED 2,499</p>
+                    <div class="btn-explore">
+                      Explore now <i class='bx bx-right-arrow-alt'></i>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="col-12">
+              <a href="#" class="promo-card h-240">
+                <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop"
+                  alt="Thailand">
+                <span class="duration-badge">4 Nights / 5 Days</span>
+                <div class="card-overlay">
+                  <div class="d-flex justify-content-between align-items-end w-100">
+                    <div class="promo-info">
+                      <div class="title">Thailand</div>
+
+                      <p>Starts AED 1,499</p>
+                      <div class="btn-explore">
+                        Explore now <i class='bx bx-right-arrow-alt'></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-flight-offers mar-y">
+    <div class="container">
+      <div class="row align-items-end mb-2">
+        <div class="col-md-8">
+          <div class="section-content">
+            <div class="pro-badge">Flight Deals</div>
+            <h3 class="heading">Exclusive Airfare Offers</h3>
+          </div>
+        </div>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-3">
+          <a href="#" class="flight-card">
+            <img
+              src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="London" class="card-img">
+
+            <div class="card-badge"><i class="bx bxs-hot"></i>Trending</div>
+
+            <div class="card-content">
+              <div class="route-box">
+                <span class="code">DXB</span>
+                <div class="flight-line">
+                  <i class='bx bxs-plane-alt plane-icon'></i>
+                </div>
+                <span class="code">LHR</span>
               </div>
+
+              <div class="text-white mb-3">
+                <h5 class="fw-bold mb-0">London</h5>
+                <small class="opacity-75"><i class='bx bx-calendar'></i> 20 Oct • 7h 10m</small>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
+                <div>
+                  <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
+                  <span class="fw-bold text-white fs-5">AED 1,850</span>
+                </div>
+                <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <a href="#" class="flight-card">
+            <img
+              src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="New York" class="card-img">
+
+
+            <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
+
+            <div class="card-content">
+              <div class="route-box">
+                <span class="code">DXB</span>
+                <div class="flight-line">
+                  <i class='bx bxs-plane-alt plane-icon'></i>
+                </div>
+                <span class="code">JFK</span>
+              </div>
+
+              <div class="text-white mb-3">
+                <h5 class="fw-bold mb-0">New York</h5>
+                <small class="opacity-75"><i class='bx bx-calendar'></i> 15 Nov • 14h 20m</small>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
+                <div>
+                  <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
+                  <span class="fw-bold text-white fs-5">AED 3,200</span>
+                </div>
+                <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <a href="#" class="flight-card">
+            <img
+              src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Paris" class="card-img">
+
+            <div class="card-badge"><i class="bx bxs-hot"></i> Trending</div>
+
+            <div class="card-content">
+              <div class="route-box">
+                <span class="code">DXB</span>
+                <div class="flight-line">
+                  <i class='bx bxs-plane-alt plane-icon'></i>
+                </div>
+                <span class="code">CDG</span>
+              </div>
+
+              <div class="text-white mb-3">
+                <h5 class="fw-bold mb-0">Paris</h5>
+                <small class="opacity-75"><i class='bx bx-calendar'></i> 05 Dec • 7h 25m</small>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
+                <div>
+                  <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
+                  <span class="fw-bold text-white fs-5">AED 1,650</span>
+                </div>
+                <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <a href="#" class="flight-card">
+            <img
+              src="https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Istanbul" class="card-img">
+
+            <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
+
+            <div class="card-content">
+              <div class="route-box">
+                <span class="code">DXB</span>
+                <div class="flight-line">
+                  <i class='bx bxs-plane-alt plane-icon'></i>
+                </div>
+                <span class="code">IST</span>
+              </div>
+
+              <div class="text-white mb-3">
+                <h5 class="fw-bold mb-0">Istanbul</h5>
+                <small class="opacity-75"><i class='bx bx-calendar'></i> 12 Jan • 4h 50m</small>
+              </div>
+
+              <div
+                class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
+                <div>
+                  <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
+                  <span class="fw-bold text-white fs-5">AED 1,100</span>
+                </div>
+                <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="section-hotel-offers py-5 bg-light">
+    <div class="container">
+      <div class="row align-items-end mb-4">
+        <div class="col-md-8">
+          <div class="section-content">
+            <div class="pro-badge">Luxury Stays</div>
+            <h3 class="heading">Exclusive Hotel Deals</h3>
           </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="hotel-card">
+            <div class="hotel-img-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                alt="Atlantis The Royal" class="img-fluid">
+              <span class="badge primary-bg offer-badge">Featured</span>
+
+            </div>
+
+            <a href="#" class="hotel-details shadow-sm">
+              <span class="location-text text-muted"><i class='bx bxs-map'></i> Palm Jumeirah</span>
+              <h5 class="hotel-title mb-1">Atlantis The Royal</h5>
+              <p class="text-muted small mb-3">Ultra-luxury resort experience</p>
+
+              <div class="d-flex justify-content-between align-items-end border-top pt-3">
+                <div>
+                  <small class="text-muted text-decoration-line-through">AED 2,500</small>
+                  <div class="price-tag">AED 1,999 <small class="text-muted fw-normal">/ night</small></div>
+                </div>
+                <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
+              </div>
+            </a>
           </div>
+        </div>
 
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="hotel-card">
+            <div class="hotel-img-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                alt="Burj Al Arab" class="img-fluid">
+              <span class="badge primary-bg offer-badge">Featured</span>
+
+            </div>
+
+            <a href="#" class="hotel-details shadow-sm">
+              <span class="location-text text-muted"><i class='bx bxs-map'></i> Jumeirah Beach</span>
+              <h5 class="hotel-title mb-1">Burj Al Arab</h5>
+              <p class="text-muted small mb-3">The world's only 7-star hotel</p>
+
+              <div class="d-flex justify-content-between align-items-end border-top pt-3">
+                <div>
+                  <small class="text-muted text-decoration-line-through">AED 4,500</small>
+                  <div class="price-tag">AED 3,800 <small class="text-muted fw-normal">/ night</small></div>
+                </div>
+                <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="hotel-card">
+            <div class="hotel-img-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+                alt="Rixos Premium" class="img-fluid">
+              <span class="badge primary-bg offer-badge">Featured</span>
+
+            </div>
+
+            <a href="#" class="hotel-details shadow-sm">
+              <span class="location-text text-muted"><i class='bx bxs-map'></i> JBR, Dubai</span>
+              <h5 class="hotel-title mb-1">Rixos Premium</h5>
+              <p class="text-muted small mb-3">Lifestyle hotel on the beach</p>
+
+              <div class="d-flex justify-content-between align-items-end border-top pt-3">
+                <div>
+                  <small class="text-muted text-decoration-line-through">AED 1,200</small>
+                  <div class="price-tag">AED 850 <small class="text-muted fw-normal">/ night</small></div>
+                </div>
+                <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
     </div>
-</div>
-</section>
+  </section>
 
 
-<section class="holiday-section mar-y">
+  <section class="travel-stories-pro mar-y">
     <div class="container">
-        <div class="section-content mb-4">
-            <h3 class="heading">Trending Holiday Packages</h3>
-        </div>
 
-        <div class="row g-3">
-            <div class="col-lg-6 col-md-12">
-                <a href="#" class="promo-card h-500">
-                    <img src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763450754WhatsApp%20Image%202025-11-18%20at%2012.25.10_da9451c2.jpg" alt="Turkey">
-                    
-                    <span class="duration-badge">5 Nights / 6 Days</span>
-                    
-                    <div class="card-overlay">
-                        <div class="promo-info">
-                            <div class="title">Turkish Delight</div>
-                            <p>Starts AED 1,299</p>
-                            <div class="btn-explore">
-                                Explore now <i class='bx bx-right-arrow-alt'></i>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="row g-3 h-100">
-                    <div class="col-md-6">
-                        <a href="#" class="promo-card h-240">
-                            <img src="https://smarttravels.ae/extras/custom/TMX1512291534825461/uploads/package_images/1763463484egypt%20pic.jpg" alt="Egypt">
-                            <span class="duration-badge">3 Nights / 4 Days</span>
-                            <div class="card-overlay">
-                                <div class="promo-info">
-                                    <div class="title">Egypt</div>
-                                    <p class="fs-6">Starts AED 999</p>
-                                    <div class="btn-explore">
-                                Explore now <i class='bx bx-right-arrow-alt'></i>
-                            </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <a href="#" class="promo-card h-240">
-                            <img src="https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=800&auto=format&fit=crop" alt="Singapore">
-                            <span class="duration-badge">4 Nights / 5 Days</span>
-                            <div class="card-overlay">
-                                <div class="promo-info">
-                                    <div class="title">Singapore</div>
-                                    <p class="fs-6">Starts AED 2,499</p>
-                                    <div class="btn-explore">
-                                Explore now <i class='bx bx-right-arrow-alt'></i>
-                            </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-12">
-                        <a href="#" class="promo-card h-240">
-                            <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop" alt="Thailand">
-                            <span class="duration-badge">4 Nights / 5 Days</span>
-                            <div class="card-overlay">
-                                <div class="d-flex justify-content-between align-items-end w-100">
-                                    <div class="promo-info">
-                                    <div class="title">Thailand</div>
-
-                                        <p>Starts AED 1,499</p>
-                                        <div class="btn-explore">
-                                Explore now <i class='bx bx-right-arrow-alt'></i>
-                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section-flight-offers mar-y">
-    <div class="container">
-        <div class="row align-items-end mb-2">
-            <div class="col-md-8">
-            <div class="section-content">
-                   <div class="pro-badge">Flight Deals</div>
-                   <h3 class="heading">Exclusive Airfare Offers</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row g-4">
-
-            <div class="col-md-6 col-lg-3">
-                <a href="#" class="flight-card">
-                         <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="London" class="card-img">
-                    
-                    <div class="card-badge"><i class="bx bxs-hot"></i>Trending</div>
-
-                    <div class="card-content">
-                        <div class="route-box">
-                            <span class="code">DXB</span>
-                            <div class="flight-line">
-                                <i class='bx bxs-plane-alt plane-icon'></i>
-                            </div>
-                            <span class="code">LHR</span>
-                        </div>
-
-                        <div class="text-white mb-3">
-                            <h5 class="fw-bold mb-0">London</h5>
-                            <small class="opacity-75"><i class='bx bx-calendar'></i> 20 Oct • 7h 10m</small>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
-                            <div>
-                                <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                <span class="fw-bold text-white fs-5">AED 1,850</span>
-                            </div>
-                            <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <a href="#" class="flight-card">
-                    <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="New York" class="card-img">
-
-                    
-                    <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
-
-                    <div class="card-content">
-                        <div class="route-box">
-                            <span class="code">DXB</span>
-                            <div class="flight-line">
-                                <i class='bx bxs-plane-alt plane-icon'></i>
-                            </div>
-                            <span class="code">JFK</span>
-                        </div>
-
-                        <div class="text-white mb-3">
-                            <h5 class="fw-bold mb-0">New York</h5>
-                            <small class="opacity-75"><i class='bx bx-calendar'></i> 15 Nov • 14h 20m</small>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
-                            <div>
-                                <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                <span class="fw-bold text-white fs-5">AED 3,200</span>
-                            </div>
-                            <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <a href="#" class="flight-card">
-                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Paris" class="card-img">
-                    
-                    <div class="card-badge"><i class="bx bxs-hot"></i> Trending</div>
-
-                    <div class="card-content">
-                        <div class="route-box">
-                            <span class="code">DXB</span>
-                            <div class="flight-line">
-                                <i class='bx bxs-plane-alt plane-icon'></i>
-                            </div>
-                            <span class="code">CDG</span>
-                        </div>
-
-                        <div class="text-white mb-3">
-                            <h5 class="fw-bold mb-0">Paris</h5>
-                            <small class="opacity-75"><i class='bx bx-calendar'></i> 05 Dec • 7h 25m</small>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
-                            <div>
-                                <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                <span class="fw-bold text-white fs-5">AED 1,650</span>
-                            </div>
-                            <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <a href="#" class="flight-card">
-                    <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Istanbul" class="card-img">
-                    
-                    <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
-
-                    <div class="card-content">
-                        <div class="route-box">
-                            <span class="code">DXB</span>
-                            <div class="flight-line">
-                                <i class='bx bxs-plane-alt plane-icon'></i>
-                            </div>
-                            <span class="code">IST</span>
-                        </div>
-
-                        <div class="text-white mb-3">
-                            <h5 class="fw-bold mb-0">Istanbul</h5>
-                            <small class="opacity-75"><i class='bx bx-calendar'></i> 12 Jan • 4h 50m</small>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
-                            <div>
-                                <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                <span class="fw-bold text-white fs-5">AED 1,100</span>
-                            </div>
-                            <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-     </div>
-    </div>
-</div>
-</section>
-
-<section class="section-hotel-offers py-5 bg-light">
-    <div class="container">
-        <div class="row align-items-end mb-4">
-            <div class="col-md-8">
-            <div class="section-content">
-                <div class="pro-badge">Luxury Stays</div>
-                <h3 class="heading">Exclusive Hotel Deals</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="hotel-card">
-                    <div class="hotel-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Atlantis The Royal" class="img-fluid">
-                        <span class="badge primary-bg offer-badge">Featured</span>
-                        
-                    </div>
-
-                    <a href="#" class="hotel-details shadow-sm">
-                        <span class="location-text text-muted"><i class='bx bxs-map'></i> Palm Jumeirah</span>
-                        <h5 class="hotel-title mb-1">Atlantis The Royal</h5>
-                        <p class="text-muted small mb-3">Ultra-luxury resort experience</p>
-                        
-                        <div class="d-flex justify-content-between align-items-end border-top pt-3">
-                            <div>
-                                <small class="text-muted text-decoration-line-through">AED 2,500</small>
-                                <div class="price-tag">AED 1,999 <small class="text-muted fw-normal">/ night</small></div>
-                            </div>
-                            <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="hotel-card">
-                    <div class="hotel-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Burj Al Arab" class="img-fluid">
-                        <span class="badge primary-bg offer-badge">Featured</span>
-                        
-                    </div>
-
-                    <a href="#" class="hotel-details shadow-sm">
-                        <span class="location-text text-muted"><i class='bx bxs-map'></i> Jumeirah Beach</span>
-                        <h5 class="hotel-title mb-1">Burj Al Arab</h5>
-                        <p class="text-muted small mb-3">The world's only 7-star hotel</p>
-                        
-                        <div class="d-flex justify-content-between align-items-end border-top pt-3">
-                            <div>
-                                <small class="text-muted text-decoration-line-through">AED 4,500</small>
-                                <div class="price-tag">AED 3,800 <small class="text-muted fw-normal">/ night</small></div>
-                            </div>
-                            <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="hotel-card">
-                    <div class="hotel-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Rixos Premium" class="img-fluid">
-                        <span class="badge primary-bg offer-badge">Featured</span>
-                        
-                    </div>
-
-                    <a href="#" class="hotel-details shadow-sm">
-                        <span class="location-text text-muted"><i class='bx bxs-map'></i> JBR, Dubai</span>
-                        <h5 class="hotel-title mb-1">Rixos Premium</h5>
-                        <p class="text-muted small mb-3">Lifestyle hotel on the beach</p>
-                        
-                        <div class="d-flex justify-content-between align-items-end border-top pt-3">
-                            <div>
-                                <small class="text-muted text-decoration-line-through">AED 1,200</small>
-                                <div class="price-tag">AED 850 <small class="text-muted fw-normal">/ night</small></div>
-                            </div>
-                            <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-<section class="travel-stories-pro mar-y">
-  <div class="container">
-    
-    <div class="ts-header">
-      <div class="ts-title-wrap">
-        <div class="section-content">
+      <div class="ts-header">
+        <div class="ts-title-wrap">
+          <div class="section-content">
             <h3 class="heading">Travel Stories</h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="ts-main-slider">
-
-      <div class="ts-slide-item">
-        <div class="row g-4">
-          <div class="col-lg-6">
-            <article class="ts-hero-card">
-              <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop" alt="Swiss Alps" class="ts-hero-img">
-              <div class="ts-hero-overlay">
-                <div class="ts-tags">
-                  <span class="ts-tag">Adventure</span>
-                  <span class="ts-time">5 min read</span>
-                </div>
-                <h3 class="ts-hero-title">The Untouched Peaks: Hiking the Swiss Alps in Autumn</h3>
-              </div>
-              <a href="#" class="ts-card-link"></a>
-            </article>
-          </div>
-          <div class="col-lg-6">
-            <div class="ts-list-stack">
-              <article class="ts-side-card">
-                <div class="ts-side-img-box">
-                  <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop" alt="Bali Food">
-                </div>
-                <div class="ts-side-content">
-                  <span class="ts-category">Culinary</span>
-                  <h5 class="ts-side-title line-clamp-2">Best street food in Bali (Hidden Gems)</h5>
-                  <p class="ts-side-desc line-clamp-1">From spicy Sambal to sweet Dadar Gulung.</p>
-                  <a href="#" class="ts-read-more">Read Story</a>
-                </div>
-              </article>
-              <article class="ts-side-card">
-                <div class="ts-side-img-box">
-                  <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop" alt="Paris">
-                </div>
-                <div class="ts-side-content">
-                  <span class="ts-category">City Guide</span>
-                  <h5 class="ts-side-title line-clamp-2">Paris on a Budget: Luxury for less</h5>
-                  <p class="ts-side-desc line-clamp-1">Enjoy the City of Lights without breaking the bank.</p>
-                  <a href="#" class="ts-read-more">Read Story</a>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div> 
-      </div> 
-
-      <div class="ts-slide-item">
-        <div class="row g-4">
-          <div class="col-lg-6">
-            <article class="ts-hero-card">
-              <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop" alt="Cinque Terre" class="ts-hero-img">
-              <div class="ts-hero-overlay">
-                <div class="ts-tags">
-                  <span class="ts-tag">Coastal</span>
-                  <span class="ts-time">7 min read</span>
-                </div>
-                <h3 class="ts-hero-title">Cinque Terre: Walking the colorful villages of Italy</h3>
-              </div>
-              <a href="#" class="ts-card-link"></a>
-            </article>
-          </div>
-          <div class="col-lg-6">
-            <div class="ts-list-stack">
-              <article class="ts-side-card">
-                <div class="ts-side-img-box">
-                  <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop" alt="Kyoto">
-                </div>
-                <div class="ts-side-content">
-                  <span class="ts-category">Culture</span>
-                  <h5 class="ts-side-title line-clamp-2">Kyoto in Bloom: A Cherry Blossom Guide</h5>
-                  <p class="ts-side-desc line-clamp-1">The best spots to see Sakura away from the crowds.</p>
-                  <a href="#" class="ts-read-more">Read Story</a>
-                </div>
-              </article>
-              <article class="ts-side-card">
-                <div class="ts-side-img-box">
-                  <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop" alt="Tokyo">
-                </div>
-                <div class="ts-side-content">
-                  <span class="ts-category">Tech & Travel</span>
-                  <h5 class="ts-side-title line-clamp-2">Tokyo Future: The Neon Nights</h5>
-                  <p class="ts-side-desc line-clamp-1">Exploring the electronic district of Akihabara.</p>
-                  <a href="#" class="ts-read-more">Read Story</a>
-                </div>
-              </article>
-            </div>
           </div>
         </div>
       </div>
 
-    </div>
+      <div class="ts-main-slider">
 
-  </div>
-</section>
-
-<section class="newsletter mar-y">
-      <div class="container">
-        <div class="glass-panel">
-          <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-              <div class="horizon-content">
-                <span class="tag-badge">
-                  <i class="bx bxs-hot"></i> Trending</span
-                >
-                <h5 class="heading">Don't miss the next adventure.</h3>
-                <p>Subscribe now and receive the latest travel news.</p>
-              </div>
-            </div>
-
+        <div class="ts-slide-item">
+          <div class="row g-4">
             <div class="col-lg-6">
-              <form class="horizon-form">
-                <div class="input-wrapper">
-                  <input
-                    autocomplete="off"
-                    type="email"
-                    class="horizon-input"
-                    placeholder="Enter your email address..."
-                  />
-                  <button type="submit" class="horizon-btn">
-                    Subscribe <i class="bx bx-paper-plane"></i>
-                  </button>
+              <article class="ts-hero-card">
+                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1200&auto=format&fit=crop"
+                  alt="Swiss Alps" class="ts-hero-img">
+                <div class="ts-hero-overlay">
+                  <div class="ts-tags">
+                    <span class="ts-tag">Adventure</span>
+                    <span class="ts-time">5 min read</span>
+                  </div>
+                  <h3 class="ts-hero-title">The Untouched Peaks: Hiking the Swiss Alps in Autumn</h3>
                 </div>
-              </form>
+                <a href="#" class="ts-card-link"></a>
+              </article>
             </div>
-          </div>
-           <img src="assets/images/globe.png" alt="globe" class="imgFluid globe-icon">
-        </div>
-      </div>
-    </section>
-
-
-    
-    <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-12 mb-4">
-            <div class="footer-logo">
-              <img
-                src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp"
-                alt="Rayna Logo"
-                class="main-logo"
-              />
-            </div>
-
-            <h6 class="heading">Book with confidence</h6>
-            <div class="award-images">
-              <img
-                src="assets/images/partners/4.svg"
-                alt="Image"
-                class="award-img"
-              />
-              <img
-                src="assets/images/partners/2.png"
-                alt="Image"
-                class="award-img"
-              />
-              <img
-                src="assets/images/partners/3.png"
-                alt="Image"
-                class="award-img"
-              />
-
-              <img
-                src="assets/images/partners/1.svg"
-                alt="Image"
-                class="award-img award-img--lg"
-              />
-            </div>
-          </div>
-          <div class="col-lg-2 offset-lg-2 col-md-6 mb-4">
-            <h6 class="heading">Quick Links</h6>
-            <ul class="footer-list">
-              <li><a href="">About us</a></li>
-              <li><a href="">Contact us</a></li>
-              <li><a href="">Company Profile</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-2 col-md-6 mb-4">
-            <h6 class="heading">Explore Options</h6>
-            <ul class="footer-list">
-              <li><a href="">Dubai Tours</a></li>
-              <li><a href="">Holidays</a></li>
-              <li><a href="">Hotels</a></li>
-              <li><a href="">Insurance</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-3 col-md-6 mb-4">
-            <h6 class="heading">Get Help 24/7</h6>
-            <ul class="footer-list">
-              <li>
-                <a href="mailto:info@andaleebtours.com">
-                  <i class="bx bxs-envelope"></i>
-                  <span>info@andaleebtours.com</span>
-                </a>
-              </li>
-              <li>
-                <a href="tel:+97145766068">
-                  <i class="bx bxs-phone"></i>
-                  <span>+971 45766068</span>
-                </a>
-              </li>
-              <li>
-                <a href="tel:+971525748986">
-                  <i class="bx bxl-whatsapp"></i>
-                  <span>+971 525748986</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <div class="row align-items-center">
-            <div class="col-md-7">
-              <div class="copyright-text">
-                <span
-                  >&copy; 2025 Andaleeb Travel Agency. All Rights Reserved.
-                </span>
-                <div class="copyright-links">
-                  <a href="#">Privacy Policy</a>
-                  <span style="color: #ddd">|</span>
-                  <a href="#">Terms & conditions</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-5">
-              <div class="footer-social-icons">
-                <a
-                  href="https://www.facebook.com/AndaleebTravelAgency"
-                  target="_blank"
-                  class="social-link"
-                  ><i class="bx bxl-facebook"></i
-                ></a>
-                <a
-                  href="https://twitter.com/AndaleebTravels"
-                  class="social-link"
-                  ><i class="bx bxl-twitter"></i
-                ></a>
-                <a
-                  href="https://www.instagram.com/andaleeb_tours/"
-                  class="social-link"
-                  ><i class="bx bxl-instagram"></i
-                ></a>
+            <div class="col-lg-6">
+              <div class="ts-list-stack">
+                <article class="ts-side-card">
+                  <div class="ts-side-img-box">
+                    <img
+                      src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop"
+                      alt="Bali Food">
+                  </div>
+                  <div class="ts-side-content">
+                    <span class="ts-category">Culinary</span>
+                    <h5 class="ts-side-title line-clamp-2">Best street food in Bali (Hidden Gems)</h5>
+                    <p class="ts-side-desc line-clamp-1">From spicy Sambal to sweet Dadar Gulung.</p>
+                    <a href="#" class="ts-read-more">Read Story</a>
+                  </div>
+                </article>
+                <article class="ts-side-card">
+                  <div class="ts-side-img-box">
+                    <img
+                      src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=600&auto=format&fit=crop"
+                      alt="Paris">
+                  </div>
+                  <div class="ts-side-content">
+                    <span class="ts-category">City Guide</span>
+                    <h5 class="ts-side-title line-clamp-2">Paris on a Budget: Luxury for less</h5>
+                    <p class="ts-side-desc line-clamp-1">Enjoy the City of Lights without breaking the bank.</p>
+                    <a href="#" class="ts-read-more">Read Story</a>
+                  </div>
+                </article>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="footer-disclaimer">
-        Disclaimer: Andaleeb Travel Agency is a private travel agency and not
-        affiliated with any government body.
-      </div>
-    </footer>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/slick.min.js"></script>
-    <script src="assets/js/custom.js"></script>
-  </body>
+        <div class="ts-slide-item">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <article class="ts-hero-card">
+                <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop"
+                  alt="Cinque Terre" class="ts-hero-img">
+                <div class="ts-hero-overlay">
+                  <div class="ts-tags">
+                    <span class="ts-tag">Coastal</span>
+                    <span class="ts-time">7 min read</span>
+                  </div>
+                  <h3 class="ts-hero-title">Cinque Terre: Walking the colorful villages of Italy</h3>
+                </div>
+                <a href="#" class="ts-card-link"></a>
+              </article>
+            </div>
+            <div class="col-lg-6">
+              <div class="ts-list-stack">
+                <article class="ts-side-card">
+                  <div class="ts-side-img-box">
+                    <img
+                      src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop"
+                      alt="Kyoto">
+                  </div>
+                  <div class="ts-side-content">
+                    <span class="ts-category">Culture</span>
+                    <h5 class="ts-side-title line-clamp-2">Kyoto in Bloom: A Cherry Blossom Guide</h5>
+                    <p class="ts-side-desc line-clamp-1">The best spots to see Sakura away from the crowds.</p>
+                    <a href="#" class="ts-read-more">Read Story</a>
+                  </div>
+                </article>
+                <article class="ts-side-card">
+                  <div class="ts-side-img-box">
+                    <img
+                      src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop"
+                      alt="Tokyo">
+                  </div>
+                  <div class="ts-side-content">
+                    <span class="ts-category">Tech & Travel</span>
+                    <h5 class="ts-side-title line-clamp-2">Tokyo Future: The Neon Nights</h5>
+                    <p class="ts-side-desc line-clamp-1">Exploring the electronic district of Akihabara.</p>
+                    <a href="#" class="ts-read-more">Read Story</a>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="newsletter mar-y">
+    <div class="container">
+      <div class="glass-panel">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="horizon-content">
+              <span class="tag-badge">
+                <i class="bx bxs-hot"></i> Trending</span>
+              <h5 class="heading">Don't miss the next adventure.</h3>
+                <p>Subscribe now and receive the latest travel news.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <form class="horizon-form">
+              <div class="input-wrapper">
+                <input autocomplete="off" type="email" class="horizon-input"
+                  placeholder="Enter your email address..." />
+                <button type="submit" class="horizon-btn">
+                  Subscribe <i class="bx bx-paper-plane"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <img src="assets/images/globe.png" alt="globe" class="imgFluid globe-icon">
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-12 mb-4">
+          <div class="footer-logo">
+            <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp"
+              alt="Rayna Logo" class="main-logo" />
+          </div>
+
+          <h6 class="heading">Book with confidence</h6>
+          <div class="award-images">
+            <img src="assets/images/partners/4.svg" alt="Image" class="award-img" />
+            <img src="assets/images/partners/2.png" alt="Image" class="award-img" />
+            <img src="assets/images/partners/3.png" alt="Image" class="award-img" />
+
+            <img src="assets/images/partners/1.svg" alt="Image" class="award-img award-img--lg" />
+          </div>
+        </div>
+        <div class="col-lg-2 offset-lg-2 col-md-6 mb-4">
+          <h6 class="heading">Quick Links</h6>
+          <ul class="footer-list">
+            <li><a href="">About us</a></li>
+            <li><a href="">Contact us</a></li>
+            <li><a href="">Company Profile</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h6 class="heading">Explore Options</h6>
+          <ul class="footer-list">
+            <li><a href="">Dubai Tours</a></li>
+            <li><a href="">Holidays</a></li>
+            <li><a href="">Hotels</a></li>
+            <li><a href="">Insurance</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h6 class="heading">Get Help 24/7</h6>
+          <ul class="footer-list">
+            <li>
+              <a href="mailto:info@andaleebtours.com">
+                <i class="bx bxs-envelope"></i>
+                <span>info@andaleebtours.com</span>
+              </a>
+            </li>
+            <li>
+              <a href="tel:+97145766068">
+                <i class="bx bxs-phone"></i>
+                <span>+971 45766068</span>
+              </a>
+            </li>
+            <li>
+              <a href="tel:+971525748986">
+                <i class="bx bxl-whatsapp"></i>
+                <span>+971 525748986</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="row align-items-center">
+          <div class="col-md-7">
+            <div class="copyright-text">
+              <span>&copy; 2025 Andaleeb Travel Agency. All Rights Reserved.
+              </span>
+              <div class="copyright-links">
+                <a href="#">Privacy Policy</a>
+                <span style="color: #ddd">|</span>
+                <a href="#">Terms & conditions</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="footer-social-icons">
+              <a href="https://www.facebook.com/AndaleebTravelAgency" target="_blank" class="social-link"><i
+                  class="bx bxl-facebook"></i></a>
+              <a href="https://twitter.com/AndaleebTravels" class="social-link"><i class="bx bxl-twitter"></i></a>
+              <a href="https://www.instagram.com/andaleeb_tours/" class="social-link"><i
+                  class="bx bxl-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimer">
+      Disclaimer: Andaleeb Travel Agency is a private travel agency and not
+      affiliated with any government body.
+    </div>
+  </footer>
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/slick.min.js"></script>
+  <script src="assets/js/custom.js"></script>
+</body>
+
 </html>
