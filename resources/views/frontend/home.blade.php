@@ -23,7 +23,7 @@
 
     @include('frontend.vue.main', [
         'appId' => 'global-search',
-        'appComponent' => 'global-search',
+        'appComponent' => 'global-search.index',
         'appJs' => 'global-search',
     ])
 
