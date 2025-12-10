@@ -1642,37 +1642,159 @@ i.bx {
 .search-options {
     padding-top: 1.35rem;
 }
+
+
+:root {
+    --primary-hover: #0057b8;
+    --text-main: #1a1a1a;
+    --text-muted: #6b7280;
+    --bg-surface: #ffffff;
+    --bg-body: #f3f4f6;
+    --border-light: #e5e7eb;
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Main Wrapper: The "Bar" Look --- */
 .search-options-wrapper {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding-bottom: 1rem;
+    position: relative;
+    gap: 0;
+    margin-bottom: 0.5rem;
 }
-.search-box__label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #6c6f70;
+
+
+.departure-wrapper,
+.arrival-wrapper,
+.pax-wrapper,
+#departure-box,
+#return-box {
+    position: relative;
+    flex: 1; 
+    min-width: 0; 
+}
+
+.search-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 64px;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background: transparent;
+    border: 2px solid transparent;
+}
+
+.departure-wrapper::after,
+.arrival-wrapper::after,
+#departure-box::after,
+#return-box::after {
+    content: "";
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 32px;
+    width: 1px;
+    background-color: var(--border-light);
+    pointer-events: none;
+}
+.search-box:focus-within + .divider-hider,
+.pax-wrapper::after { display: none; }
+
+
+.search-box__label:first-child {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+    line-height: 1;
 }
 
 .search-box__input {
     width: 100%;
     border: none;
+    background: transparent;
     outline: none;
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin: 2px 0 3px;
-    line-height: 1;
-    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-main);
+    padding: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .search-box__input::placeholder {
-    color: #000;
-}
-.search-border{
-  border-radius: 0.5rem;
-  padding: 14px 20px;
-  border: 1px solid #d4d4d4;
+    color: var(--text-main);
 }
 
+/* 3. Bottom Label (Airport Name/Code) */
+.search-box__label:last-child {
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    height: 15px; /* Maintain height to prevent jumps */
+}
+
+/* --- Search Button --- */
+.search-button {
+    padding-left: 8px;
+}
+
+.search-options-wrapper .themeBtn {
+    height: 56px; /* Matches internal height of inputs */
+    padding: 0 36px;
+}
+
+/* --- Responsive Mobile Breakpoint --- */
+@media (max-width: 991px) {
+    .search-options-wrapper {
+        flex-direction: column;
+        border-radius: 24px;
+        padding: 16px;
+        gap: 8px;
+        background: #fff;
+    }
+    
+    .departure-wrapper,
+    .arrival-wrapper, 
+    #departure-box, 
+    #return-box, 
+    .pax-wrapper, 
+    .search-button, 
+    .themeBtn {
+        width: 100%;
+    }
+
+    /* Restore borders for mobile stacked view */
+    .search-box {
+        background: #f8f9fa;
+        border-radius: 12px;
+        height: 70px;
+        border: 1px solid transparent;
+    }
+    
+    /* Remove dividers on mobile */
+    .departure-wrapper::after,
+    .arrival-wrapper::after,
+    #departure-box::after,
+    #return-box::after {
+        display: none;
+    }
+    
+    .search-button {
+        padding: 0;
+        margin-top: 8px;
+    }
+}
 /* dropdown */
 
 .options-dropdown-wrapper {
@@ -1684,7 +1806,6 @@ i.bx {
   overflow: hidden;
   width: 100%;
   padding: 11px;
-  margin-top: 1rem;
   border-radius: 6px;
   overflow-x: hidden;
   box-shadow: rgba(0, 0, 0, 0.05) 0px calc(0.0625rem) calc(0.1875rem),
@@ -1893,6 +2014,18 @@ i.bx {
 
 .options-dropdown__body {
   padding: 15px;
+}
+.options-dropdown-wrapper--pax {
+    width: 270px;
+}
+.options-dropdown-wrapper--to {
+    width: 270px;
+}
+.options-dropdown-wrapper--from {
+    width: 270px;
+}
+.options-dropdown-wrapper:hover {
+    z-index: 100;
 }
 /* dropdown */
 /* global search */

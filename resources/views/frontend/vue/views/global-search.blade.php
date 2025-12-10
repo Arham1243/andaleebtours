@@ -50,55 +50,56 @@
                             </div>
                             <div class="search-options" v-else>
                                 <form class="search-options-wrapper">
+                                    <!-- Hidden Inputs (No changes) -->
                                     <input type="hidden" :value="pax.adults" name='adults'>
                                     <input type="hidden" :value="pax.children" name='children'>
                                     <input type="hidden" :value="pax.infants" name='infants'>
-                                    <div class="departure-wrapper position-relative" ref="fromWrapperRef">
-                                        <div class="search-box search-border cursor-pointer"
-                                            @click.stop="onFromBoxClick">
+
+                                    <!-- FROM -->
+                                    <div class="departure-wrapper" ref="fromWrapperRef">
+                                        <div class="search-box ps-0" @click.stop="onFromBoxClick">
                                             <div class="search-box__label">From</div>
                                             <input type="text" autocomplete="off" class="search-box__input"
                                                 v-model="fromInputValue" @input="fromQuery = fromInputValue"
-                                                placeholder="Departure" ref="fromInputRef">
+                                                placeholder="Select Origin" ref="fromInputRef">
                                             <div class="search-box__label">
-                                                @{{ selectedFrom?.name || '[Select Airport]' }}
+                                                @{{ selectedFrom?.name || '' }}
                                             </div>
                                         </div>
 
-                                        <div class="options-dropdown-wrapper scroll"
-                                            :class="{ open: fromDropdownOpen }">
+                                        <!-- From Dropdown -->
+                                        <div class="options-dropdown-wrapper options-dropdown-wrapper--from"
+                                            :class="{
+                                                open: fromDropdownOpen,
+                                                scroll: filteredFromAirports.length > 9
+                                            }">
                                             <div class="options-dropdown">
-                                                <div class="options-dropdown__header"><span>Select Airport</span></div>
                                                 <div class="options-dropdown__body p-0">
                                                     <ul class="options-dropdown-list">
-                                                        <!-- Loading Skeleton -->
+                                                        <!-- Skeletons -->
                                                         <li v-if="loadingFrom"
                                                             class="options-dropdown-list__item no-hover"
-                                                            v-for="n in 7" :key="'dep-skel-' + n">
+                                                            v-for="n in 5" :key="'dep-skel-' + n">
                                                             <div class="skeleton"></div>
                                                         </li>
-
                                                         <!-- No Matches -->
                                                         <li v-else-if="!filteredFromAirports.length"
                                                             class="options-dropdown-list__item no-hover">
-                                                            <div
-                                                                class="options-dropdown__header justify-content-center">
-                                                                <span class="text-danger" style="font-weight:500;">No
-                                                                    Matches Found</span>
-                                                            </div>
+                                                            <span class="text-danger"
+                                                                style="font-size:14px; font-weight:500;">No Matches
+                                                                Found</span>
                                                         </li>
-
-                                                        <!-- Airport Items -->
+                                                        <!-- Items -->
                                                         <li v-else class="options-dropdown-list__item"
                                                             v-for="airport in filteredFromAirports"
                                                             :key="airport.code"
                                                             @click="selectFrom(airport, toggleFromDropdown)">
                                                             <div class="icon"><i class="bx bx-map"></i></div>
                                                             <div class="info">
-                                                                <div class="name">@{{ airport.name }}</div>
-                                                                <span class="sub-text">@{{ airport.city }},
-                                                                    @{{ airport.country }}
-                                                                    (@{{ airport.code }})</span>
+                                                                <div class="name">@{{ airport.city }}
+                                                                    (@{{ airport.code }})</div>
+                                                                <span class="sub-text">
+                                                                    @{{ airport.country }}</span>
                                                             </div>
                                                         </li>
                                                     </ul>
@@ -107,56 +108,48 @@
                                         </div>
                                     </div>
 
-                                    <div class="arrival-wrapper position-relative" ref="toWrapperRef">
-                                        <div class="search-box search-border cursor-pointer"
-                                            @click.stop="onToBoxClick">
+                                    <!-- TO -->
+                                    <div class="arrival-wrapper" ref="toWrapperRef">
+                                        <div class="search-box" @click.stop="onToBoxClick">
                                             <div class="search-box__label">To</div>
                                             <input type="text" autocomplete="off" class="search-box__input"
                                                 v-model="toInputValue" @input="toQuery = toInputValue"
-                                                placeholder="Destination" ref="toInputRef">
+                                                placeholder="Select Destination" ref="toInputRef">
                                             <div class="search-box__label">
-                                                @{{ selectedTo?.name || '[Select Airport]' }}
+                                                @{{ selectedTo?.name || '' }}
                                             </div>
                                         </div>
 
-                                        <div class="options-dropdown-wrapper scroll" :class="{ open: toDropdownOpen }">
+                                        <!-- To Dropdown -->
+                                        <div class="options-dropdown-wrapper options-dropdown-wrapper--to"
+                                            :class="{
+                                                open: toDropdownOpen,
+                                                scroll: filteredToAirports.length > 9
+                                            }">
                                             <div class="options-dropdown">
-                                                <div class="options-dropdown__header"><span>Select Airport</span></div>
                                                 <div class="options-dropdown__body p-0">
                                                     <ul class="options-dropdown-list">
-
-                                                        <!-- Loading -->
                                                         <li v-if="loadingTo"
                                                             class="options-dropdown-list__item no-hover"
-                                                            v-for="n in 7" :key="'to-skel-' + n">
+                                                            v-for="n in 5" :key="'to-skel-' + n">
                                                             <div class="skeleton"></div>
                                                         </li>
-
-                                                        <!-- No Matches -->
                                                         <li v-else-if="!filteredToAirports.length"
                                                             class="options-dropdown-list__item no-hover">
-                                                            <div
-                                                                class="options-dropdown__header justify-content-center">
-                                                                <span class="text-danger" style="font-weight:500;">
-                                                                    No Matches Found
-                                                                </span>
-                                                            </div>
+                                                            <span class="text-danger"
+                                                                style="font-size:14px; font-weight:500;">No Matches
+                                                                Found</span>
                                                         </li>
-
-                                                        <!-- Actual Airport Items -->
                                                         <li v-else class="options-dropdown-list__item"
                                                             v-for="airport in filteredToAirports"
                                                             :key="airport.code"
                                                             @click="selectTo(airport, toggleToDropdown)">
-                                                            <div class="icon">
-                                                                <i class="bx bx-map"></i>
-                                                            </div>
+                                                            <div class="icon"><i class="bx bx-map"></i></div>
                                                             <div class="info">
-                                                                <div class="name">@{{ airport.name }}</div>
+                                                                <div class="name">@{{ airport.city }}
+                                                                    (@{{ airport.code }})</div>
                                                                 <span class="sub-text">
-                                                                    @{{ airport.city }}, @{{ airport.country }}
-                                                                    (@{{ airport.code }})
-                                                                </span>
+                                                                    @{{ airport.country }}</span>
                                                             </div>
                                                         </li>
                                                     </ul>
@@ -164,130 +157,121 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="search-box search-border cursor-pointer" id="departure-box">
-                                        <div class="search-box__label">
-                                            Departure
-                                        </div>
-                                        <input readonly autocomplete="off" type="text" class="search-box__input"
-                                            name="departure" ref="departureDate" placeholder="Departure on"
-                                            id="departure-input">
-                                        <div class="search-box__label" id='departure-day'>
 
+                                    <!-- DEPARTURE DATE -->
+                                    <div class="search-box-wrapper" id="departure-box">
+                                        <div class="search-box">
+                                            <div class="search-box__label">Departure</div>
+                                            <input readonly autocomplete="off" type="text"
+                                                class="search-box__input" name="departure" ref="departureDate"
+                                                placeholder="Departure on" id="departure-input"
+                                                style="cursor:pointer;">
+                                            <div class="search-box__label" id='departure-day'>&nbsp;</div>
                                         </div>
                                     </div>
-                                    <div class="search-box search-border cursor-pointer" id="return-box">
-                                        <div class="search-box__label">
-                                            Return
-                                        </div>
-                                        <input type="text" autocomplete="off" class="search-box__input"
-                                            placeholder="Return on" ref="returnDate" name="return"
-                                            id="return-input">
-                                        <div class="search-box__label" id='return-day'>
 
+                                    <!-- RETURN DATE -->
+                                    <div class="search-box-wrapper" id="return-box">
+                                        <div class="search-box">
+                                            <div class="search-box__label">Return</div>
+                                            <input type="text" autocomplete="off" class="search-box__input"
+                                                placeholder="Return on" ref="returnDate" name="return"
+                                                id="return-input" style="cursor:pointer;">
+                                            <div class="search-box__label" id='return-day'>&nbsp;</div>
                                         </div>
                                     </div>
-                                    <div class="pax-wrapper position-relative" ref="paxRef">
-                                        <div class="search-box search-border cursor-pointer" @click.stop="togglePax">
-                                            <div class="search-box__label">
-                                                Travellers
-                                            </div>
+
+                                    <!-- TRAVELLERS -->
+                                    <div class="pax-wrapper" ref="paxRef">
+                                        <div class="search-box" @click.stop="togglePax">
+                                            <div class="search-box__label">Travellers</div>
                                             <input readonly type="text" class="search-box__input"
-                                                :value="totalTravellerText">
+                                                :value="totalTravellerText" style="cursor:pointer;">
+                                            <div class="search-box__label">
+                                                @{{ [
+    pax.adults > 0 ? pax.adults + ' Adt' : '',
+    pax.children > 0 ? pax.children + ' Chd' : '',
+    pax.infants > 0 ? pax.infants + ' Inf' : ''
+].filter(Boolean).join(', ') }}
+                                            </div>
+
                                         </div>
+
+                                        <!-- Pax Dropdown -->
                                         <div class="options-dropdown-wrapper options-dropdown-wrapper--pax"
                                             :class="{ open: paxOpen }">
                                             <div class="options-dropdown options-dropdown--norm">
                                                 <div class="options-dropdown__body">
-                                                    <div class="room-wrapper-search">
-                                                        <div class="room-section room-template">
-                                                            <ul class="paxs-list mt-0">
-                                                                <!-- Adults -->
-                                                                <li class="paxs-item">
-                                                                    <div class="info">
-                                                                        <div class="name">Adult(s)</div>
-                                                                        <span>18+ years</span>
-                                                                    </div>
-                                                                    <div class="quantity-counter">
-                                                                        <button type="button"
-                                                                            class="quantity-counter__btn"
-                                                                            @click.stop="decrement('adults')">
-                                                                            <i class="bx bx-minus"></i>
-                                                                        </button>
+                                                    <ul class="paxs-list mt-0">
+                                                        <!-- Adults -->
+                                                        <li class="paxs-item">
+                                                            <div class="info">
+                                                                <div class="name">Adults</div>
+                                                                <span>18+ years</span>
+                                                            </div>
+                                                            <div class="quantity-counter">
+                                                                <button type="button" class="quantity-counter__btn"
+                                                                    @click.stop="decrement('adults')">-</button>
 
-                                                                        <input readonly type="number"
-                                                                            class="quantity-counter__btn quantity-counter__btn--quantity"
-                                                                            :value="pax.adults" />
+                                                                <span
+                                                                    class="quantity-counter__btn quantity-counter__btn--quantity">@{{ pax.adults }}</span>
 
-                                                                        <button type="button"
-                                                                            class="quantity-counter__btn"
-                                                                            @click.stop="increment('adults')">
-                                                                            <i class="bx bx-plus"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </li>
+                                                                <button type="button" class="quantity-counter__btn"
+                                                                    @click.stop="increment('adults')">+</button>
+                                                            </div>
+                                                        </li>
 
-                                                                <!-- Children -->
-                                                                <li class="paxs-item">
-                                                                    <div class="info">
-                                                                        <div class="name">Children</div>
-                                                                        <span>above 2 years</span>
-                                                                    </div>
-                                                                    <div class="quantity-counter">
-                                                                        <button type="button"
-                                                                            class="quantity-counter__btn"
-                                                                            @click.stop="decrement('children')">
-                                                                            <i class="bx bx-minus"></i>
-                                                                        </button>
+                                                        <!-- Children -->
+                                                        <li class="paxs-item">
+                                                            <div class="info">
+                                                                <div class="name">Children
+                                                                </div>
+                                                                <span>2-12
+                                                                    years</span>
+                                                            </div>
+                                                            <div class="quantity-counter">
+                                                                <button type="button" class="quantity-counter__btn"
+                                                                    @click.stop="decrement('children')">-</button>
 
-                                                                        <input readonly type="number"
-                                                                            class="quantity-counter__btn quantity-counter__btn--quantity"
-                                                                            :value="pax.children" />
+                                                                <span
+                                                                    class="quantity-counter__btn quantity-counter__btn--quantity">@{{ pax.children }}</span>
 
-                                                                        <button type="button"
-                                                                            class="quantity-counter__btn"
-                                                                            @click.stop="increment('children')">
-                                                                            <i class="bx bx-plus"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </li>
+                                                                <button type="button" class="quantity-counter__btn"
+                                                                    @click.stop="increment('children')">+</button>
+                                                            </div>
+                                                        </li>
 
-                                                                <!-- Infants -->
-                                                                <li class="paxs-item">
-                                                                    <div class="info">
-                                                                        <div class="name">Infant(s)</div>
-                                                                        <span>below 2 years</span>
-                                                                    </div>
-                                                                    <div class="quantity-counter">
-                                                                        <button type="button"
-                                                                            class="quantity-counter__btn"
-                                                                            @click.stop="decrement('infants')">
-                                                                            <i class="bx bx-minus"></i>
-                                                                        </button>
+                                                        <!-- Infants -->
+                                                        <li class="paxs-item">
+                                                            <div class="info">
+                                                                <div class="name">Infants
+                                                                </div>
+                                                                <span>Under 2</span>
+                                                            </div>
+                                                            <div class="quantity-counter">
+                                                                <button type="button" class="quantity-counter__btn"
+                                                                    @click.stop="decrement('infants')">-</button>
 
-                                                                        <input readonly type="number"
-                                                                            class="quantity-counter__btn quantity-counter__btn--quantity"
-                                                                            :value="pax.infants" />
+                                                                <span
+                                                                    class="quantity-counter__btn quantity-counter__btn--quantity">@{{ pax.infants }}</span>
 
-                                                                        <button type="button"
-                                                                            class="quantity-counter__btn"
-                                                                            @click.stop="increment('infants')">
-                                                                            <i class="bx bx-plus"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                                <button type="button" class="quantity-counter__btn"
+                                                                    @click.stop="increment('infants')">+</button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- BUTTON -->
                                     <div class="search-button">
                                         <button :disabled="!isFlightSearchEnabled"
                                             class="themeBtn themeBtn--primary">Search</button>
                                     </div>
                                 </form>
-                                <div class="radio-btn">
+                                <div class="radio-btn ms-1">
                                     <input type="checkbox" id="direct-flights" class="radio-btn__input"
                                         name="is_direct_flight" value="true">
                                     <label class="radio-btn__label" for="direct-flights">Direct Flights</label>
