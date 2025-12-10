@@ -22,15 +22,6 @@
                                 data-bs-target="#pills-contact" type="button" role="tab"
                                 aria-controls="pills-contact" aria-selected="false">Insurance</button>
                         </li>
-                        <li>
-                            <a href="#" class="search-pill">UAE Visa</a>
-                        </li>
-                        <li>
-                            <a href="#" class="search-pill">UAE Visa Change</a>
-                        </li>
-                        <li>
-                            <a href="#" class="search-pill">Offers</a>
-                        </li>
                     </ul>
                 </div>
                 <div class="col-md-12">
