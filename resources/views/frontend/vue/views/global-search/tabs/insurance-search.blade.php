@@ -92,7 +92,7 @@
         </div>
 
         <!-- START DATE -->
-        <div class="search-box-wrapper tight-width" id="insurance-start-box">
+        <div class="search-box-wrapper  departure-wrapper tight-width" id="insurance-start-box">
             <div class="search-box">
                 <div class="search-box__label">Start Date</div>
                 <input readonly autocomplete="off" type="text" class="search-box__input cursor-pointer"
@@ -102,7 +102,7 @@
         </div>
 
         <!-- RETURN DATE -->
-        <div class="search-box-wrapper tight-width" id="insurance-return-box">
+        <div class="search-box-wrapper departure-wrapper tight-width" id="insurance-return-box">
             <div class="search-box">
                 <div class="search-box__label">Return Date</div>
                 <input type="text" autocomplete="off" class="search-box__input cursor-pointer"

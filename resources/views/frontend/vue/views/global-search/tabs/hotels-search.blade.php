@@ -115,7 +115,7 @@
         </div>
 
         <!-- CHECK IN DATE -->
-        <div class="search-box-wrapper tight-width" id="hotel-checkin-box">
+        <div class="search-box-wrapper departure-wrapper tight-width" id="hotel-checkin-box">
             <div class="search-box">
                 <div class="search-box__label">Check In</div>
                 <input readonly autocomplete="off" type="text" class="search-box__input cursor-pointer"
@@ -125,7 +125,7 @@
         </div>
 
         <!-- CHECK OUT DATE -->
-        <div class="search-box-wrapper tight-width" id="hotel-checkout-box">
+        <div class="search-box-wrapper departure-wrapper tight-width" id="hotel-checkout-box">
             <div class="search-box">
                 <div class="search-box__label">Check Out</div>
                 <input readonly autocomplete="off" type="text" class="search-box__input cursor-pointer"
@@ -135,7 +135,7 @@
         </div>
 
         <!-- ROOMS & GUESTS -->
-        <div class="pax-wrapper" ref="hotelRoomsRef">
+        <div class="pax-wrapper departure-wrapper" ref="hotelRoomsRef">
             <div class="search-box" @click.stop="toggleHotelRooms">
                 <div class="search-box__label">Rooms & Guests</div>
                 <input readonly type="text" class="search-box__input cursor-pointer"
