@@ -2046,8 +2046,8 @@ i.bx {
     width: 47%;
 }
 .child-age {
-    margin: 0.25rem 0;
     width: 100%;
+    margin-bottom: 0.35rem;
 }
 .search-box-wrapper.tight-width {
     flex: 1;
