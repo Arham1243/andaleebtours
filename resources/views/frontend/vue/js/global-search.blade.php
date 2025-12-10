@@ -8,6 +8,7 @@
             const classType = ref('Economy');
             const destinations = ref([]);
             const originSearchText = ref('');
+            const activitySearchQuery = ref('');
 
             const {
                 open: paxOpen,
@@ -583,6 +584,9 @@
                 // Dates
                 departureDate,
                 returnDate,
+                
+                // Holidays
+                activitySearchQuery,
 
                 // Pax
                 paxOpen,

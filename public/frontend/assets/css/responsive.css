@@ -84,4 +84,15 @@
     .global-search-content {
         padding: 1.25rem;
     }
+
+    .holidays-search-form__input {
+        flex: 1;
+    }
+
+    .holidays-search-form .search-button {
+        flex: 0.35;
+    }
+    .search-pills-wrapper > li {
+        width: 45%;
+    }
 }
