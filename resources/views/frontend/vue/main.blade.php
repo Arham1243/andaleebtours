@@ -13,6 +13,7 @@
             createApp,
             ref,
             onBeforeUnmount,
+            onBeforeMount,
             onMounted,
             computed,
             watch,

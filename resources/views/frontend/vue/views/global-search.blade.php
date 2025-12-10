@@ -48,7 +48,7 @@
                             {{-- <div class="search-options" v-if="tripType === 'multi-city'">
                                 multi city
                             </div> --}}
-                            <div class="search-options" v-else>
+                            <div class="search-options">
                                 <form class="search-options-wrapper">
                                     <!-- Hidden Inputs (No changes) -->
                                     <input type="hidden" :value="pax.adults" name='adults'>
@@ -298,7 +298,9 @@
 
                         </div>
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel"
-                            aria-labelledby="pills-contact-tab" tabindex="0">3</div>
+                            aria-labelledby="pills-contact-tab" tabindex="0">
+                        
+                        </div>
                     </div>
                 </div>
             </div>

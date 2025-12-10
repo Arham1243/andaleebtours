@@ -5,6 +5,8 @@
             const departureDate = ref(null);
             const returnDate = ref(null);
             const classType = ref('Economy');
+            const destinations = ref([]);
+            const originSearchText = ref('');
 
             const {
                 open: paxOpen,
@@ -227,10 +229,61 @@
                 selectAirport: selectTo
             } = useAirportDropdown(getAirports);
 
-            onMounted(() => {
+            onBeforeMount(async() => {
                 loadFromAirports();
                 loadToAirports();
+                destinations.value = await fetchDestinations('a');
             });
+
+
+            const dataPromise = fetch(
+                "/frontend/mocks/yalago_countries.json"
+            ).then((r) => r.json());
+
+            const exactMatch = (arr, key, q) => {
+                return arr.find((o) => {
+                    const value = o[key];
+                    return value && value.toLowerCase().trim() === q;
+                });
+            };
+
+            const startsWith = (arr, key, q) =>
+                arr.filter((o) => {
+                    const value = o[key];
+                    return value && value.toLowerCase().startsWith(q);
+                });
+
+            const format = (countries) => ({
+                destinations: {
+                    countries
+                },
+            });
+
+            window.InsuranceSearchAPI = async (qRaw) => {
+                const q = qRaw.trim().toLowerCase();
+                if (!q) return format([]);
+
+                const countries = await dataPromise;
+
+                const cMatch = exactMatch(countries, "yalago_countries_title", q);
+                if (cMatch) {
+                    return format([cMatch]);
+                }
+
+                const cs = startsWith(countries, "yalago_countries_title", q);
+                return format(cs);
+            };
+
+            const fetchDestinations = async (query) => {
+                if (!query) return;
+                try {
+                    const data = await window.InsuranceSearchAPI(query);
+                    return data.destinations;
+                } catch (err) {
+                    console.error("API Error:", err);
+                    return null;
+                }
+            };
 
 
             return {
