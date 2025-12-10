@@ -26,7 +26,7 @@
 
             <!-- FROM -->
             <div class="departure-wrapper" ref="fromWrapperRef">
-                <div class="search-box ps-0" @click.stop="onFromBoxClick">
+                <div class="search-box" @click.stop="onFromBoxClick">
                     <div class="search-box__label">From</div>
                     <input type="text" autocomplete="off" class="search-box__input" v-model="fromInputValue"
                         @input="fromQuery = fromInputValue" placeholder="Select Origin" ref="fromInputRef">

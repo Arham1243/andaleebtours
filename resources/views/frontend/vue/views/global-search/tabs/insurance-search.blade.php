@@ -2,7 +2,7 @@
     <form class="search-options-wrapper" method="GET">
         <!-- SELECT ORIGIN -->
         <div class="departure-wrapper" ref="insuranceFromWrapperRef">
-            <div class="search-box ps-0" @click.stop="onInsuranceFromBoxClick">
+            <div class="search-box" @click.stop="onInsuranceFromBoxClick">
                 <div class="search-box__label">From</div>
                 <input type="text" autocomplete="off" class="search-box__input" v-model="insuranceFromInputValue"
                     @input="insuranceFromQuery = insuranceFromInputValue" placeholder="Select Origin"

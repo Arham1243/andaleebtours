@@ -80,7 +80,7 @@
             countries,
             provinces,
             locations
-        } = await dataPromise;
+        } = await hotelsDataPromise;
 
         // Exact country match
         const cMatch = exactMatch(countries, 'yalago_countries_title', q);
@@ -147,7 +147,7 @@
                 const {
                     data
                 } = await axios.get(`/hotels/ajax_search_hotels?q=${q}`);
-                return format({
+                return formatHotels({
                     countries: [],
                     provinces: [],
                     locations: [],
@@ -155,7 +155,7 @@
                 });
             } catch (error) {
                 console.error('Error fetching hotels directly:', error);
-                return format({
+                return formatHotels({
                     countries: [],
                     provinces: [],
                     locations: [],
@@ -164,7 +164,7 @@
             }
         }
 
-        return format({
+        return formatHotels({
             countries: cs,
             provinces: ps,
             locations: ls,

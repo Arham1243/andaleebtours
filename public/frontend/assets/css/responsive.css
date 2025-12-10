@@ -8,73 +8,80 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .first-section {
-    padding-top: 62px;
-  }
-  .banner {
-    padding: 0;
-  }
-  .banner__img {
-    border-radius: 0;
-    height: 140px;
-  }
-  .footer-disclaimer {
-    padding-inline: 1rem;
-  }
-  .footer-social-icons {
-    justify-content: center;
-    margin: 1.5rem 0 1.25rem;
-  }
-  .footer-bottom {
-    padding-bottom: 0;
-  }
-  .copyright-text {
-    justify-content: center;
-    gap: 18px 10px;
-    text-align: center;
-  }
-  .footer::before {
-    top: 29%;
-    left: 66%;
-  }
-  .ts-side-title {
-    font-size: 0.9rem;
-  }
-  .ts-read-more,
-  .ts-side-desc {
-    font-size: 0.7rem;
-  }
-  .section-content .heading {
-    font-size: 1.25rem;
-  }
-  .pro-city {
-    font-size: 1.25rem;
-  }
-  .pro-cat {
-    font-size: 0.85rem;
-  }
-  .themeBtn {
-    font-size: 0.8rem;
-    padding: 10px 17px;
-  }
-  .pro-heading {
-    font-size: 1.8rem;
-  }
-  .pro-badge {
-    font-size: 0.75rem;
-    padding: 3px 8px;
-    letter-spacing: 1px;
-  }
-  .mh-contact-group {
-    display: none;
-  }
-  .mh-divider {
-    display: none;
-  }
-  .categories--padd{
-    padding: 2rem 0;
-  }
-  .mh-header  .menu-btn {
-  display: block;
-}
+    .first-section {
+        padding-top: 62px;
+    }
+    .banner {
+        padding: 0;
+    }
+    .banner__img {
+        border-radius: 0;
+        height: 140px;
+    }
+    .footer-disclaimer {
+        padding-inline: 1rem;
+    }
+    .footer-social-icons {
+        justify-content: center;
+        margin: 1.5rem 0 1.25rem;
+    }
+    .footer-bottom {
+        padding-bottom: 0;
+    }
+    .copyright-text {
+        justify-content: center;
+        gap: 18px 10px;
+        text-align: center;
+    }
+    .footer::before {
+        top: 29%;
+        left: 66%;
+    }
+    .ts-side-title {
+        font-size: 0.9rem;
+    }
+    .ts-read-more,
+    .ts-side-desc {
+        font-size: 0.7rem;
+    }
+    .section-content .heading {
+        font-size: 1.25rem;
+    }
+    .pro-city {
+        font-size: 1.25rem;
+    }
+    .pro-cat {
+        font-size: 0.85rem;
+    }
+    .themeBtn {
+        font-size: 0.8rem;
+        padding: 10px 17px;
+    }
+    .pro-heading {
+        font-size: 1.8rem;
+    }
+    .pro-badge {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+        letter-spacing: 1px;
+    }
+    .mh-contact-group {
+        display: none;
+    }
+    .mh-divider {
+        display: none;
+    }
+    .categories--padd {
+        padding: 2rem 0;
+    }
+    .mh-header .menu-btn {
+        display: block;
+    }
+    .search-box-wrapper.tight-width {
+        flex: 1;
+        width: 100%;
+    }
+    .global-search-content {
+        padding: 1.25rem;
+    }
 }
