@@ -1,3 +1,4 @@
+@include('frontend.vue.services.global-search')
 <div class="global-search">
     <div class="container">
         <div id="pills-tab" role="tablist">
@@ -37,11 +38,11 @@
                     <div class="global-search-content tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab" tabindex="0">
-                            @include('frontend.vue.views.global-search.tabs.flight-search')
+                            @include('frontend.vue.views.global-search.tabs.flights-search')
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                             aria-labelledby="pills-profile-tab" tabindex="0">
-
+                            @include('frontend.vue.views.global-search.tabs.hotels-search')
                         </div>
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                             aria-labelledby="pills-contact-tab" tabindex="0">
