@@ -95,4 +95,16 @@
     .search-pills-wrapper > li {
         width: 45%;
     }
+    .auth-actions {
+        font-size: 13px;
+    }
+    .auth-header p {
+        font-size: 12px;
+    }
+    .auth-card {
+        padding: 25px;
+    }
+    .auth-header h2 {
+        font-size: 25px;
+    }
 }
