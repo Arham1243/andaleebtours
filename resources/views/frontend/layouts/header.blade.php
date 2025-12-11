@@ -5,7 +5,7 @@
         <div class="mh-row">
 
             <!-- Logo -->
-            <a href="" class="mh-logo">
+            <a href="{{ route('frontend.index') }}" class="mh-logo">
                 <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp"
                     alt="Andaleeb Travel Agency" />
             </a>
@@ -39,7 +39,7 @@
 
                 <!-- User/Cart -->
                 <div class="mh-icons-group">
-                    <a href="" class="mh-icon-link">
+                    <a href="{{ route('frontend.auth.login') }}" class="mh-icon-link">
                         <i class="bx bx-user"></i>
                     </a>
                     <a href="" class="mh-icon-link mh-cart">
@@ -59,7 +59,7 @@
 
 <div class="sideBar" id="sideBar">
     <a href="javascript:void(0)" class="sideBar__close" onclick="closeSideBar()">×</a>
-    <a href="https://andaleebtours.com/" class="sideBar__logo">
+    <a href="{{ route('frontend.index') }}" class="sideBar__logo">
         <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp" alt="Logo"
             class="imgFluid">
     </a>

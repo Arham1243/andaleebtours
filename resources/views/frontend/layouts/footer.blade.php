@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-12 mb-4">
-                <div class="footer-logo">
+                <a href="{{ route('frontend.index') }}" class="footer-logo">
                     <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp"
                         alt="Rayna Logo" class="main-logo" />
-                </div>
+                </a>
 
                 <h6 class="heading">Book with confidence</h6>
                 <div class="award-images">

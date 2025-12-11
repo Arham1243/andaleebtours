@@ -128,6 +128,7 @@ const showMessage = (message, type, position = "bottom-right") => {
         stack: 6,
     });
 };
+
 document.addEventListener("DOMContentLoaded", function () {
     const imgs = document.querySelectorAll("img");
     imgs?.forEach(function (imgElement) {
