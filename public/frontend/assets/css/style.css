@@ -3412,20 +3412,15 @@ h6){
 
 /* Container for the list */
 .plans-list-wrapper {
-    display: flex;
     --border-color: #e5e7eb;
-    flex-direction: column;
-    gap: 20px; 
-    max-width: 800px; 
-    margin: auto;
 }
 
 /* The Clickable Label */
 .plan-card-item {
     cursor: pointer;
     display: block;
+    margin-bottom: 20px; 
     position: relative;
-    margin: 0;
 }
 
 /* Hide the actual ugly radio button */
@@ -3543,5 +3538,13 @@ h6){
 
 .plan-radio-input:checked + .plan-card-inner .price-tag {
     color: var(--color-primary);
+}
+.main-page-search .search-options {
+    padding: 0;
+}
+.main-page-search .search-options-wrapper {
+    box-shadow: var(--shadow-sm);
+    padding: 1rem 1.5rem;
+    border-radius: 100px;
 }
 /* Travel Insurance */

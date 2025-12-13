@@ -1,3 +1,17 @@
+/* for search service  */
+  const exactMatch = (arr, key, q) => {
+        return arr.find((o) => {
+            const value = o[key];
+            return value && value.toLowerCase().trim() === q;
+        });
+    };
+const startsWith = (arr, key, q) =>
+    arr.filter((o) => {
+        const value = o[key];
+        return value && value.toLowerCase().startsWith(q);
+});
+/* for search service  */
+
 /* top progress bar  */
 const progressBar = document.getElementById("page-progress");
 window.addEventListener("beforeunload", () => {

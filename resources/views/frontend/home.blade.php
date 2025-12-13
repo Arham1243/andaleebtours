@@ -21,12 +21,78 @@
         </div>
     </div>
 
-    @include('frontend.vue.main', [
-        'appId' => 'global-search',
-        'appComponent' => 'global-search.index',
-        'appJs' => 'global-search',
-    ])
 
+
+
+
+    <div class="global-search">
+        <div class="container">
+            <div id="pills-tab" role="tablist">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <ul class="search-pills-wrapper">
+                            <li role="presentation">
+                                <button class="search-pill active" id="pills-home-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                                    aria-selected="true">Flight</button>
+                            </li>
+                            <li role="presentation">
+                                <button class="search-pill" id="pills-holidays-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-holidays" type="button" role="tab"
+                                    aria-controls="pills-holidays" aria-selected="false">Holidays</button>
+                            </li>
+                            <li role="presentation">
+                                <button class="search-pill" id="pills-profile-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-profile" type="button" role="tab"
+                                    aria-controls="pills-profile" aria-selected="false">Hotels</button>
+                            </li>
+                            <li role="presentation">
+                                <button class="search-pill" id="pills-contact-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-contact" type="button" role="tab"
+                                    aria-controls="pills-contact" aria-selected="false">Insurance</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane global-search-content  show active" id="pills-home" role="tabpanel"
+                                aria-labelledby="pills-home-tab" tabindex="0">
+                                 @include('frontend.vue.main', [
+                                    'appId' => 'flight-search',
+                                    'appComponent' => 'flight-search',
+                                    'appJs' => 'flight-search',
+                                ])
+                            </div>
+                            <div class="tab-pane" id="pills-holidays" role="tabpanel" aria-labelledby="pills-holidays-tab"
+                                tabindex="0">
+                                @include('frontend.vue.main', [
+                                    'appId' => 'holidays-search',
+                                    'appComponent' => 'holidays-search',
+                                    'appJs' => 'holidays-search',
+                                ])
+                            </div>
+                            <div class="tab-pane global-search-content " id="pills-profile" role="tabpanel"
+                                aria-labelledby="pills-profile-tab" tabindex="0">
+                                    @include('frontend.vue.main', [
+                                    'appId' => 'hotels-search',
+                                    'appComponent' => 'hotels-search',
+                                    'appJs' => 'hotels-search',
+                                ])
+                            </div>
+                            <div class="tab-pane global-search-content " id="pills-contact" role="tabpanel"
+                                aria-labelledby="pills-contact-tab" tabindex="0">
+                                @include('frontend.vue.main', [
+                                    'appId' => 'insurance-search',
+                                    'appComponent' => 'insurance-search',
+                                    'appJs' => 'insurance-search',
+                                ])
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="categories categories--padd">
         <div class="container">
             <div class="section-content mb-4">
@@ -274,11 +340,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                             <a href="#">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                                </a>
+                            <a href="#">
+                                <img class="imgFluid"
+                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
+                                    alt="Burj Khalifa">
+                            </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -295,11 +361,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                             <a href="#">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                                </a>
+                            <a href="#">
+                                <img class="imgFluid"
+                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
+                                    alt="Burj Khalifa">
+                            </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -316,11 +382,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                             <a href="#">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                                </a>
+                            <a href="#">
+                                <img class="imgFluid"
+                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
+                                    alt="Burj Khalifa">
+                            </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
@@ -337,11 +403,11 @@
                 <div class="col-md-4">
                     <div class="activity-card">
                         <div class="act-img-box">
-                             <a href="#">
-                            <img class="imgFluid"
-                                src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
-                                alt="Burj Khalifa">
-                                </a>
+                            <a href="#">
+                                <img class="imgFluid"
+                                    src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
+                                    alt="Burj Khalifa">
+                            </a>
                             <button class="wishlist-btn"><i class='bx bx-heart'></i></button>
                         </div>
                         <div class="act-details">
