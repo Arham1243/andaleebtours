@@ -18,4 +18,8 @@ class IndexController extends Controller
     {
         return view('frontend.terms-conditions');
     }
+    public function company_profile()
+    {
+        return view('frontend.company-profile');
+    }
 }

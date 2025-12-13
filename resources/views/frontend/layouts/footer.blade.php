@@ -21,7 +21,7 @@
                 <ul class="footer-list">
                     <li><a href="">About us</a></li>
                     <li><a href="">Contact us</a></li>
-                    <li><a href="">Company Profile</a></li>
+                    <li><a href="{{ route('frontend.company-profile') }}">Company Profile</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 col-md-6 mb-4">

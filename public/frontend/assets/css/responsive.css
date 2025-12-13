@@ -151,4 +151,14 @@
     .expand-btn {
         font-size: 0.8rem;
     }
+    .text-document h1 {
+    font-size: 1.75em;
+   }
+    .text-document h2 {
+        font-size: 1.4em;
+    }
+    .btn-primary-custom{
+        font-size: 14px;
+        padding: 12px 26px;
+    }
 }

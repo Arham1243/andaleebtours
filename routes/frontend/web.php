@@ -23,4 +23,5 @@ Route::name('frontend.')->group(function () {
     Route::get('/uae-services', [TourController::class, 'uae_services'])->name('tour.uae-services');
     Route::get('/privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
     Route::get('/terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
+    Route::get('/company-profile', [IndexController::class, 'company_profile'])->name('company-profile');
 });
