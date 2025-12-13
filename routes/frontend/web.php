@@ -24,4 +24,5 @@ Route::name('frontend.')->group(function () {
     Route::get('/privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
     Route::get('/terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
     Route::get('/company-profile', [IndexController::class, 'company_profile'])->name('company-profile');
+    Route::get('/about-us', [IndexController::class, 'about_us'])->name('about-us');
 });

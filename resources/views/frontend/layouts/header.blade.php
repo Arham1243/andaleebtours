@@ -13,7 +13,7 @@
             <!-- Navigation -->
             <nav class="mh-nav">
                 <ul class="mh-nav-list">
-                    <li><a href="#">About Us </a></li>
+                    <li><a href="{{ route('frontend.about-us') }}">About Us </a></li>
                     <li><a href="{{ route('frontend.tour.uae-services') }}">Dubai Tours</a></li>
                     <li><a href="">Holidays</a></li>
                     <li><a href="">Hotels</a></li>

@@ -161,4 +161,10 @@
         font-size: 14px;
         padding: 12px 26px;
     }
+    .value-item i {
+    font-size: 2rem !important;
+}
+    .value-item .value-title {
+    font-size: 0.85rem;
+}
 }

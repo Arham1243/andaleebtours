@@ -22,4 +22,8 @@ class IndexController extends Controller
     {
         return view('frontend.company-profile');
     }
+    public function about_us()
+    {
+        return view('frontend.about-us');
+    }
 }

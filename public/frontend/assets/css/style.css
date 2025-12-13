@@ -3250,3 +3250,91 @@ h6){
     }
 }
 /* company profile */
+
+/* about us */
+/* Page Header */
+.page-header {
+    --text-dark: #1a1a1a;
+    --text-muted: #6c757d;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Experience Badge (Floating) */
+.experience-badge {
+    position: absolute;
+    bottom: 30px;
+    left: -20px;
+    background-color: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-left: 5px solid var(--color-primary);
+    text-align: center;
+    color: var(--text-dark);
+}
+
+.experience-badge .display-6 {
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+@media (max-width: 991px) {
+    .experience-badge {
+        left: 10px;
+        bottom: 10px;
+        padding: 1rem;
+    }
+}
+
+/* Typography Accents */
+.letter-spacing-2 {
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+}
+
+/* Vision Cards */
+.vision-card .icon-box {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(205, 27, 79, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+}
+
+/* Core Values Divider */
+.about-divider {
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-primary);
+    margin-top: 10px;
+}
+
+/* Services Box */
+.service-box {
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.service-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border-color: transparent;
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+}
+
+/* Value Items Hover */
+.value-item:hover i {
+    color: var(--color-primary) !important;
+    transition: color 0.3s ease;
+}
+/* about us */
