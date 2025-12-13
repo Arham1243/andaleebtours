@@ -8,11 +8,11 @@ class TourController extends Controller
 {
     public function uae_services()
     {
-        return view('frontend.uae-services');
+        return view('frontend.tour.uae-services');
     }
 
     public function holiday_packages()
     {
-        return view('frontend.holiday-packages');
+        return view('frontend.tour.holiday-packages');
     }
 }
