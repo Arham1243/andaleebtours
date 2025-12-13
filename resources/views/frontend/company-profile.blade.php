@@ -4,7 +4,7 @@
         <div class="container">
 
             <!-- Header & Action -->
-            <div class="row justify-content-center text-center mb-4">
+            <div class="row justify-content-center text-center mb-3">
                 <div class="col-lg-8">
                     <span class="badge bg-light text-primary mb-2 px-3 py-2 rounded-pill fw-medium"
                         style="color: var(--color-primary)!important;">
@@ -13,12 +13,8 @@
                     <h2 class="fw-bold mb-3">Company Profile</h2>
                     <p class="text-muted mb-4">
                         Explore our vision, mission, and the services that define Andaleeb Travel Agency.
-                        View online or download for later.
+                        View online or download.
                     </p>
-                    <a style="width: fit-content" href="{{ asset('frontend/assets/files/Company-Profile-Andaleeb-Travels.pdf') }}" download=""
-                        class="btn-primary-custom">
-                        <i class='bx bx-download me-2'></i> Download PDF
-                    </a>
                 </div>
             </div>
 
