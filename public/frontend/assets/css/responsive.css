@@ -170,4 +170,9 @@
 .plan-title {
     width: 90%;
 }
+.main-page-search .search-options-wrapper {
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+}
 }
