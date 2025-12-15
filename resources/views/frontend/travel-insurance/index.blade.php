@@ -2,7 +2,7 @@
 @section('content')
     <section class="section-plans mar-y">
         <div class="container">
-            <h4 class="fw-bold mb-2">Select Passenger</h4>
+            <h4 class="fw-bold mb-3">Select Passenger</h4>
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="main-page-search">

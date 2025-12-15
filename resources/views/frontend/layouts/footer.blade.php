@@ -29,7 +29,7 @@
                 <ul class="footer-list">
                     <li><a href="{{ route('frontend.uae-services') }}">Dubai Tours</a></li>
                     <li><a href="{{ route('frontend.holiday-packages') }}">Holidays</a></li>
-                    <li><a href="">Hotels</a></li>
+                    <li><a href="{{ route('frontend.hotels.index') }}">Hotels</a></li>
                     <li><a href="{{ route('frontend.travel-insurance.index') }}">Insurance</a></li>
                 </ul>
             </div>

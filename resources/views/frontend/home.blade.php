@@ -659,8 +659,6 @@
                 </div>
             </div>
         </div>
-        </div>
-        </div>
     </section>
 
     <section class="section-hotel-offers py-5 bg-light">

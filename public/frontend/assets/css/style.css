@@ -20,7 +20,7 @@
     --border-color: #eaeaea;
     --radius-md: 12px;
     --radius-sm: 8px;
-    --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.09);
 }
 
 body {
@@ -510,6 +510,7 @@ i.bx {
         0 0 #0000,
         0 4px 6px -1px rgb(0 0 0/0.1),
         0 2px 4px -2px rgb(0 0 0/0.1);
+    z-index: 10;
 }
 button.slick-arrow::before {
     color: #000;
@@ -535,7 +536,7 @@ button.slick-prev.slick-arrow::before {
 }
 
 .slick-disabled {
-    opacity: 0.5;
+    opacity: 0.75;
     cursor: not-allowed !important;
 }
 .slick-slide {
@@ -930,21 +931,6 @@ button.slick-prev.slick-arrow::before {
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-}
-.travel-stories-pro .slick-prev:not(.slick-disabled):hover,
-.travel-stories-pro .slick-next:not(.slick-disabled):hover {
-    background: #111;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-.travel-stories-pro .slick-prev:before,
-.travel-stories-pro .slick-next:before {
-    color: #fff;
-    font-size: 20px;
-    opacity: 1;
-}
-.travel-stories-pro .slick-prev:not(.slick-disabled):hover:before,
-.travel-stories-pro .slick-next:not(.slick-disabled):hover:before {
-    color: #fff;
 }
 
 .travel-stories-pro .slick-prev {
@@ -3683,8 +3669,16 @@ body .skeleton {
 }
 .main-page-search .search-options-wrapper {
     box-shadow: var(--shadow-sm);
-    padding: 1rem 1.5rem;
+    padding: 0.85rem 1rem;
     border-radius: 100px;
+    background: #fff;
+}
+
+.main-flight-search {
+    box-shadow: var(--shadow-sm);
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    background: #fff;
 }
 .plan-info {
     flex: 1;
@@ -3895,3 +3889,15 @@ body .skeleton {
         font-size: 0.8rem;
     }
 }
+
+/* hotels */
+.hotels-banner {
+    min-height: 40vh;
+}
+/* hotels */
+
+/* flighs */
+.flighs-banner {
+    min-height: 50vh;
+}
+/* flighs */

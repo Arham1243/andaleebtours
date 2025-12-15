@@ -122,7 +122,8 @@
     .faq-header {
         padding: 1.25rem 0;
     }
-    .explore-link-item, .explore-tab-btn{
+    .explore-link-item,
+    .explore-tab-btn {
         font-size: 0.85rem;
     }
     .explore-scroller {
@@ -132,13 +133,13 @@
         padding: 0.6rem 0.75rem;
     }
     .cat-title {
-    font-size: 0.9rem;
+        font-size: 0.9rem;
     }
     .cat-content {
-    padding: 1rem;
+        padding: 1rem;
     }
     .cat-count {
-    font-size: 0.75rem;
+        font-size: 0.75rem;
     }
     .btn-icon {
         width: 29px;
@@ -152,27 +153,33 @@
         font-size: 0.8rem;
     }
     .text-document h1 {
-    font-size: 1.75em;
-   }
+        font-size: 1.75em;
+    }
     .text-document h2 {
         font-size: 1.4em;
     }
-    .btn-primary-custom{
+    .btn-primary-custom {
         font-size: 14px;
         padding: 12px 26px;
     }
     .value-item i {
-    font-size: 2rem !important;
-}
+        font-size: 2rem !important;
+    }
     .value-item .value-title {
-    font-size: 0.85rem;
-}
-.plan-title {
-    width: 90%;
-}
-.main-page-search .search-options-wrapper {
-    box-shadow: none;
-    padding: 0;
-    border-radius: 0;
-}
+        font-size: 0.85rem;
+    }
+    .plan-title {
+        width: 90%;
+    }
+    .main-page-search .search-options-wrapper {
+        box-shadow: none;
+        border-radius: 10px;
+    }
+    .hotels-banner {
+        min-height: 80vh;
+    }
+
+    .flighs-banner {
+        min-height: 100vh;
+    }
 }

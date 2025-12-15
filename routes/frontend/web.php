@@ -7,6 +7,8 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\TourController;
 use App\Http\Controllers\Frontend\TravelInsuranceController;
+use App\Http\Controllers\Frontend\HotelController;
+use App\Http\Controllers\Frontend\FlightController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
@@ -32,5 +34,13 @@ Route::name('frontend.')->group(function () {
     Route::prefix('travel-insurance')->name('travel-insurance.')->group(function () {
         Route::get('/', [TravelInsuranceController::class, 'index'])->name('index');
         Route::get('/details', [TravelInsuranceController::class, 'details'])->name('details');
+    });
+
+    Route::prefix('hotels')->name('hotels.')->group(function () {
+        Route::get('/', [HotelController::class, 'index'])->name('index');
+    });
+
+    Route::prefix('flights')->name('flights.')->group(function () {
+        Route::get('/', [FlightController::class, 'index'])->name('index');
     });
 });

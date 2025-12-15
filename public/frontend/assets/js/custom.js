@@ -79,6 +79,72 @@ $(document).ready(function () {
     });
     /* activity slider  */
 
+    /* hotels slider  */
+    $(".hotels-slider").slick({
+        dots: false,
+        arrows: true,
+        infinite: false,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        speed: 300,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
+        ],
+    });
+    /* hotels slider  */
+
+    /* hotels slider  */
+    $(".flights-slider").slick({
+        dots: false,
+        arrows: true,
+        infinite: false,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
+        ],
+    });
+    /* hotels slider  */
+
     /* category-slider  */
     $(".category-slider").slick({
         dots: false,
@@ -297,7 +363,7 @@ const popupWrapper = document.querySelector("[data-popup-wrapper]");
 const popupClose = document.querySelector("[data-popup-close]");
 const popupTriggers = document.querySelectorAll("[data-popup-trigger]");
 
-popupTriggers.forEach((el) => {
+popupTriggers?.forEach((el) => {
     el.addEventListener("click", () => {
         const title = el.dataset.popupTitle;
         const popupId = el.dataset.popupId;
@@ -309,11 +375,11 @@ popupTriggers.forEach((el) => {
     });
 });
 
-popupClose.addEventListener("click", () => {
+popupClose?.addEventListener("click", () => {
     popupWrapper.classList.remove("open");
 });
 
-popupWrapper.addEventListener("click", function (e) {
+popupWrapper?.addEventListener("click", function (e) {
     if (e.target === popupWrapper) {
         popupWrapper.classList.remove("open");
     }
