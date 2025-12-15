@@ -2555,7 +2555,7 @@ body .skeleton {
     font-weight: 500;
 }
 
-/* --- Cart Page Specifics --- */
+/* --- Cart Page --- */
 .cart-item {
     display: flex;
     flex-wrap: wrap;
@@ -2611,11 +2611,11 @@ body .skeleton {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #f5f7f9; /* Light calm background */
-    border-radius: 50px; /* Pill shape */
+    background-color: #f5f7f9; 
+    border-radius: 50px; 
     padding: 5px;
     width: 130px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03); /* Subtle inner depth */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03); 
 }
 
 .qty-btn {
@@ -2629,7 +2629,7 @@ body .skeleton {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Soft pop */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
     font-size: 16px;
 }
@@ -2798,6 +2798,50 @@ body .skeleton {
     margin-top: 4px;
     margin-left: 28px;
 }
+/* Empty State Container */
+.empty-cart-state {
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Image Styling */
+.empty-cart-img {
+    margin-bottom: 30px;
+    max-width: 350px; /* Adjust size to match reference */
+    width: 100%;
+}
+
+.empty-cart-img img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.empty-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333; 
+    margin-bottom: 10px;
+}
+
+.empty-subtitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.empty-description {
+    font-size: 16px;
+    color: #777; 
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0 auto 30px auto;
+}
+
 
 /* Sticky Summary on Checkout */
 .sticky-sidebar {

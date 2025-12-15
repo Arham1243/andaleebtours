@@ -1,9 +1,8 @@
 @extends('frontend.layouts.main')
 @section('content')
-    <section class="section-gap">
+    <section class="section-gap pb-0">
         <div class="container">
             <h1 class="page-title">Shopping Cart</h1>
-
             <div class="row">
                 <!-- Left Side: Cart Items -->
                 <div class="col-lg-8">
@@ -118,6 +117,28 @@
                             Checkout</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-gap pt-0">
+        <div class="container">
+            <div class="empty-cart-state text-center">
+                <div class="empty-cart-img">
+                    <img src="{{ asset('frontend/assets/images/empty-cart.webp') }}" alt="Empty Cart" class="img-fluid">
+                </div>
+
+                <h2 class="empty-title">Your cart is empty</h2>
+                <h4 class="empty-subtitle">You don't have any booking</h4>
+
+                <p class="empty-description">
+                    Discover exciting deals, earn rewards, and enjoy exclusive offers. Start
+                    shopping now and make the most of your experience!
+                </p>
+
+                <a href="{{ url('/') }}" style="width:fit-content;" class="btn-primary-custom">
+                    Continue Shopping
+                </a>
             </div>
         </div>
     </section>
