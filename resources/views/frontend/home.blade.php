@@ -693,7 +693,7 @@
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
                                     <small class="text-muted text-decoration-line-through">AED 2,500</small>
-                                    <div class="price-tag">AED 1,999 <small class="text-muted fw-normal">/ night</small>
+                                    <div class="hotel-price-tag">AED 1,999 <small class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
@@ -719,7 +719,7 @@
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
                                     <small class="text-muted text-decoration-line-through">AED 4,500</small>
-                                    <div class="price-tag">AED 3,800 <small class="text-muted fw-normal">/ night</small>
+                                    <div class="hotel-price-tag">AED 3,800 <small class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
@@ -745,7 +745,7 @@
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
                                     <small class="text-muted text-decoration-line-through">AED 1,200</small>
-                                    <div class="price-tag">AED 850 <small class="text-muted fw-normal">/ night</small>
+                                    <div class="hotel-price-tag">AED 850 <small class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>

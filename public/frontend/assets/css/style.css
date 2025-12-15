@@ -515,10 +515,10 @@ button.slick-arrow::before {
     color: #000;
     font-size: 1.5rem;
 }
-button.slick-next.slick-arrow{
+button.slick-next.slick-arrow {
     margin-top: 0;
 }
-button.slick-prev.slick-arrow{
+button.slick-prev.slick-arrow {
     margin-top: 0;
 }
 button.slick-next.slick-arrow::before {
@@ -529,7 +529,8 @@ button.slick-prev.slick-arrow::before {
     content: "\ea4d";
     font-family: boxicons;
 }
-.slick-prev.slick-arrow,.slick-next.slick-arrow {
+.slick-prev.slick-arrow,
+.slick-next.slick-arrow {
     font-size: 0;
 }
 
@@ -1492,7 +1493,7 @@ button.slick-prev.slick-arrow::before {
     max-width: 120px;
 }
 
-.price-tag {
+.hotel-price-tag {
     font-weight: 600;
     color: var(--color-primary);
     font-size: 1.2rem;
@@ -2544,7 +2545,7 @@ body .skeleton {
 }
 
 .card-title i {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     color: var(--color-primary);
 }
 .secure-checkout i {
@@ -2927,7 +2928,7 @@ body .skeleton {
     color: #555;
     margin-bottom: 9px;
     line-height: 1.5;
-    list-style-type: disc ;
+    list-style-type: disc;
 }
 .text-document :is(li, a, p) {
     font-size: 0.87em;
@@ -2941,12 +2942,7 @@ body .skeleton {
 .text-document ul li a:hover {
     color: #000;
 }
-.text-document :is(h1,
-h2,
-h3,
-h4,
-h5,
-h6){
+.text-document :is(h1, h2, h3, h4, h5, h6) {
     font-weight: 700;
     margin: 17px 0 14px;
 }
@@ -3039,7 +3035,7 @@ h6){
 }
 .no-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none;    /* Firefox */
+    scrollbar-width: none; /* Firefox */
 }
 .scroll-smooth {
     scroll-behavior: smooth;
@@ -3049,15 +3045,15 @@ h6){
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 1.5rem; 
-    border-bottom: 1px solid var(--border-color); 
-    padding-bottom: 1px; 
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1px;
 }
 
 .explore-tab-btn {
     background: transparent;
     border: none;
-    border-bottom: 2px solid transparent; 
+    border-bottom: 2px solid transparent;
     padding: 0.75rem;
     color: var(--text-muted);
     font-size: 0.95rem;
@@ -3072,7 +3068,7 @@ h6){
 
 .explore-tab-btn.active {
     color: var(--color-primary);
-    border-bottom-color: var(--color-primary); 
+    border-bottom-color: var(--color-primary);
 }
 
 .explore-arrow-btn {
@@ -3092,15 +3088,19 @@ h6){
     font-size: 1.25rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
-    display: none; 
+    display: none;
 }
 
 .explore-arrow-btn:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.explore-arrow-left { left: -10px; }
-.explore-arrow-right { right: -10px; }
+.explore-arrow-left {
+    left: -10px;
+}
+.explore-arrow-right {
+    right: -10px;
+}
 
 /* --- Tab Content: Link Grid --- */
 .explore-link-grid {
@@ -3120,7 +3120,9 @@ h6){
     padding: 0.65rem 0.8rem;
     border-radius: 6px;
     background-color: transparent;
-    transition: background 0.2s, transform 0.2s;
+    transition:
+        background 0.2s,
+        transform 0.2s;
     border: 1px solid #eae9e9;
     gap: 0.5rem;
 }
@@ -3128,7 +3130,9 @@ h6){
 .explore-link-item i {
     font-size: 1.2rem;
     color: var(--text-muted);
-    transition: transform 0.2s, color 0.2s;
+    transition:
+        transform 0.2s,
+        color 0.2s;
 }
 
 .explore-link-item:hover {
@@ -3153,14 +3157,19 @@ h6){
     text-decoration: none;
     aspect-ratio: 3 / 3.4;
     width: 100%;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transform: translateZ(0); /* Hardware accel */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .cat-bg {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-size: cover;
     background-position: center;
     transition: transform 0.6s ease;
@@ -3173,7 +3182,12 @@ h6){
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.9) 100%);
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 20%,
+        rgba(0, 0, 0, 0.6) 60%,
+        rgba(0, 0, 0, 0.9) 100%
+    );
     z-index: 2;
     transition: opacity 0.3s ease;
     opacity: 0.75;
@@ -3196,7 +3210,7 @@ h6){
     font-weight: 700;
     font-size: 1rem;
     margin-bottom: 0.25rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .cat-action {
@@ -3240,16 +3254,16 @@ h6){
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     overflow: hidden;
     position: relative;
 }
 
 .pdf-content {
     width: 100%;
-    height: 80vh; 
+    height: 80vh;
     min-height: 500px;
-    background-color: #525659; 
+    background-color: #525659;
 }
 
 .pdf-content iframe {
@@ -3261,7 +3275,7 @@ h6){
 
 @media (max-width: 768px) {
     .pdf-content {
-        height: 500px; 
+        height: 500px;
     }
 }
 /* company profile */
@@ -3284,7 +3298,7 @@ h6){
     background-color: #fff;
     padding: 1.5rem 2rem;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     border-left: 5px solid var(--color-primary);
     text-align: center;
     color: var(--text-dark);
@@ -3338,7 +3352,7 @@ h6){
 
 .service-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     border-color: transparent;
 }
 
@@ -3363,16 +3377,15 @@ h6){
 }
 /* Contact us */
 
-
 /* Feature Card Styling */
 .feature-card {
-    border: 1px solid rgba(0,0,0,0.05); /* Very subtle border */
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Very subtle border */
     transition: all 0.3s ease;
 }
 
 .feature-card:hover {
     transform: translateY(-5px); /* Lift effect */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
     border-color: transparent;
 }
 
@@ -3403,7 +3416,7 @@ h6){
     border-radius: 8px;
     padding: 1.5rem;
 }
-.lead{
+.lead {
     font-size: 1em;
     font-weight: 400;
 }
@@ -3419,7 +3432,7 @@ h6){
 .plan-card-item {
     cursor: pointer;
     display: block;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     position: relative;
 }
 
@@ -3444,6 +3457,17 @@ h6){
     transition: all 0.25s ease;
 }
 
+.plan-card-item--single .plan-card-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+.plan-card-item--single .plan-card-inner .plan-cost {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 /* Mobile responsive layout */
 @media (max-width: 576px) {
     .plan-card-inner {
@@ -3483,13 +3507,13 @@ h6){
     text-decoration: underline;
 }
 
-.price-tag {
+.plan-card-inner .price-tag {
     font-size: 1.25rem;
     font-weight: 800;
     color: #1a1a1a;
 }
 
-.price-tag small {
+.plan-card-inner .price-tag small {
     font-size: 0.8rem;
     font-weight: 500;
     color: #6c757d;
@@ -3498,7 +3522,6 @@ h6){
 .tax-note {
     display: block;
     font-size: 0.75rem;
-    color: #9ca3af;
     text-align: right;
 }
 
@@ -3547,4 +3570,124 @@ h6){
     padding: 1rem 1.5rem;
     border-radius: 100px;
 }
+.plan-info {
+    flex: 1;
+}
+.plan-cost {
+    flex: 0.5;
+}
 /* Travel Insurance */
+
+/* custom-info-alert */
+.custom-info-alert {
+    width: fit-content;
+    display: flex;
+    border: 1px solid rgb(100, 157, 207);
+    border-radius: 10px;
+    gap: 0.5rem;
+    padding: 13px 17px;
+    font-weight: 500;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    background-color: rgb(242, 249, 255);
+    color: #000000c9;
+}
+.custom-info-alert .icon i {
+    font-size: 1.1rem;
+    color: rgb(29, 112, 184);
+    position: relative;
+    top: -2px;
+}
+/* custom-info-alert */
+
+/* global popup */
+.custom-popup-wrapper {
+    background: #000000ba;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 150ms ease-in;
+    backdrop-filter: blur(5px);
+}
+.custom-popup-wrapper.open {
+    opacity: 1;
+    visibility: visible;
+}
+.custom-popup-wrapper.open .custom-popup {
+    scale: 1;
+}
+.custom-popup {
+    width: 100%;
+    margin: 0 26rem;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    scale: 0.85;
+    transition: all 150ms ease-in;
+}
+
+.custom-popup__header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #00000038;
+    justify-content: space-between;
+    padding: 11px 20px;
+}
+
+.custom-popup__header .title {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.custom-popup__header .close-icon {
+    font-size: 29px;
+    aspect-ratio: 1/1;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 200ms;
+    cursor: pointer;
+}
+.custom-popup__header .close-icon:hover {
+    background-color: #cccccc42;
+}
+.custom-popup__content {
+    padding: 15px 20px 19px;
+    overflow-y: auto;
+    font-weight: 500;
+}
+.custom-popup__content h6 {
+    font-size: 1.45rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-bottom: 0.86rem;
+}
+.custom-popup__content p + h6 {
+    margin-top: 1rem;
+}
+.custom-popup__content ul {
+    margin: 1rem;
+}
+.custom-popup__content :is(p, li) {
+    font-size: 17px;
+    color: #000000e0;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 0;
+}
+.custom-popup__content li {
+    padding: 0.25rem 0;
+    list-style-type: disc !important;
+}
+/* global popup */

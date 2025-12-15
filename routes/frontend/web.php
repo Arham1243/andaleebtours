@@ -28,5 +28,9 @@ Route::name('frontend.')->group(function () {
     Route::get('/company-profile', [IndexController::class, 'company_profile'])->name('company-profile');
     Route::get('/about-us', [IndexController::class, 'about_us'])->name('about-us');
     Route::get('/contact-us', [IndexController::class, 'contact_us'])->name('contact-us');
-    Route::get('/travel-insurance', [TravelInsuranceController::class, 'index'])->name('travel-insurance.index');
+
+    Route::prefix('travel-insurance')->name('travel-insurance.')->group(function () {
+        Route::get('/', [TravelInsuranceController::class, 'index'])->name('index');
+        Route::get('/details', [TravelInsuranceController::class, 'details'])->name('details');
+    });
 });

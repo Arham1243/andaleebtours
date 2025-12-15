@@ -1,15 +1,15 @@
 /* for search service  */
-  const exactMatch = (arr, key, q) => {
-        return arr.find((o) => {
-            const value = o[key];
-            return value && value.toLowerCase().trim() === q;
-        });
-    };
+const exactMatch = (arr, key, q) => {
+    return arr.find((o) => {
+        const value = o[key];
+        return value && value.toLowerCase().trim() === q;
+    });
+};
 const startsWith = (arr, key, q) =>
     arr.filter((o) => {
         const value = o[key];
         return value && value.toLowerCase().startsWith(q);
-});
+    });
 /* for search service  */
 
 /* top progress bar  */
@@ -244,7 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 /* Faqs Toggler */
 
-
 /* Expandable Card */
 document.addEventListener("DOMContentLoaded", function () {
     const wrappers = document.querySelectorAll(".expandable-wrapper");
@@ -255,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const btn = wrapper.querySelector(".expand-btn");
 
         const collapsedHeight =
-            parseInt(wrapper.getAttribute("data-collapsed-height")) || 100; 
+            parseInt(wrapper.getAttribute("data-collapsed-height")) || 100;
         const moreText = wrapper.getAttribute("data-more-text") || "Read More";
         const lessText = wrapper.getAttribute("data-less-text") || "Read Less";
 
@@ -266,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (innerContent.scrollHeight <= collapsedHeight) {
             btn.style.display = "none";
-            contentDiv.style.maxHeight = "none"; 
+            contentDiv.style.maxHeight = "none";
         }
 
         btn.addEventListener("click", function () {
@@ -292,3 +291,31 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* Expandable Card */
+
+/* Global popup */
+const popupWrapper = document.querySelector("[data-popup-wrapper]");
+const popupClose = document.querySelector("[data-popup-close]");
+const popupTriggers = document.querySelectorAll("[data-popup-trigger]");
+
+popupTriggers.forEach((el) => {
+    el.addEventListener("click", () => {
+        const title = el.dataset.popupTitle;
+        const popupId = el.dataset.popupId;
+        const htmlContent = document.getElementById(popupId)?.innerHTML || "";
+
+        popupWrapper.querySelector("[data-popup-title]").innerHTML = title;
+        popupWrapper.querySelector("[data-popup-text]").innerHTML = htmlContent;
+        popupWrapper.classList.add("open");
+    });
+});
+
+popupClose.addEventListener("click", () => {
+    popupWrapper.classList.remove("open");
+});
+
+popupWrapper.addEventListener("click", function (e) {
+    if (e.target === popupWrapper) {
+        popupWrapper.classList.remove("open");
+    }
+});
+/* Global popup */

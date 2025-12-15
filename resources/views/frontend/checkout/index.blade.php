@@ -139,11 +139,11 @@
                             </div>
 
                             <button type="submit" class="btn-primary-custom mt-4">
-                                Pay Now <i class='bx bx-right-arrow-alt'></i>
+                                 Pay Now  <i class='bx bx-lock-alt'></i>
                             </button>
 
                             <div class="text-center mt-3">
-                                <small class="text-muted secure-checkout"><i class='bx bx-lock-alt'></i> Secure
+                                <small class="text-muted secure-checkout"><i class='bx bx-check-shield' ></i>Secure
                                     Checkout</small>
                             </div>
                         </div>

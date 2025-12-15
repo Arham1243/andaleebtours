@@ -10,4 +10,8 @@ class TravelInsuranceController extends Controller
     {
         return view('frontend.travel-insurance.index');
     }
+    public function details()
+    {
+        return view('frontend.travel-insurance.details');
+    }
 }
