@@ -232,6 +232,367 @@
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
                     tabindex="0">
 
+                    <div class="row g-3 g-lg-4">
+
+                        <!-- Card 1: Deluxe Room -->
+                        <div class="col-12 col-lg-6">
+                            <label class="room-card">
+                                <input type="radio" data-price="1,307.96" name="room_selection"
+                                    class="room-card__input" value="Deluxe Room" checked>
+                                <div class="room-card__box">
+
+                                    <!-- Header -->
+                                    <div class="room-card__header">
+                                        <h3 class="room-card__title">Deluxe Room</h3>
+                                        <div class="room-card__radio"></div>
+                                    </div>
+
+                                    <!-- Tags -->
+                                    <div class="room-card__tags">
+                                        <span class="room-card__tag"><i class='bx bx-home'></i> Room Only</span>
+                                        <span class="room-card__tag room-card__tag--green"><i
+                                                class='bx bx-check-shield'></i> Refundable</span>
+                                    </div>
+
+                                    <!-- Policy Info -->
+                                    <div class="room-card__policy">
+                                        <div class="room-card__policy-row room-card__policy-row--free">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-check-circle room-card__icon'></i>
+                                                <span>Free cancellation until <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__badge room-card__badge--free">FREE</span>
+                                        </div>
+                                        <div class="room-card__policy-row room-card__policy-row--fee">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-info-circle room-card__icon'></i>
+                                                <span>Cancellation after <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__price-text">AED 1,189.05</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer -->
+                                    <div class="room-card__footer">
+                                        <span class="room-card__label">Total Price</span>
+                                        <span class="room-card__total">AED 1,307.96</span>
+                                    </div>
+
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Card 2: King Accessible -->
+                        <div class="col-12 col-lg-6">
+                            <label class="room-card">
+                                <input type="radio" data-price="1,307.96" name="room_selection"
+                                    class="room-card__input" value="King Accessible Deluxe Room W/ Balcony">
+                                <div class="room-card__box">
+
+                                    <div class="room-card__header">
+                                        <h3 class="room-card__title">King Accessible Deluxe Room W/ Balcony</h3>
+                                        <div class="room-card__radio"></div>
+                                    </div>
+
+                                    <div class="room-card__tags">
+                                        <span class="room-card__tag"><i class='bx bx-home'></i> Room Only</span>
+                                        <span class="room-card__tag room-card__tag--green"><i
+                                                class='bx bx-check-shield'></i> Refundable</span>
+                                    </div>
+
+                                    <div class="room-card__policy">
+                                        <div class="room-card__policy-row room-card__policy-row--free">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-check-circle room-card__icon'></i>
+                                                <span>Free cancellation until <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__badge room-card__badge--free">FREE</span>
+                                        </div>
+                                        <div class="room-card__policy-row room-card__policy-row--fee">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-info-circle room-card__icon'></i>
+                                                <span>Cancellation after <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__price-text">AED 1,189.05</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="room-card__footer">
+                                        <span class="room-card__label">Total Price</span>
+                                        <span class="room-card__total">AED 1,307.96</span>
+                                    </div>
+
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Card 3: Two Queens Accessible -->
+                        <div class="col-12 col-lg-6">
+                            <label class="room-card">
+                                <input type="radio" data-price="1,307.96" name="room_selection"
+                                    class="room-card__input" value="Two Queens Accessible Deluxe Room W/ Balcony">
+                                <div class="room-card__box">
+
+                                    <div class="room-card__header">
+                                        <h3 class="room-card__title">Two Queens Accessible Deluxe Room W/ Balcony</h3>
+                                        <div class="room-card__radio"></div>
+                                    </div>
+
+                                    <div class="room-card__tags">
+                                        <span class="room-card__tag"><i class='bx bx-home'></i> Room Only</span>
+                                        <span class="room-card__tag room-card__tag--green"><i
+                                                class='bx bx-check-shield'></i> Refundable</span>
+                                    </div>
+
+                                    <div class="room-card__policy">
+                                        <div class="room-card__policy-row room-card__policy-row--free">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-check-circle room-card__icon'></i>
+                                                <span>Free cancellation until <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__badge room-card__badge--free">FREE</span>
+                                        </div>
+                                        <div class="room-card__policy-row room-card__policy-row--fee">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-info-circle room-card__icon'></i>
+                                                <span>Cancellation after <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__price-text">AED 1,189.05</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="room-card__footer">
+                                        <span class="room-card__label">Total Price</span>
+                                        <span class="room-card__total">AED 1,307.96</span>
+                                    </div>
+
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Card 4: King Deluxe Partial Sea View -->
+                        <div class="col-12 col-lg-6">
+                            <label class="room-card">
+                                <input type="radio" data-price="1,307.96" name="room_selection"
+                                    class="room-card__input" value="King Deluxe Room W/ Partial Sea View">
+                                <div class="room-card__box">
+
+                                    <div class="room-card__header">
+                                        <h3 class="room-card__title">King Deluxe Room W/ Partial Sea View</h3>
+                                        <div class="room-card__radio"></div>
+                                    </div>
+
+                                    <div class="room-card__tags">
+                                        <span class="room-card__tag"><i class='bx bx-water'></i> Room Only</span>
+                                        <span class="room-card__tag room-card__tag--green"><i
+                                                class='bx bx-check-shield'></i> Refundable</span>
+                                    </div>
+
+                                    <div class="room-card__policy">
+                                        <div class="room-card__policy-row room-card__policy-row--free">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-check-circle room-card__icon'></i>
+                                                <span>Free cancellation until <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__badge room-card__badge--free">FREE</span>
+                                        </div>
+                                        <div class="room-card__policy-row room-card__policy-row--fee">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-info-circle room-card__icon'></i>
+                                                <span>Cancellation after <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__price-text">AED 1,259.30</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="room-card__footer">
+                                        <span class="room-card__label">Total Price</span>
+                                        <span class="room-card__total">AED 1,385.23</span>
+                                    </div>
+
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Card 5: Two Queens Deluxe Partial Sea View -->
+                        <div class="col-12 col-lg-6">
+                            <label class="room-card">
+                                <input type="radio" data-price="1,307.96" name="room_selection"
+                                    class="room-card__input" value="Two Queens Deluxe Room W/ Partial Sea View">
+                                <div class="room-card__box">
+
+                                    <div class="room-card__header">
+                                        <h3 class="room-card__title">Two Queens Deluxe Room W/ Partial Sea View</h3>
+                                        <div class="room-card__radio"></div>
+                                    </div>
+
+                                    <div class="room-card__tags">
+                                        <span class="room-card__tag"><i class='bx bx-water'></i> Room Only</span>
+                                        <span class="room-card__tag room-card__tag--green"><i
+                                                class='bx bx-check-shield'></i> Refundable</span>
+                                    </div>
+
+                                    <div class="room-card__policy">
+                                        <div class="room-card__policy-row room-card__policy-row--free">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-check-circle room-card__icon'></i>
+                                                <span>Free cancellation until <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__badge room-card__badge--free">FREE</span>
+                                        </div>
+                                        <div class="room-card__policy-row room-card__policy-row--fee">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-info-circle room-card__icon'></i>
+                                                <span>Cancellation after <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__price-text">AED 1,259.30</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="room-card__footer">
+                                        <span class="room-card__label">Total Price</span>
+                                        <span class="room-card__total">AED 1,385.23</span>
+                                    </div>
+
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Card 6: King Deluxe Sea View -->
+                        <div class="col-12 col-lg-6">
+                            <label class="room-card">
+                                <input type="radio" data-price="1,407.96" name="room_selection"
+                                    class="room-card__input" value="King Deluxe Room W/ Sea View - Balcony">
+                                <div class="room-card__box">
+
+                                    <div class="room-card__header">
+                                        <h3 class="room-card__title">King Deluxe Room W/ Sea View - Balcony</h3>
+                                        <div class="room-card__radio"></div>
+                                    </div>
+
+                                    <div class="room-card__tags">
+                                        <span class="room-card__tag"><i class='bx bx-water'></i> Room Only</span>
+                                        <span class="room-card__tag room-card__tag--green"><i
+                                                class='bx bx-check-shield'></i> Refundable</span>
+                                    </div>
+
+                                    <div class="room-card__policy">
+                                        <div class="room-card__policy-row room-card__policy-row--free">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-check-circle room-card__icon'></i>
+                                                <span>Free cancellation until <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__badge room-card__badge--free">FREE</span>
+                                        </div>
+                                        <div class="room-card__policy-row room-card__policy-row--fee">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-info-circle room-card__icon'></i>
+                                                <span>Cancellation after <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__price-text">AED 1,297.14</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="room-card__footer">
+                                        <span class="room-card__label">Total Price</span>
+                                        <span class="room-card__total">AED 1,426.85</span>
+                                    </div>
+
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Card 7: Two Queens Sea View -->
+                        <div class="col-12 col-lg-6">
+                            <label class="room-card">
+                                <input type="radio" data-price="1,307.96" name="room_selection"
+                                    class="room-card__input" value="Two Queens Deluxe Room W/ Sea View - Balcony">
+                                <div class="room-card__box">
+
+                                    <div class="room-card__header">
+                                        <h3 class="room-card__title">Two Queens Deluxe Room W/ Sea View - Balcony</h3>
+                                        <div class="room-card__radio"></div>
+                                    </div>
+
+                                    <div class="room-card__tags">
+                                        <span class="room-card__tag"><i class='bx bx-water'></i> Room Only</span>
+                                        <span class="room-card__tag room-card__tag--green"><i
+                                                class='bx bx-check-shield'></i> Refundable</span>
+                                    </div>
+
+                                    <div class="room-card__policy">
+                                        <div class="room-card__policy-row room-card__policy-row--free">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-check-circle room-card__icon'></i>
+                                                <span>Free cancellation until <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__badge room-card__badge--free">FREE</span>
+                                        </div>
+                                        <div class="room-card__policy-row room-card__policy-row--fee">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-info-circle room-card__icon'></i>
+                                                <span>Cancellation after <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__price-text">AED 1,297.14</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="room-card__footer">
+                                        <span class="room-card__label">Total Price</span>
+                                        <span class="room-card__total">AED 1,426.85</span>
+                                    </div>
+
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Card 8: Breakfast -->
+                        <div class="col-12 col-lg-6">
+                            <label class="room-card">
+                                <input type="radio" data-price="1,307.96" name="room_selection"
+                                    class="room-card__input" value="Two Queens Accessible Deluxe Room W/ Balcony">
+                                <div class="room-card__box">
+
+                                    <div class="room-card__header">
+                                        <h3 class="room-card__title">Two Queens Accessible Deluxe Room W/ Balcony</h3>
+                                        <div class="room-card__radio"></div>
+                                    </div>
+
+                                    <div class="room-card__tags">
+                                        <span class="room-card__tag room-card__tag--gold"><i class='bx bx-coffee'></i> Bed
+                                            And Breakfast</span>
+                                        <span class="room-card__tag room-card__tag--green"><i
+                                                class='bx bx-check-shield'></i> Refundable</span>
+                                    </div>
+
+                                    <div class="room-card__policy">
+                                        <div class="room-card__policy-row room-card__policy-row--free">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-check-circle room-card__icon'></i>
+                                                <span>Free cancellation until <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__badge room-card__badge--free">FREE</span>
+                                        </div>
+                                        <div class="room-card__policy-row room-card__policy-row--fee">
+                                            <div class="room-card__policy-content">
+                                                <i class='bx bxs-info-circle room-card__icon'></i>
+                                                <span>Cancellation after <strong>14 Jan 2026</strong></span>
+                                            </div>
+                                            <span class="room-card__price-text">AED 1,330.98</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="room-card__footer">
+                                        <span class="room-card__label">Total Price</span>
+                                        <span class="room-card__total">AED 1,464.08</span>
+                                    </div>
+
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
                     tabindex="0">
@@ -322,13 +683,14 @@
                         <div class="details-wrapper">
                             <div class="details">
                                 <div class="total">Total</div>
-                                <div><span class="dirham">D</span><span class="total-price">145</span></div>
+                                <div><span class="dirham">D</span><span class="total-price"
+                                        id="total-room-price"></span></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="details-btn-wrapper">
-                            <a href="" type="button" class="btn-primary-custom">Continue</a>
+                            <a href="{{  }}" type="button" class="btn-primary-custom">Continue</a>
                         </div>
                     </div>
                 </div>
@@ -336,3 +698,22 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        const priceEl = document.getElementById('total-room-price');
+        const radios = document.querySelectorAll('input[name="room_selection"]');
+
+        // Set initial price from checked radio
+        const checkedRadio = document.querySelector('input[name="room_selection"]:checked');
+        if (checkedRadio) {
+            priceEl.textContent = checkedRadio.dataset.price;
+        }
+
+        // Update price on change
+        radios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                priceEl.textContent = radio.dataset.price;
+            });
+        });
+    </script>
+@endpush

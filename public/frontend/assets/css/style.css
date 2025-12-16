@@ -5347,5 +5347,212 @@ body.fancybox-active.compensate-for-scrollbar {
     }
 }
 
+.room-card {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    margin: 0;
+    height: 100%;
+}
 
+.room-card__input {
+    display: none;
+}
+
+.room-card__box {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 576px) {
+    .room-card__box {
+        padding: 1.25rem;
+    }
+}
+
+.room-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.room-card__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.room-card__radio {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--input-border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    transition: 0.2s;
+}
+
+.room-card__radio::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.room-card__tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.room-card__tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background-color: var(--bg-body);
+    padding: 6px 12px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.room-card__tag--green {
+    color: #15803d;
+    background-color: #dcfce7;
+}
+
+.room-card__tag--gold {
+    color: #a16207;
+    background-color: #fef9c3;
+}
+
+.room-card__policy {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.room-card__policy-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.room-card__policy-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--heading-color);
+    line-height: 1.3;
+}
+
+.room-card__icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.room-card__policy-row--free .room-card__icon {
+    color: #16a34a;
+}
+.room-card__policy-row--fee .room-card__icon {
+    color: #ea580c;
+}
+
+.room-card__badge {
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.room-card__badge--free {
+    color: #16a34a;
+    background-color: #dcfce7;
+}
+
+.room-card__price-text {
+    font-weight: 700;
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
+.room-card__footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.room-card__label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.room-card__total {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+@media (max-width: 400px) {
+    .room-card__title {
+        font-size: 1rem;
+    }
+    .room-card__total {
+        font-size: 1.2rem;
+    }
+    .room-card__policy-content {
+        font-size: 0.85rem;
+    }
+    .room-card__badge,
+    .room-card__price-text {
+        font-size: 0.8rem;
+    }
+}
+
+.room-card__input:checked + .room-card__box {
+    border-color: var(--color-primary);
+    box-shadow:
+        0 0 0 1px var(--color-primary),
+        var(--shadow-sm);
+    background-color: #fff;
+}
+
+.room-card__input:checked + .room-card__box .room-card__radio {
+    border-color: var(--color-primary);
+}
+
+.room-card__input:checked + .room-card__box .room-card__radio::after {
+    transform: translate(-50%, -50%) scale(1);
+}
 /* Hotels Details */
