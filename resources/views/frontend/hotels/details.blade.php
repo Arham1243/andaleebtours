@@ -17,7 +17,7 @@
                     </li>
 
                     <li class="breadcrumb-item">
-                        <a href="{{ route('frontend.hotels.search') }}" class="breadcrumb-link">Search</a>
+                        <a href="{{ route('frontend.hotels.search') }}" class="breadcrumb-link">Listing</a>
                         <i class='bx bx-chevron-right breadcrumb-separator'></i>
                     </li>
 
@@ -238,7 +238,7 @@
                         <div class="col-12 col-lg-6">
                             <label class="room-card">
                                 <input type="radio" data-price="1,307.96" name="room_selection"
-                                    class="room-card__input" value="Deluxe Room" checked>
+                                    class="room-card__input" value="Deluxe Room">
                                 <div class="room-card__box">
 
                                     <!-- Header -->
@@ -683,14 +683,18 @@
                         <div class="details-wrapper">
                             <div class="details">
                                 <div class="total">Total</div>
-                                <div><span class="dirham">D</span><span class="total-price"
-                                        id="total-room-price"></span></div>
+                                <div><span class="dirham">D</span><span class="total-price" id="total-room-price">0.00</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="details-btn-wrapper">
-                            <a href="{{  }}" type="button" class="btn-primary-custom">Continue</a>
+                            <a id="continueBtn"
+                                href="{{ route('frontend.hotels.checkout') . '?' . http_build_query(request()->query()) }}"
+                                class="btn-primary-custom">
+                                Continue
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -702,18 +706,51 @@
     <script>
         const priceEl = document.getElementById('total-room-price');
         const radios = document.querySelectorAll('input[name="room_selection"]');
+        const continueBtn = document.getElementById('continueBtn');
+        const baseUrl = "{{ route('frontend.hotels.checkout') . '?' . http_build_query(request()->query()) }}";
 
         // Set initial price from checked radio
         const checkedRadio = document.querySelector('input[name="room_selection"]:checked');
         if (checkedRadio) {
             priceEl.textContent = checkedRadio.dataset.price;
+            updateContinueUrl(checkedRadio.value);
         }
 
-        // Update price on change
+        // Update price and URL on change
         radios.forEach(radio => {
             radio.addEventListener('change', () => {
                 priceEl.textContent = radio.dataset.price;
+                updateContinueUrl(radio.value);
             });
+        });
+
+        // Update continue button URL with selected room
+        function updateContinueUrl(roomValue) {
+            const separator = baseUrl.includes('?') ? '&' : '?';
+            continueBtn.href = baseUrl + separator + 'selected_room=' + encodeURIComponent(roomValue);
+        }
+
+        // Validate room selection on continue button click
+        continueBtn.addEventListener('click', (e) => {
+            const selectedRadio = document.querySelector('input[name="room_selection"]:checked');
+            if (!selectedRadio) {
+                e.preventDefault();
+                showMessage("Please select a room before continuing.", "error");
+                
+                // Activate the Rooms tab
+                const roomsTab = document.getElementById('pills-profile-tab');
+                if (roomsTab) {
+                    roomsTab.click();
+                }
+                
+                // Scroll to the tabs section
+                setTimeout(() => {
+                    const tabsSection = document.querySelector('.hotel-detail__tabs');
+                    if (tabsSection) {
+                        tabsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
+            }
         });
     </script>
 @endpush
