@@ -49,26 +49,26 @@
 
                             <!-- Small Top Middle -->
                             <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                class="gallery-item" data-fancybox="gallery" data-caption="Sunset Horizon">
+                                class="gallery-item d-none d-lg-block" data-fancybox="gallery" data-caption="Sunset Horizon">
                                 <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
                                     alt="Sunset">
                             </a>
 
                             <!-- Small Top Right -->
                             <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                class="gallery-item" data-fancybox="gallery" data-caption="City Skyline">
+                                class="gallery-item d-none d-lg-block" data-fancybox="gallery" data-caption="City Skyline">
                                 <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
                                     alt="Skyline">
                             </a>
 
                             <!-- Small Bottom Middle -->
                             <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
-                                class="gallery-item" data-fancybox="gallery" data-caption="Interior View">
+                                class="gallery-item d-none d-lg-block" data-fancybox="gallery" data-caption="Interior View">
                                 <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
                                     alt="Interior">
                             </a>
 
-                            <!-- Small Bottom Right (View Gallery Trigger) -->
+                            <!-- Small Bottom Right (View Gallery Trigger)-->
                             <a href="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
                                 class="gallery-item item-last" data-fancybox="gallery" data-caption="Observation Deck">
                                 <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?q=80&w=1000&auto=format&fit=crop"
@@ -534,7 +534,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 ">
+                                        <div class="col-md-12 mb-3">
                                             <div class="form-group">
                                                 <label class="form-label">Rating</label>
                                                 <div class="working-rating">
@@ -898,10 +898,15 @@
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/daterangepicker.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css"
+        integrity="sha512-nNlU0WK2QfKsuEmdcTwkeh+lhGs6uyOxuUs+n+0oXSYDok5qy0EI0lt01ZynHq6+p/tbgpZ7P+yUb+r71wqdXg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 @push('js')
-    
-<script src="{{ asset('frontend/assets/js/moment.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"
+        integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('frontend/assets/js/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/assets/js/daterangepicker.min.js') }}"></script>
     <script>
         $(document).ready(function() {
