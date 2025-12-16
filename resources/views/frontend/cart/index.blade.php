@@ -38,8 +38,8 @@
                             </div>
 
                             <div class="cart-price-area">
-                                <span class="item-calculation">3 x AED 56.00</span>
-                                <span class="item-total">AED 168.00</span>
+                                <span class="item-calculation">3 x <span class="dirham">D</span> 56.00</span>
+                                <span class="item-total"><span class="dirham">D</span> 168.00</span>
                             </div>
 
                             <button class="btn-remove" title="Remove Item">
@@ -74,8 +74,8 @@
                                     class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
                             </div>
                             <div class="cart-price-area">
-                                <span class="item-calculation">2 x AED 150.00</span>
-                                <span class="item-total">AED 300.00</span>
+                                <span class="item-calculation">2 x <span class="dirham">D</span> 150.00</span>
+                                <span class="item-total"><span class="dirham">D</span> 300.00</span>
                             </div>
 
                             <button class="btn-remove" title="Remove Item">
@@ -101,7 +101,7 @@
 
                             <div class="summary-row">
                                 <span>Subtotal</span>
-                                <span>AED 468.00</span>
+                                <span><span class="dirham">D</span> 468.00</span>
                             </div>
 
                             <!-- Coupon Code -->
@@ -112,12 +112,12 @@
 
                             <div class="summary-row">
                                 <span>Tax (0%)</span>
-                                <span>AED 0.00</span>
+                                <span><span class="dirham">D</span> 0.00</span>
                             </div>
 
                             <div class="summary-row total">
                                 <span>Total Payable</span>
-                                <span style="color: var(--color-primary)">AED 468.00</span>
+                                <span style="color: var(--color-primary)"><span class="dirham">D</span> 468.00</span>
                             </div>
 
                             <a href="{{ route('frontend.checkout.index') }}" class="btn-primary-custom mt-3">Proceed to

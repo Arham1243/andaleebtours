@@ -235,7 +235,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -255,7 +255,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -274,7 +274,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -293,7 +293,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -312,7 +312,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -331,7 +331,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -361,7 +361,7 @@
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Abu Dhabi City Tour With Ferrari
                                 World</div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
+                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span class="dirham">D</span> 393</span></div>
                         </div>
                     </a>
                 </div>
@@ -374,7 +374,7 @@
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets
                             </div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
+                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span class="dirham">D</span> 393</span></div>
                         </div>
                     </a>
                 </div>
@@ -386,7 +386,7 @@
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Desert Safari with Quad Biking</div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
+                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span class="dirham">D</span> 393</span></div>
                         </div>
                     </a>
                 </div>
@@ -399,7 +399,7 @@
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Desert Buggy Driving Experience
                             </div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
+                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span class="dirham">D</span> 393</span></div>
                         </div>
                     </a>
                 </div>
@@ -412,7 +412,7 @@
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Burj Khalifa At The Top Tickets
                             </div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
+                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span class="dirham">D</span> 393</span></div>
                         </div>
                     </a>
                 </div>
@@ -424,7 +424,7 @@
                         </div>
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Hot Air Balloon Dubai</div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
+                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span class="dirham">D</span> 393</span></div>
                         </div>
                     </a>
                 </div>
@@ -437,7 +437,7 @@
                         <div class="category-card__content">
                             <div class="title line-clamp-2 mb-1" style="height:43px;">Breakfast in the sky with Balloon
                                 flights</div>
-                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black">AED 393</span></div>
+                            <div class="desc line-clamp-1">from: <span class="fw-bold text-black"><span class="dirham">D</span> 393</span></div>
                         </div>
                     </a>
                 </div>

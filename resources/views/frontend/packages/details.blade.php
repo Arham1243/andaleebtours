@@ -170,7 +170,7 @@
                             <!-- 1. Price Header -->
                             <div class="booking-header">
                                 <span class="booking-label">From:</span>
-                                <div class="booking-price">AED 159.00</div>
+                                <div class="booking-price"><span class="dirham">D</span> 159.00</div>
                             </div>
 
                             <!-- 2. Date & Time Selection -->

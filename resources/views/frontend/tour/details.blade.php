@@ -354,7 +354,7 @@
                             <!-- 1. Price Header -->
                             <div class="booking-header">
                                 <span class="booking-label">From:</span>
-                                <div class="booking-price">AED 159.00</div>
+                                <div class="booking-price"><span class="dirham">D</span> 159.00</div>
                             </div>
 
                             <!-- 2. Date & Time Selection -->
@@ -395,7 +395,7 @@
                                             <span class="pax-age">Ages 12 to 99</span>
                                         </div>
                                         <div class="pax-action">
-                                            <span class="pax-price">AED 52.50</span>
+                                            <span class="pax-price"><span class="dirham">D</span> 52.50</span>
                                             <div class="qty-control">
                                                 <button
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
@@ -416,7 +416,7 @@
                                             <span class="pax-age">Ages 3 to 11</span>
                                         </div>
                                         <div class="pax-action">
-                                            <span class="pax-price">AED 21.00</span>
+                                            <span class="pax-price"><span class="dirham">D</span> 21.00</span>
                                             <div class="qty-control">
                                                 <button
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"

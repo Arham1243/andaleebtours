@@ -51,7 +51,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -177,7 +177,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>

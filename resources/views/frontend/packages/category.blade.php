@@ -56,7 +56,7 @@
                                     unforgettable memories in a tropical paradise. Perfect for honeymooners or romantic
                                     getaways.</span>
                             </div>
-                            <div class="act-price">AED 1,655.00</div>
+                            <div class="act-price"><span class="dirham">D</span> 1,655.00</div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                                     unforgettable memories in a tropical paradise. Perfect for honeymooners or romantic
                                     getaways.</span>
                             </div>
-                            <div class="act-price">AED 1,655.00</div>
+                            <div class="act-price"><span class="dirham">D</span> 1,655.00</div>
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                                     unforgettable memories in a tropical paradise. Perfect for honeymooners or romantic
                                     getaways.</span>
                             </div>
-                            <div class="act-price">AED 1,655.00</div>
+                            <div class="act-price"><span class="dirham">D</span> 1,655.00</div>
                         </div>
                     </div>
                 </div>

@@ -312,7 +312,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -333,7 +333,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -354,7 +354,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -375,7 +375,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -396,7 +396,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -417,7 +417,7 @@
                                 <span class="rating-num">4.9</span>
                                 <span class="review-count">(374 Reviews)</span>
                             </div>
-                            <div class="act-price">AED 199</div>
+                            <div class="act-price"><span class="dirham">D</span> 199</div>
                         </div>
                     </div>
                 </div>
@@ -444,7 +444,7 @@
                         <div class="card-overlay">
                             <div class="promo-info">
                                 <div class="title">Turkish Delight</div>
-                                <p>Starts AED 1,299</p>
+                                <p>Starts <span class="dirham">D</span> 1,299</p>
                                 <div class="btn-explore">
                                     Explore now <i class='bx bx-right-arrow-alt'></i>
                                 </div>
@@ -462,7 +462,7 @@
                                 <div class="card-overlay">
                                     <div class="promo-info">
                                         <div class="title">Egypt</div>
-                                        <p class="fs-6">Starts AED 999</p>
+                                        <p class="fs-6">Starts <span class="dirham">D</span> 999</p>
                                         <div class="btn-explore">
                                             Explore now <i class='bx bx-right-arrow-alt'></i>
                                         </div>
@@ -479,7 +479,7 @@
                                 <div class="card-overlay">
                                     <div class="promo-info">
                                         <div class="title">Singapore</div>
-                                        <p class="fs-6">Starts AED 2,499</p>
+                                        <p class="fs-6">Starts <span class="dirham">D</span> 2,499</p>
                                         <div class="btn-explore">
                                             Explore now <i class='bx bx-right-arrow-alt'></i>
                                         </div>
@@ -498,7 +498,7 @@
                                         <div class="promo-info">
                                             <div class="title">Thailand</div>
 
-                                            <p>Starts AED 1,499</p>
+                                            <p>Starts <span class="dirham">D</span> 1,499</p>
                                             <div class="btn-explore">
                                                 Explore now <i class='bx bx-right-arrow-alt'></i>
                                             </div>
@@ -550,7 +550,7 @@
                                 class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
                                 <div>
                                     <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5">AED 1,850</span>
+                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 1,850</span>
                                 </div>
                                 <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                             </div>
@@ -584,7 +584,7 @@
                                 class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
                                 <div>
                                     <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5">AED 3,200</span>
+                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 3,200</span>
                                 </div>
                                 <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                             </div>
@@ -617,7 +617,7 @@
                                 class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
                                 <div>
                                     <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5">AED 1,650</span>
+                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 1,650</span>
                                 </div>
                                 <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                             </div>
@@ -650,7 +650,7 @@
                                 class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
                                 <div>
                                     <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5">AED 1,100</span>
+                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 1,100</span>
                                 </div>
                                 <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                             </div>
@@ -690,8 +690,8 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through">AED 2,500</small>
-                                    <div class="hotel-price-tag">AED 1,999 <small class="text-muted fw-normal">/ night</small>
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 2,500</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 1,999 <small class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
@@ -716,8 +716,8 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through">AED 4,500</small>
-                                    <div class="hotel-price-tag">AED 3,800 <small class="text-muted fw-normal">/ night</small>
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 4,500</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 3,800 <small class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>
@@ -742,8 +742,8 @@
 
                             <div class="d-flex justify-content-between align-items-end border-top pt-3">
                                 <div>
-                                    <small class="text-muted text-decoration-line-through">AED 1,200</small>
-                                    <div class="hotel-price-tag">AED 850 <small class="text-muted fw-normal">/ night</small>
+                                    <small class="text-muted text-decoration-line-through"><span class="dirham">D</span> 1,200</small>
+                                    <div class="hotel-price-tag"><span class="dirham">D</span> 850 <small class="text-muted fw-normal">/ night</small>
                                     </div>
                                 </div>
                                 <div class="btn btn-sm btn-book rounded-pill"><i class='bx bx-chevron-right'></i></div>

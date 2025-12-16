@@ -140,7 +140,7 @@
                                 </div>
 
                                 <div class="dsc-price">
-                                    AED 645
+                                    <span class="dirham">D</span> 645
                                 </div>
 
                             </div>
@@ -153,17 +153,17 @@
                                     <div>
                                         <h6>Activities <i class='bx bx-x'></i> 1</h6>
                                     </div>
-                                    <span class='fw-bold'>AED 168.00</span>
+                                    <span class='fw-bold'><span class="dirham">D</span> 168.00</span>
                                 </div>
 
                                 <div class="mt-3">
                                     <div class="summary-row">
                                         <span>All Taxes</span>
-                                        <span>AED 0.00</span>
+                                        <span><span class="dirham">D</span> 0.00</span>
                                     </div>
                                     <div class="summary-row total">
                                         <span>Total Payable</span>
-                                        <span style="color: var(--color-primary)">AED 468.00</span>
+                                        <span style="color: var(--color-primary)"><span class="dirham">D</span> 468.00</span>
                                     </div>
                                 </div>
 

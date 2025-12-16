@@ -54,7 +54,7 @@
                                 class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
                                 <div>
                                     <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5">AED 1,850</span>
+                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 1,850</span>
                                 </div>
                                 <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                             </div>
@@ -88,7 +88,7 @@
                                 class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
                                 <div>
                                     <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5">AED 3,200</span>
+                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 3,200</span>
                                 </div>
                                 <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                             </div>
@@ -121,7 +121,7 @@
                                 class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
                                 <div>
                                     <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5">AED 1,650</span>
+                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 1,650</span>
                                 </div>
                                 <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                             </div>
@@ -154,7 +154,7 @@
                                 class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
                                 <div>
                                     <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5">AED 1,100</span>
+                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 1,100</span>
                                 </div>
                                 <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                             </div>
@@ -187,7 +187,7 @@
                                 class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
                                 <div>
                                     <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5">AED 3,200</span>
+                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 3,200</span>
                                 </div>
                                 <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                             </div>
