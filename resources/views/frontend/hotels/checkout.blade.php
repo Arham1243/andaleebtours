@@ -50,7 +50,9 @@
                                                     data-price="472.56" data-option-id="94" data-extra-type-id="2"
                                                     data-extra-id="71" required data-required='true'>
                                                 <label class="transfers-item__box" for="transfer-1">
-                                                    <p style="font-weight: 500;"class="content text-danger text-center mb-1">Selection Required
+                                                    <p
+                                                        style="font-weight: 500;"class="content text-danger text-center mb-1">
+                                                        Selection Required
                                                     </p>
                                                     <div class="transfer-header">
                                                         <i class='bx bxs-check-circle'></i>
@@ -406,10 +408,13 @@
                             <div class="card-title">Transfers / Extras
                             </div>
 
-                            <div class="order-item-mini">
+                            <div class="order-item-mini" id="extras-summary-item" style="display: none;">
                                 <div>
-                                    <h6>Return Speedboat Transfer (Shared, from Velana International Airport, MLE) <i
-                                            class='bx bx-x'></i> AED 472.56</h6>
+                                    <h6>
+                                        <span id="extras-pkg-title">pkg title here</span>
+                                        <i class='bx bx-x'></i> AED
+                                        <span id="extras-pkg-amount">amount here</span>
+                                    </h6>
                                 </div>
                             </div>
 
@@ -417,26 +422,9 @@
                                 <div class="summary-row total">
                                     <span>Total</span>
                                     <span style="color: var(--color-primary)"><span class="dirham">D</span>
-                                        1540.74</span>
+                                        <span id="extras-total-amount">0.00</span></span>
                                 </div>
                             </div>
-
-                            {{-- <div class="mt-2">
-                                <span class="text-muted small">
-                                    Your card will be charged in AED
-                                </span>
-
-                                <button type="submit" class="btn-primary-custom mt-2">
-                                    Pay Now <i class="bx bx-lock-alt"></i>
-                                </button>
-                            </div> --}}
-
-                            {{-- <div class="text-center mt-3">
-                                <small
-                                    class="text-muted secure-checkout d-flex align-items-center gap-1 justify-content-center"><i
-                                        class="bx bx-check-shield"></i>Secure
-                                    Checkout</small>
-                            </div> --}}
                         </div>
                         <div class="modern-card">
 
@@ -450,65 +438,47 @@
                             <div class="mt-3">
                                 <div class="summary-row">
                                     <span>Extras total</span>
-                                    <span><span class="dirham">D</span> 472.56</span>
+                                    <span><span class="dirham">D</span> <span id="summary-extras-total">0.00</span></span>
                                 </div>
                                 <div class="summary-row total">
-                                    <span>Total price</span>
+                                    <span>Total Price</span>
                                     <span style="color: var(--color-primary)"><span class="dirham">D</span>
-                                        1540.74</span>
+                                        <span id="summary-net-total">1068.18</span></span>
                                 </div>
                             </div>
-
-                            {{-- <div class="mt-2">
-                                <span class="text-muted small">
-                                    Your card will be charged in AED
-                                </span>
-
-                                <button type="submit" class="btn-primary-custom mt-2">
-                                    Pay Now <i class="bx bx-lock-alt"></i>
-                                </button>
-                            </div> --}}
-
-                            {{-- <div class="text-center mt-3">
-                                <small
-                                    class="text-muted secure-checkout d-flex align-items-center gap-1 justify-content-center"><i
-                                        class="bx bx-check-shield"></i>Secure
-                                    Checkout</small>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </section>
-
-    <div class="continue-bar">
-        <div class="container">
-            <div class="continue-bar-padding">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-12 col-md-6">
-                        <div class="details-wrapper">
-                            <div class="details">
-                                <div class="total">Total</div>
-                                <div><span class="dirham">D</span><span class="total-price"
-                                        id="total-room-price">0.00</span>
+    @if ($is_extras)
+        <div class="continue-bar">
+            <div class="container">
+                <div class="continue-bar-padding">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-12 col-md-6">
+                            <div class="details-wrapper">
+                                <div class="details">
+                                    <div class="total">Total</div>
+                                    <div><span class="dirham">D</span><span class="total-price"
+                                            id="total-price">1068.18</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="details-btn-wrapper">
-                            <a id="continueBtn"
-                                href="{{ route('frontend.hotels.checkout') . '?' . http_build_query(request()->query()) }}"
-                                class="btn-primary-custom">
-                                Continue
-                            </a>
+                        <div class="col-12 col-md-6">
+                            <div class="details-btn-wrapper">
+                                <button type="button" id="continue-btn" class="btn-primary-custom">
+                                    Continue
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <div class="custom-popup-wrapper" data-info-popup-wrapper="Privacy Policy">
         <div class="custom-popup" data-info-popup>
@@ -674,6 +644,92 @@
                     popupWrapper.classList.remove("open");
                 }
             });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const roomsTotal = 1068.18;
+            const transferRadios = document.querySelectorAll('.transfers-item__radio');
+
+            transferRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        const packageTitle = this.value;
+                        const packagePrice = parseFloat(this.getAttribute('data-price'));
+
+                        const extrasSummaryItem = document.getElementById('extras-summary-item');
+                        const extrasPkgTitle = document.getElementById('extras-pkg-title');
+                        const extrasPkgAmount = document.getElementById('extras-pkg-amount');
+                        const extrasTotalAmount = document.getElementById('extras-total-amount');
+                        const summaryExtrasTotal = document.getElementById('summary-extras-total');
+                        const summaryNetTotal = document.getElementById('summary-net-total');
+                        const continueBarTotal = document.getElementById('total-price');
+
+                        extrasPkgTitle.textContent = packageTitle;
+                        extrasPkgAmount.textContent = packagePrice.toFixed(2);
+                        extrasTotalAmount.textContent = packagePrice.toFixed(2);
+                        extrasSummaryItem.style.display = 'block';
+
+                        summaryExtrasTotal.textContent = packagePrice.toFixed(2);
+
+                        const netTotal = roomsTotal + packagePrice;
+                        summaryNetTotal.textContent = netTotal.toFixed(2);
+                        continueBarTotal.textContent = netTotal.toFixed(2);
+                    }
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const continueBtn = document.getElementById('continue-btn');
+            const extrasSection = document.getElementById('extras');
+            const guestInfoSection = document.getElementById('guest-info');
+            const continueBar = document.querySelector('.continue-bar');
+
+            if (continueBtn && extrasSection) {
+                continueBtn.addEventListener('click', function() {
+                    if (extrasSection.classList.contains('d-block')) {
+                        let isValid = true;
+
+                        const transferRadio = document.querySelector('input[name="extras-item"]:checked');
+                        if (!transferRadio) {
+                            isValid = false;
+                            showMessage("Please select a transfer package before continuing.", "error");
+                            return;
+                        }
+
+                        const requiredFields = extrasSection.querySelectorAll('[required]');
+                        requiredFields.forEach(field => {
+                            if (field.type === 'radio') {
+                                const radioGroup = extrasSection.querySelectorAll(
+                                    `input[name="${field.name}"]`);
+                                const isChecked = Array.from(radioGroup).some(radio => radio
+                                    .checked);
+                                if (!isChecked) {
+                                    isValid = false;
+                                }
+                            } else if (!field.value.trim()) {
+                                isValid = false;
+                            }
+                        });
+
+                        if (!isValid) {
+                            showMessage("Please fill all required fields before continuing.", "error");
+                            return;
+                        }
+
+                        extrasSection.classList.remove('d-block');
+                        extrasSection.classList.add('d-none');
+                        guestInfoSection.classList.remove('d-none');
+                        guestInfoSection.classList.add('d-block');
+                        continueBar.style.display = 'none';
+
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
         });
     </script>
 @endpush
