@@ -10,7 +10,7 @@
                         <!-- Error Icon -->
                         <div>
                             <div class="status-icon-wrapper error">
-                                <i class='bx bx-error-circle'></i>
+                                <i class='bx bxs-error-circle'></i>
                             </div>
                         </div>
 

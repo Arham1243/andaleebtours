@@ -10,7 +10,7 @@
                         <!-- Success Icon -->
                         <div>
                             <div class="status-icon-wrapper success">
-                                <i class='bx bx-check-circle'></i>
+                                <i class='bx bxs-check-circle'></i>
                             </div>
                         </div>
 
