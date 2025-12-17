@@ -735,7 +735,7 @@
             const selectedRadio = document.querySelector('input[name="room_selection"]:checked');
             if (!selectedRadio) {
                 e.preventDefault();
-                showMessage("", "error");
+                showMessage("Please select a room before continuing.", "error");
                 
                 // Activate the Rooms tab
                 const roomsTab = document.getElementById('pills-profile-tab');
