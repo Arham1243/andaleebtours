@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\TravelInsuranceController;
 use App\Http\Controllers\Frontend\HotelController;
 use App\Http\Controllers\Frontend\FlightController;
 use App\Http\Controllers\Frontend\PackageController;
+use App\Http\Controllers\Frontend\Auth\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
@@ -34,7 +35,7 @@ Route::name('frontend.')->group(function () {
     Route::prefix('tour-category')->name('tour-category.')->group(function () {
         Route::get('/', [TourCategoryController::class, 'index'])->name('index');
     });
-    
+
     Route::prefix('packages')->name('packages.')->group(function () {
         Route::get('/', [PackageController::class, 'index'])->name('index');
         Route::get('/category', [PackageController::class, 'category'])->name('category');
@@ -57,4 +58,8 @@ Route::name('frontend.')->group(function () {
     Route::prefix('flights')->name('flights.')->group(function () {
         Route::get('/', [FlightController::class, 'index'])->name('index');
     });
+
+
+    Route::get('/auth/redirect/{social}', [SocialiteController::class, 'redirectToProvider'])->name('socialite.redirect');
+    Route::get('/auth/callback/{social}', [SocialiteController::class, 'handleProviderCallback'])->name('socialite.callback');
 });

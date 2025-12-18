@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
+            $table->string('social_id')->nullable();
+            $table->string('auth_provider')->nullable();
             $table->rememberToken();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();

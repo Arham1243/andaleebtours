@@ -18,7 +18,8 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">First Name</label>
-                                        <input type="text" value="{{ old('first_name') }}" name="first_name" class="custom-input" required>
+                                        <input type="text" value="{{ old('first_name') }}" name="first_name"
+                                            class="custom-input" required>
                                         @error('first_name')
                                             <span class="text-danger validation-error">{{ $message }}</span>
                                         @enderror
@@ -27,7 +28,8 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Last Name</label>
-                                        <input type="text" value="{{ old('last_name') }}" name="last_name" class="custom-input" required>
+                                        <input type="text" value="{{ old('last_name') }}" name="last_name"
+                                            class="custom-input" required>
                                         @error('last_name')
                                             <span class="text-danger validation-error">{{ $message }}</span>
                                         @enderror
@@ -38,7 +40,8 @@
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label class="form-label">Email Address</label>
-                                <input type="email" value="{{ old('email') }}" name="email" class="custom-input" required>
+                                <input type="email" value="{{ old('email') }}" name="email" class="custom-input"
+                                    required>
                                 @error('email')
                                     <span class="text-danger validation-error">{{ $message }}</span>
                                 @enderror
@@ -69,10 +72,10 @@
                         </div>
 
                         <!-- Google Button -->
-                        <button class="btn-google">
+                        <a href="{{ route('frontend.socialite.redirect', 'google') }}" class="btn-google">
                             <img src="{{ asset('frontend/assets/images/google.svg') }}" alt="Google Logo">
                             Continue with Google
-                        </button>
+                        </a>
 
                         <!-- Footer -->
                         <div class="auth-footer">

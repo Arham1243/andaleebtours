@@ -15,7 +15,8 @@
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label class="form-label">Email Address</label>
-                                <input type="email" name="email" class="custom-input" required value="{{ old('email') }}">
+                                <input type="email" name="email" class="custom-input" required
+                                    value="{{ old('email') }}">
                                 @error('email')
                                     <span class="text-danger validation-error">{{ $message }}</span>
                                 @enderror
@@ -57,10 +58,10 @@
                         </div>
 
                         <!-- Google Button -->
-                        <button class="btn-google">
+                        <a href="{{ route('frontend.socialite.redirect', 'google') }}" class="btn-google">
                             <img src="{{ asset('frontend/assets/images/google.svg') }}" alt="Google Logo">
                             Continue with Google
-                        </button>
+                        </a>
 
                         <!-- Footer -->
                         <div class="auth-footer">

@@ -31,14 +31,25 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users|max:255',
+            'email' => 'required|email|max:255',
             'password' => 'required|string|min:8',
         ]);
+
+        $existingUser = User::where('email', $validatedData['email'])->first();
+
+        if ($existingUser) {
+            if ($existingUser->auth_provider === 'google') {
+                return redirect()->back()->with('notify_error', 'This email is registered via Google. Please continue with Google.');
+            } else {
+                return redirect()->back()->with('notify_error', 'The email has already been taken.');
+            }
+        }
 
         $user = User::create([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
+            'auth_provider' => 'local',
             'password' => Hash::make($validatedData['password']),
         ]);
 
@@ -58,6 +69,15 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
+
+        // Check if user exists and is Google-authenticated
+        $existingUser = User::where('email', $request->email)->first();
+
+        if ($existingUser && $existingUser->auth_provider === 'google') {
+            return back()
+                ->withInput()
+                ->with('notify_error', 'This email is registered via Google. Please continue with Google.');
+        }
 
         $remember = $request->boolean('remember');
 
