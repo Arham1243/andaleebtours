@@ -25,6 +25,9 @@
                                 @error('password')
                                     <span class="text-danger validation-error">{{ $message }}</span>
                                 @enderror
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Confirm Password Field -->
