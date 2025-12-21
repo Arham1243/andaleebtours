@@ -24,16 +24,15 @@
                                     <div class="row">
                                         <div class="col-md-12 mb-4">
                                             <div class="form-fields">
-                                                <label class="title">Current Password<span
-                                                        class="text-danger">*</span></label>
+                                                <label class="title">Password</label>
                                                 <div class="passwood-icon-wrapper position-relative">
-                                                    <input type="password" id="current_password" name="current_password"
+                                                    <input type="password" id="password" name="password"
                                                         class="field" required="">
-                                                    <span class="icon" data-target="current_password"
+                                                    <span class="icon" data-target="password"
                                                         class="toggle-password" onclick="togglePassword(event)"><i
                                                             class='bx bxs-show'></i></span>
                                                 </div>
-                                                @error('current_password')
+                                                @error('password')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -43,17 +42,17 @@
                                                 <label class="title">New Password<span class="text-danger">*</span>
                                                 </label>
                                                 <div class="passwood-icon-wrapper position-relative">
-                                                    <input type="password" id="new_password" name="new_password"
+                                                    <input type="password" id="password_confirmation" name="password_confirmation"
                                                         class="field" required="">
-                                                    <span class="icon" data-target="new_password" class="toggle-password"
+                                                    <span class="icon" data-target="password_confirmation" class="toggle-password"
                                                         onclick="togglePassword(event)"><i class='bx bxs-show'></i></span>
                                                 </div>
-                                                @error('new_password')
+                                                @error('password_confirmation')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <button class="themeBtn ms-auto mt-4">UpdatePassword</button>
+                                        <button class="themeBtn ms-auto mt-4">Update Password</button>
                                     </div>
                                 </div>
                             </div>

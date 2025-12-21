@@ -52,18 +52,20 @@ class ProfileSettingsController extends Controller
     public function updatePassword(Request $request)
     {
         $validatedData = $request->validate([
-            'current_password' => ['required', 'string', 'min:8'],
-            'new_password' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        if (! Hash::check($validatedData['current_password'], Auth::user()->password)) {
-            return redirect()->back()->withErrors([
-                'current_password' => 'Current password is incorrect.',
-            ])->withInput();
+        // Check if user exists and is Google-authenticated
+        $existingUser = Auth::user();
+
+        if ($existingUser && $existingUser->auth_provider === 'google') {
+            return back()
+                ->withInput()
+                ->with('notify_error', 'This account uses Google sign-in. Password changes are managed by Google.');
         }
 
         Auth::user()->update([
-            'password' => bcrypt($validatedData['new_password']),
+            'password' => bcrypt($validatedData['password']),
         ]);
 
         return redirect()->back()->with('notify_success', 'Password updated successfully');

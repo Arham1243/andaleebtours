@@ -1107,10 +1107,6 @@ form .text-danger {
     display: flex;
 }
 
-.form-fields .title {
-    color: red;
-}
-
 .form-fields .title--sm {
     opacity: 0.85;
     font-size: 1.2rem;

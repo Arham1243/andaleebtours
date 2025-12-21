@@ -28,15 +28,21 @@
                         @endif
                     </div>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a href="{{ route('user.profile.changePassword') }}" class="dropdown-item">Change
-                                Password</a>
-                        </li>
+                        @if (auth()->user()->auth_provider !== 'google')
+                            <li>
+                                <a href="{{ route('user.profile.changePassword') }}" class="dropdown-item">
+                                    Change Password
+                                </a>
+                            </li>
+                        @endif
+
                         <li>
                             <form action="{{ route('user.logout') }}" method="POST">
                                 @csrf
                                 <button onclick="return confirm('Are you sure you want to logout?')" type="submit"
-                                    class="dropdown-item">Logout</button>
+                                    class="dropdown-item">
+                                    Logout
+                                </button>
                             </form>
                         </li>
                     </ul>
