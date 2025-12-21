@@ -6,8 +6,7 @@
 
             <!-- Logo -->
             <a href="{{ route('frontend.index') }}" class="mh-logo">
-                <img src="https://andaleebtours.com/assets/uploads/logo/andaleeb_logo_200x58176314551092.webp"
-                    alt="Andaleeb Travel Agency" />
+                <img src="{{ asset('frontend/assets/images/logo.webp') }}" alt="Andaleeb Travel Agency" />
             </a>
 
             <!-- Navigation -->
