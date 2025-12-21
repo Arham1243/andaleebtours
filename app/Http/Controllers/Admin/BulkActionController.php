@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use App\Models\User;
 use App\Models\Newsletter;
 use Illuminate\Http\Request;

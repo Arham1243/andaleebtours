@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\ConfigController;
+use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\DBConsoleController;
 use App\Http\Controllers\Admin\EnvEditorController;
 use App\Http\Controllers\Admin\LogController;
@@ -41,12 +42,14 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('users', UserController::class);
     Route::get('users/change-status/{user}', [UserController::class, 'changeStatus'])->name('users.change-status');
-    
+
     Route::resource('newsletters', NewsletterController::class);
     Route::get('newsletters/change-status/{newsletter}', [NewsletterController::class, 'changeStatus'])->name('newsletters.change-status');
 
+    Route::resource('inquiries', InquiryController::class);
+
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
     Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');
-    Route::get('contact-social', [ConfigController::class, 'contactSocial'])->name('settings.details');
-    Route::post('contact-social', [ConfigController::class, 'saveSocialInfo'])->name('settings.details');
+    Route::get('details', [ConfigController::class, 'details'])->name('settings.details');
+    Route::post('details', [ConfigController::class, 'saveDetails'])->name('settings.details');
 });

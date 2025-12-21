@@ -2,16 +2,18 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            <div class="custom-sec">
-                <div class="custom-sec__header">
-                    <div class="section-content">
-                        <h3 class="heading">{{ isset($title) ? $title : '' }}</h3>
+            <form action="{{ route('admin.settings.details') }}" method="POST">
+                <div class="custom-sec">
+                    <div class="custom-sec__header mt-4">
+                        <div class="section-content">
+                            <h3 class="heading">{{ isset($title) ? $title : '' }}</h3>
+                        </div>
+                        <button class="themeBtn">Save Changes</button>
                     </div>
-                </div>
-                <form action="{{ route('admin.settings.details') }}" method="POST">
+
                     <div class="form-box">
                         <div class="form-box__header">
-                            <div class="title">Password</div>
+                            <div class="title">Social Media</div>
                         </div>
                         <div class="form-box__body">
                             @csrf
@@ -43,9 +45,31 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 my-3">
-                                    <hr>
+                                <div class="col-lg-6 col-md-6 col-12 mt-3">
+                                    <div class="form-fields">
+                                        <label class="title">LinkedIn</label>
+                                        <input type="url" name="LINKEDIN" class="field"
+                                            value="{{ $config['LINKEDIN'] ?? '' }}" placeholder="Enter LinkedIn Address">
+                                    </div>
                                 </div>
+
+                                <div class="col-lg-6 col-md-6 col-12 mt-3">
+                                    <div class="form-fields">
+                                        <label class="title">YouTube</label>
+                                        <input type="url" name="YOUTUBE" class="field"
+                                            value="{{ $config['YOUTUBE'] ?? '' }}" placeholder="Enter YouTube Channel URL">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-box">
+                        <div class="form-box__header">
+                            <div class="title">Contact Information</div>
+                        </div>
+                        <div class="form-box__body">
+                            <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12 mt-3">
                                     <div class="form-fields">
                                         <label class="title">Phone</label>
@@ -79,16 +103,53 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12 mt-3">
+                                <div class="col-lg-6 col-md-6 col-12 mt-3">
                                     <div class="form-fields">
-                                        <button class="themeBtn themeBtn--center">Save Changes</button>
+                                        <label class="title">Admin Email</label>
+                                        <div class="relative-div">
+                                            <input type="email" name="ADMINEMAIL" class="field"
+                                                value="{{ $config['ADMINEMAIL'] ?? '' }}"
+                                                placeholder="Enter Admin Email Address" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-12 mt-3">
+                                    <div class="form-fields">
+                                        <label class="title">Address</label>
+                                        <textarea name="ADDRESS" class="field" rows="3" placeholder="Enter Company Address" required>{{ $config['ADDRESS'] ?? '' }}</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
+
+                    <div class="form-box">
+                        <div class="form-box__header">
+                            <div class="title">Footer Content</div>
+                        </div>
+                        <div class="form-box__body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-12 mt-3">
+                                    <div class="form-fields">
+                                        <label class="title">Copyright Text</label>
+                                        <input type="text" name="COPYRIGHT" class="field"
+                                            value="{{ $config['COPYRIGHT'] ?? '' }}"
+                                            placeholder="e.g., © 2025 Andaleeb Travel Agency. All Rights Reserved.">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-12 mt-3">
+                                    <div class="form-fields">
+                                        <label class="title">Disclaimer</label>
+                                        <textarea name="DISCLAIMER" class="field" rows="3" placeholder="Enter Footer Disclaimer">{{ $config['DISCLAIMER'] ?? '' }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

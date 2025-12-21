@@ -39,15 +39,15 @@ class ConfigController extends Controller
         return redirect()->back()->with('notify_success', 'Logo updated successfully!');
     }
 
-    public function contactSocial()
+    public function details()
     {
-        $title = 'Contact & Social Information';
+        $title = 'Update Details';
         $config = Config::pluck('config_value', 'config_key')->toArray();
 
-        return view('admin.site-settings.contact-social', compact('title', 'config'));
+        return view('admin.site-settings.details', compact('title', 'config'));
     }
 
-    public function saveSocialInfo(Request $request)
+    public function saveDetails(Request $request)
     {
         foreach ($request->all() as $field => $value) {
             Config::updateOrCreate(
@@ -56,6 +56,6 @@ class ConfigController extends Controller
             );
         }
 
-        return redirect()->back()->with('notify_success', 'Contact & Social information updated successfully!');
+        return redirect()->back()->with('notify_success', 'Details updated successfully!');
     }
 }

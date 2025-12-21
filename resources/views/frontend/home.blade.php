@@ -20,11 +20,7 @@
             </div>
         </div>
     </div>
-
-
-
-
-
+    
     <div class="global-search">
         <div class="container">
             <div id="pills-tab" role="tablist">

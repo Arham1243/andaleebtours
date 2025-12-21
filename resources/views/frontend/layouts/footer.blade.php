@@ -62,7 +62,7 @@
             <div class="row align-items-center">
                 <div class="col-md-7">
                     <div class="copyright-text">
-                        <span>&copy; {{ date('Y') }} Andaleeb Travel Agency. All Rights Reserved.
+                        <span>{{ $config['COPYRIGHT'] ?? '© ' . date('Y') . ' Andaleeb Travel Agency. All Rights Reserved.' }}
                         </span>
                         <div class="copyright-links">
                             <a href="{{ route('frontend.privacy-policy') }}">Privacy Policy</a>
@@ -74,19 +74,22 @@
 
                 <div class="col-md-5">
                     <div class="footer-social-icons">
-                        <a href="{{ $config['FACEBOOK'] ?? 'https://www.facebook.com/AndaleebTravelAgency' }}" target="_blank" class="social-link"><i
-                                class="bx bxl-facebook"></i></a>
-                        <a href="{{ $config['TWITTER'] ?? 'https://twitter.com/AndaleebTravels' }}" class="social-link"><i
-                                class="bx bxl-twitter"></i></a>
-                        <a href="{{ $config['INSTAGRAM'] ?? 'https://www.instagram.com/andaleeb_tours/' }}" class="social-link"><i
-                                class="bx bxl-instagram"></i></a>
+                        <a href="{{ $config['FACEBOOK'] ?? 'https://www.facebook.com/AndaleebTravelAgency' }}"
+                            target="_blank" class="social-link"><i class="bx bxl-facebook"></i></a>
+                        <a href="{{ $config['TWITTER'] ?? 'https://twitter.com/AndaleebTravels' }}"
+                            class="social-link"><i class="bx bxl-twitter"></i></a>
+                        <a href="{{ $config['INSTAGRAM'] ?? 'https://www.instagram.com/andaleeb_tours/' }}"
+                            class="social-link"><i class="bx bxl-instagram"></i></a>
+                        <a href="{{ $config['LINKEDIN'] ?? 'https://www.linkedin.com/company/andaleeb-travel-agency/' }}"
+                            class="social-link"><i class="bx bxl-linkedin"></i></a>
+                        <a href="{{ $config['YOUTUBE'] ?? 'https://www.youtube.com/@AndaleebTravelAgency' }}"
+                            class="social-link"><i class="bx bxl-youtube"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="footer-disclaimer">
-        Disclaimer: Andaleeb Travel Agency is a private travel agency and not
-        affiliated with any government body.
+        {{ $config['DISCLAIMER'] ?? 'Disclaimer: Andaleeb Travel Agency is a private travel agency and not affiliated with any government body.' }}
     </div>
 </footer>

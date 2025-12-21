@@ -9,7 +9,7 @@ abstract class Controller
 {
     public function __construct()
     {
-        $config = Config::all()->pluck('config_value', 'config_key')->toArray();
+        $config = Config::pluck('config_value', 'config_key')->toArray();
 
         View::share('config', $config);
     }

@@ -29,8 +29,7 @@
                             <div class="ms-3">
                                 <h6 class="fw-bold mb-1">Our Location</h6>
                                 <p class="text-muted mb-0">
-                                    Office# 18, Russia Cluster, Building V-05,<br>
-                                    International City, Dubai, U.A.E
+                                    {!! nl2br(e($config['ADDRESS'] ?? 'Office# 18, Russia Cluster, Building V-05,<br>International City, Dubai, U.A.E')) !!}
                                 </p>
                             </div>
                         </div>
@@ -41,8 +40,8 @@
                             </div>
                             <div class="ms-3">
                                 <h6 class="fw-bold mb-1">Phone Number</h6>
-                                <a href="tel:+97145766068"
-                                    class="text-decoration-none text-muted d-block hover-primary">+971 4 576 6068</a>
+                                <a href="tel:{{ $config['COMPANYPHONE'] ?? '+97145766068' }}"
+                                    class="text-decoration-none text-muted d-block hover-primary">{{ $config['COMPANYPHONE'] ?? '+971 4 576 6068' }}</a>
                             </div>
                         </div>
 
@@ -52,15 +51,15 @@
                             </div>
                             <div class="ms-3">
                                 <h6 class="fw-bold mb-1">Mobile / WhatsApp</h6>
-                                <a href="tel:+971525748986"
-                                    class="text-decoration-none text-muted d-block hover-primary">+971 52 574 8986</a>
+                                <a href="tel:{{ $config['WHATSAPP'] ?? '+971525748986' }}"
+                                    class="text-decoration-none text-muted d-block hover-primary">{{ $config['WHATSAPP'] ?? '+971 52 574 8986' }}</a>
                             </div>
                         </div>
 
                         <!-- Embedded Map -->
                         <div class="map-container mt-4 rounded-4 overflow-hidden shadow-sm border">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d7222.4261103518265!2d55.40064926256448!3d25.16228291056195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sOffice%23%2018%2C%20Russia%20Cluster%2C%20Building%20V-05%2C%20International%20City%2C%20Dubai%2C%20U.A.E!5e0!3m2!1sen!2s!4v1765587362201!5m2!1sen!2s"
+                                src="https://maps.google.com/maps?q={{ urlencode($config['ADDRESS'] ?? 'Office# 18, Russia Cluster, Building V-05, International City, Dubai, U.A.E') }}&amp;output=embed"
                                 width="100%" height="420"style="border:0;" allowfullscreen="" loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
@@ -73,14 +72,15 @@
                         <p class="text-muted mb-4 pb-1">Fill out the form below and our team will get back to you within 24
                             hours.</p>
 
-                        <form action="#" method="POST">
+                        <form action="{{ route('frontend.contact.submit') }}" method="POST">
+                            @csrf
                             <div class="row g-3">
                                 <!-- Name -->
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <label class="form-label fw-semibold small  text-muted">Full
                                             Name</label>
-                                        <input type="text" class="custom-input" required>
+                                        <input type="text" name="name" class="custom-input" value="{{ old('name') }}" required>
                                     </div>
                                 </div>
 
@@ -89,7 +89,7 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label fw-semibold small  text-muted">Phone
                                             Number</label>
-                                        <input type="tel" class="custom-input" required>
+                                        <input type="tel" name="phone" class="custom-input" value="{{ old('phone') }}" required>
                                     </div>
                                 </div>
 
@@ -98,7 +98,7 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label fw-semibold small  text-muted">Email
                                             Address</label>
-                                        <input type="email" class="custom-input" required>
+                                        <input type="email" name="email" class="custom-input" value="{{ old('email') }}" required>
                                     </div>
                                 </div>
 
@@ -107,7 +107,7 @@
                                     <div class="form-group mb-4">
                                         <label class="form-label fw-semibold small  text-muted">Your
                                             Message</label>
-                                        <textarea class="custom-input" rows="5" placeholder="Tell us about your travel plans..." required></textarea>
+                                        <textarea name="message" class="custom-input" rows="5" placeholder="Tell us about your travel plans..." required>{{ old('message') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12 mt-0">

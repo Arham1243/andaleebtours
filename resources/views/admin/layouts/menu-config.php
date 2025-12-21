@@ -17,7 +17,12 @@ return [
         'route' => route('admin.newsletters.index'),
     ],
     [
-        'title' => 'Site Settings',
+        'title' => 'Inquiries',
+        'icon' => 'bx bxs-message-dots',
+        'route' => route('admin.inquiries.index'),
+    ],
+    [
+        'title' => 'Layout',
         'icon' => 'bx bxs-cog',
         'submenu' => [
             [
@@ -26,7 +31,7 @@ return [
                 'route' => route('admin.settings.logo'),
             ],
             [
-                'title' => 'Contact & Socials',
+                'title' => 'Configuration',
                 'icon' => 'bx bxs-contact',
                 'route' => route('admin.settings.details'),
             ],
