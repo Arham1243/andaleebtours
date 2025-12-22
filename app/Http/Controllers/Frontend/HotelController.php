@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 
 class HotelController extends Controller
 {
     public function index()
     {
-        return view('frontend.hotels.index');
+        $banner = Banner::where('page', 'hotels-listing')->where('status', 'active')->first();
+        return view('frontend.hotels.index', compact('banner'));
     }
 
     public function search()

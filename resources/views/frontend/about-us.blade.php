@@ -1,12 +1,24 @@
 @extends('frontend.layouts.main')
 @section('content')
-    <!-- Page Header / Hero -->
-<section class="page-header py-5 d-flex align-items-center" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('frontend/assets/images/about-banner.jpeg') }}');">
-    <div class="container text-center text-white">
-        <h1 class="fw-bold display-4">ABOUT US</h1>
-        <p class="lead mb-0">Your trusted travel partner since 2021</p>
-    </div>
-</section>
+    @if(isset($banner) && $banner)
+    <section class="page-header py-5 d-flex align-items-center" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset($banner->image) }}');">
+        <div class="container text-center text-white">
+            <h1 class="fw-bold display-4">{{ $banner->heading ?? 'ABOUT US' }}</h1>
+            @if($banner->paragraph)
+                <p class="lead mb-0">{{ $banner->paragraph }}</p>
+            @else
+                <p class="lead mb-0">Your trusted travel partner since 2021</p>
+            @endif
+        </div>
+    </section>
+    @else
+    <section class="page-header py-5 d-flex align-items-center" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('frontend/assets/images/about-banner.jpeg') }}');">
+        <div class="container text-center text-white">
+            <h1 class="fw-bold display-4">ABOUT US</h1>
+            <p class="lead mb-0">Your trusted travel partner since 2021</p>
+        </div>
+    </section>
+    @endif
 
 <!-- Who We Are Section -->
 <section class="section-about py-5">

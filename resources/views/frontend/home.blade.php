@@ -1,5 +1,15 @@
 @extends('frontend.layouts.main')
 @section('content')
+    @if(isset($banner) && $banner)
+    <div class="banner-slider">
+        <div class="banner">
+            <div class="banner__img">
+                <img src="{{ asset($banner->image) }}" alt="{{ $banner->heading ?? 'Banner' }}"
+                    class="imgFluid">
+            </div>
+        </div>
+    </div>
+    @else
     <div class="banner-slider">
         <div class="banner">
             <div class="banner__img">
@@ -20,6 +30,7 @@
             </div>
         </div>
     </div>
+    @endif
     
     <div class="global-search">
         <div class="container">

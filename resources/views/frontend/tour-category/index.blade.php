@@ -1,5 +1,18 @@
 @extends('frontend.layouts.main')
 @section('content')
+    @if(isset($banner) && $banner)
+    <section class="page-header py-5 d-flex align-items-center"
+        style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset($banner->image) }}'); background-size: cover; background-position: center; height:288px;">
+        <div class="container text-center text-white">
+            <h1 class="fw-bold display-4">{{ $banner->heading ?? 'Garden & Parks' }}</h1>
+            @if($banner->paragraph)
+                <p class="lead fw-bold mb-0">{{ $banner->paragraph }}</p>
+            @else
+                <p class="lead fw-bold mb-0">Top Rated Tours</p>
+            @endif
+        </div>
+    </section>
+    @else
     <section class="page-header py-5 d-flex align-items-center"
         style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('frontend/assets/images/banners/4.jpg') }}'); background-size: cover; background-position: center; height:288px;">
         <div class="container text-center text-white">
@@ -7,6 +20,7 @@
             <p class="lead fw-bold mb-0">Top Rated Tours</p>
         </div>
     </section>
+    @endif
 
     <section class="bg-light py-5">
         <div class="container">

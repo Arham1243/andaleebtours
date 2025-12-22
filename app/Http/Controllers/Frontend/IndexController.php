@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Banner;
 use App\Models\Inquiry;
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
@@ -11,7 +12,8 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return view('frontend.home');
+        $banner = Banner::where('page', 'home')->where('status', 'active')->first();
+        return view('frontend.home', compact('banner'));
     }
     public function privacy_policy()
     {
@@ -27,11 +29,13 @@ class IndexController extends Controller
     }
     public function about_us()
     {
-        return view('frontend.about-us');
+        $banner = Banner::where('page', 'about-us')->where('status', 'active')->first();
+        return view('frontend.about-us', compact('banner'));
     }
     public function contact_us()
     {
-        return view('frontend.contact-us');
+        $banner = Banner::where('page', 'contact-us')->where('status', 'active')->first();
+        return view('frontend.contact-us', compact('banner'));
     }
     public function paymentSuccess()
     {

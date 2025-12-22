@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Contact;
 use App\Models\User;
 use App\Models\Newsletter;
@@ -30,6 +31,11 @@ class BulkActionController extends Controller
                 $modelClass = Newsletter::class;
                 $column = 'id';
                 $redirectRoute = 'admin.newsletters.index';
+                break;
+            case 'banners':
+                $modelClass = Banner::class;
+                $column = 'id';
+                $redirectRoute = 'admin.banners.index';
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');

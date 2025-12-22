@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\InquiryController;
@@ -47,6 +48,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('newsletters/change-status/{newsletter}', [NewsletterController::class, 'changeStatus'])->name('newsletters.change-status');
 
     Route::resource('inquiries', InquiryController::class);
+
+    Route::resource('banners', BannerController::class);
+    Route::get('banners/change-status/{banner}', [BannerController::class, 'changeStatus'])->name('banners.change-status');
 
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
     Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');

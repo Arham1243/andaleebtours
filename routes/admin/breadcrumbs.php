@@ -21,3 +21,18 @@ Breadcrumbs::for('admin.inquiries.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Inquiries', route('admin.inquiries.index'));
 });
+
+Breadcrumbs::for('admin.banners.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Banners', route('admin.banners.index'));
+});
+
+Breadcrumbs::for('admin.banners.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.banners.index');
+    $trail->push('Add New Banner', route('admin.banners.create'));
+});
+
+Breadcrumbs::for('admin.banners.edit', function (BreadcrumbTrail $trail, $banner) {
+    $trail->parent('admin.banners.index');
+    $trail->push('Edit Banner', route('admin.banners.edit', $banner));
+});

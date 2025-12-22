@@ -1,10 +1,21 @@
 @extends('frontend.layouts.main')
 @section('content')
+@if(isset($banner) && $banner)
+<section class="page-header py-5 d-flex align-items-center" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset($banner->image) }}');">
+    <div class="container text-center text-white">
+        <h1 class="fw-bold display-4">{{ $banner->heading ?? 'Package Details' }}</h1>
+        @if($banner->paragraph)
+            <p class="lead mb-0">{{ $banner->paragraph }}</p>
+        @endif
+    </div>
+</section>
+@else
 <section class="page-header py-5 d-flex align-items-center" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('frontend/assets/images/banners/5.jpg') }}');">
     <div class="container text-center text-white">
         <h1 class="fw-bold display-4">Package Details</h1>
     </div>
 </section>
+@endif
 
     <div class="tour-details py-2">
         <div class="container">

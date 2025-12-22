@@ -1,6 +1,18 @@
 @extends('frontend.layouts.main')
 @section('content')
-    <!-- Page Header -->
+    @if(isset($banner) && $banner)
+    <section class="page-header py-5 d-flex align-items-center"
+        style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset($banner->image) }}'); background-size: cover; background-position: center; height: 350px;">
+        <div class="container text-center text-white">
+            <h1 class="fw-bold display-4">{{ $banner->heading ?? 'Get in Touch' }}</h1>
+            @if($banner->paragraph)
+                <p class="lead mb-0 opacity-75">{{ $banner->paragraph }}</p>
+            @else
+                <p class="lead mb-0 opacity-75">We are here to help plan your next journey</p>
+            @endif
+        </div>
+    </section>
+    @else
     <section class="page-header py-5 d-flex align-items-center"
         style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset('frontend/assets/images/contact-banner.jpeg') }}'); background-size: cover; background-position: center; height: 350px;">
         <div class="container text-center text-white">
@@ -8,6 +20,7 @@
             <p class="lead mb-0 opacity-75">We are here to help plan your next journey</p>
         </div>
     </section>
+    @endif
 
     <!-- Contact Content -->
     <section class="section-contact py-5 bg-light">

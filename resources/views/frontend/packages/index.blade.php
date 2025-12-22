@@ -1,8 +1,24 @@
 @extends('frontend.layouts.main')
 @section('content')
+    @if(isset($banner) && $banner)
+    <section class="page-header py-5 d-flex align-items-center"
+        style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset($banner->image) }}'); background-size: cover; background-position: center; height:288px;">
+        @if($banner->heading || $banner->paragraph)
+        <div class="container text-center text-white">
+            @if($banner->heading)
+                <h1 class="fw-bold display-4">{{ $banner->heading }}</h1>
+            @endif
+            @if($banner->paragraph)
+                <p class="lead mb-0">{{ $banner->paragraph }}</p>
+            @endif
+        </div>
+        @endif
+    </section>
+    @else
     <section class="page-header py-5 d-flex align-items-center"
         style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('frontend/assets/images/banners/2.jpg') }}'); background-size: cover; background-position: center; height:288px;">
     </section>
+    @endif
 
 
     <section class="activities mar-y">

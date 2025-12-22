@@ -22,6 +22,11 @@ return [
         'route' => route('admin.inquiries.index'),
     ],
     [
+        'title' => 'Banners',
+        'icon' => 'bx bxs-image-alt',
+        'route' => route('admin.banners.index'),
+    ],
+    [
         'title' => 'Layout',
         'icon' => 'bx bxs-cog',
         'submenu' => [

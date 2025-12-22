@@ -1,7 +1,12 @@
 @extends('frontend.layouts.main')
 @section('content')
+    @if(isset($banner) && $banner)
+    <section class="page-header py-5 d-flex align-items-center"
+        style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset($banner->image) }}'); background-size: cover; background-position: center; height:288px;">
+    @else
     <section class="page-header py-5 d-flex align-items-center"
         style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('frontend/assets/images/banners/1.jpg') }}'); background-size: cover; background-position: center; height:288px;">
+    @endif
         <div class="container">
             <div class="row justify-content-center mt-5 pt-5">
                 <div class="col-md-6">
