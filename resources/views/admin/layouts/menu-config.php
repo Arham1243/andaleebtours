@@ -27,6 +27,22 @@ return [
         'route' => route('admin.banners.index'),
     ],
     [
+        'title' => 'Packages',
+        'icon' => 'bx bxs-package',
+        'submenu' => [
+            [
+                'title' => 'Package Categories',
+                'icon' => 'bx bxs-category',
+                'route' => route('admin.package-categories.index'),
+            ],
+            [
+                'title' => 'Package Inquiries',
+                'icon' => 'bx bxs-message-dots',
+                'route' => route('admin.package-inquiries.index'),
+            ],
+        ],
+    ],
+    [
         'title' => 'Layout',
         'icon' => 'bx bxs-cog',
         'submenu' => [

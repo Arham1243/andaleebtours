@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\InquiryController;
+use App\Http\Controllers\Admin\PackageCategoryController;
+use App\Http\Controllers\Admin\PackageInquiryController;
 use App\Http\Controllers\Admin\DBConsoleController;
 use App\Http\Controllers\Admin\EnvEditorController;
 use App\Http\Controllers\Admin\LogController;
@@ -51,6 +53,11 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('banners', BannerController::class);
     Route::get('banners/change-status/{banner}', [BannerController::class, 'changeStatus'])->name('banners.change-status');
+
+    Route::resource('package-categories', PackageCategoryController::class);
+    Route::get('package-categories/change-status/{packageCategory}', [PackageCategoryController::class, 'changeStatus'])->name('package-categories.change-status');
+
+    Route::resource('package-inquiries', PackageInquiryController::class)->only(['index', 'show', 'destroy']);
 
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
     Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');

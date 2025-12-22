@@ -36,3 +36,28 @@ Breadcrumbs::for('admin.banners.edit', function (BreadcrumbTrail $trail, $banner
     $trail->parent('admin.banners.index');
     $trail->push('Edit Banner', route('admin.banners.edit', $banner));
 });
+
+Breadcrumbs::for('admin.package-categories.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Package Categories', route('admin.package-categories.index'));
+});
+
+Breadcrumbs::for('admin.package-categories.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.package-categories.index');
+    $trail->push('Add New Package Category', route('admin.package-categories.create'));
+});
+
+Breadcrumbs::for('admin.package-categories.edit', function (BreadcrumbTrail $trail, $packageCategory) {
+    $trail->parent('admin.package-categories.index');
+    $trail->push('Edit Package Category', route('admin.package-categories.edit', $packageCategory));
+});
+
+Breadcrumbs::for('admin.package-inquiries.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Package Inquiries', route('admin.package-inquiries.index'));
+});
+
+Breadcrumbs::for('admin.package-inquiries.show', function (BreadcrumbTrail $trail, $packageInquiry) {
+    $trail->parent('admin.package-inquiries.index');
+    $trail->push('Inquiry Details', route('admin.package-inquiries.show', $packageInquiry));
+});

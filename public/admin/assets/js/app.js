@@ -317,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const editors = initializeEditors(form);
 
         form.addEventListener("submit", function (event) {
+
             const requiredEditors = editors.filter((editor) => {
                 return editor.sourceElement.dataset.required !== undefined;
             });

@@ -1,23 +1,23 @@
 @extends('frontend.layouts.main')
 @section('content')
-    @if(isset($banner) && $banner)
-    <section class="page-header py-5 d-flex align-items-center"
-        style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset($banner->image) }}'); background-size: cover; background-position: center; height:288px;">
-        @if($banner->heading || $banner->paragraph)
-        <div class="container text-center text-white">
-            @if($banner->heading)
-                <h1 class="fw-bold display-4">{{ $banner->heading }}</h1>
+    @if (isset($banner) && $banner)
+        <section class="page-header py-5 d-flex align-items-center"
+            style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset($banner->image) }}'); background-size: cover; background-position: center; height:288px;">
+            @if ($banner->heading || $banner->paragraph)
+                <div class="container text-center text-white">
+                    @if ($banner->heading)
+                        <h1 class="fw-bold display-4">{{ $banner->heading }}</h1>
+                    @endif
+                    @if ($banner->paragraph)
+                        <p class="lead mb-0">{{ $banner->paragraph }}</p>
+                    @endif
+                </div>
             @endif
-            @if($banner->paragraph)
-                <p class="lead mb-0">{{ $banner->paragraph }}</p>
-            @endif
-        </div>
-        @endif
-    </section>
+        </section>
     @else
-    <section class="page-header py-5 d-flex align-items-center"
-        style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('frontend/assets/images/banners/2.jpg') }}'); background-size: cover; background-position: center; height:288px;">
-    </section>
+        <section class="page-header py-5 d-flex align-items-center"
+            style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ asset('frontend/assets/images/banners/2.jpg') }}'); background-size: cover; background-position: center; height:288px;">
+        </section>
     @endif
 
 
@@ -30,74 +30,29 @@
                 </p>
             </div>
             <div class="row">
-                <div class="col-md-3">
-                    <a href="#" class="category-card category-card--lg">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
+                @forelse($categories as $category)
+                    <div class="col-md-3">
+                        <a href="{{ route('frontend.packages.category', $category->slug) }}"
+                            class="category-card category-card--lg">
+                            <div class="category-card__img">
+                                <img data-src="{{ asset($category->image) }}" alt="{{ $category->name }}"
+                                    class="imgFluid lazyload">
+                            </div>
+                            <div class="category-card__content">
+                                <div class="title line-clamp-1">{{ $category->name }}</div>
+                                @if ($category->short_description)
+                                    <div class="desc line-clamp-3">{{ $category->short_description }}</div>
+                                @endif
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <p class="text-muted">No package categories available at the moment.</p>
                         </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
-                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
-                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
-                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
-                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
-                                souvenirs!</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="category-card category-card--lg">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
-                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
-                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
-                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
-                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
-                                souvenirs!</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="category-card category-card--lg">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
-                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
-                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
-                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
-                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
-                                souvenirs!</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="category-card category-card--lg">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-3">Welcome to Bali, the Island of the Gods! Relax at your luxurious
-                                resort before exploring Ubud, Kintamani, Bali Safari & Marine Park, and the iconic Tanah Lot
-                                Temple. Enjoy thrilling adventures like water sports at Tanjung Benoa, white-water rafting
-                                on Ayung River, and the Bali Swing at Aloha Ubud. Experience a magical sunset dinner cruise
-                                and a mesmerizing Kecak Dance at Uluwatu Temple. Depart with unforgettable memories and
-                                souvenirs!</div>
-                        </div>
-                    </a>
-                </div>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Contact;
+use App\Models\PackageCategory;
+use App\Models\PackageInquiry;
 use App\Models\User;
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
@@ -36,6 +38,16 @@ class BulkActionController extends Controller
                 $modelClass = Banner::class;
                 $column = 'id';
                 $redirectRoute = 'admin.banners.index';
+                break;
+            case 'package-categories':
+                $modelClass = PackageCategory::class;
+                $column = 'id';
+                $redirectRoute = 'admin.package-categories.index';
+                break;
+            case 'package-inquiries':
+                $modelClass = PackageInquiry::class;
+                $column = 'id';
+                $redirectRoute = 'admin.package-inquiries.index';
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');
