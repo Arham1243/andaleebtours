@@ -31,12 +31,12 @@ return [
         'icon' => 'bx bxs-package',
         'submenu' => [
             [
-                'title' => 'Package Categories',
+                'title' => 'Categories',
                 'icon' => 'bx bxs-category',
                 'route' => route('admin.package-categories.index'),
             ],
             [
-                'title' => 'Package Inquiries',
+                'title' => 'Inquiries',
                 'icon' => 'bx bxs-message-dots',
                 'route' => route('admin.package-inquiries.index'),
             ],

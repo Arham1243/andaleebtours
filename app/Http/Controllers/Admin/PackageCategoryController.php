@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PackageCategory;
 use App\Traits\UploadImageTrait;
+use App\Traits\GenerateSlugTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class PackageCategoryController extends Controller
 {
-    use UploadImageTrait;
+    use UploadImageTrait, GenerateSlugTrait;
 
     public function index()
     {
@@ -29,20 +29,17 @@ class PackageCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:package_categories,name',
+            'slug' => 'nullable|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'short_description' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
             'status' => 'required|in:active,inactive',
         ]);
 
-        $slug = Str::slug($request->name);
-        $originalSlug = $slug;
-        $counter = 1;
-        
-        while (PackageCategory::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $counter;
-            $counter++;
-        }
+        // Use custom slug if provided, otherwise generate from name
+        $slug = $request->filled('slug') 
+            ? $this->generateUniqueSlug($request->slug, PackageCategory::class)
+            : $this->generateUniqueSlug($request->name, PackageCategory::class);
 
         $imagePath = null;
         if ($request->hasFile('image')) {
@@ -71,20 +68,17 @@ class PackageCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:package_categories,name,' . $packageCategory->id,
+            'slug' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'short_description' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
             'status' => 'required|in:active,inactive',
         ]);
 
-        $slug = Str::slug($request->name);
-        $originalSlug = $slug;
-        $counter = 1;
-        
-        while (PackageCategory::where('slug', $slug)->where('id', '!=', $packageCategory->id)->exists()) {
-            $slug = $originalSlug . '-' . $counter;
-            $counter++;
-        }
+        // Use custom slug if provided, otherwise generate from name
+        $slug = $request->filled('slug')
+            ? $this->generateUniqueSlug($request->slug, PackageCategory::class, 'slug', $packageCategory->id)
+            : $this->generateUniqueSlug($request->name, PackageCategory::class, 'slug', $packageCategory->id);
 
         $imagePath = $packageCategory->image;
         if ($request->hasFile('image')) {

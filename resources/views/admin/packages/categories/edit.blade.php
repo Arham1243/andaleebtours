@@ -100,3 +100,43 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nameInput = document.getElementById('category-name');
+        const slugInput = document.getElementById('category-slug');
+        let manualSlugEdit = false;
+
+        // Function to generate slug from text
+        function generateSlug(text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        // Auto-generate slug when name changes (only if user hasn't manually edited slug)
+        nameInput.addEventListener('input', function() {
+            if (!manualSlugEdit && !slugInput.value) {
+                slugInput.value = generateSlug(this.value);
+            }
+        });
+
+        // Mark that user has manually edited the slug
+        slugInput.addEventListener('input', function() {
+            manualSlugEdit = true;
+        });
+
+        // If slug is cleared, allow auto-generation again
+        slugInput.addEventListener('blur', function() {
+            if (!this.value.trim()) {
+                manualSlugEdit = false;
+                this.value = generateSlug(nameInput.value);
+            }
+        });
+    });
+</script>
+@endpush

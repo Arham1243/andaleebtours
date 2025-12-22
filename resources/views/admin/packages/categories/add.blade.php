@@ -16,9 +16,18 @@
                                 <div class="form-box__body">
                                     <div class="form-fields">
                                         <label class="title">Category Name <span class="text-danger">*</span></label>
-                                        <input type="text" name="name" class="field" value="{{ old('name') }}"
+                                        <input type="text" name="name" id="category-name" class="field" value="{{ old('name') }}"
                                             placeholder="Enter Category Name" required>
                                         @error('name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-fields">
+                                        <label class="title">Slug <span class="text-muted">(Leave empty to auto-generate)</span></label>
+                                        <input type="text" name="slug" id="category-slug" class="field" value="{{ old('slug') }}"
+                                            placeholder="category-slug">
+                                        @error('slug')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
