@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\TourController;
 use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\InquiryController;
@@ -54,6 +55,11 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('banners', BannerController::class);
     Route::get('banners/change-status/{banner}', [BannerController::class, 'changeStatus'])->name('banners.change-status');
+    
+    Route::get('tours/sync', [TourController::class, 'sync'])->name('tours.sync');
+    Route::post('tours/sync', [TourController::class, 'handleSync'])->name('tours.sync.update');
+    Route::get('tours/change-status/{tour}', [TourController::class, 'changeStatus'])->name('tours.change-status');
+    Route::resource('tours', TourController::class);
 
     Route::resource('package-categories', PackageCategoryController::class);
     Route::get('package-categories/change-status/{packageCategory}', [PackageCategoryController::class, 'changeStatus'])->name('package-categories.change-status');

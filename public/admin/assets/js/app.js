@@ -130,7 +130,7 @@ let table = new DataTable(".data-table", {
     columnDefs: [
         { orderable: false, targets: 0 }, // first column unsortable
     ],
-    ordering: false, // disable all sorting
+    ordering: true, // disable all sorting
 });
 
 // SideBar Dropdown

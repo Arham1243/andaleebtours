@@ -60,7 +60,7 @@
                                         <input class="form-check-input" type="checkbox" name="is_featured" id="is_featured"
                                             value="1" {{ old('is_featured') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="is_featured">
-                                            Mark as Featured
+                                            Is Featured
                                         </label>
                                     </div>
                                 </div>

@@ -111,9 +111,6 @@ class BannerController extends Controller
 
     public function destroy(Banner $banner)
     {
-        if ($banner->image) {
-            $this->deletePreviousImage($banner->image);
-        }
         $banner->delete();
         return redirect()->route('admin.banners.index')->with('notify_success', 'Banner deleted successfully!');
     }

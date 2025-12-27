@@ -27,6 +27,27 @@ return [
         'route' => route('admin.banners.index'),
     ],
     [
+        'title' => 'Tours Management',
+        'icon' => 'bx bx-world',
+        'submenu' => [
+            [
+                'title' => 'Tours',
+                'icon' => 'bx bx-world',
+                'route' => route('admin.tours.index'),
+            ],
+            [
+                'title' => 'Categories',
+                'icon' => 'bx bx-category',
+                // 'route' => route('admin.tours.categories'),
+            ],
+            [
+                'title' => 'Sync Tours',
+                'icon' => 'bx bx-refresh',
+                'route' => route('admin.tours.sync'),
+            ],
+        ],
+    ],
+    [
         'title' => 'Packages',
         'icon' => 'bx bxs-package',
         'submenu' => [

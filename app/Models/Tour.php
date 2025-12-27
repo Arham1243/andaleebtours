@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Tour extends Model
+{
+
+    protected $casts = [
+        'content' => 'array',
+        'locations' => 'array',
+        'includes' => 'array',
+        'excludes' => 'array',
+        'product_type_seasons' => 'array',
+    ];
+
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+}

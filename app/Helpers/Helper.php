@@ -13,9 +13,7 @@ if (! function_exists('sanitizedLink')) {
 if (! function_exists('currencySymbol')) {
     function currencySymbol(): HtmlString
     {
-        $c = env('APP_CURRENCY');
-
-        return new HtmlString($c === 'AED' ? '<span class="dirham">D</span>' : $c);
+        return new HtmlString('<span class="dirham">D</span>');
     }
 }
 

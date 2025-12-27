@@ -37,6 +37,26 @@ Breadcrumbs::for('admin.banners.edit', function (BreadcrumbTrail $trail, $banner
     $trail->push('Edit Banner', route('admin.banners.edit', $banner));
 });
 
+Breadcrumbs::for('admin.tours.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Tours', route('admin.tours.index'));
+});
+
+Breadcrumbs::for('admin.tours.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.tours.index');
+    $trail->push('Add New Tour', route('admin.tours.create'));
+});
+
+Breadcrumbs::for('admin.tours.edit', function (BreadcrumbTrail $trail, $tour) {
+    $trail->parent('admin.tours.index');
+    $trail->push('Edit Tour', route('admin.tours.edit', $tour));
+});
+
+Breadcrumbs::for('admin.tours.sync', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Sync Tours', route('admin.tours.sync'));
+});
+
 Breadcrumbs::for('admin.package-categories.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Manage Package Categories', route('admin.package-categories.index'));
