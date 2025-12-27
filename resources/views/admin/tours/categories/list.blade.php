@@ -2,8 +2,8 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.package-categories.index') }}
-            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'package-categories']) }}">
+            {{ Breadcrumbs::render('admin.tour-categories.index') }}
+            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'tour-categories']) }}">
                 @csrf
                 <div class="table-container universal-table">
                     <div class="custom-sec">
@@ -11,7 +11,7 @@
                             <div class="section-content">
                                 <h3 class="heading">{{ $title }}</h3>
                             </div>
-                            <a href="{{ route('admin.package-categories.create') }}" class="themeBtn">Add New</a>
+                            <a href="{{ route('admin.tour-categories.create') }}" class="themeBtn">Add New</a>
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-5">
@@ -37,7 +37,6 @@
                                         </th>
                                         <th>Image</th>
                                         <th>Name</th>
-                                        <th>Featured</th>
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Actions</th>
@@ -60,13 +59,6 @@
                                             </td>
                                             <td>{{ $category->name }}</td>
                                             <td>
-                                                @if($category->is_featured)
-                                                    <span class="badge rounded-pill bg-success">Yes</span>
-                                                @else
-                                                    <span class="badge rounded-pill bg-danger">No</span>
-                                                @endif
-                                            </td>
-                                            <td>
                                                 <span class="badge rounded-pill bg-{{ $category->status === 'active' ? 'success' : 'danger' }}">
                                                     {{ ucfirst($category->status) }}
                                                 </span>
@@ -79,18 +71,18 @@
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a class="dropdown-item" href="{{ route('admin.package-categories.edit', $category->id) }}">
+                                                            <a class="dropdown-item" href="{{ route('admin.tour-categories.edit', $category->id) }}">
                                                                 <i class="bx bx-edit"></i> Edit
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a class="dropdown-item" href="{{ route('admin.package-categories.change-status', $category->id) }}">
+                                                            <a class="dropdown-item" href="{{ route('admin.tour-categories.change-status', $category->id) }}">
                                                                 <i class="bx {{ $category->status === 'active' ? 'bx-x' : 'bx-check' }}"></i>
                                                                 Make {{ $category->status === 'active' ? 'Inactive' : 'Active' }}
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <form action="{{ route('admin.package-categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete?')">
+                                                            <form action="{{ route('admin.tour-categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete?')">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="dropdown-item">

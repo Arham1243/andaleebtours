@@ -9,7 +9,7 @@ class InquiryController extends Controller
 {
     public function index()
     {
-        $contacts = Inquiry::orderBy('created_at', 'desc')->get();
+        $contacts = Inquiry::latest()->get();
         return view('admin.inquiries.list', compact('contacts'));
     }
 

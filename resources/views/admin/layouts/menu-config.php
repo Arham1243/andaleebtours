@@ -27,18 +27,18 @@ return [
         'route' => route('admin.banners.index'),
     ],
     [
-        'title' => 'Tours Management',
+        'title' => 'Tours',
         'icon' => 'bx bx-world',
         'submenu' => [
             [
-                'title' => 'Tours',
+                'title' => 'All Tours',
                 'icon' => 'bx bx-world',
                 'route' => route('admin.tours.index'),
             ],
             [
                 'title' => 'Categories',
-                'icon' => 'bx bx-category',
-                // 'route' => route('admin.tours.categories'),
+                'icon' => 'bx bxs-category',
+                'route' => route('admin.tour-categories.index'),
             ],
             [
                 'title' => 'Sync Tours',

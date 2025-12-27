@@ -25,9 +25,18 @@
                                     <div class="form-fields">
                                         <label class="title">Category Name <span class="text-danger">*</span></label>
                                         <input type="text" name="name" class="field"
-                                            value="{{ old('name', $packageCategory->name) }}"
-                                            placeholder="Enter Category Name" required>
+                                            value="{{ old('name', $packageCategory->name) }}" required>
                                         @error('name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-fields">
+                                        <label class="title">Slug </label>
+                                        <input type="text" name="slug" id="category-slug" class="field"
+                                            value="{{ old('slug', $packageCategory->slug) }}">
+                                        <small class="text-muted">Leave empty to auto-generate</small>
+                                        @error('slug')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -38,12 +47,6 @@
                                         @error('short_description')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-4">
-                                            <x-admin.image-upload name="image" label="Category Image" :existing-image="$packageCategory->image" />
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -93,6 +96,15 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-box">
+                                <div class="form-box__header">
+                                    <div class="title">Category Image</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <x-admin.image-upload name="image" label="Category Image" :existing-image="$packageCategory->image" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -100,43 +112,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const nameInput = document.getElementById('category-name');
-        const slugInput = document.getElementById('category-slug');
-        let manualSlugEdit = false;
-
-        // Function to generate slug from text
-        function generateSlug(text) {
-            return text
-                .toLowerCase()
-                .trim()
-                .replace(/[^\w\s-]/g, '')
-                .replace(/[\s_-]+/g, '-')
-                .replace(/^-+|-+$/g, '');
-        }
-
-        // Auto-generate slug when name changes (only if user hasn't manually edited slug)
-        nameInput.addEventListener('input', function() {
-            if (!manualSlugEdit && !slugInput.value) {
-                slugInput.value = generateSlug(this.value);
-            }
-        });
-
-        // Mark that user has manually edited the slug
-        slugInput.addEventListener('input', function() {
-            manualSlugEdit = true;
-        });
-
-        // If slug is cleared, allow auto-generation again
-        slugInput.addEventListener('blur', function() {
-            if (!this.value.trim()) {
-                manualSlugEdit = false;
-                this.value = generateSlug(nameInput.value);
-            }
-        });
-    });
-</script>
-@endpush

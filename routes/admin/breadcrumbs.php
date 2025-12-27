@@ -57,6 +57,21 @@ Breadcrumbs::for('admin.tours.sync', function (BreadcrumbTrail $trail) {
     $trail->push('Sync Tours', route('admin.tours.sync'));
 });
 
+Breadcrumbs::for('admin.tour-categories.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Tour Categories', route('admin.tour-categories.index'));
+});
+
+Breadcrumbs::for('admin.tour-categories.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.tour-categories.index');
+    $trail->push('Add New Tour Category', route('admin.tour-categories.create'));
+});
+
+Breadcrumbs::for('admin.tour-categories.edit', function (BreadcrumbTrail $trail, $tourCategory) {
+    $trail->parent('admin.tour-categories.index');
+    $trail->push('Edit Tour Category', route('admin.tour-categories.edit', $tourCategory));
+});
+
 Breadcrumbs::for('admin.package-categories.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Manage Package Categories', route('admin.package-categories.index'));

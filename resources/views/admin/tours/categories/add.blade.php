@@ -2,8 +2,8 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.package-categories.create') }}
-            <form action="{{ route('admin.package-categories.store') }}" method="POST" enctype="multipart/form-data"
+            {{ Breadcrumbs::render('admin.tour-categories.create') }}
+            <form action="{{ route('admin.tour-categories.store') }}" method="POST" enctype="multipart/form-data"
                 id="validation-form">
                 @csrf
                 <div class="row">
@@ -32,34 +32,12 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-
-                                    <div class="form-fields">
-                                        <label class="title">Short Description</label>
-                                        <textarea name="short_description" class="field" rows="4" placeholder="Enter Short Description">{{ old('short_description') }}</textarea>
-                                        @error('short_description')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="seo-wrapper">
-                            <div class="form-box">
-                                <div class="form-box__header">
-                                    <div class="title">Featured</div>
-                                </div>
-                                <div class="form-box__body">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" name="is_featured" id="is_featured"
-                                            value="1" {{ old('is_featured') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="is_featured">
-                                            Is Featured
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="form-box">
                                 <div class="form-box__header">
@@ -85,9 +63,10 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-box">
                                 <div class="form-box__header">
-                                    <div class="title">Category Image</div>
+                                    <div class="title">Image</div>
                                 </div>
                                 <div class="form-box__body">
                                     <x-admin.image-upload name="image" label="Category Image" :required="true" />

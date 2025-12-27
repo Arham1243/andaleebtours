@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PackageCategoryController;
+use App\Http\Controllers\Admin\TourCategoryController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PackageInquiryController;
 use App\Http\Controllers\Admin\DBConsoleController;
@@ -60,6 +61,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('tours/sync', [TourController::class, 'handleSync'])->name('tours.sync.update');
     Route::get('tours/change-status/{tour}', [TourController::class, 'changeStatus'])->name('tours.change-status');
     Route::resource('tours', TourController::class);
+    
+    Route::resource('tour-categories', TourCategoryController::class);
+    Route::get('tour-categories/change-status/{tourCategory}', [TourCategoryController::class, 'changeStatus'])->name('tour-categories.change-status');
 
     Route::resource('package-categories', PackageCategoryController::class);
     Route::get('package-categories/change-status/{packageCategory}', [PackageCategoryController::class, 'changeStatus'])->name('package-categories.change-status');

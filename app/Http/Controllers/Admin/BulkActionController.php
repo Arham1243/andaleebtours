@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Tour;
+use App\Models\TourCategory;
 use App\Models\Package;
 use App\Models\PackageCategory;
 use App\Models\PackageInquiry;
@@ -59,6 +60,11 @@ class BulkActionController extends Controller
                 $modelClass = Tour::class;
                 $column = 'id';
                 $redirectRoute = 'admin.tours.index';
+                break;
+            case 'tour-categories':
+                $modelClass = TourCategory::class;
+                $column = 'id';
+                $redirectRoute = 'admin.tour-categories.index';
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');

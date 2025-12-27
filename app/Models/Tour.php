@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tour extends Model
 {
-
     protected $casts = [
         'content' => 'array',
         'locations' => 'array',
@@ -16,4 +15,9 @@ class Tour extends Model
     ];
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function categories()
+    {
+        return $this->belongsToMany(TourCategory::class);
+    }
 }

@@ -15,7 +15,7 @@ class PackageCategoryController extends Controller
     public function index()
     {
         $title = 'Manage Package Categories';
-        $categories = PackageCategory::orderBy('created_at', 'desc')->get();
+        $categories = PackageCategory::latest()->get();
         return view('admin.packages.categories.list', compact('categories', 'title'));
     }
 
@@ -99,9 +99,6 @@ class PackageCategoryController extends Controller
 
     public function destroy(PackageCategory $packageCategory)
     {
-        if ($packageCategory->image) {
-            $this->deletePreviousImage($packageCategory->image);
-        }
         $packageCategory->delete();
         return redirect()->route('admin.package-categories.index')->with('notify_success', 'Package Category deleted successfully!');
     }

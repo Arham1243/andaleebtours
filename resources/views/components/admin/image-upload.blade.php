@@ -23,7 +23,7 @@
                     Image</label>
             </div>
             <div class="upload-box__img {{ $existingImage ? 'show' : '' }}" data-upload-img>
-                <button type="button" class="delete-btn" data-delete-btn><i class='bx bxs-trash-alt'></i></button>
+                <button type="button" class="delete-btn" data-delete-btn><i class='bx bxs-edit-alt'></i></button>
                 <a href="{{ $existingImage ? asset($existingImage) : '#' }}" class="mask" data-fancybox="gallery">
                     <img src="{{ $existingImage ? asset($existingImage) : asset('admin/assets/images/loading.webp') }}"
                         alt="{{ $label }}" class="imgFluid" data-upload-preview>
