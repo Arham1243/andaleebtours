@@ -528,7 +528,7 @@
                                         </div>
                                         <!-- Very Good -->
                                         <div class="reviews__bar-row">
-                                            <span class="reviews__label">VeryGood</span>
+                                            <span class="reviews__label">Very Good</span>
                                             <div class="reviews__track">
                                                 <div class="reviews__fill" style="width: 5%;"></div>
                                             </div>
