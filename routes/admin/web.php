@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\EnvEditorController;
 use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\TourReviewController;
 use App\Http\Controllers\Admin\TerminalController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,12 +57,12 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('banners', BannerController::class);
     Route::get('banners/change-status/{banner}', [BannerController::class, 'changeStatus'])->name('banners.change-status');
-    
+
     Route::get('tours/sync', [TourController::class, 'sync'])->name('tours.sync');
     Route::post('tours/sync', [TourController::class, 'handleSync'])->name('tours.sync.update');
     Route::get('tours/change-status/{tour}', [TourController::class, 'changeStatus'])->name('tours.change-status');
     Route::resource('tours', TourController::class);
-    
+
     Route::resource('tour-categories', TourCategoryController::class);
     Route::get('tour-categories/change-status/{tourCategory}', [TourCategoryController::class, 'changeStatus'])->name('tour-categories.change-status');
 
@@ -72,6 +73,8 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('packages/change-status/{package}', [PackageController::class, 'changeStatus'])->name('packages.change-status');
 
     Route::resource('package-inquiries', PackageInquiryController::class)->only(['index', 'show', 'destroy']);
+
+    Route::resource('tour-reviews', TourReviewController::class);
 
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
     Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');

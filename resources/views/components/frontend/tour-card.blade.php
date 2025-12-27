@@ -16,8 +16,8 @@
                 <div class="act-title line-clamp-2">{{ $tour->name }}</div>
                 <div class="act-rating">
                     <i class='bx bxs-star star-icon'></i>
-                    <span class="rating-num">4.9</span>
-                    <span class="review-count">(2 Reviews)</span>
+                        <span class="rating-num">{{ round($tour->approvedReviews->avg('rating'), 1) == 0 ? '' : round($tour->approvedReviews->avg('rating'), 1) }}</span>
+                        <span class="review-count">({{ $tour->approvedReviews->count() }} Reviews)</span>
                 </div>
                 <div class="act-price">
                     @if ($tour->discount_price != $tour->price)

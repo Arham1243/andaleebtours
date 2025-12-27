@@ -41,6 +41,11 @@ return [
                 'route' => route('admin.tour-categories.index'),
             ],
             [
+                'title' => 'Reviews',
+                'icon' => 'bx bxs-star',
+                'route' => route('admin.tour-reviews.index'),
+            ],
+            [
                 'title' => 'Sync Tours',
                 'icon' => 'bx bx-refresh',
                 'route' => route('admin.tours.sync'),

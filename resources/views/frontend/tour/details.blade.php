@@ -91,8 +91,9 @@
 
                             <div class="tour-header-rating">
                                 <i class='bx bxs-star text-warning'></i>
-                                <span class="rating-value">4.9</span>
-                                <span class="rating-count">(5 Reviews)</span>
+                                <span
+                                    class="rating-value">{{ round($tour->approvedReviews->avg('rating'), 1) == 0 ? '' : round($tour->approvedReviews->avg('rating'), 1) }}</span>
+                                <span class="review-count">({{ $tour->approvedReviews->count() }} Reviews)</span>
                             </div>
                         </div>
                         <div class="tour-features py-4">
@@ -354,7 +355,8 @@
                                             <span class="pax-age">Ages 3 to 17</span>
                                         </div>
                                         <div class="pax-action">
-                                            <span class="pax-price">{{ formatPrice($tour->child_price > 0 ? $tour->child_price : $tour->price) }}</span>
+                                            <span
+                                                class="pax-price">{{ formatPrice($tour->child_price > 0 ? $tour->child_price : $tour->price) }}</span>
                                             <div class="qty-control">
                                                 <button
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
@@ -448,220 +450,165 @@
                         <!-- Header with Toggle Button -->
                         <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center mb-4">
                             <div class="tour-header-title">Customer Reviews</div>
-                            <button class="themeBtn themeBtn--primary btn-review-toggle" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#writeReviewForm" aria-expanded="false">
-                                Write a Review
-                            </button>
+                            @if (Auth::check())
+                                <button class="themeBtn themeBtn--primary btn-review-toggle" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#writeReviewForm" aria-expanded="false">
+                                    Write a Review
+                                </button>
+                            @else
+                                <a href="{{ route('auth.login') }}" class="themeBtn themeBtn--primary">
+                                    Login to write a review
+                                </a>
+                            @endif
                         </div>
 
-                        <!-- Hidden Review Form -->
-                        <div class="collapse mb-5" id="writeReviewForm">
-                            <div class="review-form-card">
-                                <h6 class="mb-4 fw-bold">Share your experience</h6>
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-12 ">
-                                            <div class="form-group">
-                                                <label class="form-label">Title</label>
-                                                <input type="text" class="custom-input form-control"
-                                                    placeholder="Summarize your visit" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 ">
-                                            <div class="form-group">
-                                                <label class="form-label">Message</label>
-                                                <textarea class="custom-textarea form-control" rows="4" placeholder="What did you like or dislike?"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 mb-3">
-                                            <div class="form-group">
-                                                <label class="form-label">Rating</label>
-                                                <div class="working-rating">
-                                                    <input type="radio" id="star5" name="rating"
-                                                        value="5"><label class="star" for="star5"
-                                                        title="Awesome"></label>
-                                                    <input type="radio" id="star4" name="rating"
-                                                        value="4"><label class="star" for="star4"
-                                                        title="Great"></label>
-                                                    <input type="radio" id="star3" name="rating"
-                                                        value="3"><label class="star" for="star3"
-                                                        title="Very good"></label>
-                                                    <input type="radio" id="star2" name="rating"
-                                                        value="2"><label class="star" for="star2"
-                                                        title="Good"></label>
-                                                    <input type="radio" id="star1" name="rating"
-                                                        value="1"><label class="star" for="star1"
-                                                        title="Bad"></label>
+                        @if (Auth::check())
+                            <div class="collapse mb-5" id="writeReviewForm">
+                                <div class="review-form-card">
+                                    <h6 class="mb-4 fw-bold">Share your experience</h6>
+                                    <form action="{{ route('frontend.tour.save-review', $tour->slug) }}" method="POST">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-md-12 ">
+                                                <div class="form-group">
+                                                    <label class="form-label">Title</label>
+                                                    <input type="text" class="custom-input form-control"
+                                                        name="title" required>
                                                 </div>
                                             </div>
+                                            <div class="col-12 ">
+                                                <div class="form-group">
+                                                    <label class="form-label">Comment</label>
+                                                    <textarea name="comment" class="custom-textarea form-control" rows="4"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Rating</label>
+                                                    <div class="working-rating">
+                                                        <input type="radio" id="star5" name="rating"
+                                                            value="5"><label class="star" for="star5"
+                                                            title="Awesome"></label>
+                                                        <input type="radio" id="star4" name="rating"
+                                                            value="4"><label class="star" for="star4"
+                                                            title="Great"></label>
+                                                        <input type="radio" id="star3" name="rating"
+                                                            value="3"><label class="star" for="star3"
+                                                            title="Very good"></label>
+                                                        <input type="radio" id="star2" name="rating"
+                                                            value="2"><label class="star" for="star2"
+                                                            title="Good"></label>
+                                                        <input type="radio" id="star1" name="rating"
+                                                            value="1"><label class="star" for="star1"
+                                                            title="Bad"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 text-end">
+                                                <button type="submit" class="themeBtn">Submit Review</button>
+                                            </div>
                                         </div>
-                                        <div class="col-12 text-end">
-                                            <button type="submit" class="themeBtn">Submit Review</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
 
 
                         <div class="row g-4">
+                            @php
+                                $reviews = $tour->approvedReviews;
+
+                                $totalReviews = $reviews->count();
+                                $averageRating = $totalReviews ? round($reviews->avg('rating'), 1) : 0;
+
+                                // Count by rating
+                                $ratingsCount = $reviews->groupBy('rating')->map->count();
+
+                                // Map ratings to labels
+                                $ratingLabels = [
+                                    5 => 'Excellent',
+                                    4 => 'Very Good',
+                                    3 => 'Average',
+                                    2 => 'Poor',
+                                    1 => 'Terrible',
+                                ];
+
+                                // Prepare data for bars
+                                $reviewBars = [];
+                                foreach ($ratingLabels as $value => $label) {
+                                    $count = $ratingsCount[$value] ?? 0;
+                                    $percentage = $totalReviews ? round(($count / $totalReviews) * 100) : 0;
+                                    $reviewBars[] = [
+                                        'label' => $label,
+                                        'count' => $count,
+                                        'percentage' => $percentage,
+                                    ];
+                                }
+                            @endphp
                             <div class="col-lg-4 col-md-12">
                                 <div class="reviews__card reviews__card--summary">
                                     <div class="reviews__header">
                                         <div class="reviews__score-wrap">
                                             <i class='bx bxs-star reviews__star-icon'></i>
-                                            <span class="reviews__score">4.9</span>
+                                            <span class="reviews__score">{{ $averageRating }}</span>
                                         </div>
-                                        <span class="reviews__total">374 Ratings</span>
+                                        <span class="reviews__total">{{ $totalReviews }} Ratings</span>
                                     </div>
 
                                     <div class="reviews__bars">
-                                        <!-- Excellent -->
-                                        <div class="reviews__bar-row">
-                                            <span class="reviews__label">Excellent</span>
-                                            <div class="reviews__track">
-                                                <div class="reviews__fill" style="width: 98%;"></div>
+                                        @foreach ($reviewBars as $bar)
+                                            <div class="reviews__bar-row">
+                                                <span class="reviews__label">{{ $bar['label'] }}</span>
+                                                <div class="reviews__track">
+                                                    <div class="reviews__fill" style="width: {{ $bar['percentage'] }}%;">
+                                                    </div>
+                                                </div>
+                                                <span class="reviews__count">{{ $bar['count'] }}</span>
                                             </div>
-                                            <span class="reviews__count">369</span>
-                                        </div>
-                                        <!-- Very Good -->
-                                        <div class="reviews__bar-row">
-                                            <span class="reviews__label">Very Good</span>
-                                            <div class="reviews__track">
-                                                <div class="reviews__fill" style="width: 5%;"></div>
-                                            </div>
-                                            <span class="reviews__count">4</span>
-                                        </div>
-                                        <!-- Average -->
-                                        <div class="reviews__bar-row">
-                                            <span class="reviews__label">Average</span>
-                                            <div class="reviews__track">
-                                                <div class="reviews__fill" style="width: 2%;"></div>
-                                            </div>
-                                            <span class="reviews__count">1</span>
-                                        </div>
-                                        <!-- Poor -->
-                                        <div class="reviews__bar-row">
-                                            <span class="reviews__label">Poor</span>
-                                            <div class="reviews__track">
-                                                <div class="reviews__fill" style="width: 0%;"></div>
-                                            </div>
-                                            <span class="reviews__count">0</span>
-                                        </div>
-                                        <!-- Terrible -->
-                                        <div class="reviews__bar-row">
-                                            <span class="reviews__label">Terrible</span>
-                                            <div class="reviews__track">
-                                                <div class="reviews__fill" style="width: 0%;"></div>
-                                            </div>
-                                            <span class="reviews__count">0</span>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
+
                             </div>
                             <div class="col-lg-8">
                                 <div class="row reviews-slider mt-0 g-4">
-                                    <div class="col-md-6">
-                                        <div class="reviews__card reviews__card--user">
-                                            <div class="reviews__user-header">
-                                                <div class="reviews__avatar">
-                                                    <i class='bx bx-user'></i>
-                                                </div>
-                                                <div class="reviews__meta">
-                                                    <h6 class="reviews__username">Purjit</h6>
-                                                    <span class="reviews__date">May 2025</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="reviews__body">
-                                                <h5 class="reviews__product-title">Burj Khalifa At The Top Tickets</h5>
-
-                                                <div class="reviews__rating-row">
-                                                    <i class='bx bxs-star reviews__star-icon--small'></i>
-                                                    <span class="reviews__rating-text">4 (Rating)</span>
+                                    @foreach ($tour->approvedReviews as $review)
+                                        <div class="col-md-6">
+                                            <div class="reviews__card reviews__card--user">
+                                                <div class="reviews__user-header">
+                                                    <div class="reviews__avatar">
+                                                        <i class='bx bx-user'></i>
+                                                    </div>
+                                                    <div class="reviews__meta">
+                                                        <h6 class="reviews__username">{{ $review->user->name }}</h6>
+                                                        <span
+                                                            class="reviews__date">{{ $review->created_at->format('M Y') }}</span>
+                                                    </div>
                                                 </div>
 
-                                                <div class="reviews__tag">
-                                                    <span>Burj Khalifa At The Top Tickets</span>
-                                                </div>
+                                                <div class="reviews__body">
+                                                    <h5 class="reviews__product-title">{{ $review->title }}</h5>
 
-                                                <p class="reviews__comment">
-                                                    I was with my family in Dubai and visited Burj Khalifa. So, An
-                                                    incredible
-                                                    view and a smooth experience overall. The elevator ride was surprisingly
-                                                    fast...
-                                                </p>
+                                                    <div class="reviews__rating-row">
+                                                        <i class='bx bxs-star reviews__star-icon--small'></i>
+                                                        <span class="reviews__rating-text">4 (Rating)</span>
+                                                    </div>
+
+                                                    <p class="reviews__comment">
+                                                        {{ $review->comment }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="reviews__card reviews__card--user">
-                                            <div class="reviews__user-header">
-                                                <div class="reviews__avatar">
-                                                    <i class='bx bx-user'></i>
-                                                </div>
-                                                <div class="reviews__meta">
-                                                    <h6 class="reviews__username">Stefan</h6>
-                                                    <span class="reviews__date">June 2025</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="reviews__body">
-                                                <h5 class="reviews__product-title">Burj Khalifa At The Top Tickets</h5>
-
-                                                <div class="reviews__rating-row">
-                                                    <i class='bx bxs-star reviews__star-icon--small'></i>
-                                                    <span class="reviews__rating-text">5 (Rating)</span>
-                                                </div>
-
-                                                <div class="reviews__tag">
-                                                    <span>Outstanding Customer Service</span>
-                                                </div>
-
-                                                <p class="reviews__comment">
-                                                    Hi Khin, Hi Khin, we have seen a lot incl. Top of Burj Khalifa and the
-                                                    Nighttour and we have a lot of pictures now. Everything was perfect.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="reviews__card reviews__card--user">
-                                            <div class="reviews__user-header">
-                                                <div class="reviews__avatar">
-                                                    <i class='bx bx-user'></i>
-                                                </div>
-                                                <div class="reviews__meta">
-                                                    <h6 class="reviews__username">Stefan</h6>
-                                                    <span class="reviews__date">June 2025</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="reviews__body">
-                                                <h5 class="reviews__product-title">Burj Khalifa At The Top Tickets</h5>
-
-                                                <div class="reviews__rating-row">
-                                                    <i class='bx bxs-star reviews__star-icon--small'></i>
-                                                    <span class="reviews__rating-text">5 (Rating)</span>
-                                                </div>
-
-                                                <div class="reviews__tag">
-                                                    <span>Outstanding Customer Service</span>
-                                                </div>
-
-                                                <p class="reviews__comment">
-                                                    Hi Khin, Hi Khin, we have seen a lot incl. Top of Burj Khalifa and the
-                                                    Nighttour and we have a lot of pictures now. Everything was perfect.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    @endforeach
                                 </div>
+                                @if ($tour->approvedReviews->count() == 0)
+                                    <div class="col-12 text-center py-5">
+                                        <p class="text-muted">No reviews yet. Be the first to write one!</p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ use App\Models\TourCategory;
 use App\Models\PackageCategory;
 use Illuminate\Http\Request;
 use App\Models\Tour;
+use App\Models\TourReview;
 
 class TourController extends Controller
 {
@@ -29,7 +30,6 @@ class TourController extends Controller
     public function details($slug)
     {
         $tour = Tour::where('slug', $slug)->firstOrFail();
-
         $tourCategories = TourCategory::with([
             'tours' => function ($query) use ($tour) {
                 $query->where('tours.status', 'active')
@@ -78,5 +78,23 @@ class TourController extends Controller
             'count' => $tours->count(),
             'remainingCount' => $remainingCount,
         ]);
+    }
+
+
+    public function saveReview(Request $request, $tourSlug)
+    {
+        
+        $tour = Tour::where('slug', $tourSlug)->firstOrFail();
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'comment' => 'required|string',
+            'rating' => 'required',
+        ]);
+        $validated['tour_id'] = $tour->id;
+        $validated['user_id'] = auth()->user()->id;
+
+        TourReview::create($validated);
+
+        return back()->with('notify_success', 'Review Pending For Admin Approval!');
     }
 }

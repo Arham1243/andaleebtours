@@ -111,3 +111,12 @@ Breadcrumbs::for('admin.packages.edit', function (BreadcrumbTrail $trail, $packa
     $trail->parent('admin.packages.index');
     $trail->push('Edit Package', route('admin.packages.edit', $package));
 });
+
+Breadcrumbs::for('admin.tour-reviews.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Reviews', route('admin.tour-reviews.index'));
+});
+Breadcrumbs::for('admin.tour-reviews.edit', function (BreadcrumbTrail $trail, $item) {
+    $trail->parent('admin.tour-reviews.index');
+    $trail->push($item->title ?? 'N/A', route('admin.tour-reviews.edit', $item->id));
+});

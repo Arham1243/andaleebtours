@@ -592,7 +592,7 @@ button.slick-prev.slick-arrow::before {
     font-size: 1rem;
     font-weight: 600;
     color: #1a1a1a;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     height: 47px;
 }
 
@@ -601,7 +601,7 @@ button.slick-prev.slick-arrow::before {
     align-items: center;
     gap: 4px;
     font-size: 0.85rem;
-    margin-bottom: 8px;
+    margin-bottom: 3px;
 }
 
 .star-icon {
@@ -4269,6 +4269,11 @@ body .skeleton {
     border-radius: 12px;
     padding: 17px;
     height: 100%;
+}
+
+.reviews__body {
+    overflow-y: auto;
+    height: 142.1px;
 }
 
 /* Summary Card Styles */

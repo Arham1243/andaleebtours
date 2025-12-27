@@ -33,6 +33,7 @@ Route::name('frontend.')->group(function () {
 
     Route::prefix('tour')->name('tour.')->group(function () {
         Route::get('/details/{slug}', [TourController::class, 'details'])->name('details');
+        Route::post('/save-review/{slug}', [TourController::class, 'saveReview'])->name('save-review');
     });
     Route::prefix('tour-category')->name('tour-category.')->group(function () {
         Route::get('/{slug}', [TourCategoryController::class, 'details'])->name('details');

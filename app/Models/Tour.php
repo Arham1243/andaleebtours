@@ -20,4 +20,19 @@ class Tour extends Model
     {
         return $this->belongsToMany(TourCategory::class, 'category_tour', 'tour_id', 'tour_category_id');
     }
+    public function approvedReviews()
+    {
+        return $this->hasMany(TourReview::class, 'tour_id')->where('status', 'active');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(TourReview::class, 'tour_id');
+    }
+
+    public function getAvgRatingAttribute()
+    {
+        $avg = round($this->approvedReviews()->avg('rating'), 1);
+        return $avg;
+    }
 }
