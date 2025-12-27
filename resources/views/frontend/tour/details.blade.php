@@ -327,7 +327,6 @@
                                 <div class="pax-section mb-4">
                                     <label class="form-label mb-3">Select Pax</label>
 
-                                    <!-- Adult Row -->
                                     <div class="pax-row">
                                         <div class="pax-info">
                                             <span class="pax-type">Adult</span>
@@ -340,7 +339,7 @@
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                                     class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
                                                 <input type="number" class="counter-input qty-input" value="1"
-                                                    readonly="" min="0">
+                                                    readonly="" min="0" name="adult_qty">
                                                 <button
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                                     class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
@@ -348,11 +347,10 @@
                                         </div>
                                     </div>
 
-                                    <!-- Child Row -->
                                     <div class="pax-row">
                                         <div class="pax-info">
                                             <span class="pax-type">Child</span>
-                                            <span class="pax-age">Ages 3 to 17</span>
+                                            <span class="pax-age">Ages 4 to 16</span>
                                         </div>
                                         <div class="pax-action">
                                             <span
@@ -362,7 +360,28 @@
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                                     class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
                                                 <input type="number" class="counter-input qty-input" value="1"
-                                                    readonly="" min="0">
+                                                    readonly="" min="0" name="child_qty">
+                                                <button
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                    class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="pax-row">
+                                        <div class="pax-info">
+                                            <span class="pax-type">Infant</span>
+                                            <span class="pax-age">Ages 2 to 3</span>
+                                        </div>
+                                        <div class="pax-action">
+                                            <span
+                                                class="pax-price">{{ formatPrice($tour->infant_price > 0 ? $tour->infant_price : $tour->price) }}</span>
+                                            <div class="qty-control">
+                                                <button
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                    class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
+                                                <input type="number" class="counter-input qty-input" value="1"
+                                                    readonly="" min="0" name="infant_qty">
                                                 <button
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                                     class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
