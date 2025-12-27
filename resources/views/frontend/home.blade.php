@@ -1,37 +1,36 @@
 @extends('frontend.layouts.main')
 @section('content')
-    @if(isset($banner) && $banner)
-    <div class="banner-slider">
-        <div class="banner">
-            <div class="banner__img">
-                <img src="{{ asset($banner->image) }}" alt="{{ $banner->heading ?? 'Banner' }}"
-                    class="imgFluid">
+    @if (isset($banner) && $banner)
+        <div class="banner-slider">
+            <div class="banner">
+                <div class="banner__img">
+                    <img src="{{ asset($banner->image) }}" alt="{{ $banner->heading ?? 'Banner' }}" class="imgFluid">
+                </div>
             </div>
         </div>
-    </div>
     @else
-    <div class="banner-slider">
-        <div class="banner">
-            <div class="banner__img">
-                <img src="https://andaleebtours.com/assets/uploads/banner/tabby_banner176314308936.webp" alt="Image"
-                    class="imgFluid">
+        <div class="banner-slider">
+            <div class="banner">
+                <div class="banner__img">
+                    <img src="https://andaleebtours.com/assets/uploads/banner/tabby_banner176314308936.webp" alt="Image"
+                        class="imgFluid">
+                </div>
+            </div>
+            <div class="banner">
+                <div class="banner__img">
+                    <img src="https://andaleebtours.com/assets/uploads/banner/baku_now176314245084.webp" alt="Image"
+                        class="imgFluid">
+                </div>
+            </div>
+            <div class="banner">
+                <div class="banner__img">
+                    <img src="https://andaleebtours.com/assets/uploads/banner/dubai_city_tour176314429547.webp"
+                        alt="Image" class="imgFluid">
+                </div>
             </div>
         </div>
-        <div class="banner">
-            <div class="banner__img">
-                <img src="https://andaleebtours.com/assets/uploads/banner/baku_now176314245084.webp" alt="Image"
-                    class="imgFluid">
-            </div>
-        </div>
-        <div class="banner">
-            <div class="banner__img">
-                <img src="https://andaleebtours.com/assets/uploads/banner/dubai_city_tour176314429547.webp" alt="Image"
-                    class="imgFluid">
-            </div>
-        </div>
-    </div>
     @endif
-    
+
     <div class="global-search">
         <div class="container">
             <div id="pills-tab" role="tablist">
@@ -288,7 +287,7 @@
     </section>
 
 
-
+@if ($featuredTours->count() > 0)
     <section class="activities mar-y">
         <div class="container">
             <div class="section-header">
@@ -302,137 +301,15 @@
             </div>
 
             <div class="row activity-slider">
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <a href="#">
-                                <img class="imgFluid lazyload"
-                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
-                                    alt="Burj Khalifa">
-                            </a>
-
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price"><span class="dirham">D</span> 199</div>
-                        </div>
+                @foreach ($featuredTours as $tour)
+                    <div class="col-md-3">
+                        <x-frontend.tour-card :tour="$tour" style="style1" />
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <a href="#">
-                                <img class="imgFluid lazyload"
-                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Atlantis-Aquaventure-Waterpark-3625/1760013634626_3_2.jpg?_a=BAVAZGE70"
-                                    alt="Burj Khalifa">
-                            </a>
-
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price"><span class="dirham">D</span> 199</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <a href="#">
-                                <img class="imgFluid lazyload"
-                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Ski-Dubai-Tickets-172/1760080772245_3_2.jpg?_a=BAVAZGE70"
-                                    alt="Burj Khalifa">
-                            </a>
-
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price"><span class="dirham">D</span> 199</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <a href="#">
-                                <img class="imgFluid lazyload"
-                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Dubai-Aquarium-and-Underwater-Zoo-3636/1759917679577_3_2.jpg?_a=BAVAZGE70"
-                                    alt="Burj Khalifa">
-                            </a>
-
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price"><span class="dirham">D</span> 199</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <a href="#">
-                                <img class="imgFluid lazyload"
-                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/Final/Burj-Khalifa-At-The-Top-Tickets-18/1759833985818_3_2.jpg?_a=BAVAZGE70"
-                                    alt="Burj Khalifa">
-                            </a>
-
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price"><span class="dirham">D</span> 199</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="activity-card">
-                        <div class="act-img-box">
-                            <a href="#">
-                                <img class="imgFluid lazyload"
-                                    data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/Tour-Images/false-87/dhow-cruise-front.jpg?_a=BAVAZGE70"
-                                    alt="Burj Khalifa">
-                            </a>
-
-                        </div>
-                        <div class="act-details">
-                            <div class="act-title line-clamp-1">Burj Khalifa At The Top Tickets</div>
-                            <div class="act-rating">
-                                <i class='bx bxs-star star-icon'></i>
-                                <span class="rating-num">4.9</span>
-                                <span class="review-count">(374 Reviews)</span>
-                            </div>
-                            <div class="act-price"><span class="dirham">D</span> 199</div>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </section>
-
+@endif
 
     <section class="holiday-section mar-y">
         <div class="container">

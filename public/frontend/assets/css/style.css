@@ -563,14 +563,14 @@ button.slick-prev.slick-arrow::before {
     background: transparent;
     cursor: pointer;
     border: none;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
 }
 
 .act-img-box {
     position: relative;
     border-radius: 16px;
     overflow: hidden;
-    aspect-ratio: 4/2.8;
+    height: 172px;
     margin-bottom: 12px;
 }
 .act-img-box > a {
@@ -593,9 +593,7 @@ button.slick-prev.slick-arrow::before {
     font-weight: 600;
     color: #1a1a1a;
     margin-bottom: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    height: 47px;
 }
 
 .act-rating {
@@ -1531,8 +1529,8 @@ button.slick-prev.slick-arrow::before {
 
 .card-badge {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 17px;
+    left: 17px;
     background: var(--color-primary);
     color: #fff;
     padding: 6px 14px;
@@ -5756,4 +5754,9 @@ body.fancybox-active.compensate-for-scrollbar {
 }
 .w-fit{
     width: fit-content;
+}
+.delete-price {
+    color: #0009;
+    text-decoration: line-through !important;
+    font-size: 0.85rem;
 }

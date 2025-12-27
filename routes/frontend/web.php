@@ -35,7 +35,7 @@ Route::name('frontend.')->group(function () {
         Route::get('/details', [TourController::class, 'details'])->name('details');
     });
     Route::prefix('tour-category')->name('tour-category.')->group(function () {
-        Route::get('/', [TourCategoryController::class, 'index'])->name('index');
+        Route::get('/{slug}', [TourCategoryController::class, 'details'])->name('details');
     });
 
     Route::prefix('packages')->name('packages.')->group(function () {

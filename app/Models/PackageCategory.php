@@ -10,6 +10,11 @@ class PackageCategory extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
 
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
