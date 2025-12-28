@@ -35,4 +35,10 @@ class Tour extends Model
         $avg = round($this->approvedReviews()->avg('rating'), 1);
         return $avg;
     }
+
+    public function getImageAttribute()
+    {
+        return $this->content['product_images'][0]['image_url']
+            ?? asset('frontend/assets/images/placeholder.png');
+    }
 }

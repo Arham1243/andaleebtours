@@ -300,7 +300,9 @@
                             </div>
 
                             <!-- 2. Date & Time Selection -->
-                            <div class="booking-form">
+                            <form class="booking-form" method="POST"
+                                action="{{ route('frontend.cart.add', $tour->slug) }}">
+                                @csrf
                                 @php
                                     $isTourAvailableAndHasSlots = $isTourAvailable && !empty($timeSlots);
                                 @endphp
@@ -332,9 +334,12 @@
                                                 <select name="time_slot" class="form-select custom-select-input" required>
                                                     <option value="" selected disabled>Choose a time slot...</option>
                                                     @foreach ($timeSlots as $slot)
-                                                        <option value="{{ $slot['start_time'] }} - {{ $slot['end_time'] }}">
+                                                        <option
+                                                            value="{{ $slot['start_time'] }} - {{ $slot['end_time'] }}">
                                                             {{ $slot['start_time'] }} - {{ $slot['end_time'] }}
-                                                            ({{ $slot['open_spots'] }} spots left)
+                                                            ({{ $slot['open_spots'] }}
+                                                            {{ Str::plural('Spot', $slot['open_spots']) }}
+                                                            left)
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -388,12 +393,28 @@
 
 
                                 <div class="booking-actions">
-                                    <button class="btn btn-add-cart mb-2"
-                                        {{ !$isTourAvailableAndHasSlots ? 'disabled' : '' }}>
-                                        Add to Cart
-                                    </button>
+                                    @php
+                                        $cart = session()->get('cart', []);
+                                        $tourInCart = isset($cart[$tour->id]);
+                                    @endphp
+
+                                    @if (!auth()->check())
+                                        <a href="{{ route('auth.login') }}" class="btn btn-add-cart mb-2">
+                                            Login to Add to Cart
+                                        </a>
+                                    @elseif ($tourInCart)
+                                        <a href="{{ route('frontend.cart.index') }}" class="btn btn-add-cart mb-2">
+                                            Already in Cart
+                                        </a>
+                                    @else
+                                        <button type="submit" class="btn btn-add-cart mb-2"
+                                            {{ !$isTourAvailableAndHasSlots ? 'disabled' : '' }}>
+                                            Add to Cart
+                                        </button>
+                                    @endif
+
                                     <a target="_blank"
-                                        href="https://api.whatsapp.com/send?phone={{ $config['WHATSAPP']  ?? '+971 525748986' }}&text=I%20have%20an%20inquiry%20about%20{{ $tour->name }}"
+                                        href="https://api.whatsapp.com/send?phone={{ $config['WHATSAPP'] ?? '+971 525748986' }}&text=I%20have%20an%20inquiry%20about%20{{ $tour->name }}"
                                         class="btn btn-whatsapp">
                                         <i class='bx bxl-whatsapp'></i> Book via WhatsApp
                                     </a>
@@ -407,7 +428,7 @@
                                 <div class="mt-3" id="tabbyPromo"></div>
 
 
-                            </div>
+                            </form>
                         </div>
 
                         <div class="card border-0 choose-andaleeb-card">

@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('index');
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/subscribe-newsletter', [IndexController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
 
@@ -29,6 +28,12 @@ Route::name('frontend.')->group(function () {
     Route::prefix('travel-insurance')->name('travel-insurance.')->group(function () {
         Route::get('/', [TravelInsuranceController::class, 'index'])->name('index');
         Route::get('/details', [TravelInsuranceController::class, 'details'])->name('details');
+    });
+
+    Route::prefix('cart')->name('cart.')->group(function () {
+        Route::get('/', [CartController::class, 'index'])->name('index');
+        Route::post('/add/{slug}', [CartController::class, 'add'])->name('add');
+        Route::delete('/remove/{slug}', [CartController::class, 'remove'])->name('remove');
     });
 
     Route::prefix('tour')->name('tour.')->group(function () {

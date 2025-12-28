@@ -4648,6 +4648,9 @@ body .skeleton {
     font-weight: 600;
     font-size: 14px;
     transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-add-cart:hover,

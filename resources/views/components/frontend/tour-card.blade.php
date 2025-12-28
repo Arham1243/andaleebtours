@@ -1,12 +1,9 @@
-@php
-    $img = $tour->content['product_images'][0]['image_url'] ?? asset('frontend/assets/images/placeholder.png');
-@endphp
 @switch($style)
     @case('style1')
         <div class="activity-card">
             <div class="act-img-box">
                 <a href="{{ route('frontend.tour.details', $tour->slug) }}">
-                    <img class="imgFluid lazyload" data-src="{{ $img }}" alt="{{ $img }}">
+                    <img class="imgFluid lazyload" data-src="{{ $tour->image }}" alt="{{ $tour->name }}">
                 </a>
                 @if ($tour->is_recommended)
                     <div class="card-badge"> <i class="bx bxs-hot"></i>Recommended</div>
