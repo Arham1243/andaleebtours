@@ -393,7 +393,7 @@
                                         Add to Cart
                                     </button>
                                     <a target="_blank"
-                                        href="https://api.whatsapp.com/send?phone={{ $config['WHATSAPP'] }}&text=I%20have%20an%20inquiry%20about%20{{ $tour->name }}"
+                                        href="https://api.whatsapp.com/send?phone={{ $config['WHATSAPP']  ?? '+971 525748986' }}&text=I%20have%20an%20inquiry%20about%20{{ $tour->name }}"
                                         class="btn btn-whatsapp">
                                         <i class='bx bxl-whatsapp'></i> Book via WhatsApp
                                     </a>
