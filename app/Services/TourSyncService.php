@@ -7,14 +7,26 @@ use App\Models\Tour;
 
 class TourSyncService
 {
-    public function syncPrioTicketTours(int $page = 1)
+
+    public function getAccessToken()
     {
-        // 1. Get access token
-        $tokenResponse = Http::withHeaders([
-            'Authorization' => 'Basic YW5kYWxlZWIyMDIzMDFAcHJpb2FwaXMuY29tOkBBbmQwVHJhdjMkTEAhMiM=',
+        $response = Http::withHeaders([
+            'Authorization' => 'Basic YW5kYWxlZWIyMDIzMDFAcHJpb2FwaXMuY29tOkBBbmQwVHJhdjMkTEAhMiM='
         ])->post('https://distributor-api.prioticket.com/v3.5/distributor/oauth2/token');
 
-        $accessToken = $tokenResponse->json('access_token');
+        $accessToken = $response->json('access_token');
+
+        if (!$accessToken) {
+            return null;
+        }
+
+        return $accessToken;
+    }
+
+    public function syncPrioTicketTours(int $page = 1)
+    {
+
+        $accessToken = $this->getAccessToken();
 
         if (!$accessToken) {
             return back()->with('notify_error', 'Failed to fetch access token');

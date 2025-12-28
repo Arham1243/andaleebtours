@@ -157,6 +157,9 @@
                                 <div class="faq-body">
                                     <div class="faq-content text-document">
                                         <p>
+                                            {{ $tour->short_description }}
+                                        </p>
+                                        <p>
                                             {{ $tour->long_description }}
                                         </p>
                                     </div>
@@ -298,101 +301,95 @@
 
                             <!-- 2. Date & Time Selection -->
                             <div class="booking-form">
+                                @php
+                                    $isTourAvailableAndHasSlots = $isTourAvailable && !empty($timeSlots);
+                                @endphp
+
+                                <!-- Date Selection -->
                                 <div class="form-group mb-3">
-                                    <label class="form-label">Select Date</label>
+                                    <label class="form-label text-secondary fw-semibold">Select Date</label>
                                     <div class="input-icon-wrap">
                                         <i class='bx bx-calendar'></i>
-                                        <input type="text" name="start_date" class="form-control custom-select-input"
+                                        <input type="text" name="start_date"
+                                            class="form-control custom-select-input @if (!$isTourAvailable) is-invalid @endif"
                                             required>
                                     </div>
+                                    @if (!$isTourAvailable && isset($availableRanges[0]))
+                                        <div class="text-danger validation-error mt-1">
+                                            <i class='bx bx-info-circle'></i>
+                                            Tour not available on the selected date. Please choose a date between
+                                            {{ $availableRanges[0]['start'] }} and {{ $availableRanges[0]['end'] }}.
+                                        </div>
+                                    @endif
                                 </div>
 
-                                <div class="form-group mb-4">
-                                    <label class="form-label">Select Time</label>
-                                    <div class="input-icon-wrap">
-                                        <i class='bx bx-time-five'></i>
-                                        <select class="form-select custom-select-input">
-                                            <option selected>Choose time...</option>
-                                            <option value="10:00">10:00 AM</option>
-                                            <option value="12:00">12:00 PM</option>
-                                            <option value="14:00">02:00 PM</option>
-                                            <option value="16:00">04:00 PM</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                @if ($isTourAvailable)
+                                    @if ($timeSlots && count($timeSlots) > 0)
+                                        <div class="form-group mb-4">
+                                            <label class="form-label text-secondary fw-semibold">Select Time</label>
+                                            <div class="input-icon-wrap">
+                                                <i class='bx bx-time-five'></i>
+                                                <select name="time_slot" class="form-select custom-select-input" required>
+                                                    <option value="" selected disabled>Choose a time slot...</option>
+                                                    @foreach ($timeSlots as $slot)
+                                                        <option value="{{ $slot['start_time'] }} - {{ $slot['end_time'] }}">
+                                                            {{ $slot['start_time'] }} - {{ $slot['end_time'] }}
+                                                            ({{ $slot['open_spots'] }} spots left)
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="text-danger validation-error text-center">This date is fully booked.
+                                            Please try another day.</div>
+                                    @endif
+                                @endif
 
                                 <hr class="divider">
+                                @if ($isTourAvailableAndHasSlots)
+                                    <div class="pax-section mb-4">
+                                        <label class="form-label mb-3">Select Pax</label>
 
-                                <!-- 3. Passengers (PAX) -->
-                                <div class="pax-section mb-4">
-                                    <label class="form-label mb-3">Select Pax</label>
-
-                                    <div class="pax-row">
-                                        <div class="pax-info">
-                                            <span class="pax-type">Adult</span>
-                                            <span class="pax-age">Ages 18 to 99</span>
-                                        </div>
-                                        <div class="pax-action">
-                                            <span class="pax-price"> {{ formatPrice($tour->price) }}</span>
-                                            <div class="qty-control">
-                                                <button
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                    class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
-                                                <input type="number" class="counter-input qty-input" value="1"
-                                                    readonly="" min="0" name="adult_qty">
-                                                <button
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                    class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
+                                        @foreach ($tour->product_type_seasons[0]['product_type_season_details'] as $type)
+                                            <div class="pax-row">
+                                                <div class="pax-info">
+                                                    <span class="pax-type">{{ $type['product_type_label'] }}</span>
+                                                    <span class="pax-age">Ages {{ $type['product_type_age_from'] }} to
+                                                        {{ $type['product_type_age_to'] }}</span>
+                                                </div>
+                                                <div class="pax-action">
+                                                    @php
+                                                        $priceField = strtolower($type['product_type']);
+                                                        $price =
+                                                            $tour->{$priceField . '_price'} ??
+                                                            $type['product_type_pricing']['product_type_sales_price'];
+                                                    @endphp
+                                                    <span class="pax-price">{{ formatPrice($price) }}</span>
+                                                    <div class="qty-control">
+                                                        <button
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                            class="qty-btn" type="button"><i
+                                                                class="bx bx-minus"></i></button>
+                                                        <input type="number" class="counter-input qty-input"
+                                                            value="1" readonly min="{{ $tour->min_qty }}"
+                                                            max="{{ $tour->max_qty }}"
+                                                            name="{{ strtolower($type['product_type_label']) }}_qty">
+                                                        <button
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                            class="qty-btn" type="button"><i
+                                                                class="bx bx-plus"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </div>
+                                @endif
 
-                                    <div class="pax-row">
-                                        <div class="pax-info">
-                                            <span class="pax-type">Child</span>
-                                            <span class="pax-age">Ages 4 to 16</span>
-                                        </div>
-                                        <div class="pax-action">
-                                            <span
-                                                class="pax-price">{{ formatPrice($tour->child_price > 0 ? $tour->child_price : $tour->price) }}</span>
-                                            <div class="qty-control">
-                                                <button
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                    class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
-                                                <input type="number" class="counter-input qty-input" value="1"
-                                                    readonly="" min="0" name="child_qty">
-                                                <button
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                    class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="pax-row">
-                                        <div class="pax-info">
-                                            <span class="pax-type">Infant</span>
-                                            <span class="pax-age">Ages 2 to 3</span>
-                                        </div>
-                                        <div class="pax-action">
-                                            <span
-                                                class="pax-price">{{ formatPrice($tour->infant_price > 0 ? $tour->infant_price : $tour->price) }}</span>
-                                            <div class="qty-control">
-                                                <button
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                    class="qty-btn" type="button"><i class="bx bx-minus"></i></button>
-                                                <input type="number" class="counter-input qty-input" value="1"
-                                                    readonly="" min="0" name="infant_qty">
-                                                <button
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                    class="qty-btn" type="button"><i class="bx bx-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 4. Actions -->
                                 <div class="booking-actions">
-                                    <button class="btn btn-add-cart mb-2">
+                                    <button class="btn btn-add-cart mb-2"
+                                        {{ !$isTourAvailableAndHasSlots ? 'disabled' : '' }}>
                                         Add to Cart
                                     </button>
                                     <a target="_blank"
@@ -740,17 +737,35 @@
             publicKey: 'pk_test_84fd53a1-0ca1-435c-9655-4d4cbeab6cda',
             merchantCode: 'ATA'
         });
+
         $(document).ready(function() {
             const format = "MMM D, YYYY";
+
+            const urlParams = new URLSearchParams(window.location.search);
+            let initialDate = urlParams.get('date');
+
+            if (!initialDate) {
+                initialDate = moment();
+            } else {
+                initialDate = moment(initialDate, "YYYY-MM-DD");
+            }
 
             $("input[name='start_date']").daterangepicker({
                 singleDatePicker: true,
                 autoApply: true,
                 showDropdowns: true,
                 minDate: moment(),
+                startDate: initialDate,
                 locale: {
                     format: format
                 }
+            });
+
+            $("input[name='start_date']").on('apply.daterangepicker', function(ev, picker) {
+                const selectedDate = picker.startDate.format('YYYY-MM-DD');
+                const currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.set('date', selectedDate);
+                window.location.href = currentUrl.toString();
             });
         });
     </script>
