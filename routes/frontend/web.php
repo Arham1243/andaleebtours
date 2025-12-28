@@ -35,6 +35,7 @@ Route::name('frontend.')->group(function () {
         Route::post('/add/{slug}', [CartController::class, 'add'])->name('add');
         Route::patch('/update/{slug}', [CartController::class, 'updateQuantity'])->name('update');
         Route::delete('/remove/{slug}', [CartController::class, 'remove'])->name('remove');
+        Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
     });
 
     Route::prefix('tour')->name('tour.')->group(function () {

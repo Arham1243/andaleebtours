@@ -6,7 +6,8 @@
 
             <!-- Logo -->
             <a href="{{ route('frontend.index') }}" class="mh-logo">
-                <img src="{{ isset($config['SITE_LOGO']) ? asset($config['SITE_LOGO']) : asset('frontend/assets/images/logo.webp') }}" alt="Andaleeb Travel Agency" />
+                <img src="{{ isset($config['SITE_LOGO']) ? asset($config['SITE_LOGO']) : asset('frontend/assets/images/logo.webp') }}"
+                    alt="Andaleeb Travel Agency" />
             </a>
 
             <!-- Navigation -->
@@ -43,9 +44,12 @@
                     <a href="{{ route('auth.login') }}" class="mh-icon-link">
                         <i class="bx bx-user"></i>
                     </a>
+                    @php
+                        $cartData = session()->get('cart', ['tours' => []]);
+                    @endphp
                     <a href="{{ route('frontend.cart.index') }}" class="mh-icon-link mh-cart">
                         <i class='bx bx-shopping-bag'></i>
-                        <span class="mh-badge">0</span>
+                        <span class="mh-badge">{{ count($cartData['tours'] ?? []) }}</span>
                     </a>
                     <a href="javascript:void(0);" class="mh-icon-link menu-btn" data-menu-button
                         onclick="openSideBar()">
@@ -61,8 +65,8 @@
 <div class="sideBar" id="sideBar">
     <a href="javascript:void(0)" class="sideBar__close" onclick="closeSideBar()">×</a>
     <a href="{{ route('frontend.index') }}" class="sideBar__logo">
-        <img src="{{ isset($config['SITE_LOGO']) ? asset($config['SITE_LOGO']) : asset('frontend/assets/images/logo.webp') }}" alt="Logo"
-            class="imgFluid">
+        <img src="{{ isset($config['SITE_LOGO']) ? asset($config['SITE_LOGO']) : asset('frontend/assets/images/logo.webp') }}"
+            alt="Logo" class="imgFluid">
     </a>
     <ul class="sideBar__nav">
         <li><a href="{{ route('frontend.about-us') }}">About Us </a></li>
@@ -73,8 +77,10 @@
         <li><a href="{{ route('frontend.contact-us') }}">Contact Us</a></li>
     </ul>
     <div class="sidebar-btns-wrapper">
-        <a href="tel:{{ $config['COMPANYPHONE'] ?? '+971 45766068' }}" class="themeBtn"><i class="bx bx-phone"></i>Helpline</a>
-        <a href="tel:{{ $config['WHATSAPP'] ?? '+971 525748986' }}" class="themeBtn"><i class="bx bxl-whatsapp"></i>WhatsApp</a>
+        <a href="tel:{{ $config['COMPANYPHONE'] ?? '+971 45766068' }}" class="themeBtn"><i
+                class="bx bx-phone"></i>Helpline</a>
+        <a href="tel:{{ $config['WHATSAPP'] ?? '+971 525748986' }}" class="themeBtn"><i
+                class="bx bxl-whatsapp"></i>WhatsApp</a>
     </div>
 </div>
 

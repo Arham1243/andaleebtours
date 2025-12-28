@@ -398,8 +398,8 @@
 
                                 <div class="booking-actions">
                                     @php
-                                        $cart = session()->get('cart', []);
-                                        $tourInCart = isset($cart[$tour->id]);
+                                        $cartData = session()->get('cart', ['tours' => []]);
+                                        $tourInCart = isset($cartData['tours'][$tour->id]);
                                     @endphp
 
                                     @if (!auth()->check())

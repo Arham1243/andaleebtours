@@ -1,7 +1,7 @@
 @extends('frontend.layouts.main')
 @section('content')
-    @if ($tours->count() > 0 && !empty($cart))
-        <section class="section-gap pb-0">
+    @if ($tours->count() > 0 && !empty($cartData['tours']))
+        <section class="section-gap">
             <div class="container">
                 <h1 class="page-title">Shopping Cart</h1>
                 <div class="row">
@@ -14,7 +14,7 @@
 
                             @foreach ($tours as $tour)
                                 @php
-                                    $item = $cart[$tour->id];
+                                    $item = $cartData['tours'][$tour->id];
                                 @endphp
 
                                 @foreach ($item['pax'] as $paxType => $pax)
@@ -99,25 +99,38 @@
 
                                 <div class="summary-row">
                                     <span>Subtotal</span>
-                                    <span id="cart-subtotal">{{ formatPrice($subtotal) }}</span>
+                                    <span id="cart-subtotal">{{ formatPrice($cartData['total']['subtotal']) }}</span>
                                 </div>
 
-                                <!-- Coupon Code -->
-                                <form action="" method="POST" class="coupon-wrapper">
+                                <!-- Coupon Input -->
+                                <form action="{{ route('frontend.cart.apply-coupon') }}" method="POST"
+                                    class="coupon-wrapper">
                                     @csrf
-                                    <input type="text" name="coupon_code" class="coupon-input" placeholder="Enter discount code">
+                                    <input type="text" name="coupon_code" class="coupon-input"
+                                        placeholder="Enter discount code" required>
                                     <button class="btn-apply-overlay">Apply</button>
                                 </form>
 
+                                <!-- Applied Coupons -->
+                                @if (!empty($cartData['applied_coupons']))
+                                    @foreach ($cartData['applied_coupons'] as $coupon)
+                                        <div class="summary-row coupon-applied">
+                                            <span>Coupon: {{ $coupon['code'] }}
+                                                ({{ $coupon['type'] === 'percentage' ? $coupon['rate'] . '%' : formatPrice($coupon['rate']) }})</span>
+                                            <span style="color: red;">-{{ formatPrice($coupon['discount']) }}</span>
+                                        </div>
+                                    @endforeach
+                                @endif
+
                                 <div class="summary-row">
-                                    <span>Tax (0%)</span>
-                                    <span>{{ formatPrice(0) }}</span>
+                                    <span>Tax ({{ $cartData['total']['tax'] }}%)</span>
+                                    <span>{{ formatPrice($cartData['total']['tax']) }}</span>
                                 </div>
 
                                 <div class="summary-row total">
                                     <span>Total Payable</span>
                                     <span id="cart-total"
-                                        style="color: var(--color-primary)">{{ formatPrice($subtotal) }}</span>
+                                        style="color: var(--color-primary)">{{ formatPrice($cartData['total']['grand_total']) }}</span>
                                 </div>
 
                                 <a href="{{ route('frontend.checkout.index') }}" class="btn-primary-custom mt-3">Proceed to
@@ -153,7 +166,6 @@
         </section>
     @endif
 @endsection
-
 @push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -224,7 +236,7 @@
                                 document.getElementById('cart-subtotal').innerHTML = formatPrice(data
                                     .data.cart_subtotal);
                                 document.getElementById('cart-total').innerHTML = formatPrice(data
-                                    .data.cart_subtotal);
+                                    .data.cart_grand_total);
                                 updateButtonStates();
                             } else {
                                 showMessage(data.message || 'Failed to update quantity');

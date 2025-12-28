@@ -99,7 +99,7 @@ class AuthController extends Controller
                     ->with('notify_success', 'Login Successfully');
             }
 
-            return redirect()->intended(route('frontend.index'))
+            return redirect()->route('frontend.index')
                 ->with('notify_success', 'Login Successfully');
         }
 

@@ -6,18 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Models\Tour;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Coupon;
 
 class CartController extends Controller
 {
     public function index()
     {
-        // session()->forget('cart');
-        $cart = session()->get('cart', []);
-        $tours = Tour::whereIn('id', array_column($cart, 'tour_id'))->get();
-        $grandTotal = collect($cart)->sum('total_price');
-        $totalPax = collect($cart)->sum('total_pax');
-        $subtotal = collect($cart)->sum('total_price');
-        return view('frontend.cart.index', compact('cart', 'grandTotal', 'totalPax', 'tours', 'subtotal'));
+        $cartData = session()->get('cart', [
+            'tours' => [],
+            'applied_coupons' => [],
+            'total' => [
+                'subtotal' => 0,
+                'discount' => 0,
+                'tax' => 0,
+                'grand_total' => 0,
+            ]
+        ]);
+
+        $tours = Tour::whereIn('id', array_keys($cartData['tours'] ?? []))->get();
+
+        return view('frontend.cart.index', compact('cartData', 'tours'));
     }
 
     public function add(Request $request, $slug)
@@ -31,7 +39,16 @@ class CartController extends Controller
         $bookingDate = Carbon::createFromFormat('M d, Y', $request->start_date)
             ->format('Y-m-d');
 
-        $cart = session()->get('cart', []);
+        $cartData = session()->get('cart', [
+            'tours' => [],
+            'applied_coupons' => [],
+            'total' => [
+                'subtotal' => 0,
+                'discount' => 0,
+                'tax' => 0,
+                'grand_total' => 0,
+            ]
+        ]);
 
         $paxData = [];
         $totalPax = 0;
@@ -68,8 +85,7 @@ class CartController extends Controller
             return back()->withErrors('Please select at least one pax');
         }
 
-        // Cart key is ONLY tour_id
-        $cart[$tour->id] = [
+        $cartData['tours'][$tour->id] = [
             'tour_id' => $tour->id,
             'slug' => $tour->slug,
             'name' => $tour->name,
@@ -80,7 +96,9 @@ class CartController extends Controller
             'total_price' => $totalPrice,
         ];
 
-        session()->put('cart', $cart);
+        $this->recalculateCartTotals($cartData);
+
+        session()->put('cart', $cartData);
 
         return redirect()
             ->route('frontend.cart.index')
@@ -100,30 +118,40 @@ class CartController extends Controller
             return response()->json(['success' => false, 'message' => 'Tour not found.'], 404);
         }
 
-        $cart = session()->get('cart', []);
+        $cartData = session()->get('cart', [
+            'tours' => [],
+            'applied_coupons' => [],
+            'total' => [
+                'subtotal' => 0,
+                'discount' => 0,
+                'tax' => 0,
+                'grand_total' => 0,
+            ]
+        ]);
 
-        if (!isset($cart[$tour->id]['pax'][$request->pax_type])) {
+        if (!isset($cartData['tours'][$tour->id]['pax'][$request->pax_type])) {
             return response()->json(['success' => false, 'message' => 'Item not in cart.'], 404);
         }
 
-        $cart[$tour->id]['pax'][$request->pax_type]['qty'] = $request->qty;
-        $cart[$tour->id]['pax'][$request->pax_type]['subtotal'] = 
-            $request->qty * $cart[$tour->id]['pax'][$request->pax_type]['price'];
+        $cartData['tours'][$tour->id]['pax'][$request->pax_type]['qty'] = $request->qty;
+        $cartData['tours'][$tour->id]['pax'][$request->pax_type]['subtotal'] =
+            $request->qty * $cartData['tours'][$tour->id]['pax'][$request->pax_type]['price'];
 
-        $cart[$tour->id]['total_pax'] = collect($cart[$tour->id]['pax'])->sum('qty');
-        $cart[$tour->id]['total_price'] = collect($cart[$tour->id]['pax'])->sum('subtotal');
+        $cartData['tours'][$tour->id]['total_pax'] = collect($cartData['tours'][$tour->id]['pax'])->sum('qty');
+        $cartData['tours'][$tour->id]['total_price'] = collect($cartData['tours'][$tour->id]['pax'])->sum('subtotal');
 
-        session()->put('cart', $cart);
+        $this->recalculateCartTotals($cartData);
 
-        $subtotal = collect($cart)->sum('total_price');
+        session()->put('cart', $cartData);
 
         return response()->json([
             'success' => true,
             'message' => 'Quantity updated successfully.',
             'data' => [
                 'qty' => $request->qty,
-                'item_subtotal' => $cart[$tour->id]['pax'][$request->pax_type]['subtotal'],
-                'cart_subtotal' => $subtotal,
+                'item_subtotal' => $cartData['tours'][$tour->id]['pax'][$request->pax_type]['subtotal'],
+                'cart_subtotal' => $cartData['total']['subtotal'],
+                'cart_grand_total' => $cartData['total']['grand_total'],
             ]
         ]);
     }
@@ -133,34 +161,138 @@ class CartController extends Controller
         $request->validate([
             'pax_type' => 'required|string',
         ]);
-        // Find tour by slug
+
         $tour = Tour::where('slug', $slug)->first();
 
         if (!$tour) {
             return back()->with('notify_error', 'Tour not found.');
         }
 
-        // Get current cart
-        $cart = session()->get('cart', []);
-        // Remove tour if it exists
-        if (isset($cart[$tour->id]['pax'][$request->pax_type])) {
-            unset($cart[$tour->id]['pax'][$request->pax_type]);
+        $cartData = session()->get('cart', [
+            'tours' => [],
+            'applied_coupons' => [],
+            'total' => [
+                'subtotal' => 0,
+                'discount' => 0,
+                'tax' => 0,
+                'grand_total' => 0,
+            ]
+        ]);
 
-            // Recalculate totals
-            $cart[$tour->id]['total_pax'] = collect($cart[$tour->id]['pax'])->sum('qty');
-            $cart[$tour->id]['total_price'] = collect($cart[$tour->id]['pax'])->sum('subtotal');
+        if (isset($cartData['tours'][$tour->id]['pax'][$request->pax_type])) {
+            unset($cartData['tours'][$tour->id]['pax'][$request->pax_type]);
 
-            // Remove the tour if no pax left
-            if ($cart[$tour->id]['total_pax'] === 0) {
-                unset($cart[$tour->id]);
+            $cartData['tours'][$tour->id]['total_pax'] = collect($cartData['tours'][$tour->id]['pax'])->sum('qty');
+            $cartData['tours'][$tour->id]['total_price'] = collect($cartData['tours'][$tour->id]['pax'])->sum('subtotal');
+
+            if ($cartData['tours'][$tour->id]['total_pax'] === 0) {
+                unset($cartData['tours'][$tour->id]);
             }
 
-            session()->put('cart', $cart);
+            if (empty($cartData['tours'])) {
+                $cartData['applied_coupons'] = [];
+            }
+
+            $this->recalculateCartTotals($cartData);
+
+            session()->put('cart', $cartData);
 
             return back()->with('notify_success', 'Item removed from cart.');
         }
 
-
         return back()->with('notify_error', 'Tour was not in the cart.');
+    }
+
+
+    public function applyCoupon(Request $request)
+    {
+        $request->validate([
+            'coupon_code' => 'required|string'
+        ]);
+
+        $couponCode = strtoupper($request->coupon_code);
+
+        $coupon = Coupon::where('code', $couponCode)
+            ->where('status', 'active')
+            ->first();
+
+        if (!$coupon) {
+            return back()->with('notify_error', 'Invalid or inactive coupon.');
+        }
+
+        $cartData = session()->get('cart', [
+            'tours' => [],
+            'applied_coupons' => [],
+            'total' => [
+                'subtotal' => 0,
+                'discount' => 0,
+                'tax' => 0,
+                'grand_total' => 0,
+            ]
+        ]);
+
+        if (empty($cartData['tours'])) {
+            return back()->with('notify_error', 'Your cart is empty.');
+        }
+
+        if (collect($cartData['applied_coupons'])->pluck('code')->contains($couponCode)) {
+            return back()->with('notify_error', 'Coupon already applied.');
+        }
+
+        $cartSubtotal = collect($cartData['tours'])->sum('total_price');
+        $currentTotal = $cartData['total']['grand_total'] ?? $cartSubtotal;
+
+        $discount = 0;
+        if ($coupon->type === 'percentage') {
+            $discount = ($coupon->rate / 100) * $currentTotal;
+        } elseif ($coupon->type === 'amount') {
+            $discount = min($coupon->rate, $currentTotal);
+        }
+
+        $cartData['applied_coupons'][] = [
+            'code' => $couponCode,
+            'type' => $coupon->type,
+            'rate' => $coupon->rate,
+            'discount' => $discount,
+        ];
+
+        $this->recalculateCartTotals($cartData);
+
+        session()->put('cart', $cartData);
+
+        return back()->with('notify_success', "Coupon applied! Discount: AED " . number_format($discount, 2));
+    }
+    private function recalculateCartTotals(&$cartData)
+    {
+        $subtotal = collect($cartData['tours'] ?? [])->sum('total_price');
+
+        $totalDiscount = 0;
+        $runningTotal = $subtotal;
+
+        // Ensure applied_coupons is always an array
+        $cartData['applied_coupons'] = $cartData['applied_coupons'] ?? [];
+
+        foreach ($cartData['applied_coupons'] as &$coupon) {
+            $discount = 0;
+            if ($coupon['type'] === 'percentage') {
+                $discount = ($coupon['rate'] / 100) * $runningTotal;
+            } elseif ($coupon['type'] === 'amount') {
+                $discount = min($coupon['rate'], $runningTotal);
+            }
+
+            $coupon['discount'] = $discount;
+            $totalDiscount += $discount;
+            $runningTotal -= $discount;
+        }
+
+        $tax = 0;
+        $grandTotal = max($runningTotal - $tax, 0);
+
+        $cartData['total'] = [
+            'subtotal' => $subtotal,
+            'discount' => $totalDiscount,
+            'tax' => $tax,
+            'grand_total' => $grandTotal,
+        ];
     }
 }

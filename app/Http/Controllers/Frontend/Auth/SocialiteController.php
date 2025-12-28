@@ -65,12 +65,14 @@ class SocialiteController extends Controller
 
             Auth::login($user);
 
-            $redirectTo = $request->session()->pull(
-                'url.intended',
-                route('frontend.index')
-            );
+            $redirectTo = $request->session()->pull('url.intended');
 
-            return redirect()->to($redirectTo)
+            if ($redirectTo) {
+                return redirect()->to($redirectTo)
+                    ->with('notify_success', 'Login successful');
+            }
+
+            return redirect()->route('frontend.index')
                 ->with('notify_success', 'Login successful');
         } catch (Exception $e) {
             return redirect()->route('frontend.index')
