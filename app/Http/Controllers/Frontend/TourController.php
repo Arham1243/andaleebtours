@@ -16,18 +16,47 @@ class TourController extends Controller
 {
     public function uae_services()
     {
-        $search = request('search') ?? '';
-        $banner = Banner::where('page', 'uae-tours')->where('status', 'active')->first();
-        $categories = TourCategory::where('status', 'active')->latest()->get();
-        $tours = Tour::where('status', 'active')->where('name', 'like', '%' . $search . '%')->latest()->get()->take(16);
-        $total_tours = Tour::where('status', 'active')->where('name', 'like', '%' . $search . '%')->latest()->get()->count();
+        $search = request('search', '');
+        $sortBy = request('sort_by', '');
+
+        $banner = Banner::where('page', 'uae-tours')
+            ->where('status', 'active')
+            ->first();
+
+        $categories = TourCategory::where('status', 'active')
+            ->latest()
+            ->get();
+
+        $toursQuery = Tour::where('status', 'active')
+            ->where('name', 'like', '%' . $search . '%');
+
+        // Sorting logic
+        if ($sortBy === 'recommended') {
+            $toursQuery->where('is_recommended', 1);
+        } elseif ($sortBy === 'price_low_to_high') {
+            $toursQuery->orderBy('price', 'asc');
+        } elseif ($sortBy === 'price_high_to_low') {
+            $toursQuery->orderBy('price', 'desc');
+        } else {
+            $toursQuery->latest();
+        }
+
+        $tours = $toursQuery->take(16)->get();
+
+        $total_tours = $toursQuery->count();
+
         $packageCategories = PackageCategory::with('packages')
             ->where('status', 'active')
             ->has('packages')
             ->latest()
             ->get();
-        return view('frontend.tour.uae-services', compact('banner', 'categories', 'tours', 'packageCategories', 'total_tours'));
+
+        return view(
+            'frontend.tour.uae-services',
+            compact('banner', 'categories', 'tours', 'packageCategories', 'total_tours')
+        );
     }
+
 
     public function details($slug)
     {
@@ -88,7 +117,7 @@ class TourController extends Controller
             $rawSlots = $data['data']['items'] ?? [];
 
             $formattedSlots = collect($rawSlots)
-                ->filter(fn($slot) => $slot['availability_spots']['availability_spots_open'] > 0) 
+                ->filter(fn($slot) => $slot['availability_spots']['availability_spots_open'] > 0)
                 ->map(function ($slot) {
                     return [
                         'id' => $slot['availability_id'],

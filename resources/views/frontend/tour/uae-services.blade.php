@@ -91,18 +91,41 @@
         </div>
     </div>
 
-    <section class="activities mar-y">
+    <section class="activities mar-y" id="tours">
         <div class="container">
             @if ($tours->count() > 0)
-                <div class="section-header">
+                <div class="section-header align-items-end">
                     <div class="section-content">
                         <h3 class="heading mb-0">Best Activities in Dubai</h3>
+                        @if(request('search'))
+                        <p class="text-muted mt-1 mb-0">
+                            Showing results for: <span class="fw-bold">"{{ request('search') }}"</span>
+                            
+                           <a href="{{ route('frontend.uae-services') }}#tours" class="fw-medium text-primary ms-2">Reset</a>
+                        </p>
+                        @endif
                     </div>
-                    @if (request('search'))
-                        <a href="{{ route('frontend.uae-services') }}#tours" type="button" class="themeBtn">
-                            <i class="bx bx-refresh"></i> Reset Search
-                        </a>
-                    @endif
+                    <div>
+                        <label class="form-label">Sort by:</label>
+                        @php
+                            $sortOptions = [
+                                '' => 'Select',
+                                'recommended' => 'Recommended',
+                                'price_low_to_high' => 'Price Low to High',
+                                'price_high_to_low' => 'Price High to Low',
+                            ];
+
+                            $sortBy = request('sort_by', '');
+                        @endphp
+
+                        <select class="custom-select" name="sort_by" id="sort_by">
+                            @foreach ($sortOptions as $value => $label)
+                                <option value="{{ $value }}" {{ $sortBy === $value ? 'selected' : '' }}>
+                                    {{ $label }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="row" id="firstTourBlockContainer">
                     @foreach ($tours as $tour)
@@ -346,6 +369,28 @@
             colClass: 'col-md-3',
             cardStyle: 'style1',
             searchQuery: '{{ request('search') ?? '' }}'
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const sortSelect = document.getElementById("sort_by");
+
+            if (sortSelect) {
+                sortSelect.addEventListener("change", function() {
+                    const url = new URL(window.location.href);
+                    const selectedValue = sortSelect.value;
+
+                    if (selectedValue) {
+                        url.searchParams.set("sort_by", selectedValue);
+                    } else {
+                        url.searchParams.delete("sort_by");
+                    }
+
+                    // Add the hash to scroll to the tours section
+                    url.hash = "tours";
+
+                    window.location.href = url.toString();
+                });
+            }
         });
     </script>
 @endpush
