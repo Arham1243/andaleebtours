@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Country;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -76,15 +77,10 @@ class PrioTicketService
         $rand = rand(110, 7120356789);
         $reservationDetails = [];
 
-        // Get country name from country code
-        $countries = config('countries', []);
-        $countryName = 'United Arab Emirates';
-        foreach ($countries as $country) {
-            if ($country['value'] === $passengerData['country_code']) {
-                $countryName = $country['label'];
-                break;
-            }
-        }
+        // Get country name from country ID
+        $country = Country::find($passengerData['country_code']);
+        $countryName = $country ? $country->name : 'United Arab Emirates';
+        $countryCode = $country ? $country->iso_code : 'AE';
 
         foreach ($orderItems as $item) {
             $reservationDetails[] = [
@@ -118,7 +114,7 @@ class PrioTicketService
                                 'region' => $passengerData['region'] ?? 'Dubai',
                                 'postal_code' => $passengerData['postal_code'] ?? '00000',
                                 'country' => $countryName,
-                                'country_code' => $passengerData['country_code']
+                                'country_code' => $countryCode
                             ]
                         ]
                     ]

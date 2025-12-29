@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 
 class TravelInsuranceController extends Controller
 {
@@ -12,6 +13,7 @@ class TravelInsuranceController extends Controller
     }
     public function details()
     {
-        return view('frontend.travel-insurance.details');
+        $countries = Country::orderBy('name', 'asc')->get();
+        return view('frontend.travel-insurance.details', compact('countries'));
     }
 }

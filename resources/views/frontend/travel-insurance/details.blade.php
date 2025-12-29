@@ -1,8 +1,5 @@
 @extends('frontend.layouts.main')
 @section('content')
-    @php
-        $countries = config('countries');
-    @endphp
     <section class="section-gap">
         <div class="container">
             <form action="#">
@@ -49,7 +46,7 @@
                                     <select class="custom-select" name="country" id="country-select">
                                         <option value="" selected disabled>Select</option>
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country['value'] }}">{{ $country['label'] }}</option>
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -93,7 +90,7 @@
                                     <select required class='custom-select'>
                                         <option value="" selected disabled>Select</option>
                                         @foreach ($countries as $nationality)
-                                            <option value="{{ $nationality }}">{{ ucwords($nationality) }}</option>
+                                            <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -103,7 +100,7 @@
                                     <select class="custom-select" name="country" id="country-select">
                                         <option value="" selected disabled>Select</option>
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country }}">{{ ucwords($country) }}</option>
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

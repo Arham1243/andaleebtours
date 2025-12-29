@@ -13,15 +13,15 @@ class AdminsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('admins')->insert([
+        DB::table('admins')->updateOrInsert(
+            ['email' => 'admin@andaleebtours.com'],
             [
-                'id' => 1,
                 'name' => 'admin',
                 'email' => 'admin@andaleebtours.com',
                 'password' => Hash::make('12345678'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        );
     }
 }

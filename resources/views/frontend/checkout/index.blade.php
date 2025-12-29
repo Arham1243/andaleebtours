@@ -1,8 +1,5 @@
 @extends('frontend.layouts.main')
 @section('content')
-    @php
-        $countries = config('countries');
-    @endphp
     <section class="section-gap">
         <div class="container">
             <h1 class="page-title">Checkout</h1>
@@ -52,7 +49,7 @@
                                     <select class="custom-select" name="passenger[country]" id="country-select" required>
                                         <option value="" selected disabled>Select</option>
                                         @foreach ($countries as $country)
-                                            <option value="{{ $country['value'] }}">{{ $country['label'] }}</option>
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

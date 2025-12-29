@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Tour;
+use App\Models\Country;
 use App\Services\PrioTicketService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,8 @@ class CheckoutController extends Controller
 {
     public function index()
     {
+        $countries = Country::orderBy('name', 'asc')->get();
+
         $cartData = session()->get('cart', [
             'tours' => [],
             'applied_coupons' => [],
@@ -35,7 +38,7 @@ class CheckoutController extends Controller
 
         $tours = Tour::whereIn('id', array_keys($cartData['tours']))->get();
 
-        return view('frontend.checkout.index', compact('cartData', 'tours'));
+        return view('frontend.checkout.index', compact('cartData', 'tours', 'countries'));
     }
 
     public function store(Request $request)
@@ -75,7 +78,7 @@ class CheckoutController extends Controller
             // Calculate Tabby fee if applicable
             $tabbyFee = 0;
             $finalTotal = $cartData['total']['grand_total'];
-            
+
             if ($request->payment_method === 'tabby') {
                 $tabbyFee = $finalTotal * 0.08;
                 $finalTotal += $tabbyFee;
@@ -115,7 +118,7 @@ class CheckoutController extends Controller
 
             foreach ($cartData['tours'] as $tourId => $cartItem) {
                 $tour = $tours->get($tourId);
-                
+
                 if (!$tour) {
                     continue;
                 }
@@ -215,10 +218,9 @@ class CheckoutController extends Controller
             return redirect()
                 ->route('frontend.payment.success')
                 ->with('notify_success', 'Order created successfully!');
-
         } catch (\Exception $e) {
             DB::rollBack();
-            
+
             Log::error('Checkout failed', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
