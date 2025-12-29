@@ -334,8 +334,7 @@
                                                 <select name="time_slot" class="form-select custom-select-input" required>
                                                     <option value="" selected disabled>Choose a time slot...</option>
                                                     @foreach ($timeSlots as $slot)
-                                                        <option
-                                                            value="{{ $slot['id'] }}"
+                                                        <option value="{{ $slot['id'] }}"
                                                             data-start-time="{{ $slot['start_time'] }}"
                                                             data-end-time="{{ $slot['end_time'] }}">
                                                             {{ $slot['start_time'] }} - {{ $slot['end_time'] }}
@@ -354,7 +353,7 @@
                                 @endif
 
                                 <hr class="divider">
-                                @if(isset($tour->product_type_seasons[0]['product_type_season_details']))
+                                @if (isset($tour->product_type_seasons[0]['product_type_season_details']))
                                     @if ($isTourAvailableAndHasSlots)
                                         <div class="pax-section mb-4">
                                             <label class="form-label mb-3">Select Pax</label>
@@ -371,7 +370,9 @@
                                                             $priceField = strtolower($type['product_type']);
                                                             $price =
                                                                 $tour->{$priceField . '_price'} ??
-                                                                $type['product_type_pricing']['product_type_sales_price'];
+                                                                $type['product_type_pricing'][
+                                                                    'product_type_sales_price'
+                                                                ];
                                                         @endphp
                                                         <span class="pax-price">{{ formatPrice($price) }}</span>
                                                         <div class="qty-control">
@@ -393,8 +394,9 @@
                                             @endforeach
                                         </div>
                                     @endif
-                                    @else
-                                <div class="text-danger validation-error text-center mb-4"> Pricing for this tour is not available at the moment. Please check back later. </div>
+                                @else
+                                    <div class="text-danger validation-error text-center mb-4"> Pricing for this tour is
+                                        not available at the moment. Please check back later. </div>
                                 @endif
 
 
@@ -404,16 +406,12 @@
                                         $tourInCart = isset($cartData['tours'][$tour->id]);
                                     @endphp
 
-                                    @if (!auth()->check())
-                                        <a href="{{ route('auth.login') }}" class="btn btn-add-cart mb-2">
-                                            Login to Add to Cart
-                                        </a>
-                                    @elseif ($tourInCart)
+                                    @if ($tourInCart)
                                         <a href="{{ route('frontend.cart.index') }}" class="btn btn-add-cart mb-2">
                                             Already in Cart
                                         </a>
-                                         @elseif (!isset($tour->product_type_seasons[0]['product_type_season_details']))
-                                         <a href="{{ route('frontend.uae-services') }}" class="btn btn-add-cart mb-2">
+                                    @elseif (!isset($tour->product_type_seasons[0]['product_type_season_details']))
+                                        <a href="{{ route('frontend.uae-services') }}" class="btn btn-add-cart mb-2">
                                             Explore more
                                         </a>
                                     @else
@@ -804,7 +802,7 @@
                 const selectedOption = $(this).find('option:selected');
                 const startTime = selectedOption.data('start-time');
                 const endTime = selectedOption.data('end-time');
-                
+
                 // Create hidden input to store display text
                 let hiddenInput = $('input[name="time_slot_display"]');
                 if (hiddenInput.length === 0) {
@@ -825,7 +823,7 @@
 
                 function updateButtonStates() {
                     const currentQty = parseInt(qtyInput.val());
-                    
+
                     if (currentQty <= minQty) {
                         decreaseBtn.prop('disabled', true);
                         decreaseBtn.css({
@@ -839,7 +837,7 @@
                             'opacity': '1'
                         });
                     }
-                    
+
                     if (currentQty >= maxQty) {
                         increaseBtn.prop('disabled', true);
                         increaseBtn.css({

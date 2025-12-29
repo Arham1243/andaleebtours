@@ -1,5 +1,11 @@
 @extends('frontend.layouts.main')
 @section('content')
+    @php
+        $user = null;
+        if (Auth::check()) {
+            $user = Auth::user();
+        }
+    @endphp
     <section class="section-gap">
         <div class="container">
             <h1 class="page-title">Checkout</h1>
@@ -24,24 +30,44 @@
                                         <option value="Mrs.">Mrs.</option>
                                         <option value="Ms.">Ms.</option>
                                     </select>
+                                    @error('passenger[title]')
+                                        <span class="text-danger validation-error">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-5">
                                     <label class="form-label">First Name *</label>
-                                    <input type="text" class="custom-input" name="passenger[first_name]" required>
+                                    <input type="text" class="custom-input" name="passenger[first_name]"
+                                        value="{{ $user ? $user->first_name : '' }}" {{ $user ? 'readonly' : '' }} required>
+                                    @error('passenger[first_name]')
+                                        <span class="text-danger validation-error">{{ $message }}</span>
+                                    @enderror
                                 </div>
+
                                 <div class="col-md-5">
                                     <label class="form-label">Last Name *</label>
-                                    <input type="text" class="custom-input" name="passenger[last_name]" required>
+                                    <input type="text" class="custom-input" name="passenger[last_name]"
+                                        value="{{ $user ? $user->last_name : '' }}" {{ $user ? 'readonly' : '' }} required>
+                                    @error('passenger[last_name]')
+                                        <span class="text-danger validation-error">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label">Email Address *</label>
-                                    <input type="email" class="custom-input" name="passenger[email]" required>
+                                    <input type="email" class="custom-input" name="passenger[email]"
+                                        value="{{ $user ? $user->email : '' }}" {{ $user ? 'readonly' : '' }} required>
+                                    @error('passenger[email]')
+                                        <span class="text-danger validation-error">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label">Phone Number *</label>
                                     <input type="tel" class="custom-input" name="passenger[phone]" required>
+                                    @error('passenger[phone]')
+                                        <span class="text-danger validation-error">{{ $message }}</span>
+                                    @enderror
+
                                 </div>
 
                                 <div class="col-md-6">
@@ -52,16 +78,25 @@
                                             <option value="{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('passenger[country]')
+                                        <span class="text-danger validation-error">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label">Address *</label>
                                     <input type="text" class="custom-input" name="passenger[address]" required>
+                                    @error('passenger[address]')
+                                        <span class="text-danger validation-error">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="col-12">
                                     <label class="form-label">Special Request</label>
                                     <textarea class="custom-textarea" name="passenger[special_request]" placeholder="Any specific requirements?"></textarea>
+                                    @error('passenger[special_request]')
+                                        <span class="text-danger validation-error">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

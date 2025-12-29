@@ -7,24 +7,13 @@ use App\Models\Tour;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Coupon;
+use App\Models\UserCoupon;
 
 class CartController extends Controller
 {
     public function index()
     {
-        $cartData = session()->get('cart', [
-            'tours' => [],
-            'applied_coupons' => [],
-            'total' => [
-                'subtotal' => 0,
-                'discount' => 0,
-                'vat' => 0,
-                'service_tax' => 0,
-                'tax' => 0,
-                'grand_total' => 0,
-            ]
-        ]);
-    
+        $cartData = $this->getCartData();
         $tours = Tour::whereIn('id', array_keys($cartData['tours'] ?? []))->get();
 
         return view('frontend.cart.index', compact('cartData', 'tours'));
@@ -41,18 +30,7 @@ class CartController extends Controller
         $bookingDate = Carbon::createFromFormat('M d, Y', $request->start_date)
             ->format('Y-m-d');
 
-        $cartData = session()->get('cart', [
-            'tours' => [],
-            'applied_coupons' => [],
-            'total' => [
-                'subtotal' => 0,
-                'discount' => 0,
-                'vat' => 0,
-                'service_tax' => 0,
-                'tax' => 0,
-                'grand_total' => 0,
-            ]
-        ]);
+        $cartData = $this->getCartData();
 
         $paxData = [];
         $totalPax = 0;
@@ -123,18 +101,7 @@ class CartController extends Controller
             return response()->json(['success' => false, 'message' => 'Tour not found.'], 404);
         }
 
-        $cartData = session()->get('cart', [
-            'tours' => [],
-            'applied_coupons' => [],
-            'total' => [
-                'subtotal' => 0,
-                'discount' => 0,
-                'vat' => 0,
-                'service_tax' => 0,
-                'tax' => 0,
-                'grand_total' => 0,
-            ]
-        ]);
+        $cartData = $this->getCartData();
 
         if (!isset($cartData['tours'][$tour->id]['pax'][$request->pax_type])) {
             return response()->json(['success' => false, 'message' => 'Item not in cart.'], 404);
@@ -175,18 +142,7 @@ class CartController extends Controller
             return back()->with('notify_error', 'Tour not found.');
         }
 
-        $cartData = session()->get('cart', [
-            'tours' => [],
-            'applied_coupons' => [],
-            'total' => [
-                'subtotal' => 0,
-                'discount' => 0,
-                'vat' => 0,
-                'service_tax' => 0,
-                'tax' => 0,
-                'grand_total' => 0,
-            ]
-        ]);
+        $cartData = $this->getCartData();
 
         if (isset($cartData['tours'][$tour->id]['pax'][$request->pax_type])) {
             unset($cartData['tours'][$tour->id]['pax'][$request->pax_type]);
@@ -229,25 +185,25 @@ class CartController extends Controller
             return back()->with('notify_error', 'Invalid or inactive coupon.');
         }
 
-        $cartData = session()->get('cart', [
-            'tours' => [],
-            'applied_coupons' => [],
-            'total' => [
-                'subtotal' => 0,
-                'discount' => 0,
-                'vat' => 0,
-                'service_tax' => 0,
-                'tax' => 0,
-                'grand_total' => 0,
-            ]
-        ]);
+        $cartData = $this->getCartData();
 
         if (empty($cartData['tours'])) {
             return back()->with('notify_error', 'Your cart is empty.');
         }
 
+        // Check if user is logged in and validate against database
+        if (auth()->check()) {
+            $userEmail = auth()->user()->email;
+            
+            // Check if user already used this coupon in database
+            if (!$this->canUseCoupon($userEmail, $coupon->id)) {
+                return back()->with('notify_error', 'You have already used this coupon previously.');
+            }
+        }
+
+        // Check if coupon already applied in current session
         if (collect($cartData['applied_coupons'])->pluck('code')->contains($couponCode)) {
-            return back()->with('notify_error', 'Coupon already applied.');
+            return back()->with('notify_error', 'Coupon already applied to your cart.');
         }
 
         $cartSubtotal = collect($cartData['tours'])->sum('total_price');
@@ -261,6 +217,7 @@ class CartController extends Controller
         }
 
         $cartData['applied_coupons'][] = [
+            'id' => $coupon->id,
             'code' => $couponCode,
             'type' => $coupon->type,
             'rate' => $coupon->rate,
@@ -271,8 +228,32 @@ class CartController extends Controller
 
         session()->put('cart', $cartData);
 
-        return back()->with('notify_success', "Coupon applied! Discount: AED " . number_format($discount, 2));
+        return back()->with("notify_success", "Coupon applied! Discount: AED " . number_format($discount, 2));
     }
+
+    private function getCartData(): array
+    {
+        return session()->get('cart', [
+            'tours' => [],
+            'applied_coupons' => [],
+            'total' => [
+                'subtotal' => 0,
+                'discount' => 0,
+                'vat' => 0,
+                'service_tax' => 0,
+                'tax' => 0,
+                'grand_total' => 0,
+            ]
+        ]);
+    }
+
+    public function canUseCoupon(string $email, int $couponId): bool
+    {
+        return !UserCoupon::where('email', $email)
+            ->where('coupon_id', $couponId)
+            ->exists();
+    }
+
     private function recalculateCartTotals(&$cartData)
     {
         $subtotal = collect($cartData['tours'] ?? [])->sum('total_price');

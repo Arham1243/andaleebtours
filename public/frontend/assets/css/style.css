@@ -2318,7 +2318,11 @@ body .skeleton {
     transition: all 0.2s ease;
     font-family: inherit;
 }
-
+.custom-input:read-only {
+    background: #e5e5e5;
+    opacity: 0.7;
+    pointer-events: none;
+}
 .custom-input:focus,
 .custom-select:focus,
 .custom-textarea:focus {
