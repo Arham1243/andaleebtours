@@ -137,6 +137,15 @@
 
                     <div class="col-lg-4">
                         <div class="sticky-sidebar">
+                            @if (session('notify_error'))
+                                <div class="alert alert-danger border-0 bg-opacity-10 mb-4" role="alert">
+                                    <div class="d-flex align-items-center justify-content-center gap-2">
+                                        <i class='bx bx-info-circle'></i>
+                                        <span class="small fw-medium">{{ session('notify_error') }}</span>
+                                    </div>
+                                </div>
+                            @endif
+
                             @foreach ($tours as $tour)
                                 @php
                                     $item = $cartData['tours'][$tour->id];
@@ -268,6 +277,18 @@
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Processing...';
             });
+
+            // Auto-hide error alert after 5 seconds
+            const errorAlert = document.querySelector('.alert-danger');
+            if (errorAlert) {
+                setTimeout(function() {
+                    errorAlert.style.transition = 'opacity 0.5s ease';
+                    errorAlert.style.opacity = '0';
+                    setTimeout(function() {
+                        errorAlert.remove();
+                    }, 500);
+                }, 5000);
+            }
         });
     </script>
 @endpush

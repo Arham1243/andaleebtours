@@ -64,21 +64,23 @@ class CheckoutController extends Controller
 
         DB::beginTransaction();
 
-        try {
-            // Validate coupon usage before creating order
-            if (!empty($cartData['applied_coupons'])) {
-                $couponValidation = $this->validateCouponUsage($cartData['applied_coupons'], $request->passenger['email']);
-                if (!$couponValidation['valid']) {
-                    return redirect()
-                        ->route('frontend.cart.index')
-                        ->with('notify_error', $couponValidation['message']);
-                }
-            }
 
+        // Validate coupon usage before creating order
+        if (!empty($cartData['applied_coupons'])) {
+            $couponValidation = $this->validateCouponUsage($cartData['applied_coupons'], 
+            $request->passenger['email']);
+            if (!$couponValidation['valid']) {
+                return redirect()
+                    ->route('frontend.checkout.index')
+                    ->with('notify_error', $couponValidation['message']);
+            }
+        }
+
+        try {
             $finalTotal = $this->calculateFinalTotal($cartData, $request->payment_method);
             $order = $this->createOrder($request, $cartData, $finalTotal);
             $prioTicketItems = $this->createOrderItems($order, $cartData);
-            
+
             $this->processPrioTicketReservation($order, $prioTicketItems, $request->passenger);
             $this->trackCouponUsage($order, $request->passenger['email']);
 
@@ -276,14 +278,14 @@ class CheckoutController extends Controller
                     fn($c) => $c['id'] !== $coupon['id']
                 );
                 $cartData['applied_coupons'] = array_values($cartData['applied_coupons']);
-                
+
                 // Recalculate totals without the invalid coupon
                 $this->recalculateCartTotals($cartData);
                 session()->put('cart', $cartData);
 
                 return [
                     'valid' => false,
-                    'message' => "The coupon '{$coupon['code']}' has already been used with this email address. It has been removed from your cart. Please review your order and proceed to checkout."
+                    'message' => "The coupon '{$coupon['code']}' has already been used with this email address and has been removed from your cart."
                 ];
             }
         }
@@ -316,11 +318,11 @@ class CheckoutController extends Controller
         $config = \Illuminate\Support\Facades\View::shared('config', []);
         $vatPercentage = floatval($config['VAT_PERCENTAGE'] ?? 0);
         $serviceTaxPercentage = floatval($config['SERVICE_TAX_PERCENTAGE'] ?? 0);
-        
+
         $vat = ($vatPercentage / 100) * $runningTotal;
         $serviceTax = ($serviceTaxPercentage / 100) * $runningTotal;
         $totalTax = $vat + $serviceTax;
-        
+
         $grandTotal = max($runningTotal + $totalTax, 0);
 
         $cartData['total'] = [
