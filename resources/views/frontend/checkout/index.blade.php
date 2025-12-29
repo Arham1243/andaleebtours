@@ -21,34 +21,34 @@
                             <div class="row g-3">
                                 <div class="col-md-2">
                                     <label class="form-label">Title</label>
-                                    <select class="custom-select">
-                                        <option>Mr.</option>
-                                        <option>Mrs.</option>
-                                        <option>Ms.</option>
+                                    <select class="custom-select" name="passenger[title]" required>
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Ms.">Ms.</option>
                                     </select>
                                 </div>
                                 <div class="col-md-5">
                                     <label class="form-label">First Name *</label>
-                                    <input type="text" class="custom-input" required>
+                                    <input type="text" class="custom-input" name="passenger[first_name]" required>
                                 </div>
                                 <div class="col-md-5">
                                     <label class="form-label">Last Name *</label>
-                                    <input type="text" class="custom-input" required>
+                                    <input type="text" class="custom-input" name="passenger[last_name]" required>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label">Email Address *</label>
-                                    <input type="email" class="custom-input" required>
+                                    <input type="email" class="custom-input" name="passenger[email]" required>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label">Phone Number *</label>
-                                    <input type="tel" class="custom-input"required>
+                                    <input type="tel" class="custom-input" name="passenger[phone]" required>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label">Country</label>
-                                    <select class="custom-select" name="country" id="country-select">
+                                    <select class="custom-select" name="passenger[country]" id="country-select" required>
                                         <option value="" selected disabled>Select</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country }}">{{ ucwords($country) }}</option>
@@ -58,12 +58,12 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label">Address *</label>
-                                    <input type="text" class="custom-input">
+                                    <input type="text" class="custom-input" name="passenger[address]" required>
                                 </div>
 
                                 <div class="col-12">
                                     <label class="form-label">Special Request</label>
-                                    <textarea class="custom-textarea" placeholder="Any specific requirements?"></textarea>
+                                    <textarea class="custom-textarea" name="passenger[special_request]" placeholder="Any specific requirements?"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,8 @@
                             <!-- Option 1: Card -->
                             <label class="payment-option">
                                 <div class="payment-header">
-                                    <input type="radio" name="payment_method" class="payment-radio" checked>
+                                    <input type="radio" name="payment_method" class="payment-radio" value="card" checked
+                                        required>
                                     <span class="payment-label">Credit / Debit Card</span>
                                 </div>
                                 <div class="payment-desc">
@@ -88,7 +89,8 @@
                             <!-- Option 2: Tabby -->
                             <label class="payment-option">
                                 <div class="payment-header">
-                                    <input type="radio" name="payment_method" class="payment-radio">
+                                    <input type="radio" name="payment_method" class="payment-radio" value="tabby"
+                                        required>
                                     <span class="payment-label">Tabby - Buy Now Pay Later</span>
                                 </div>
                                 <div class="payment-desc">
@@ -96,6 +98,7 @@
                                 </div>
                             </label>
                         </div>
+
 
                     </div>
 
@@ -191,7 +194,7 @@
                                         <span>Service Tax ({{ $config['SERVICE_TAX_PERCENTAGE'] ?? 0 }}%)</span>
                                         <span>{{ formatPrice($cartData['total']['service_tax']) }}</span>
                                     </div>
-                                    
+
                                     <div class="summary-row total">
                                         <span>Total Payable</span>
                                         <span
