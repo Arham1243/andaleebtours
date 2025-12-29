@@ -10,6 +10,7 @@ class OrderItem extends Model
         'order_id',
         'tour_id',
         'user_id',
+        'guest_email',
         'tour_name',
         'booking_date',
         'time_slot',

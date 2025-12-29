@@ -141,7 +141,7 @@ class CheckoutController extends Controller
     private function createOrder(Request $request, array $cartData, array $totalData): Order
     {
         return Order::create([
-            'user_id' => auth()->id(),
+            'user_id' => auth()->id(), // null for guests
             'order_number' => Order::generateOrderNumber(),
             'passenger_title' => $request->passenger['title'],
             'passenger_first_name' => $request->passenger['first_name'],
@@ -181,7 +181,8 @@ class CheckoutController extends Controller
             $orderItem = OrderItem::create([
                 'order_id' => $order->id,
                 'tour_id' => $tour->id,
-                'user_id' => auth()->id(),
+                'user_id' => auth()->id() ?? null, // null for guests
+                'guest_email' => auth()->check() ? null : $order->passenger_email,
                 'tour_name' => $tour->name,
                 'booking_date' => $cartItem['date'],
                 'time_slot' => $cartItem['time_slot'],
