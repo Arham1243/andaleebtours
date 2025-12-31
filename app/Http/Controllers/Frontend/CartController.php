@@ -53,6 +53,8 @@ class CartController extends Controller
             $subtotal = $qty * $price;
 
             $paxData[$label] = [
+                'product_type_id' => $type['product_type_id'],
+                'type' => $type['product_type'],
                 'label' => $type['product_type_label'],
                 'qty' => $qty,
                 'price' => $price,
