@@ -68,7 +68,7 @@ class TourController extends Controller
         $availableRanges = $availability['available_ranges'] ?? [];
         $timeSlots = [];
         if ($date) {
-            $timeSlots = $this->getTimeSlots($tour->distributer_id, $date);
+            $timeSlots = $this->getTimeSlots($tour->tour_pid, $date);
         }
 
         $tourCategories = TourCategory::with([
