@@ -53,7 +53,7 @@ class CheckoutController extends Controller
             'passenger.phone' => 'required|string|max:20',
             'passenger.country' => 'required|string|max:255',
             'passenger.address' => 'required|string|max:500',
-            'payment_method' => 'required|in:credit_debit,tabby',
+            'payment_method' => 'required|in:payby,tabby',
         ]);
 
         $cartData = $this->getCartData();
@@ -160,9 +160,7 @@ class CheckoutController extends Controller
             'service_tax' => $cartData['total']['service_tax'],
             'tabby_fee' => $totalData['tabby_fee'],
             'total' => $totalData['final_total'],
-            'coupon_id' => !empty($cartData['applied_coupons']) ? $cartData['applied_coupons'][0]['id'] ?? null : null,
-            'coupon_code' => !empty($cartData['applied_coupons']) ? $cartData['applied_coupons'][0]['code'] ?? null : null,
-            'coupon_discount' => $cartData['total']['discount'],
+            'applied_coupons' => $cartData['applied_coupons'] ?? [],
             'status' => 'pending',
         ]);
     }
@@ -401,11 +399,15 @@ class CheckoutController extends Controller
 
     private function trackCouponUsage(Order $order, string $email): void
     {
-        if ($order->coupon_id) {
-            UserCoupon::create([
-                'email' => $email,
-                'coupon_id' => $order->coupon_id,
-            ]);
+        if (!empty($order->applied_coupons)) {
+            foreach ($order->applied_coupons as $coupon) {
+                if (isset($coupon['id'])) {
+                    UserCoupon::create([
+                        'email' => $email,
+                        'coupon_id' => $coupon['id'],
+                    ]);
+                }
+            }
         }
     }
 
@@ -414,5 +416,152 @@ class CheckoutController extends Controller
         return !UserCoupon::where('email', $email)
             ->where('coupon_id', $couponId)
             ->exists();
+    }
+
+    public function paybyCallback(Request $request)
+    {
+        $orderId = $request->query('order');
+        $order = Order::findOrFail($orderId);
+
+        return $this->handlePaymentCallback($order, 'PayBy');
+    }
+
+    public function tabbyCallback(Request $request)
+    {
+        $orderId = $request->query('order');
+        $order = Order::findOrFail($orderId);
+
+        return $this->handlePaymentCallback($order, 'Tabby');
+    }
+
+    protected function handlePaymentCallback(Order $order, string $gateway)
+    {
+        if ($order->payment_status === 'paid') {
+            return $this->handlePaymentSuccess($order);
+        }
+
+        return $this->handlePaymentFailure(
+            $order,
+            'Payment Failed',
+            "Your {$gateway} payment could not be processed.",
+            'Payment status: ' . $order->payment_status
+        );
+    }
+
+    protected function handlePaymentSuccess(Order $order)
+    {
+        session()->forget('cart');
+        session()->put('order_number', $order->order_number);
+        
+        return redirect()
+            ->route('frontend.payment.success')
+            ->with('notify_success', 'Payment completed successfully!');
+    }
+
+    protected function handlePaymentFailure(Order $order, string $title, string $description, string $message)
+    {
+        return redirect()
+            ->route('frontend.payment.failed')
+            ->with('error_title', $title)
+            ->with('error_description', $description)
+            ->with('error_message', $message);
+    }
+
+    public function paybyNotify(Request $request)
+    {
+        Log::info('PayBy Notify Webhook', ['payload' => $request->all()]);
+
+        try {
+            $data = $request->all();
+            
+            if (!isset($data['bizContent']['merchantOrderNo'])) {
+                Log::error('PayBy Notify: Missing merchantOrderNo');
+                return response()->json(['status' => 'error', 'message' => 'Invalid payload'], 400);
+            }
+
+            $orderNumber = $data['bizContent']['merchantOrderNo'];
+            $order = Order::where('order_number', $orderNumber)->first();
+
+            if (!$order) {
+                Log::error('PayBy Notify: Order not found', ['order_number' => $orderNumber]);
+                return response()->json(['status' => 'error', 'message' => 'Order not found'], 404);
+            }
+
+            $paymentStatus = $data['bizContent']['status'] ?? null;
+
+            if ($paymentStatus === 'SUCCESS') {
+                $this->updateOrderPaymentStatus($order, 'paid', 'confirmed');
+                Log::info('PayBy Payment Success', ['order_id' => $order->id]);
+            } else {
+                $this->updateOrderPaymentStatus($order, 'failed', 'pending');
+                Log::warning('PayBy Payment Failed', [
+                    'order_id' => $order->id,
+                    'status' => $paymentStatus
+                ]);
+            }
+
+            return response()->json(['status' => 'success'], 200);
+
+        } catch (\Exception $e) {
+            Log::error('PayBy Notify Error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function tabbyNotify(Request $request)
+    {
+        Log::info('Tabby Notify Webhook', ['payload' => $request->all()]);
+
+        try {
+            $data = $request->all();
+            
+            if (!isset($data['order_id'])) {
+                Log::error('Tabby Notify: Missing order_id');
+                return response()->json(['status' => 'error', 'message' => 'Invalid payload'], 400);
+            }
+
+            $orderNumber = $data['order_id'];
+            $order = Order::where('order_number', $orderNumber)->first();
+
+            if (!$order) {
+                Log::error('Tabby Notify: Order not found', ['order_number' => $orderNumber]);
+                return response()->json(['status' => 'error', 'message' => 'Order not found'], 404);
+            }
+
+            $paymentStatus = $data['status'] ?? null;
+
+            if ($paymentStatus === 'AUTHORIZED' || $paymentStatus === 'CLOSED') {
+                $this->updateOrderPaymentStatus($order, 'paid', 'confirmed');
+                Log::info('Tabby Payment Success', ['order_id' => $order->id]);
+            } else {
+                $this->updateOrderPaymentStatus($order, 'failed', 'pending');
+                Log::warning('Tabby Payment Failed', [
+                    'order_id' => $order->id,
+                    'status' => $paymentStatus
+                ]);
+            }
+
+            return response()->json(['status' => 'success'], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Tabby Notify Error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    protected function updateOrderPaymentStatus(Order $order, string $paymentStatus, string $orderStatus)
+    {
+        $order->update([
+            'payment_status' => $paymentStatus,
+            'status' => $orderStatus,
+        ]);
     }
 }

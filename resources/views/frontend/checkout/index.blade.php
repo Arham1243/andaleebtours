@@ -110,7 +110,7 @@
                             <!-- Option 1: Card -->
                             <label class="payment-option">
                                 <div class="payment-header">
-                                    <input type="radio" name="payment_method" class="payment-radio" value="credit_debit" checked
+                                    <input type="radio" name="payment_method" class="payment-radio" value="payby" checked
                                         required>
                                     <span class="payment-label">Credit / Debit Card</span>
                                 </div>

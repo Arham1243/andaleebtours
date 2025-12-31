@@ -25,9 +25,7 @@ class Order extends Model
         'service_tax',
         'tabby_fee',
         'total',
-        'coupon_id',
-        'coupon_code',
-        'coupon_discount',
+        'applied_coupons',
         'status',
         'reservation_reference',
         'reservation_data',
@@ -40,7 +38,7 @@ class Order extends Model
         'service_tax' => 'decimal:2',
         'tabby_fee' => 'decimal:2',
         'total' => 'decimal:2',
-        'coupon_discount' => 'decimal:2',
+        'applied_coupons' => 'array',
     ];
 
     public function user()
@@ -51,11 +49,6 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
-    }
-
-    public function coupon()
-    {
-        return $this->belongsTo(Coupon::class);
     }
 
     public static function generateOrderNumber()

@@ -39,5 +39,17 @@ return [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_CALLBACK'),
-    ]
+    ],
+
+    'payby' => [
+        'partner_id' => env('PAYBY_PARTNER_ID', '200009116289'),
+        'api_url' => env('PAYBY_API_URL', 'https://api.payby.com/sgs/api/acquire2'),
+        'private_key_path' => env('PAYBY_PRIVATE_KEY_PATH', 'app/keys/Merchant_private_key.pem'),
+    ],
+
+    'tabby' => [
+        'api_key' => env('TABBY_API_KEY'),
+        'api_url' => env('TABBY_API_URL', 'https://api.tabby.ai'),
+        'merchant_code' => env('TABBY_MERCHANT_CODE'),
+    ],
 ];
