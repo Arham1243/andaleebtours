@@ -43,20 +43,6 @@ class IndexController extends Controller
         return view('frontend.contact-us', compact('banner'));
     }
 
-    public function paymentSuccess(Request $request)
-    {
-        $order = Order::where('id', $request->order)
-            ->with('orderItems.tour')
-            ->firstOrFail();
-
-        return view('frontend.payment.success', compact('order'));
-    }
-
-    public function paymentFailed()
-    {
-        return view('frontend.payment.failed');
-    }
-
     public function subscribeNewsletter(Request $request)
     {
         try {

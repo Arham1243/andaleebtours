@@ -4,12 +4,16 @@ namespace App\Services;
 
 use App\Models\Order;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class PaymentService
 {
-
     public $tabbyApiKey = 'pk_03168c56-d196-4e58-a72a-48dbebb88b87';
     public $tabbyMerchantCode = 'ATA';
+    public $tabbyApiUrl = 'https://api.tabby.ai/api/v2';
+    
+    public $paybyPartnerId = '200009116289';
+    public $paybyApiUrl = 'https://api.payby.com/sgs/api/acquire2';
     public $paybyPrivateKey = 'admin/assets/files/payby-private-key.pem';
 
     /**
@@ -243,9 +247,133 @@ class PaymentService
         $responseData = $response->json();
 
         if (isset($responseData['configuration']['available_products']['installments'][0]['web_url'])) {
+            // Save Tabby payment ID to order
+            if (isset($responseData['payment']['id'])) {
+                $order->update([
+                    'tabby_payment_id' => $responseData['payment']['id']
+                ]);
+                
+                Log::info('Tabby payment ID saved', [
+                    'order_id' => $order->id,
+                    'payment_id' => $responseData['payment']['id']
+                ]);
+            }
+            
             return $responseData['configuration']['available_products']['installments'][0]['web_url'];
         }
 
         throw new \Exception('Tabby checkout creation failed: No redirect URL found in response');
+    }
+
+    /**
+     * Verify PayBy Payment
+     */
+    public function verifyPayByPayment(Order $order): array
+    {
+        try {
+            $requestTime = now()->timestamp * 1000;
+
+            $requestData = [
+                'requestTime' => $requestTime,
+                'bizContent' => [
+                    'merchantOrderNo' => $order->order_number
+                ]
+            ];
+
+            $jsonPayload = json_encode($requestData);
+            $privateKeyPath = public_path($this->paybyPrivateKey);
+
+            if (!file_exists($privateKeyPath)) {
+                throw new \Exception('PayBy private key file not found');
+            }
+
+            $privateKey = file_get_contents($privateKeyPath);
+            $signature = '';
+            openssl_sign($jsonPayload, $signature, $privateKey, OPENSSL_ALGO_SHA256);
+            $base64Signature = base64_encode($signature);
+
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Content-Language' => 'en',
+                'Partner-Id' => $this->paybyPartnerId,
+                'sign' => $base64Signature,
+            ])->post($this->paybyApiUrl . '/getOrder', $requestData);
+
+            if (!$response->successful()) {
+                throw new \Exception('PayBy verification API request failed: ' . $response->body());
+            }
+
+            $responseData = $response->json();
+
+            if (
+                isset($responseData['body']['acquireOrder']['status']) &&
+                $responseData['body']['acquireOrder']['status'] === 'SETTLED' &&
+                isset($responseData['head']['applyStatus']) &&
+                $responseData['head']['applyStatus'] === 'SUCCESS'
+            ) {
+                return [
+                    'success' => true,
+                    'data' => $responseData
+                ];
+            }
+
+            throw new \Exception('PayBy payment not settled. Status: ' . ($responseData['body']['acquireOrder']['status'] ?? 'Unknown'));
+
+        } catch (\Exception $e) {
+            Log::error('PayBy Verification Error', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Verify Tabby Payment
+     */
+    public function verifyTabbyPayment(Order $order): array
+    {
+        try {
+            if (empty($order->tabby_payment_id)) {
+                throw new \Exception('Tabby payment ID not found for this order');
+            }
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $this->tabbyApiKey
+            ])->get("{$this->tabbyApiUrl}/payments/{$order->tabby_payment_id}");
+
+            if (!$response->successful()) {
+                throw new \Exception('Tabby verification API request failed: ' . $response->body());
+            }
+
+            $data = $response->json();
+
+            if (isset($data['status']) && in_array($data['status'], ['AUTHORIZED', 'CLOSED', 'CAPTURED'])) {
+                return [
+                    'success' => true,
+                    'data' => $data
+                ];
+            }
+
+            throw new \Exception('Tabby payment not captured. Status: ' . ($data['status'] ?? 'Unknown'));
+
+        } catch (\Exception $e) {
+            Log::error('Tabby Verification Error', [
+                'order_id' => $order->id,
+                'tabby_payment_id' => $order->tabby_payment_id ?? 'N/A',
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
     }
 }

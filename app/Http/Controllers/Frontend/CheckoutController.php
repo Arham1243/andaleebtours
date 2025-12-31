@@ -9,6 +9,7 @@ use App\Models\Tour;
 use App\Models\Country;
 use App\Models\UserCoupon;
 use App\Services\PrioTicketService;
+use Illuminate\Support\Facades\Http;
 use App\Services\PaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -416,5 +417,98 @@ class CheckoutController extends Controller
         return !UserCoupon::where('email', $email)
             ->where('coupon_id', $couponId)
             ->exists();
+    }
+
+    public function paymentSuccess(Request $request)
+    {
+        try {
+            // Fetch the order with items
+            $order = Order::with('orderItems.tour')->findOrFail($request->query('order'));
+
+            $paymentService = new PaymentService();
+
+            switch ($order->payment_method) {
+                case 'payby':
+                    $result = $paymentService->verifyPayByPayment($order);
+
+                    if ($result['success']) {
+                        return $this->handlePaymentSuccess($order, $result['data']);
+                    }
+
+                    return $this->handlePaymentFailure(
+                        'PayBy Payment Verification Failed',
+                        'We could not verify your PayBy payment.',
+                        $result['error']
+                    );
+
+                case 'tabby':
+                    $result = $paymentService->verifyTabbyPayment($order);
+
+                    if ($result['success']) {
+                        return $this->handlePaymentSuccess($order, $result['data']);
+                    }
+
+                    return $this->handlePaymentFailure(
+                        'Tabby Payment Verification Failed',
+                        'We could not verify your Tabby payment.',
+                        $result['error']
+                    );
+
+                default:
+                    return redirect()->route('frontend.payment.failed')
+                        ->with('error_title', 'Invalid Payment Method')
+                        ->with('error_description', 'The payment method for this order is not recognized.')
+                        ->with('error_message', 'Payment method: ' . $order->payment_method);
+            }
+        } catch (\Exception $e) {
+            Log::error('Payment Success Error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->route('frontend.payment.failed')
+                ->with('error_title', 'Payment Verification Failed')
+                ->with('error_description', 'We could not verify your payment at this time.')
+                ->with('error_message', $e->getMessage());
+        }
+    }
+
+    protected function handlePaymentSuccess(Order $order, array $paymentData)
+    {
+        $order->update([
+            'payment_status' => 'paid',
+            'status' => 'confirmed',
+            'payment_response' => json_encode($paymentData)
+        ]);
+
+        $order->orderItems()->update([
+            'status' => 'confirmed'
+        ]);
+
+        $this->processPrioTicketOrder($order);
+
+        session()->forget('cart');
+
+        return view('frontend.payment.success', compact('order'));
+    }
+
+    protected function handlePaymentFailure(string $title, string $description, string $message)
+    {
+        return redirect()
+            ->route('frontend.payment.failed')
+            ->with('error_title', $title)
+            ->with('error_description', $description)
+            ->with('error_message', $message);
+    }
+
+    protected function processPrioTicketOrder(Order $order)
+    {
+        $prioTicketService = new PrioTicketService();
+        $prioTicketService->confirmOrder($order);
+    }
+
+    public function paymentFailed()
+    {
+        return view('frontend.payment.failed');
     }
 }

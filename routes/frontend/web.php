@@ -67,8 +67,8 @@ Route::name('frontend.')->group(function () {
     });
 
     Route::prefix('payment')->name('payment.')->group(function () {
-        Route::get('/success', [IndexController::class, 'paymentSuccess'])->name('success');
-        Route::get('/failed', [IndexController::class, 'paymentFailed'])->name('failed');
+        Route::get('/success', [CheckoutController::class, 'paymentSuccess'])->name('success');
+        Route::get('/failed', [CheckoutController::class, 'paymentFailed'])->name('failed');
     });
 
     Route::prefix('flights')->name('flights.')->group(function () {

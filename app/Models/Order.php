@@ -19,6 +19,8 @@ class Order extends Model
         'passenger_special_request',
         'payment_method',
         'payment_status',
+        'payment_response',
+        'tabby_payment_id',
         'subtotal',
         'discount',
         'vat',

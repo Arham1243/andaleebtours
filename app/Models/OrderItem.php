@@ -22,6 +22,8 @@ class OrderItem extends Model
         'availability_id',
         'booking_reference',
         'reservation_response',
+        'reservation_data',
+        'order_data',
         'status',
     ];
 

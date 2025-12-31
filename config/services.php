@@ -51,5 +51,5 @@ return [
         'api_key' => env('TABBY_API_KEY'),
         'api_url' => env('TABBY_API_URL', 'https://api.tabby.ai'),
         'merchant_code' => env('TABBY_MERCHANT_CODE'),
-    ],
+    ]
 ];

@@ -10,6 +10,7 @@ class PrioTicketService
 {
     private $baseUrl = 'https://distributor-api.prioticket.com/v3.5/distributor';
     private $authToken = 'YW5kYWxlZWIyMDIzMDFAcHJpb2FwaXMuY29tOkBBbmQwVHJhdjMkTEAhMiM=';
+    private $distributorId = '49670';
 
     public function getAccessToken()
     {
@@ -148,7 +149,7 @@ class PrioTicketService
         return [
             'data' => [
                 'reservation' => [
-                    'reservation_distributor_id' => '49670',
+                    'reservation_distributor_id' => $this->distributorId,
                     'reservation_external_reference' => $order->order_number,
                     'reservation_details' => $reservationDetails,
                     'reservation_contacts' => [
@@ -173,5 +174,115 @@ class PrioTicketService
                 ]
             ]
         ];
+    }
+
+    /**
+     * Confirm PrioTicket orders after payment is successful
+     */
+    public function confirmOrder($order)
+    {
+        try {
+            $token = $this->getAccessToken();
+
+            if (!$token) {
+                throw new \Exception('Failed to get PrioTicket access token');
+            }
+
+            foreach ($order->orderItems as $orderItem) {
+                if (empty($orderItem->reservation_data)) {
+                    continue;
+                }
+
+                $reservationData = json_decode($orderItem->reservation_data, true);
+                
+                if (!isset($reservationData['data']['reservation']['reservation_reference'])) {
+                    Log::warning('Missing reservation reference for order item', [
+                        'order_item_id' => $orderItem->id
+                    ]);
+                    continue;
+                }
+
+                $reservationReference = $reservationData['data']['reservation']['reservation_reference'];
+                $externalReference = $reservationData['data']['reservation']['reservation_external_reference'] ?? null;
+
+                $orderData = [
+                    'data' => [
+                        'order' => [
+                            'order_distributor_id' => $this->distributorId,
+                            'order_external_reference' => $externalReference,
+                            'order_settlement_type' => 'EXTERNAL',
+                            'order_language' => 'en',
+                            'order_contacts' => [
+                                [
+                                    'contact_uid' => '',
+                                    'contact_number' => $order->passenger_phone,
+                                    'contact_name_first' => $order->passenger_first_name,
+                                    'contact_name_last' => $order->passenger_last_name,
+                                    'contact_email' => $order->passenger_email,
+                                    'contact_phone' => $order->passenger_phone,
+                                    'contact_mobile' => $order->passenger_phone,
+                                    'contact_address' => [
+                                        'name' => $order->passenger_address,
+                                        'city' => $order->passenger_country,
+                                        'postal_code' => '00000',
+                                        'region' => $order->passenger_country,
+                                        'country' => $order->passenger_country,
+                                        'country_code' => 'AE'
+                                    ]
+                                ]
+                            ],
+                            'order_options' => [
+                                'email_options' => [
+                                    'email_types' => [
+                                        'send_tickets' => true,
+                                        'send_receipt' => true,
+                                        'send_marketing' => true,
+                                        'send_offers' => true,
+                                        'send_notification' => true
+                                    ]
+                                ],
+                                'price_on_voucher' => true
+                            ],
+                            'order_activity_url' => url('/orders/' . $order->order_number),
+                            'order_view_type' => 'DISTRIBUTOR',
+                            'order_bookings' => [
+                                [
+                                    'booking_option_type' => 'CONFIRM_RESERVATION',
+                                    'reservation_reference' => $reservationReference
+                                ]
+                            ]
+                        ]
+                    ]
+                ];
+
+                $response = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $token,
+                ])->post($this->baseUrl . '/orders', $orderData);
+
+                if ($response->successful()) {
+                    $orderItem->update([
+                        'order_data' => $response->body()
+                    ]);
+
+                    Log::info('PrioTicket order confirmed successfully', [
+                        'order_item_id' => $orderItem->id,
+                        'reservation_reference' => $reservationReference
+                    ]);
+                } else {
+                    Log::error('PrioTicket order confirmation failed', [
+                        'order_item_id' => $orderItem->id,
+                        'response' => $response->body()
+                    ]);
+                }
+            }
+
+        } catch (\Exception $e) {
+            Log::error('PrioTicket Order Confirmation Error', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+        }
     }
 }
