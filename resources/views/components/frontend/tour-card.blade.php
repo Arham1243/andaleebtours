@@ -10,7 +10,7 @@
                 @endif
             </div>
             <div class="act-details">
-                <div class="act-title line-clamp-2">{{ $tour->name }}</div>
+                <a href="{{ route('frontend.tour.details', $tour->slug) }}" class="act-title line-clamp-2">{{ $tour->name }}</a>
                 <div class="act-rating">
                     <i class='bx bxs-star star-icon'></i>
                         <span class="rating-num">{{ round($tour->approvedReviews->avg('rating'), 1) == 0 ? '' : round($tour->approvedReviews->avg('rating'), 1) }}</span>

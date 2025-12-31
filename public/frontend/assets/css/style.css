@@ -562,9 +562,9 @@ button.slick-prev.slick-arrow::before {
 .slick-slide {
     margin: 0 10px;
 }
+
 .activity-card {
     background: transparent;
-    cursor: pointer;
     border: none;
     margin: 1rem 0;
 }
