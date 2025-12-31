@@ -15,29 +15,40 @@
                         </div>
 
                         <!-- Headline -->
-                        <h1 class="h3 fw-bold mb-2">Payment Failed</h1>
-                        <p class="text-muted mb-4">
-                            We couldn't process your payment. Your card has not been charged.
-                        </p>
+                        @if (session('error_title'))
+                            <h1 class="h3 fw-bold mb-2">
+                                {{ session('error_title') }}
+                            </h1>
+                        @endif
+                        @if (session('error_description'))
+                            <p class="text-muted mb-4">
+                                {{ session('error_description') }}
+                            </p>
+                        @endif
 
                         <!-- Error Alert Box -->
-                        <div class="alert alert-danger border-0 bg-opacity-10 mb-4" role="alert">
-                            <div class="d-flex align-items-center justify-content-center gap-2">
-                                <i class='bx bx-info-circle'></i>
-                                <span class="small fw-medium">Error Code: Insufficient Funds (204)</span>
+                        @if (session('error_message'))
+                            <div class="alert alert-danger border-0 bg-opacity-10 mb-4" role="alert">
+                                <div class="d-flex align-items-start gap-2">
+                                    <i class='bx bx-error-circle mt-1'></i>
+                                    <div class="text-start">
+                                        <strong class="small">{{ session('error_message') }}</strong>   
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <!-- Helpful Suggestions -->
                         <p class="small text-muted mb-4">
-                            Please check your card details, ensure you have sufficient funds, or try a different payment
-                            method.
+                            Please try again or contact our support team if the issue persists.
                         </p>
 
                         <!-- Actions -->
                         <div class="d-grid gap-2">
-                            <a href="#" class="btn btn-primary-theme btn-lg">Contact Support</a>
-                            <a href="#" class="btn btn-link text-decoration-none text-muted">Return to Home</a>
+                            <a href="{{ route('frontend.checkout.index') }}" class="btn btn-primary-theme btn-lg">Try
+                                Again</a>
+                            <a href="{{ route('frontend.index') }}"
+                                class="btn btn-link text-decoration-none text-muted">Return to Home</a>
                         </div>
                     </div>
 

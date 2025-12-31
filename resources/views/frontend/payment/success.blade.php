@@ -31,10 +31,6 @@
                                     <span class="text-muted">Date</span>
                                     <span class="fw-medium">{{ $order->created_at->format('M d, Y') }}</span>
                                 </div>
-                                <div class="detail-row">
-                                    <span class="text-muted">Payment Method</span>
-                                    <span class="fw-medium">{{ ucfirst($order->payment_method) }}</span>
-                                </div>
                                 <div class="detail-row total">
                                     <span>Amount Paid</span>
                                     <span>{{ formatPrice($order->total) }}</span>
