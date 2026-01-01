@@ -12,9 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            // Drop old columns
-            $table->dropColumn(['coupon_id', 'coupon_code', 'coupon_discount']);
-
             // Add new JSON column
             $table->json('applied_coupons')->nullable()->after('total');
         });
