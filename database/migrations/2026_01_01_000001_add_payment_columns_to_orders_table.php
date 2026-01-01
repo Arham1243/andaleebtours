@@ -24,17 +24,6 @@ return new class extends Migration
         // Remove old coupon columns if they exist (replaced by applied_coupons JSON)
         Schema::table('orders', function (Blueprint $table) {
             if (Schema::hasColumn('orders', 'coupon_id')) {
-                // Drop foreign key first if it exists
-                $sm = Schema::getConnection()->getDoctrineSchemaManager();
-                $foreignKeys = $sm->listTableForeignKeys('orders');
-                foreach ($foreignKeys as $foreignKey) {
-                    if ($foreignKey->getName() === 'orders_coupon_id_foreign') {
-                        $table->dropForeign('orders_coupon_id_foreign');
-                        break;
-                    }
-                }
-                
-                // Then drop the columns
                 $table->dropColumn(['coupon_id', 'coupon_code', 'coupon_discount']);
             }
         });
