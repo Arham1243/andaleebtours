@@ -135,3 +135,13 @@ Breadcrumbs::for('admin.tour-reviews.edit', function (BreadcrumbTrail $trail, $i
     $trail->parent('admin.tour-reviews.index');
     $trail->push($item->title ?? 'N/A', route('admin.tour-reviews.edit', $item->id));
 });
+
+Breadcrumbs::for('admin.orders.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Orders', route('admin.orders.index'));
+});
+
+Breadcrumbs::for('admin.orders.show', function (BreadcrumbTrail $trail, $order) {
+    $trail->parent('admin.orders.index');
+    $trail->push('Order ' . $order->order_number, route('admin.orders.show', $order->id));
+});

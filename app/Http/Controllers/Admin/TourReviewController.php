@@ -21,7 +21,7 @@ class TourReviewController extends Controller
     {
         $review = TourReview::findOrFail($id);
 
-        return view('admin.tours.reviews.edit', compact('review'))->with('title', ucfirst(strtolower($review->tour->title ?? '')));
+        return view('admin.tours.reviews.edit', compact('review'))->with('title', ucfirst(strtolower($review->title ?? '')));
     }
 
     public function update(Request $request, $id)

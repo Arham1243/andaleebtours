@@ -27,6 +27,11 @@ return [
         'route' => route('admin.banners.index'),
     ],
     [
+        'title' => 'Orders',
+        'icon' => 'bx bxs-shopping-bag',
+        'route' => route('admin.orders.index'),
+    ],
+    [
         'title' => 'Tours',
         'icon' => 'bx bx-world',
         'submenu' => [
