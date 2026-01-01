@@ -22,15 +22,11 @@ return new class extends Migration
         });
 
         // Remove old coupon columns if they exist (replaced by applied_coupons JSON)
-        if (Schema::hasColumn('orders', 'coupon_id')) {
-            Schema::table('orders', function (Blueprint $table) {
-                // Now drop columns
+        Schema::table('orders', function (Blueprint $table) {
+            if (Schema::hasColumn('orders', 'coupon_id')) {
                 $table->dropColumn(['coupon_id', 'coupon_code', 'coupon_discount']);
-
-                // Optional: add JSON column to store multiple applied coupons
-                $table->json('applied_coupons')->nullable()->after('total');
-            });
-        }
+            }
+        });
     }
 
     /**
