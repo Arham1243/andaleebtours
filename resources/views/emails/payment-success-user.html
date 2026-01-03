@@ -114,6 +114,15 @@
             background-color: #f4fff6;
         }
 
+        /* Booking Card */
+        .booking-card {
+            background-color: #ffffff;
+            border: 1px solid #eeeeee;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
         .grand-total-text {
             font-size: 18px;
             font-weight: 700;
@@ -165,65 +174,73 @@
                             Thank you for your payment. Your transaction was successful, and your reservation is now
                             fully confirmed. We look forward to hosting you soon.
                         </p>
-                        <span class="status-badge">Payment Successful</span>
                     </td>
                 </tr>
             </table>
 
-            <!-- Order Meta (Grid Layout) -->
-            <table width="100%" cellpadding="0" cellspacing="0" class="border-bottom">
-                <tr>
-                    <td width="50%" class="section-padding" align="left" valign="top">
-                        <div class="label">Start Date</div>
-                        <div class="data-text" style="margin-bottom: 25px;">October 24, 2024</div>
+            <!-- Booking Card -->
+            <div class="booking-card"
+                style="background-color: #ffffff; border: 1px solid #eeeeee; border-radius: 8px; margin-bottom: 25px; overflow: hidden;">
+                <!-- Card Header -->
+                <table width="100%" cellpadding="0" cellspacing="0"
+                    style="background-color: #fafafa; border-bottom: 1px solid #eeeeee; padding: 12px 20px;">
+                    <tr>
+                        <td align="left"><span class="label"
+                                style="font-size: 12px; font-weight: 700; color: #000; text-transform: uppercase;">Order
+                                #ANT-2026-8812</span></td>
+                        <td align="right"><span class="status-badge">Payment Successful</span>
+                        </td>
+                    </tr>
+                </table>
 
-                        <div class="label">Time slot</div>
-                        <div class="data-text">3:00 PM - 4:00 PM</div>
-                    </td>
-                    <td width="50%" class="section-padding" align="right" valign="top">
-                        <div class="label">Tour / Service</div>
-                        <div class="data-text">Premium Desert Safari & VIP Lounge</div>
-                    </td>
-                </tr>
-            </table>
+                <!-- Card Body -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="padding: 20px;">
+                    <tr>
+                        <td align="left" valign="top">
+                            <!-- Tour Title & Date -->
+                            <div style="font-size: 16px; font-weight: 700; color: #111111; margin-bottom: 6px;">Premium
+                                Desert Safari & VIP Lounge</div>
+                            <div style="font-size: 13px; color: #666666; margin-bottom: 20px;">Oct 24, 2024 &bull; 3:00
+                                PM - 4:00 PM Slot</div>
 
-            <!-- Itemized Breakdown -->
-            <table width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td>
-                        <table class="pax-table">
-                            <thead>
+                            <!-- Financial Breakdown Table -->
+                            <table width="100%" cellpadding="0" cellspacing="0"
+                                style="font-size: 13px; color: #555555;">
+                                <!-- Pax Rows -->
                                 <tr>
-                                    <th width="40%">Pax Category</th>
-                                    <th width="20%" style="text-align: center;">Qty</th>
-                                    <th width="20%" style="text-align: right;">Rate</th>
-                                    <th width="20%" style="text-align: right;">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Adult</strong> (12+ Years)</td>
-                                    <td align="center">2</td>
-                                    <td align="right"><span class="dirham">D</span>350.00</td>
-                                    <td align="right"><span class="dirham">D</span>700.00</td>
+                                    <td style="padding-bottom: 8px;">Adult (2 &times; <span
+                                            class="dirham">D</span>350.00)</td>
+                                    <td align="right" style="padding-bottom: 8px; color: #111111;"><span
+                                            class="dirham">D</span>700.00</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Child</strong> (3-11 Years)</td>
-                                    <td align="center">1</td>
-                                    <td align="right"><span class="dirham">D</span>250.00</td>
-                                    <td align="right"><span class="dirham">D</span>250.00</td>
+                                    <td style="padding-bottom: 8px;">Child (1 &times; <span
+                                            class="dirham">D</span>250.00)</td>
+                                    <td align="right" style="padding-bottom: 8px; color: #111111;"><span
+                                            class="dirham">D</span>250.00</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Infant</strong> (Under 3)</td>
-                                    <td align="center">1</td>
-                                    <td align="right"><span class="dirham">D</span>250.00</td>
-                                    <td align="right"><span class="dirham">D</span> 250.00</td>
+                                    <td style="padding-bottom: 12px; border-bottom: 1px solid #f4f4f4;">Infant (1
+                                        &times; <span class="dirham">D</span>250.00)</td>
+                                    <td align="right"
+                                        style="padding-bottom: 12px; border-bottom: 1px solid #f4f4f4; color: #111111;">
+                                        <span class="dirham">D</span>250.00</td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+
+                                <!-- Total Row -->
+                                <tr>
+                                    <td style="border-top: 1px solid #f4f4f4;padding-top: 10px; font-size: 14px; font-weight: 700; color: #111111;">
+                                        Total</td>
+                                    <td align="right"
+                                        style="padding-top: 10px; font-size: 20px; font-weight: 800; color: #e91e63;">
+                                        <span class="dirham" style="font-size: 14px;">D</span>1,200.00
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
             <!-- Order Summary (Taxes & Totals) -->
             <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
