@@ -4,11 +4,12 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Payment Failed - #ANT-2026-8812</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Failed - {{ $order->order_number }}</title>
     <style>
         @font-face {
             font-family: "UAEDirham";
-            src: url("../../../public/frontend/assets/fonts/UAE-dirham/aed-Regular.otf");
+            src: url("{{ asset('frontend/assets/fonts/UAE-dirham/aed-Regular.otf') }}");
         }
 
         body :is(.dirham.dirham) {
@@ -74,29 +75,6 @@
             border-bottom: 1px solid #eeeeee;
         }
 
-        .pax-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .pax-table th {
-            text-align: left;
-            padding: 12px 0;
-            border-bottom: 2px solid #111111;
-            font-size: 12px;
-            text-transform: uppercase;
-            color: #111111;
-        }
-
-        .pax-table td {
-            padding: 15px 0;
-            border-bottom: 1px solid #eeeeee;
-            font-size: 14px;
-            color: #444444;
-        }
-
-        /* Success Status Badge */
         .status-badge {
             display: inline-block;
             border: 2px solid #dc3545;
@@ -107,6 +85,36 @@
             font-weight: 700;
             text-transform: uppercase;
             border-radius: 2px;
+        }
+
+        .booking-card {
+            background-color: #ffffff;
+            border: 1px solid #eeeeee;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .reason-box {
+            text-align:left;
+            background-color: #fff5f5;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .reason-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #dc3545;
+            margin-bottom: 8px;
+        }
+
+        .reason-text {
+            font-size: 13px;
+            color: #666666;
+            line-height: 1.5;
         }
 
         .footer {
@@ -138,43 +146,138 @@
             border-radius: 4px;
         }
 
-        /* NEW: Failure Reason Box */
-        .reason-box {
-            background-color: #fef2f2;
-            border: 1px solid #fee2e2;
-            border-left: 4px solid #dc3545;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 4px;
-        }
-
-        .reason-title {
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: #991b1b;
-            margin-bottom: 5px;
-        }
-
-        .reason-text {
-            font-size: 14px;
-            color: #b91c1c;
-            font-weight: 500;
-        }
-
-        /* Booking Card */
-        .booking-card {
-            background-color: #ffffff;
-            border: 1px solid #eeeeee;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            overflow: hidden;
-        }
         .grand-total-text {
-    font-size: 18px;
-    font-weight: 700;
-    color: #111111;
-}
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            color: #111111 !important;
+        }
+
+        /* Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            .wrapper {
+                padding: 20px 0 !important;
+            }
+
+            .container {
+                padding: 15px !important;
+                border: none !important;
+            }
+
+            h1 {
+                font-size: 18px !important;
+            }
+
+            .section-padding {
+                padding: 20px 0 !important;
+            }
+
+            .btn-view {
+                display: block !important;
+                width: fit-content !important;
+                text-align: center !important;
+                padding: 14px 20px !important;
+                font-size: 14px !important;
+            }
+
+            .booking-card {
+                border-radius: 4px !important;
+                margin-bottom: 15px !important;
+            }
+
+            table[width="50%"] {
+                width: 100% !important;
+            }
+
+            .data-text {
+                font-size: 13px !important;
+            }
+
+            .footer {
+                padding-top: 30px !important;
+            }
+
+            .footer-text {
+                font-size: 11px !important;
+            }
+
+            .grand-total-text {
+                font-size: 16px !important;
+            }
+
+            table[style*="margin-top: 30px"] td[width="50%"]:first-child {
+                display: none !important;
+            }
+
+            table[style*="margin-top: 30px"] td[width="50%"]:last-child {
+                width: 100% !important;
+            }
+
+            table[width="100%"] td[width="50%"] {
+                display: block !important;
+                width: 100% !important;
+                margin-bottom: 15px !important;
+            }
+
+            table[style*="background-color: #f9f9f9"] {
+                padding: 8px 12px !important;
+                font-size: 12px !important;
+            }
+
+            table[style*="background-color: #f9f9f9"] td {
+                font-size: 12px !important;
+                padding: 8px 0 !important;
+                word-break: break-word !important;
+            }
+
+            table[style*="background-color: #fafafa"] {
+                padding: 10px 12px !important;
+            }
+
+            table[style*="background-color: #fafafa"] .label {
+                font-size: 10px !important;
+                display: block !important;
+                word-break: break-word !important;
+            }
+
+            table[style*="background-color: #fafafa"] .status-badge {
+                font-size: 8px !important;
+                padding: 2px 6px !important;
+                display: inline-block !important;
+                white-space: nowrap !important;
+            }
+
+            .reason-box {
+                padding: 12px !important;
+                margin-bottom: 15px !important;
+            }
+
+            .reason-title {
+                font-size: 13px !important;
+            }
+
+            .reason-text {
+                font-size: 12px !important;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            h1 {
+                font-size: 16px !important;
+            }
+
+            .container {
+                padding: 10px !important;
+            }
+
+            .status-badge {
+                font-size: 9px !important;
+                padding: 3px 8px !important;
+            }
+
+            .label {
+                font-size: 10px !important;
+            }
+        }
     </style>
 </head>
 
@@ -186,7 +289,7 @@
             <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="center">
-                        <img src="../../../public/frontend/assets/images/email-template-logo.png"
+                        <img src="{{ asset('frontend/assets/images/email-template-logo.png') }}"
                             alt="Andaleeb Travel Agency" width="100%" style="display: block; border: 0;" />
                     </td>
                 </tr>
@@ -199,16 +302,49 @@
                         <p
                             style="font-size: 13px; color: #dc3545; font-weight: bold; margin-bottom: 5px; text-transform: uppercase;">
                             Payment Failed</p>
-                        <h1 style="color: #dc3545;">Transaction Unsuccessful: #ANT-2026-8812</h1>
-                        <div class="reason-box">
-                            <div class="reason-title">Declined Reason</div>
-                            <div class="reason-text">Insufficient Funds (Error Code: 51)</div>
-                        </div>
+                        <h1>Payment Failed: {{ $order->order_number }}</h1>
                         <p style="font-size: 15px; color: #666666; line-height: 1.6; margin-bottom: 20px;">
-                            The payment attempt for this booking has failed. The reservation is currently on hold.
-                            Please check the logs or contact the customer to assist with the transaction.
+                            The payment for this order has failed. Please review the details below.
                         </p>
-                        <a href="https://youradminurl.com/orders/8812" class="btn-view">View Order</a>
+                        <a target="_blank" href="{{ route('admin.orders.show', $order->id) }}" class="btn-view">View
+                            Order</a>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Failure Reason Box -->
+            @php
+                $paymentResponse = is_string($order->payment_response) ? json_decode($order->payment_response, true) : $order->payment_response;
+                $errorMessage = $paymentResponse['error_message'] ?? 'Payment processing failed';
+            @endphp
+            <div class="reason-box">
+                <div class="reason-title">Failure Reason</div>
+                <div class="reason-text">{{ $errorMessage }}</div>
+            </div>
+
+            <table width="100%" cellpadding="0" cellspacing="0" class="border-bottom"
+                style="background-color: #fcfcfc;margin-bottom: 30px;">
+                <tr>
+                    <td
+                        style="font-size: 14px; color: #111111; line-height: 1.6; padding: 20px; border: 1px solid #f4f4f4; background-color: #fcfcfc;">
+                        <div class="label" style="margin-bottom: 15px;">Customer Details</div>
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="50%" valign="top">
+                                    <div class="label" style="font-size: 10px;">Full Name</div>
+                                    <div class="data-text" style="margin-bottom: 15px;">{{ $order->passenger_title }}
+                                        {{ $order->passenger_first_name }} {{ $order->passenger_last_name }}</div>
+
+                                    <div class="label" style="font-size: 10px;">Email Address</div>
+                                    <div class="data-text">{{ $order->passenger_email }}</div>
+                                </td>
+                                <td width="50%" valign="top">
+                                    <div class="label" style="font-size: 10px;">Phone Number</div>
+                                    <div class="data-text" style="margin-bottom: 15px;">{{ $order->passenger_phone }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
             </table>
@@ -222,8 +358,8 @@
                     <tr>
                         <td align="left"><span class="label"
                                 style="font-size: 12px; font-weight: 700; color: #000; text-transform: uppercase;">Order
-                                #ANT-2026-8812</span></td>
-                        <td align="right"><span class="status-badge">Failed</span>
+                                {{ $order->order_number }}</span></td>
+                        <td align="right"><span class="status-badge">Payment: {{ $order->payment_status }}</span>
                         </td>
                     </tr>
                 </table>
@@ -232,101 +368,99 @@
                 <table width="100%" cellpadding="0" cellspacing="0" style="padding: 20px;">
                     <tr>
                         <td align="left" valign="top">
-                            <!-- Tour Title & Date -->
-                            <div style="font-size: 16px; font-weight: 700; color: #111111; margin-bottom: 6px;">Premium
-                                Desert Safari & VIP Lounge</div>
-                            <div style="font-size: 13px; color: #666666; margin-bottom: 20px;">Oct 24, 2024 &bull; 3:00
-                                PM - 4:00 PM Slot</div>
+                            @foreach ($order->orderItems as $index => $item)
+                                @if ($index === 0)
+                                    <!-- Tour Title & Date -->
+                                    <div style="font-size: 16px; font-weight: 700; color: #111111; margin-bottom: 6px;">
+                                        {{ $item->tour_name }}</div>
+                                    <div style="font-size: 13px; color: #666666; margin-bottom: 20px;">
+                                        {{ formatDate($item->booking_date) }} &bull; {{ $item->time_slot }}</div>
 
-                            <!-- Financial Breakdown Table -->
-                            <table width="100%" cellpadding="0" cellspacing="0"
-                                style="font-size: 13px; color: #555555;">
+                                    <!-- Financial Breakdown Table -->
+                                    <table width="100%" cellpadding="0" cellspacing="0"
+                                        style="font-size: 13px; color: #555555;">
+                                @endif
                                 <!-- Pax Rows -->
-                                <tr>
-                                    <td style="padding-bottom: 8px;">Adult (2 &times; <span
-                                            class="dirham">D</span>350.00)</td>
-                                    <td align="right" style="padding-bottom: 8px; color: #111111;"><span
-                                            class="dirham">D</span>700.00</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-bottom: 8px;">Child (1 &times; <span
-                                            class="dirham">D</span>250.00)</td>
-                                    <td align="right" style="padding-bottom: 8px; color: #111111;"><span
-                                            class="dirham">D</span>250.00</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-bottom: 12px; border-bottom: 1px solid #f4f4f4;">Infant (1
-                                        &times; <span class="dirham">D</span>0.00)</td>
-                                    <td align="right"
-                                        style="padding-bottom: 12px; border-bottom: 1px solid #f4f4f4; color: #111111;">
-                                        <span class="dirham">D</span>0.00</td>
-                                </tr>
-
-                                <!-- Total Row -->
-                                <tr>
-                                    <td style="border-top: 1px solid #f4f4f4;padding-top: 10px; font-size: 14px; font-weight: 700; color: #111111;">
-                                        Total</td>
-                                    <td align="right"
-                                        style="padding-top: 10px; font-size: 20px; font-weight: 800; color: #e91e63;">
-                                        <span class="dirham" style="font-size: 14px;">D</span>950.00
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
+                                @php
+                                    $paxDetails = is_array($item->pax_details) ? $item->pax_details : [];
+                                    $lastKey = array_key_last($paxDetails);
+                                @endphp
+                                @foreach ($paxDetails as $key => $pax)
+                    <tr>
+                        <td
+                            style="padding-bottom: {{ $key === $lastKey ? '12px' : '8px' }}; {{ $key === $lastKey ? 'border-bottom: 1px solid #f4f4f4;' : '' }}">
+                            {{ $pax['label'] ?? ucfirst($key) }} ({{ $pax['qty'] }} &times;
+                            {{ formatPrice($pax['price']) }})</td>
+                        <td align="right"
+                            style="padding-bottom: {{ $key === $lastKey ? '12px' : '8px' }}; color: #111111; {{ $key === $lastKey ? 'border-bottom: 1px solid #f4f4f4;' : '' }}">
+                            {{ formatPrice($pax['subtotal']) }}</td>
                     </tr>
+                    @endforeach
+                    @if ($index === 0)
+                        <!-- Total Row -->
+                        <tr>
+                            <td
+                                style="border-top: 1px solid #f4f4f4;padding-top: 10px; font-size: 14px; font-weight: 700; color: #111111;">
+                                Total</td>
+                            <td align="right"
+                                style="padding-top: 10px; font-size: 20px; font-weight: 800; color: #e91e63;">
+                                {{ formatPrice($order->subtotal) }}
+                            </td>
+                        </tr>
+                </table>
+                @endif
+                @endforeach
+                </td>
+                </tr>
                 </table>
             </div>
 
             <!-- Order Summary (Taxes & Totals) -->
+            @php
+                $vatPercentage = $order->subtotal > 0 ? ($order->vat / $order->subtotal) * 100 : 0;
+                $serviceTaxPercentage = $order->subtotal > 0 ? ($order->service_tax / $order->subtotal) * 100 : 0;
+            @endphp
+
             <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
                 <tr>
-                    <!-- Spacing column to push summary to the right -->
                     <td width="50%"></td>
-
-                    <!-- Summary Container with Light BG -->
                     <td width="50%"
                         style="background-color: #f9f9f9; border: 1px solid #eeeeee; padding: 10px 18px; border-radius: 4px;">
                         <table width="100%" cellpadding="0" cellspacing="0" class="total-row">
-                            <!-- Subtotal Row -->
                             <tr>
                                 <td align="left"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #666666;">Subtotal
                                 </td>
                                 <td align="right"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #111111; font-weight: 500;">
-                                    <span class="dirham"
-                                        style="color: #999; font-size: 12px; margin-right: 2px;">D</span>950.00
+                                    {{ formatPrice($order->subtotal) }}
                                 </td>
                             </tr>
-                            <!-- VAT Row -->
                             <tr>
                                 <td align="left"
-                                    style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #666666;">VAT (5%)
+                                    style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #666666;">VAT
+                                    ({{ number_format($vatPercentage, 2) }}%)
                                 </td>
                                 <td align="right"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #111111; font-weight: 500;">
-                                    <span class="dirham"
-                                        style="color: #999; font-size: 12px; margin-right: 2px;">D</span>47.50
+                                    {{ formatPrice($order->vat) }}
                                 </td>
                             </tr>
-                            <!-- Service Tax Row -->
                             <tr>
                                 <td align="left"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #666666;">Service
-                                    Tax</td>
+                                    Tax ({{ number_format($serviceTaxPercentage, 2) }}%)</td>
                                 <td align="right"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #111111; font-weight: 500;">
-                                    <span class="dirham"
-                                        style="color: #999; font-size: 12px; margin-right: 2px;">D</span>20.00
+                                    {{ formatPrice($order->service_tax) }}
                                 </td>
                             </tr>
-                            <!-- Total Amount Row (Last row: No border bottom) -->
                             <tr>
                                 <td align="left"
-                                    style="padding-top: 15px; font-weight: bold; color: #111111; font-size: 15px;">Total
-                                    Amount Due</td>
+                                    style="padding-top: 15px; font-weight: bold; color: #111111; font-size: 15px;">
+                                    Total Amount</td>
                                 <td align="right" style="padding-top: 15px;" class="grand-total-text">
-                                    <span class="dirham" style="font-size: 14px; margin-right: 2px;">D</span>1,017.50
+                                    {{ formatPrice($order->total) }}
                                 </td>
                             </tr>
                         </table>
@@ -337,7 +471,8 @@
             <!-- Minimal Footer -->
             <div class="footer">
                 <p class="footer-text">
-                    &copy; 2026 Andaleeb Travel Agency <a href="https://andaleebtours.com">www.andaleebtours.com</a>
+                    &copy; {{ date('Y') }} Andaleeb Travel Agency <a
+                        href="https://andaleebtours.com">www.andaleebtours.com</a>
                 </p>
             </div>
 

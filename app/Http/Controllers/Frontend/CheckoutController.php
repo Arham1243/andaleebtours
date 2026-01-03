@@ -542,6 +542,7 @@ class CheckoutController extends Controller
         ]);
 
         $this->processPrioTicketOrder($order);
+        $this->sendPaymentSuccessEmails($order);
 
         session()->forget('cart');
 
@@ -566,6 +567,8 @@ class CheckoutController extends Controller
             $order->orderItems()->update([
                 'status' => 'failed'
             ]);
+
+            $this->sendPaymentFailedEmails($order);
         }
 
         return redirect()
@@ -603,6 +606,60 @@ class CheckoutController extends Controller
             ]);
         } catch (\Exception $e) {
             Log::error('Failed to send order created emails', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    protected function sendPaymentSuccessEmails(Order $order)
+    {
+        try {
+            $order->load('orderItems');
+
+            Mail::send('emails.payment-success-admin', ['order' => $order], function ($message) use ($order) {
+                $message->to($this->adminEmail)
+                    ->subject('Payment Successful - ' . $order->order_number);
+            });
+
+            Mail::send('emails.payment-success-user', ['order' => $order], function ($message) use ($order) {
+                $message->to($order->passenger_email)
+                    ->subject('Payment Successful - ' . $order->order_number);
+            });
+
+            Log::info('Payment success emails sent successfully', [
+                'order_id' => $order->id,
+                'order_number' => $order->order_number
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send payment success emails', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    protected function sendPaymentFailedEmails(Order $order)
+    {
+        try {
+            $order->load('orderItems');
+
+            Mail::send('emails.payment-failed-admin', ['order' => $order], function ($message) use ($order) {
+                $message->to($this->adminEmail)
+                    ->subject('Payment Failed - ' . $order->order_number);
+            });
+
+            Mail::send('emails.payment-failed-user', ['order' => $order], function ($message) use ($order) {
+                $message->to($order->passenger_email)
+                    ->subject('Payment Failed - ' . $order->order_number);
+            });
+
+            Log::info('Payment failed emails sent successfully', [
+                'order_id' => $order->id,
+                'order_number' => $order->order_number
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send payment failed emails', [
                 'order_id' => $order->id,
                 'error' => $e->getMessage()
             ]);
