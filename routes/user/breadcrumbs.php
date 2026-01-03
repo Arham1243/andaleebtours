@@ -19,5 +19,10 @@ Breadcrumbs::for('user.orders.index', function (BreadcrumbTrail $trail) {
 
 Breadcrumbs::for('user.orders.show', function (BreadcrumbTrail $trail, $order) {
     $trail->parent('user.orders.index');
-    $trail->push('Order ' . $order->order_number, route('user.orders.show', $order->id));
+    $trail->push($order->order_number, route('user.orders.show', $order->id));
+});
+
+Breadcrumbs::for('user.orders.pay-again', function (BreadcrumbTrail $trail, $order) {
+    $trail->parent('user.orders.show', $order);
+    $trail->push('Pay Now', route('user.orders.pay-again', $order->id));
 });

@@ -21,7 +21,7 @@
                                     <th>Payment Status</th>
                                     <th>Order Status</th>
                                     <th>Date</th>
-                                    <th></th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,7 +32,7 @@
                                                 class="link">{{ $order->order_number }}</a>
                                         </td>
                                         <td>
-                                            @foreach($order->orderItems as $item)
+                                            @foreach ($order->orderItems as $item)
                                                 <div>{{ $item->tour_name }}</div>
                                             @endforeach
                                         </td>
@@ -54,9 +54,45 @@
                                         </td>
                                         <td>{{ formatDateTime($order->created_at) }}</td>
                                         <td>
-                                            <a style="white-space: nowrap;"
-                                                href="{{ route('user.orders.show', $order->id) }}" class="themeBtn"><i
-                                                    class='bx bxs-show'></i>View Details</a>
+                                            <div class="dropstart">
+                                                <button type="button" class="recent-act__icon dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="{{ route('user.orders.show', $order->id) }}"
+                                                            class="dropdown-item">
+                                                            <i class="bx bxs-show"></i>
+                                                            View Details
+                                                        </a>
+                                                    </li>
+                                                    @if ($order->status === 'failed')
+                                                        <li>
+                                                            <a href="{{ route('user.orders.pay-again', $order->id) }}"
+                                                                class="dropdown-item">
+                                                                <i class="bx bx-credit-card"></i>
+
+                                                                Pay Now
+                                                            </a>
+                                                        </li>
+                                                    @endif
+                                                    @if ($order->status === 'pending')
+                                                        <li>
+                                                            <form action="{{ route('user.orders.destroy', $order->id) }}"
+                                                                method="POST"
+                                                                onsubmit="return confirm('Are you sure you want to delete?')">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="dropdown-item">
+                                                                    <i class="bx bx-trash"></i>
+                                                                    Delete
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
