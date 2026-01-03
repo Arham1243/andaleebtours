@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('user.orders.pay-again', $order->id) }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('user.orders.pay-again.proceed', $order->id) }}" method="POST" enctype="multipart/form-data"
                 id="validation-form">
                 @csrf
                 @method('POST')

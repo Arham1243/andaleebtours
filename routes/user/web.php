@@ -32,6 +32,7 @@ Route::middleware(['auth', 'check_user_status'])->prefix('user')->name('user.')-
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
     Route::delete('/orders/destroy/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::get('/orders/pay-again/{id}', [OrderController::class, 'payAgain'])->name('orders.pay-again');
+    Route::post('/orders/pay-again/{id}', [OrderController::class, 'proceedPayAgain'])->name('orders.pay-again.proceed');
 
     Route::get('profile/change/password', [ProfileSettingsController::class, 'changePassword'])->name('profile.changePassword');
     Route::post('profile/change/password/update', [ProfileSettingsController::class, 'updatePassword'])->name('profile.updatePassword');

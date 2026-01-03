@@ -64,6 +64,13 @@ class OrderController extends Controller
 
     public function proceedPayAgain(Request $request, $id)
     {
+        $request->validate([
+            'payment_method' => 'required|in:payby,tabby',
+        ]);
+
         $order = Order::where('id', $id)->firstOrFail();
+        dd($order);
+        
+        
     }
 }
