@@ -28,8 +28,8 @@ class IndexController extends Controller
     {
         $order = Order::where('id', $id)->first();
         $data = compact('order');
-        // order-created-user
-        return view('emails.order-created-admin')->with($data);
+        // return view('emails.order-created-admin')->with($data);
+        return view('emails.order-created-user')->with($data);
     }
     public function terms_and_conditions()
     {

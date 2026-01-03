@@ -4,6 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New Order Received - {{ $order->order_number }}</title>
     <style>
         @font-face {
@@ -127,6 +128,124 @@
             font-size: 18px !important;
             font-weight: 700 !important;
             color: #111111 !important;
+        }
+
+        /* Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            .wrapper {
+                padding: 20px 0 !important;
+            }
+
+            .container {
+                padding: 15px !important;
+                border: none !important;
+            }
+
+            h1 {
+                font-size: 18px !important;
+            }
+
+            .section-padding {
+                padding: 20px 0 !important;
+            }
+
+            .btn-view {
+                display: block !important;
+                width: fit-content !important;
+                text-align: center !important;
+                padding: 14px 20px !important;
+                font-size: 14px !important;
+            }
+
+            .booking-card {
+                border-radius: 4px !important;
+                margin-bottom: 15px !important;
+            }
+
+            table[width="50%"] {
+                width: 100% !important;
+            }
+
+            .data-text {
+                font-size: 13px !important;
+            }
+
+            .footer {
+                padding-top: 30px !important;
+            }
+
+            .footer-text {
+                font-size: 11px !important;
+            }
+
+            .grand-total-text {
+                font-size: 16px !important;
+            }
+
+            /* Stack order summary on mobile */
+            table[style*="margin-top: 30px"] td[width="50%"]:first-child {
+                display: none !important;
+            }
+
+            table[style*="margin-top: 30px"] td[width="50%"]:last-child {
+                width: 100% !important;
+            }
+
+            /* Customer details stacking */
+            table[width="100%"] td[width="50%"] {
+                display: block !important;
+                width: 100% !important;
+                margin-bottom: 15px !important;
+            }
+
+            /* Fix order summary table overflow */
+            table[style*="background-color: #f9f9f9"] {
+                padding: 8px 12px !important;
+                font-size: 12px !important;
+            }
+
+            table[style*="background-color: #f9f9f9"] td {
+                font-size: 12px !important;
+                padding: 8px 0 !important;
+                word-break: break-word !important;
+            }
+
+            /* Fix booking card header overflow */
+            table[style*="background-color: #fafafa"] {
+                padding: 10px 12px !important;
+            }
+
+            table[style*="background-color: #fafafa"] .label {
+                font-size: 10px !important;
+                display: block !important;
+                word-break: break-word !important;
+            }
+
+            table[style*="background-color: #fafafa"] .status-badge {
+                font-size: 8px !important;
+                padding: 2px 6px !important;
+                display: inline-block !important;
+                white-space: nowrap !important;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            h1 {
+                font-size: 16px !important;
+            }
+
+            .container {
+                padding: 10px !important;
+            }
+
+            .status-badge {
+                font-size: 9px !important;
+                padding: 3px 8px !important;
+            }
+
+            .label {
+                font-size: 10px !important;
+            }
         }
     </style>
 </head>
