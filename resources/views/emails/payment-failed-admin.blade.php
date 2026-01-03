@@ -95,28 +95,6 @@
             overflow: hidden;
         }
 
-        .reason-box {
-            text-align:left;
-            background-color: #fff5f5;
-            border: 1px solid #dc3545;
-            border-radius: 4px;
-            padding: 15px;
-            margin-bottom: 25px;
-        }
-
-        .reason-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #dc3545;
-            margin-bottom: 8px;
-        }
-
-        .reason-text {
-            font-size: 13px;
-            color: #666666;
-            line-height: 1.5;
-        }
-
         .footer {
             padding-top: 40px;
             text-align: center;
@@ -312,16 +290,6 @@
                 </tr>
             </table>
 
-            <!-- Failure Reason Box -->
-            @php
-                $paymentResponse = is_string($order->payment_response) ? json_decode($order->payment_response, true) : $order->payment_response;
-                $errorMessage = $paymentResponse['error_message'] ?? 'Payment processing failed';
-            @endphp
-            <div class="reason-box">
-                <div class="reason-title">Failure Reason</div>
-                <div class="reason-text">{{ $errorMessage }}</div>
-            </div>
-
             <table width="100%" cellpadding="0" cellspacing="0" class="border-bottom"
                 style="background-color: #fcfcfc;margin-bottom: 30px;">
                 <tr>
@@ -349,7 +317,8 @@
                 </tr>
             </table>
 
-            <!-- Booking Card -->
+            <!-- Booking Cards -->
+            @foreach ($order->orderItems as $item)
             <div class="booking-card"
                 style="background-color: #ffffff; border: 1px solid #eeeeee; border-radius: 8px; margin-bottom: 25px; overflow: hidden;">
                 <!-- Card Header -->
@@ -368,52 +337,47 @@
                 <table width="100%" cellpadding="0" cellspacing="0" style="padding: 20px;">
                     <tr>
                         <td align="left" valign="top">
-                            @foreach ($order->orderItems as $index => $item)
-                                @if ($index === 0)
-                                    <!-- Tour Title & Date -->
-                                    <div style="font-size: 16px; font-weight: 700; color: #111111; margin-bottom: 6px;">
-                                        {{ $item->tour_name }}</div>
-                                    <div style="font-size: 13px; color: #666666; margin-bottom: 20px;">
-                                        {{ formatDate($item->booking_date) }} &bull; {{ $item->time_slot }}</div>
+                            <!-- Tour Title & Date -->
+                            <div style="font-size: 16px; font-weight: 700; color: #111111; margin-bottom: 6px;">
+                                {{ $item->tour_name }}</div>
+                            <div style="font-size: 13px; color: #666666; margin-bottom: 20px;">
+                                {{ formatDate($item->booking_date) }} &bull; {{ $item->time_slot }}</div>
 
-                                    <!-- Financial Breakdown Table -->
-                                    <table width="100%" cellpadding="0" cellspacing="0"
-                                        style="font-size: 13px; color: #555555;">
-                                @endif
+                            <!-- Financial Breakdown Table -->
+                            <table width="100%" cellpadding="0" cellspacing="0"
+                                style="font-size: 13px; color: #555555;">
                                 <!-- Pax Rows -->
                                 @php
                                     $paxDetails = is_array($item->pax_details) ? $item->pax_details : [];
                                     $lastKey = array_key_last($paxDetails);
                                 @endphp
                                 @foreach ($paxDetails as $key => $pax)
-                    <tr>
-                        <td
-                            style="padding-bottom: {{ $key === $lastKey ? '12px' : '8px' }}; {{ $key === $lastKey ? 'border-bottom: 1px solid #f4f4f4;' : '' }}">
-                            {{ $pax['label'] ?? ucfirst($key) }} ({{ $pax['qty'] }} &times;
-                            {{ formatPrice($pax['price']) }})</td>
-                        <td align="right"
-                            style="padding-bottom: {{ $key === $lastKey ? '12px' : '8px' }}; color: #111111; {{ $key === $lastKey ? 'border-bottom: 1px solid #f4f4f4;' : '' }}">
-                            {{ formatPrice($pax['subtotal']) }}</td>
+                                <tr>
+                                    <td
+                                        style="padding-bottom: {{ $key === $lastKey ? '12px' : '8px' }}; {{ $key === $lastKey ? 'border-bottom: 1px solid #f4f4f4;' : '' }}">
+                                        {{ $pax['label'] ?? ucfirst($key) }} ({{ $pax['qty'] }} &times;
+                                        {{ formatPrice($pax['price']) }})</td>
+                                    <td align="right"
+                                        style="padding-bottom: {{ $key === $lastKey ? '12px' : '8px' }}; color: #111111; {{ $key === $lastKey ? 'border-bottom: 1px solid #f4f4f4;' : '' }}">
+                                        {{ formatPrice($pax['subtotal']) }}</td>
+                                </tr>
+                                @endforeach
+                                <!-- Total Row -->
+                                <tr>
+                                    <td
+                                        style="border-top: 1px solid #f4f4f4;padding-top: 10px; font-size: 14px; font-weight: 700; color: #111111;">
+                                        Total</td>
+                                    <td align="right"
+                                        style="padding-top: 10px; font-size: 20px; font-weight: 800; color: #e91e63;">
+                                        {{ formatPrice($item->subtotal) }}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
                     </tr>
-                    @endforeach
-                    @if ($index === 0)
-                        <!-- Total Row -->
-                        <tr>
-                            <td
-                                style="border-top: 1px solid #f4f4f4;padding-top: 10px; font-size: 14px; font-weight: 700; color: #111111;">
-                                Total</td>
-                            <td align="right"
-                                style="padding-top: 10px; font-size: 20px; font-weight: 800; color: #e91e63;">
-                                {{ formatPrice($order->subtotal) }}
-                            </td>
-                        </tr>
-                </table>
-                @endif
-                @endforeach
-                </td>
-                </tr>
                 </table>
             </div>
+            @endforeach
 
             <!-- Order Summary (Taxes & Totals) -->
             @php

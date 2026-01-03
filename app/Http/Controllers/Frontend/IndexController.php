@@ -28,8 +28,7 @@ class IndexController extends Controller
     {
         $order = Order::where('id', $id)->first();
         $data = compact('order');
-        
-        return view('emails.payment-failed-user')->with($data);
+        return view('emails.payment-success-user')->with($data);
     }
     public function terms_and_conditions()
     {
