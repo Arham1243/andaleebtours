@@ -67,7 +67,7 @@
                                                             View Details
                                                         </a>
                                                     </li>
-                                                    @if ($order->status === 'failed')
+                                                    @if ($order->payment_status === 'failed' || $order->payment_status === 'pending')
                                                         <li>
                                                             <a href="{{ route('user.orders.pay-again', $order->id) }}"
                                                                 class="dropdown-item">

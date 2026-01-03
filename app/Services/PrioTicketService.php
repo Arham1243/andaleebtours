@@ -135,14 +135,20 @@ class PrioTicketService
         $countryName = $country ? $country->name : 'United Arab Emirates';
         $countryCode = $country ? $country->iso_code : 'AE';
 
-        foreach ($orderItems as $item) {
+        // Use prio_booking_reference if available, otherwise use order_number
+        $baseReference = $order->prio_booking_reference ?? $order->order_number;
+
+        foreach ($orderItems as $index => $item) {
+            // Generate unique booking_external_reference for each item
+            $bookingReference = $baseReference . '-' . ($index + 1);
+            
             $reservationDetails[] = [
-                'booking_external_reference' => $order->order_number,
+                'booking_external_reference' => $bookingReference,
                 'booking_language' => 'en',
                 'product_availability_id' => $item['availability_id'],
                 'product_id' => (string) $item['product_id_prio'],
                 'product_type_details' => $item['product_type_details'],
-                'booking_reservation_reference' => $order->order_number
+                'booking_reservation_reference' => $bookingReference
             ];
         }
 
@@ -150,7 +156,7 @@ class PrioTicketService
             'data' => [
                 'reservation' => [
                     'reservation_distributor_id' => $this->distributorId,
-                    'reservation_external_reference' => $order->order_number,
+                    'reservation_external_reference' => $baseReference,
                     'reservation_details' => $reservationDetails,
                     'reservation_contacts' => [
                         [
@@ -299,7 +305,7 @@ class PrioTicketService
                     'distributor_id' => $this->distributorId,
                     'from_date'      => $date,
                 ]);
-
+                
             if (! $response->successful()) {
                 return [
                     'success' => false,
@@ -307,7 +313,7 @@ class PrioTicketService
                 ];
             }
 
-            $availabilities = $response->json('data.items', []); 
+            $availabilities = $response->json('data.items', []);
 
             $availability = collect($availabilities)
                 ->firstWhere('availability_id', $availabilityId);
@@ -319,7 +325,7 @@ class PrioTicketService
                 ];
             }
 
-            if (($availability['availability_spots']['availability_spots_open'] ?? 0) < $pax) { 
+            if (($availability['availability_spots']['availability_spots_open'] ?? 0) < $pax) {
                 return [
                     'success' => false,
                     'error' => 'Not enough seats available',

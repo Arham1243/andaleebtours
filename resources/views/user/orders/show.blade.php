@@ -8,6 +8,11 @@
                     <div class="section-content">
                         <h3 class="heading">{{ isset($title) ? $title : '' }}</h3>
                     </div>
+                    @if ($order->payment_status === 'failed' || $order->payment_status === 'pending')
+                        <a href="{{ route('user.orders.pay-again', $order->id) }}" class="themeBtn">
+                            Pay Now
+                        </a>
+                    @endif
                 </div>
             </div>
             <div class="row">
@@ -38,7 +43,8 @@
                                             <tr>
                                                 <td><strong>Payment Status:</strong></td>
                                                 <td class="text-end">
-                                                    <span class="badge rounded-pill bg-{{ $order->payment_status == 'paid' ? 'success' : ($order->payment_status == 'pending' ? 'warning' : ($order->payment_status == 'refunded' ? 'info' : 'danger')) }}">
+                                                    <span
+                                                        class="badge rounded-pill bg-{{ $order->payment_status == 'paid' ? 'success' : ($order->payment_status == 'pending' ? 'warning' : ($order->payment_status == 'refunded' ? 'info' : 'danger')) }}">
                                                         {{ ucfirst($order->payment_status) }}
                                                     </span>
                                                 </td>
@@ -46,7 +52,8 @@
                                             <tr>
                                                 <td><strong>Order Status:</strong></td>
                                                 <td class="text-end">
-                                                    <span class="badge rounded-pill bg-{{ $order->status == 'confirmed' ? 'success' : ($order->status == 'pending' ? 'warning' : ($order->status == 'refunded' ? 'info' : 'danger')) }}">
+                                                    <span
+                                                        class="badge rounded-pill bg-{{ $order->status == 'confirmed' ? 'success' : ($order->status == 'pending' ? 'warning' : ($order->status == 'refunded' ? 'info' : 'danger')) }}">
                                                         {{ ucfirst($order->status) }}
                                                     </span>
                                                 </td>
@@ -67,9 +74,7 @@
 
                                             @php
                                                 $vatPercent =
-                                                    $order->subtotal > 0
-                                                        ? ($order->vat / $order->subtotal) * 100
-                                                        : 0;
+                                                    $order->subtotal > 0 ? ($order->vat / $order->subtotal) * 100 : 0;
                                                 $serviceTaxPercent =
                                                     $order->subtotal > 0
                                                         ? ($order->service_tax / $order->subtotal) * 100
@@ -104,7 +109,7 @@
                             </div>
                         </div>
 
-                        
+
                         @if (!empty($order->applied_coupons))
                             <div class="form-box">
                                 <div class="form-box__header">
@@ -137,7 +142,7 @@
                             </div>
                         @endif
 
-                        
+
                         @foreach ($order->orderItems as $index => $item)
                             <div class="form-box">
                                 <div class="form-box__header">
@@ -209,8 +214,8 @@
                                             <div class="col-12">
                                                 <div class="form-fields">
                                                     <label class="title">Item Total:</label>
-                                                    <input type="text" class="field"
-                                                        value="{!! formatPrice($item->subtotal) !!}" readonly>
+                                                    <input type="text" class="field" value="{!! formatPrice($item->subtotal) !!}"
+                                                        readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,7 +223,7 @@
                                 </div>
                             </div>
                         @endforeach
-                        
+
                         <div class="form-box">
                             <div class="form-box__header">
                                 <div class="title">Billing Details</div>

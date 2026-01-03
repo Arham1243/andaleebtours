@@ -161,9 +161,13 @@ class CheckoutController extends Controller
 
     private function createOrder(Request $request, array $cartData, array $totalData): Order
     {
+        // Generate unique PrioTicket booking reference
+        $prioReference = 'PRIO-' . strtoupper(uniqid()) . '-' . time();
+
         return Order::create([
             'user_id' => auth()->id(), // null for guests
             'order_number' => Order::generateOrderNumber(),
+            'prio_booking_reference' => $prioReference,
             'passenger_title' => $request->passenger['title'],
             'passenger_first_name' => $request->passenger['first_name'],
             'passenger_last_name' => $request->passenger['last_name'],
