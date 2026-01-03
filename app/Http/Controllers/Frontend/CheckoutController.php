@@ -9,7 +9,6 @@ use App\Models\Tour;
 use App\Models\Country;
 use App\Models\UserCoupon;
 use App\Services\PrioTicketService;
-use Illuminate\Support\Facades\Http;
 use App\Services\PaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

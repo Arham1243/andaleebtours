@@ -8,18 +8,20 @@
                     <div class="auth-card">
                         <div class="auth-header">
                             <h2 class="heading">Find Your Booking</h2>
-                            <p>Access, print, or cancel your booking instantly using the email from your reservation. No sign-in needed.</p>
+                            <p>Access, print, or cancel your booking instantly using the email from your reservation. No
+                                sign-in needed.</p>
                         </div>
 
-                        <form action="#">
+                        <form action="{{ route('booking.send') }}" method="POST">
+                            @csrf
                             <div class="form-group">
                                 <label class="form-label">Email Address</label>
-                                <input type="email" class="custom-input" required>
+                                <input type="email" class="custom-input" name="email" required>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Booking Reference Number</label>
-                                <input type="text" class="custom-input" required>
+                                <input type="text" class="custom-input" name="order_number">
                             </div>
                             <div class="form-group">
                                 <div class="g-recaptcha" data-sitekey="{{ env('RE_CAPTCHA_SITE_KEY') }}"> </div>

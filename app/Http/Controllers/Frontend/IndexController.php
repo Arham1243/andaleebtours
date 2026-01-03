@@ -24,11 +24,14 @@ class IndexController extends Controller
     {
         return view('frontend.privacy-policy');
     }
-    public function testOrder($id)
+    public function testOrder($email)
     {
-        $order = Order::where('id', $id)->first();
-        $data = compact('order');
-        return view('emails.payment-failed-user')->with($data);
+         $query = Order::with('orderItems.tour')
+            ->where('passenger_email', $email);
+
+        $orders = $query->get();
+        $data = compact('orders');
+        return view('emails.user-bookings', $data);
     }
     public function terms_and_conditions()
     {

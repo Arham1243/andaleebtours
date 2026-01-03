@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -113,5 +115,33 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect()->route('frontend.index')->with('notify_success', 'Logged Out!');
+    }
+
+    public function sendBookingByEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'order_number' => 'nullable|string|exists:orders,order_number',
+        ]);
+
+        $query = Order::with('orderItems')
+            ->where('passenger_email', $request->email);
+
+        if ($request->filled('order_number')) {
+            $query->where('order_number', $request->order_number);
+        }
+
+        $orders = $query->get();
+
+        if ($orders->isEmpty()) {
+            return back()->with('notify_error', 'No orders found for this email/order number.');
+        }
+
+        Mail::send('emails.user-bookings', ['orders' => $orders], function ($message) use ($request) {
+            $message->to($request->email)
+                ->subject('Your Booking Details');
+        });
+
+        return back()->with('notify_success', 'Booking details sent to your email.');
     }
 }

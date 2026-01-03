@@ -20,6 +20,8 @@ Route::post('password/email', [PasswordResetController::class, 'sendResetLink'])
 Route::get('password/notify', [PasswordResetController::class, 'notify'])->name('password.notify');
 Route::get('password/reset/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [PasswordResetController::class, 'resetPassword'])->name('password.update');
+Route::post('/booking/send', [AuthController::class, 'sendBookingByEmail'])
+    ->name('booking.send');
 
 Route::middleware(['auth', 'check_user_status'])->prefix('user')->name('user.')->group(function () {
     Route::get('/dashboard', [UserDashController::class, 'dashboard'])->name('dashboard');
