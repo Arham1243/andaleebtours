@@ -194,7 +194,7 @@ class PrioTicketService
                 }
 
                 $reservationData = json_decode($orderItem->reservation_data, true);
-                
+
                 if (!isset($reservationData['data']['reservation']['reservation_reference'])) {
                     Log::warning('Missing reservation reference for order item', [
                         'order_item_id' => $orderItem->id
@@ -276,13 +276,67 @@ class PrioTicketService
                     ]);
                 }
             }
-
         } catch (\Exception $e) {
             Log::error('PrioTicket Order Confirmation Error', [
                 'order_id' => $order->id,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
+        }
+    }
+
+    public function checkAvailability(
+        string $productId,
+        string $availabilityId,
+        string $date,
+        int $pax,
+        string $accessToken
+    ): array {
+        try {
+            $response = Http::withToken($accessToken)
+                ->acceptJson()
+                ->get($this->baseUrl . "/products/{$productId}/availability", [
+                    'distributor_id' => $this->distributorId,
+                    'from_date'      => $date,
+                ]);
+
+            if (! $response->successful()) {
+                return [
+                    'success' => false,
+                    'error' => 'Availability fetch failed',
+                ];
+            }
+
+            $availabilities = $response->json('data.items', []); 
+
+            $availability = collect($availabilities)
+                ->firstWhere('availability_id', $availabilityId);
+
+            if (! $availability) {
+                return [
+                    'success' => false,
+                    'error' => 'Selected time slot is no longer available',
+                ];
+            }
+
+            if (($availability['availability_spots']['availability_spots_open'] ?? 0) < $pax) { 
+                return [
+                    'success' => false,
+                    'error' => 'Not enough seats available',
+                ];
+            }
+
+            return ['success' => true];
+        } catch (\Throwable $e) {
+            Log::error('PrioTicket availability check failed', [
+                'product_id' => $productId,
+                'message' => $e->getMessage(),
+            ]);
+
+            return [
+                'success' => false,
+                'error' => 'Availability check failed',
+            ];
         }
     }
 }

@@ -64,8 +64,15 @@ class CheckoutController extends Controller
                 ->with('notify_error', 'Your cart is empty.');
         }
 
-        DB::beginTransaction();
 
+        $availabilityCheck = $this->validateCartAvailability($cartData);
+        if (! $availabilityCheck['valid']) {
+            return redirect()
+                ->route('frontend.cart.index')
+                ->with('notify_error', $availabilityCheck['message']);
+        }
+
+        DB::beginTransaction();
 
         // Validate coupon usage before creating order
         if (!empty($cartData['applied_coupons'])) {
@@ -89,7 +96,6 @@ class CheckoutController extends Controller
             $this->trackCouponUsage($order, $request->passenger['email']);
 
             DB::commit();
-
             $paymentService = new PaymentService();
             $redirectUrl = $paymentService->getRedirectUrl($order, $request->payment_method);
 
@@ -299,6 +305,38 @@ class CheckoutController extends Controller
             'order_id' => $order->id,
             'error' => $reservationResponse['error']
         ]);
+    }
+
+    private function validateCartAvailability(array $cartData): array
+    {
+        $prioService = new PrioTicketService();
+        $accessToken = $prioService->getAccessToken();
+
+        if (! $accessToken) {
+            return [
+                'valid' => false,
+                'message' => 'Unable to verify availability at the moment',
+            ];
+        }
+
+        foreach ($cartData['tours'] as $item) {
+            $result = $prioService->checkAvailability(
+                $item['product_id_prio'],
+                $item['availability_id'],
+                $item['date'],
+                $item['total_pax'],
+                $accessToken
+            );
+
+            if (! $result['success']) {
+                return [
+                    'valid' => false,
+                    'message' => "{$item['name']} is no longer available. Please update your cart.",
+                ];
+            }
+        }
+
+        return ['valid' => true];
     }
 
 
