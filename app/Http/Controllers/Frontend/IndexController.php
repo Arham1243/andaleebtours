@@ -24,6 +24,13 @@ class IndexController extends Controller
     {
         return view('frontend.privacy-policy');
     }
+    public function testOrder($id)
+    {
+        $order = Order::where('id', $id)->first();
+        $data = compact('order');
+        // order-created-user
+        return view('emails.order-created-admin')->with($data);
+    }
     public function terms_and_conditions()
     {
         return view('frontend.terms-conditions');

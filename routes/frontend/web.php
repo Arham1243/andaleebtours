@@ -71,6 +71,8 @@ Route::name('frontend.')->group(function () {
         Route::get('/failed', [CheckoutController::class, 'paymentFailed'])->name('failed');
     });
 
+    Route::get('/test-order/{id}', [IndexController::class, 'testOrder']);
+
     Route::prefix('flights')->name('flights.')->group(function () {
         Route::get('/', [FlightController::class, 'index'])->name('index');
     });

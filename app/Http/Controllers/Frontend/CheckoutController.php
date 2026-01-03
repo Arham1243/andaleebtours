@@ -13,10 +13,20 @@ use Illuminate\Support\Facades\Http;
 use App\Services\PaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Config;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
+
+    protected $adminEmail;
+    public function __construct()
+    {
+        $config = Config::pluck('config_value', 'config_key')->toArray();
+        $this->adminEmail = $config['ADMINEMAIL'] ?? 'info@andaleebtours.com';
+    }
+
     public function index()
     {
         $countries = Country::orderBy('name', 'asc')->get();
@@ -96,9 +106,12 @@ class CheckoutController extends Controller
             $this->trackCouponUsage($order, $request->passenger['email']);
 
             DB::commit();
+            
+            $this->sendOrderCreatedEmails($order);
+            
             $paymentService = new PaymentService();
             $redirectUrl = $paymentService->getRedirectUrl($order, $request->payment_method);
-
+            
             return redirect($redirectUrl);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -566,6 +579,33 @@ class CheckoutController extends Controller
     {
         $prioTicketService = new PrioTicketService();
         $prioTicketService->confirmOrder($order);
+    }
+
+    protected function sendOrderCreatedEmails(Order $order)
+    {
+        try {
+            $order->load('orderItems');
+            
+            Mail::send('emails.order-created-admin', ['order' => $order], function ($message) use ($order) {
+                $message->to($this->adminEmail)
+                    ->subject('New Order Received - ' . $order->order_number);
+            });
+            
+            Mail::send('emails.order-created-user', ['order' => $order], function ($message) use ($order) {
+                $message->to($order->passenger_email)
+                    ->subject('Order Received - ' . $order->order_number);
+            });
+            
+            Log::info('Order created emails sent successfully', [
+                'order_id' => $order->id,
+                'order_number' => $order->order_number
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send order created emails', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     public function paymentFailed()

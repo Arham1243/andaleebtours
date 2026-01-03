@@ -4,11 +4,11 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Order Received - #ANT-2026-8812</title>
+    <title>Order Received - {{ $order->order_number }}</title>
     <style>
         @font-face {
             font-family: "UAEDirham";
-            src: url("../../../public/frontend/assets/fonts/UAE-dirham/aed-Regular.otf");
+            src: url("{{ asset('frontend/assets/fonts/UAE-dirham/aed-Regular.otf') }}");
         }
 
         body :is(.dirham.dirham) {
@@ -25,7 +25,6 @@
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
-            /* Slightly different bg to distinguish internal mail */
             font-family: sans-serif;
             -webkit-font-smoothing: antialiased;
         }
@@ -46,7 +45,6 @@
             padding: 25px;
         }
 
-        /* Typography */
         h1 {
             font-size: 22px;
             font-weight: 600;
@@ -68,7 +66,6 @@
             font-weight: 500;
         }
 
-        /* Layout Sections */
         .section-padding {
             padding: 30px 0;
         }
@@ -77,42 +74,10 @@
             border-bottom: 1px solid #eeeeee;
         }
 
-        /* Tables */
-        .pax-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .pax-table th {
-            text-align: left;
-            padding: 12px 0;
-            border-bottom: 2px solid #111111;
-            font-size: 12px;
-            text-transform: uppercase;
-            color: #111111;
-        }
-
-        .pax-table td {
-            padding: 15px 0;
-            border-bottom: 1px solid #eeeeee;
-            font-size: 14px;
-            color: #444444;
-        }
-
-        /* Totals Area */
-        .total-row td {
-            padding: 6px 0;
-            font-size: 14px;
-            color: #666666;
-        }
-
-        /* Status Badge */
         .status-badge {
             display: inline-block;
             border: 2px solid #facc15;
             background-color: #fffbeb;
-            /* yellow */
             color: #facc15;
             padding: 4px 12px;
             font-size: 12px;
@@ -121,7 +86,6 @@
             border-radius: 2px;
         }
 
-        /* Booking Card */
         .booking-card {
             background-color: #ffffff;
             border: 1px solid #eeeeee;
@@ -130,7 +94,6 @@
             overflow: hidden;
         }
 
-        /* Footer */
         .footer {
             padding-top: 40px;
             text-align: center;
@@ -148,11 +111,12 @@
             color: #111111;
             text-decoration: none;
         }
-.grand-total-text {
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    color: #111111 !important;
-}
+
+        .grand-total-text {
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            color: #111111 !important;
+        }
     </style>
 </head>
 
@@ -164,8 +128,7 @@
             <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="center">
-                        <!-- Replace with your hosted logo URL -->
-                        <img src="../../../public/frontend/assets/images/email-template-logo.png"
+                        <img src="{{ asset('frontend/assets/images/email-template-logo.png') }}"
                             alt="Andaleeb Travel Agency" width="100%" style="display: block; border: 0;" />
                     </td>
                 </tr>
@@ -175,10 +138,12 @@
             <table width="100%" cellpadding="0" cellspacing="0" class="border-bottom">
                 <tr>
                     <td class="section-padding" align="left">
-                        <p style="font-size: 15px; color: #666666; margin-bottom: 10px;">Dear Alexander Thompson,</p>
-                        <h1>Order Received: #ANT-2026-8812</h1>
+                        <p style="font-size: 15px; color: #666666; margin-bottom: 10px;">Dear
+                            {{ $order->passenger_title }} {{ $order->passenger_first_name }}
+                            {{ $order->passenger_last_name }},</p>
+                        <h1>Order Received: {{ $order->order_number }}</h1>
                         <p style="font-size: 15px; color: #666666; line-height: 1.6; margin-bottom: 20px;">
-                            We’ve received your order request. It will be confirmed once full payment has been
+                            We've received your order request. It will be confirmed once full payment has been
                             successfully completed.
                         </p>
                     </td>
@@ -194,8 +159,8 @@
                     <tr>
                         <td align="left"><span class="label"
                                 style="font-size: 12px; font-weight: 700; color: #000; text-transform: uppercase;">Order
-                                #ANT-2026-8812</span></td>
-                        <td align="right"><span class="status-badge">Payment Pending</span>
+                                {{ $order->order_number }}</span></td>
+                        <td align="right"><span class="status-badge">Payment: {{ $order->payment_status }}</span>
                         </td>
                     </tr>
                 </table>
@@ -204,101 +169,99 @@
                 <table width="100%" cellpadding="0" cellspacing="0" style="padding: 20px;">
                     <tr>
                         <td align="left" valign="top">
-                            <!-- Tour Title & Date -->
-                            <div style="font-size: 16px; font-weight: 700; color: #111111; margin-bottom: 6px;">Premium
-                                Desert Safari & VIP Lounge</div>
-                            <div style="font-size: 13px; color: #666666; margin-bottom: 20px;">Oct 24, 2024 &bull; 3:00
-                                PM - 4:00 PM Slot</div>
+                            @foreach ($order->orderItems as $index => $item)
+                                @if ($index === 0)
+                                    <!-- Tour Title & Date -->
+                                    <div style="font-size: 16px; font-weight: 700; color: #111111; margin-bottom: 6px;">
+                                        {{ $item->tour_name }}</div>
+                                    <div style="font-size: 13px; color: #666666; margin-bottom: 20px;">
+                                        {{ formatDate($item->booking_date) }} &bull; {{ $item->time_slot }}</div>
 
-                            <!-- Financial Breakdown Table -->
-                            <table width="100%" cellpadding="0" cellspacing="0"
-                                style="font-size: 13px; color: #555555;">
+                                    <!-- Financial Breakdown Table -->
+                                    <table width="100%" cellpadding="0" cellspacing="0"
+                                        style="font-size: 13px; color: #555555;">
+                                @endif
                                 <!-- Pax Rows -->
-                                <tr>
-                                    <td style="padding-bottom: 8px;">Adult (2 &times; <span
-                                            class="dirham">D</span>350.00)</td>
-                                    <td align="right" style="padding-bottom: 8px; color: #111111;"><span
-                                            class="dirham">D</span>700.00</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-bottom: 8px;">Child (1 &times; <span
-                                            class="dirham">D</span>250.00)</td>
-                                    <td align="right" style="padding-bottom: 8px; color: #111111;"><span
-                                            class="dirham">D</span>250.00</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-bottom: 12px; border-bottom: 1px solid #f4f4f4;">Infant (1
-                                        &times; <span class="dirham">D</span>250.00)</td>
-                                    <td align="right"
-                                        style="padding-bottom: 12px; border-bottom: 1px solid #f4f4f4; color: #111111;">
-                                        <span class="dirham">D</span>250.00</td>
-                                </tr>
-
-                                <!-- Total Row -->
-                                <tr>
-                                    <td style="border-top: 1px solid #f4f4f4;padding-top: 10px; font-size: 14px; font-weight: 700; color: #111111;">
-                                        Total</td>
-                                    <td align="right"
-                                        style="padding-top: 10px; font-size: 20px; font-weight: 800; color: #e91e63;">
-                                        <span class="dirham" style="font-size: 14px;">D</span>1,200.00
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
+                                @php
+                                    $paxDetails = is_array($item->pax_details) ? $item->pax_details : [];
+                                    $lastKey = array_key_last($paxDetails);
+                                @endphp
+                                @foreach ($paxDetails as $key => $pax)
+                    <tr>
+                        <td
+                            style="padding-bottom: {{ $key === $lastKey ? '12px' : '8px' }}; {{ $key === $lastKey ? 'border-bottom: 1px solid #f4f4f4;' : '' }}">
+                            {{ $pax['label'] ?? ucfirst($key) }} ({{ $pax['qty'] }} &times;
+                            {{ formatPrice($pax['price']) }})</td>
+                        <td align="right"
+                            style="padding-bottom: {{ $key === $lastKey ? '12px' : '8px' }}; color: #111111; {{ $key === $lastKey ? 'border-bottom: 1px solid #f4f4f4;' : '' }}">
+                            {{ formatPrice($pax['subtotal']) }}</td>
                     </tr>
+                    @endforeach
+                    @if ($index === 0)
+                        <!-- Total Row -->
+                        <tr>
+                            <td
+                                style="border-top: 1px solid #f4f4f4;padding-top: 10px; font-size: 14px; font-weight: 700; color: #111111;">
+                                Total</td>
+                            <td align="right"
+                                style="padding-top: 10px; font-size: 20px; font-weight: 800; color: #e91e63;">
+                                {{ formatPrice($order->subtotal) }}
+                            </td>
+                        </tr>
+                </table>
+                @endif
+                @endforeach
+                </td>
+                </tr>
                 </table>
             </div>
 
             <!-- Order Summary (Taxes & Totals) -->
+             @php
+                $vatPercentage = $order->subtotal > 0 ? ($order->vat / $order->subtotal) * 100 : 0;
+                $serviceTaxPercentage = $order->subtotal > 0 ? ($order->service_tax / $order->subtotal) * 100 : 0;
+            @endphp
+
             <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
                 <tr>
-                    <!-- Spacing column to push summary to the right -->
                     <td width="50%"></td>
-
-                    <!-- Summary Container with Light BG -->
                     <td width="50%"
                         style="background-color: #f9f9f9; border: 1px solid #eeeeee; padding: 10px 18px; border-radius: 4px;">
                         <table width="100%" cellpadding="0" cellspacing="0" class="total-row">
-                            <!-- Subtotal Row -->
                             <tr>
                                 <td align="left"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #666666;">Subtotal
                                 </td>
                                 <td align="right"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #111111; font-weight: 500;">
-                                    <span class="dirham"
-                                        style="color: #999; font-size: 12px; margin-right: 2px;">D</span>950.00
+                                    {{ formatPrice($order->subtotal) }}
                                 </td>
                             </tr>
-                            <!-- VAT Row -->
                             <tr>
                                 <td align="left"
-                                    style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #666666;">VAT (5%)
+                                    style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #666666;">VAT ({{ number_format($vatPercentage, 2) }}%)
                                 </td>
                                 <td align="right"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #111111; font-weight: 500;">
-                                    <span class="dirham"
-                                        style="color: #999; font-size: 12px; margin-right: 2px;">D</span>47.50
+                                    {{ formatPrice($order->vat) }}
                                 </td>
                             </tr>
-                            <!-- Service Tax Row -->
                             <tr>
                                 <td align="left"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #666666;">Service
-                                    Tax</td>
+                                    Tax ({{ number_format($serviceTaxPercentage, 2) }}%)</td>
                                 <td align="right"
                                     style="padding: 10px 0; border-bottom: 1px solid #eeeeee; color: #111111; font-weight: 500;">
-                                    <span class="dirham"
-                                        style="color: #999; font-size: 12px; margin-right: 2px;">D</span>20.00
+                                    {{ formatPrice($order->service_tax) }}
                                 </td>
                             </tr>
-                            <!-- Total Amount Row (Last row: No border bottom) -->
                             <tr>
                                 <td align="left"
-                                    style="padding-top: 15px; font-weight: bold; color: #111111; font-size: 15px;">Total
+                                    style="padding-top: 15px; font-weight: bold; color: #111111; font-size: 15px;">
+                                    Total
                                     Amount</td>
                                 <td align="right" style="padding-top: 15px;" class="grand-total-text">
-                                    <span class="dirham" style="font-size: 14px; margin-right: 2px;">D</span>1,017.50
+                                    {{ formatPrice($order->total) }}
                                 </td>
                             </tr>
                         </table>
@@ -309,7 +272,8 @@
             <!-- Minimal Footer -->
             <div class="footer">
                 <p class="footer-text">
-                    &copy; 2026 Andaleeb Travel Agency <a href="https://andaleebtours.com">www.andaleebtours.com</a>
+                    &copy; {{ date('Y') }} Andaleeb Travel Agency <a
+                        href="https://andaleebtours.com">www.andaleebtours.com</a>
                 </p>
             </div>
 
