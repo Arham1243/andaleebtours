@@ -34,10 +34,120 @@
                 };
             }
 
+            // Parse URL parameters
+            const getUrlParams = () => {
+                const params = new URLSearchParams(window.location.search);
+                return {
+                    origin: params.get('origin'),
+                    destination: params.get('destination'),
+                    start_date: params.get('start_date'),
+                    return_date: params.get('return_date'),
+                    residence_country: params.get('residence_country'),
+                    adult_count: params.get('adult_count'),
+                    children_count: params.get('children_count'),
+                    infant_count: params.get('infant_count'),
+                    adult_ages: params.getAll('adult_ages[]'),
+                    children_ages: params.getAll('children_ages[]')
+                };
+            };
+
             onBeforeMount(async () => {
                 loadInsuranceFromCountries('a');
                 loadInsuranceToCountries('a');
                 loadInsuranceResidenceCountries('a');
+
+                // Populate form with URL parameters
+                const urlParams = getUrlParams();
+
+                // Set origin
+                if (urlParams.origin) {
+                    insuranceFromInputValue.value = urlParams.origin;
+                    const countries = await getInsuranceCountries(urlParams.origin);
+                    const match = countries.find(c => c.yalago_countries_title.toLowerCase() === urlParams.origin.toLowerCase());
+                    if (match) {
+                        selectedInsuranceFrom.value = match;
+                    }
+                }
+
+                // Set destination
+                if (urlParams.destination) {
+                    insuranceToInputValue.value = urlParams.destination;
+                    const countries = await getInsuranceCountries(urlParams.destination);
+                    const match = countries.find(c => c.yalago_countries_title.toLowerCase() === urlParams.destination.toLowerCase());
+                    if (match) {
+                        selectedInsuranceTo.value = match;
+                    }
+                }
+
+                // Set residence country
+                if (urlParams.residence_country) {
+                    insuranceResidenceInputValue.value = urlParams.residence_country;
+                    const countries = await getInsuranceCountries(urlParams.residence_country);
+                    const match = countries.find(c => c.yalago_countries_title.toLowerCase() === urlParams.residence_country.toLowerCase());
+                    if (match) {
+                        selectedInsuranceResidence.value = match;
+                    }
+                }
+
+                // Set passenger counts
+                if (urlParams.adult_count) {
+                    insurancePax.value.adults = parseInt(urlParams.adult_count);
+                }
+                if (urlParams.children_count) {
+                    insurancePax.value.children = parseInt(urlParams.children_count);
+                }
+                if (urlParams.infant_count) {
+                    insurancePax.value.infant = parseInt(urlParams.infant_count);
+                }
+
+                // Wait for watchers to create age arrays, then populate them
+                await nextTick();
+                
+                // Set ages by updating existing array elements instead of replacing the array
+                if (urlParams.adult_ages && urlParams.adult_ages.length > 0) {
+                    urlParams.adult_ages.forEach((age, index) => {
+                        if (index < insuranceAdultAges.value.length) {
+                            insuranceAdultAges.value[index] = age;
+                        }
+                    });
+                }
+                if (urlParams.children_ages && urlParams.children_ages.length > 0) {
+                    urlParams.children_ages.forEach((age, index) => {
+                        if (index < insuranceChildAges.value.length) {
+                            insuranceChildAges.value[index] = age;
+                        }
+                    });
+                }
+
+                // Set dates using jQuery daterangepicker after a short delay
+                if (urlParams.start_date || urlParams.return_date) {
+                    setTimeout(() => {
+                        if (urlParams.start_date) {
+                            const $startInput = $('#insurance-start-input');
+                            const startMoment = moment(urlParams.start_date, 'MMM D, YYYY');
+                            if (startMoment.isValid()) {
+                                $startInput.val(startMoment.format('MMM D, YYYY'));
+                                $('#insurance-start-day').text(startMoment.format('dddd'));
+                                const picker = $startInput.data('daterangepicker');
+                                if (picker) {
+                                    picker.setStartDate(startMoment);
+                                }
+                            }
+                        }
+                        if (urlParams.return_date) {
+                            const $returnInput = $('#insurance-return-input');
+                            const returnMoment = moment(urlParams.return_date, 'MMM D, YYYY');
+                            if (returnMoment.isValid()) {
+                                $returnInput.val(returnMoment.format('MMM D, YYYY'));
+                                $('#insurance-return-day').text(returnMoment.format('dddd'));
+                                const picker = $returnInput.data('daterangepicker');
+                                if (picker) {
+                                    picker.setStartDate(returnMoment);
+                                }
+                            }
+                        }
+                    }, 500);
+                }
             });
 
 
@@ -82,7 +192,8 @@
 
             const insurancePax = ref({
                 adults: 0,
-                children: 0
+                children: 0,
+                infant: 0,
             });
 
             const insuranceAdultAges = ref([]);

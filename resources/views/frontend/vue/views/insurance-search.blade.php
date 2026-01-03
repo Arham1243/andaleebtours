@@ -1,5 +1,5 @@
 <div class="search-options" v-cloak>
-    <form class="search-options-wrapper" method="GET">
+    <form class="search-options-wrapper" method="GET" action="{{ route('frontend.travel-insurance.index') }}">
         <!-- SELECT ORIGIN -->
         <div class="departure-wrapper" ref="insuranceFromWrapperRef">
             <div class="search-box" @click.stop="onInsuranceFromBoxClick">
@@ -180,7 +180,7 @@
                                     <button type="button" class="quantity-counter__btn"
                                         @click.stop="decrementInsurance('adults')"><i
                                             class='bx bx-minus'></i></button>
-
+                                    <input type="hidden" name="adult_count" :value="insurancePax.adults">
                                     <span
                                         class="quantity-counter__btn quantity-counter__btn--quantity">@{{ insurancePax.adults }}</span>
 
@@ -199,12 +199,32 @@
                                     <button type="button" class="quantity-counter__btn"
                                         @click.stop="decrementInsurance('children')"><i
                                             class='bx bx-minus'></i></button>
-
+                                    <input type="hidden" name="children_count" :value="insurancePax.children">
                                     <span
                                         class="quantity-counter__btn quantity-counter__btn--quantity">@{{ insurancePax.children }}</span>
 
                                     <button type="button" class="quantity-counter__btn"
                                         @click.stop="incrementInsurance('children')"><i
+                                            class='bx bx-plus'></i></button>
+                                </div>
+                            </li>
+
+                            <!-- Infant -->
+                            <li class="paxs-item">
+                                <div class="info">
+                                    <div class="name">Infant</div>
+                                    <span>0-1 year</span>
+                                </div>
+                                <div class="quantity-counter">
+                                    <button type="button" class="quantity-counter__btn"
+                                        @click.stop="decrementInsurance('children')"><i
+                                            class='bx bx-minus'></i></button>
+<input type="hidden" name="infant_count" :value="insurancePax.infant">
+                                    <span
+                                        class="quantity-counter__btn quantity-counter__btn--quantity">@{{ insurancePax.infant }}</span>
+
+                                    <button type="button" class="quantity-counter__btn"
+                                        @click.stop="incrementInsurance('infant')"><i
                                             class='bx bx-plus'></i></button>
                                 </div>
                             </li>
@@ -218,7 +238,7 @@
                                     <div class="child-age child-age--half" v-for="(age, index) in insuranceAdultAges"
                                         :key="'adult-' + index">
                                         <label>Adult @{{ index + 1 }} Age</label>
-                                        <select v-model="insuranceAdultAges[index]" :name="'adult_age_' + (index + 1)"
+                                        <select v-model="insuranceAdultAges[index]" name="adult_ages[]" + (index + 1)"
                                             class="form-control">
                                             <option value="">Select</option>
                                             <option v-for="n in 82" :key="n" :value="n + 17">
@@ -234,7 +254,7 @@
                                     <div class="child-age child-age--half" v-for="(age, index) in insuranceChildAges"
                                         :key="'child-' + index">
                                         <label>Child @{{ index + 1 }} Age</label>
-                                        <select v-model="insuranceChildAges[index]" :name="'child_age_' + (index + 1)"
+                                        <select v-model="insuranceChildAges[index]" name="children_ages[]"
                                             class="form-control">
                                             <option value="">Select</option>
                                             <option v-for="n in 16" :key="n" :value="n + 1">
@@ -252,7 +272,7 @@
 
         <!-- BUTTON -->
         <div class="search-button">
-            <button type="submit" :disabled="!isInsuranceSearchEnabled"
+            <button type="submit" 
                 class="themeBtn themeBtn--primary">Search</button>
         </div>
     </form>
