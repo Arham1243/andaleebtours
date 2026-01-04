@@ -6,8 +6,8 @@ use App\Models\Banner;
 use App\Models\Tour;
 use App\Models\Package;
 use App\Models\Inquiry;
-use App\Models\Order;
 use App\Models\Newsletter;
+use App\Models\TravelInsurance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,14 +24,33 @@ class IndexController extends Controller
     {
         return view('frontend.privacy-policy');
     }
-    public function testOrder($email)
-    {
-         $query = Order::with('orderItems.tour')
-            ->where('passenger_email', $email);
 
-        $orders = $query->get();
-        $data = compact('orders');
-        return view('emails.user-bookings', $data);
+    public function testInsuranceSuccessUser($id)
+    {
+        $insurance = TravelInsurance::with('passengers')->findOrFail($id);
+        $commissionPercentage = 0.30;
+        return view('emails.insurance-success-user', compact('insurance', 'commissionPercentage'));
+    }
+
+    public function testInsuranceSuccessAdmin($id)
+    {
+        $insurance = TravelInsurance::with('passengers')->findOrFail($id);
+        $commissionPercentage = 0.30;
+        return view('emails.insurance-success-admin', compact('insurance', 'commissionPercentage'));
+    }
+
+    public function testInsuranceFailedUser($id)
+    {
+        $insurance = TravelInsurance::with('passengers')->findOrFail($id);
+        $commissionPercentage = 0.30;
+        return view('emails.insurance-failed-user', compact('insurance', 'commissionPercentage'));
+    }
+
+    public function testInsuranceFailedAdmin($id)
+    {
+        $insurance = TravelInsurance::with('passengers')->findOrFail($id);
+        $commissionPercentage = 0.30;
+        return view('emails.insurance-failed-admin', compact('insurance', 'commissionPercentage'));
     }
     public function terms_and_conditions()
     {

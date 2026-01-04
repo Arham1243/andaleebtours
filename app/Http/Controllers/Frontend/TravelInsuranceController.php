@@ -3,20 +3,26 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config;
 use App\Models\Country;
 use App\Models\TravelInsurance;
 use App\Models\TravelInsurancePassenger;
 use App\Services\TravelInsuranceService;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class TravelInsuranceController extends Controller
 {
     protected $insuranceService;
+    protected $adminEmail;
 
     public function __construct(TravelInsuranceService $insuranceService)
     {
         $this->insuranceService = $insuranceService;
+        $config = Config::pluck('config_value', 'config_key')->toArray();
+        $this->adminEmail = $config['ADMINEMAIL'] ?? 'info@andaleebtours.com';
     }
 
     public function index(Request $request)
@@ -40,7 +46,7 @@ class TravelInsuranceController extends Controller
                 
                 return view('frontend.travel-insurance.index', compact('data'));
             } catch (\Exception $e) {
-                return back()->with('error', 'Failed to fetch insurance plans: ' . $e->getMessage());
+                return back()->with('notify_error', 'Failed to fetch insurance plans: ' . $e->getMessage());
             }
         }
 
@@ -97,7 +103,7 @@ class TravelInsuranceController extends Controller
     public function processPayment(Request $request)
     {
         try {
-            $validated = $request->validate([
+            $request->validate([
                 'plan_code' => 'required|string',
                 'ssr_fee_code' => 'required|string',
                 'origin' => 'required|string',
@@ -113,9 +119,6 @@ class TravelInsuranceController extends Controller
                 'lead.email' => 'required|email',
                 'lead.number' => 'required|string',
                 'lead.country_of_residence' => 'required|string',
-                'adult.*.dob' => 'required|date|before:today',
-                'child.*.dob' => 'required|date|before:today',
-                'infant.*.dob' => 'required|date|before:today',
             ]);
 
             $adultCount = $request->input('adult_count', 0);
@@ -126,7 +129,7 @@ class TravelInsuranceController extends Controller
                 foreach ($request->input('adult.dob', []) as $index => $dob) {
                     $age = \Carbon\Carbon::parse($dob)->age;
                     if ($age < 18) {
-                        return back()->with('error', 'Adult passenger #' . ($index + 1) . ' must be 18 years or older.');
+                        return back()->with('notify_error', 'Adult passenger #' . ($index + 1) . ' must be 18 years or older.');
                     }
                 }
             }
@@ -135,7 +138,7 @@ class TravelInsuranceController extends Controller
                 foreach ($request->input('child.dob', []) as $index => $dob) {
                     $age = \Carbon\Carbon::parse($dob)->age;
                     if ($age < 2 || $age >= 18) {
-                        return back()->with('error', 'Child passenger #' . ($index + 1) . ' must be between 2 and 17 years old.');
+                        return back()->with('notify_error', 'Child passenger #' . ($index + 1) . ' must be between 2 and 17 years old.');
                     }
                 }
             }
@@ -144,7 +147,7 @@ class TravelInsuranceController extends Controller
                 foreach ($request->input('infant.dob', []) as $index => $dob) {
                     $age = \Carbon\Carbon::parse($dob)->age;
                     if ($age >= 2) {
-                        return back()->with('error', 'Infant passenger #' . ($index + 1) . ' must be under 2 years old.');
+                        return back()->with('notify_error', 'Infant passenger #' . ($index + 1) . ' must be under 2 years old.');
                     }
                 }
             }
@@ -163,7 +166,7 @@ class TravelInsuranceController extends Controller
                 'trace' => $e->getTraceAsString()
             ]);
 
-            return back()->with('error', 'Failed to process payment: ' . $e->getMessage());
+            return back()->with('notify_error', 'Failed to process payment: ' . $e->getMessage());
         }
     }
 
@@ -257,6 +260,9 @@ class TravelInsuranceController extends Controller
                     ]);
                 }
 
+                // Send success emails
+                $this->sendSuccessEmails($insurance);
+
                 return view('frontend.travel-insurance.payment-success', compact('insurance'));
             } else {
                 $insurance->update([
@@ -264,8 +270,11 @@ class TravelInsuranceController extends Controller
                     'payment_response' => json_encode($verification)
                 ]);
 
+                // Send failure emails
+                $this->sendFailureEmails($insurance);
+
                 return redirect()->route('frontend.travel-insurance.payment.failed')
-                    ->with('error', 'Payment verification failed: ' . ($verification['error'] ?? 'Unknown error'));
+                    ->with('notify_error', 'Payment verification failed: ' . ($verification['error'] ?? 'Unknown error'));
             }
         } catch (\Exception $e) {
             Log::error('Travel Insurance Payment Success Error', [
@@ -274,7 +283,7 @@ class TravelInsuranceController extends Controller
             ]);
 
             return redirect()->route('frontend.travel-insurance.payment.failed')
-                ->with('error', 'An error occurred while verifying your payment.');
+                ->with('notify_error', 'An error occurred while verifying your payment.');
         }
     }
 
@@ -290,9 +299,84 @@ class TravelInsuranceController extends Controller
                     'payment_status' => 'failed',
                     'status' => 'cancelled'
                 ]);
+
+                // Send failure emails
+                $this->sendFailureEmails($insurance);
             }
         }
 
         return view('frontend.travel-insurance.payment-failed', compact('insurance'));
+    }
+
+    protected function sendSuccessEmails(TravelInsurance $insurance)
+    {
+        try {
+            $commissionPercentage = 0.30;
+
+            // Send email to user
+            Mail::send('emails.insurance-success-user', compact('insurance', 'commissionPercentage'), function ($message) use ($insurance) {
+                $message->to($insurance->lead_email, $insurance->lead_name)
+                    ->subject('Travel Insurance Confirmed - ' . $insurance->insurance_number);
+
+                // Attach PDF files if available
+                $passengers = $insurance->passengers;
+                foreach ($passengers as $passenger) {
+                    if ($passenger->policy_url_link) {
+                        try {
+                            $pdfContent = file_get_contents($passenger->policy_url_link);
+                            if ($pdfContent) {
+                                $message->attachData($pdfContent, 'policy_' . $passenger->policy_number . '.pdf', [
+                                    'mime' => 'application/pdf',
+                                ]);
+                            }
+                        } catch (\Exception $e) {
+                            Log::warning('Failed to attach policy PDF', [
+                                'passenger_id' => $passenger->id,
+                                'error' => $e->getMessage()
+                            ]);
+                        }
+                    }
+                }
+            });
+
+            // Send email to admin
+            Mail::send('emails.insurance-success-admin', compact('insurance', 'commissionPercentage'), function ($message) use ($insurance) {
+                $message->to($this->adminEmail)
+                    ->subject('New Insurance Sale - ' . $insurance->insurance_number);
+            });
+
+            Log::info('Insurance success emails sent', ['insurance_id' => $insurance->id]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send insurance success emails', [
+                'insurance_id' => $insurance->id,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    protected function sendFailureEmails(TravelInsurance $insurance)
+    {
+        try {
+            $commissionPercentage = 0.30;
+
+            // Send email to user
+            Mail::send('emails.insurance-failed-user', compact('insurance', 'commissionPercentage'), function ($message) use ($insurance) {
+                $message->to($insurance->lead_email, $insurance->lead_name)
+                    ->subject('Payment Failed - ' . $insurance->insurance_number);
+            });
+
+            // Send email to admin
+            Mail::send('emails.insurance-failed-admin', compact('insurance', 'commissionPercentage'), function ($message) use ($insurance) {
+                $message->to($this->adminEmail)
+                    ->subject('Insurance Payment Failed - ' . $insurance->insurance_number);
+            });
+
+            Log::info('Insurance failure emails sent', ['insurance_id' => $insurance->id]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send insurance failure emails', [
+                'insurance_id' => $insurance->id,
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }

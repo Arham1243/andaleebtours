@@ -176,11 +176,29 @@
                         </div>
                     @endif
 
-                    <div class="row justify-content-center mt-4">
-                        <div class="col-md-8 text-center">
-                            <button type="submit" class="btn-primary-custom">
-                                Continue <i class='bx bx-right-arrow-alt'></i>
-                            </button>
+                    <!-- Sticky Bottom Continue Bar -->
+                    <div class="continue-bar">
+                        <div class="container">
+                            <div class="continue-bar-padding">
+                                <div class="row align-items-center justify-content-center">
+                                    <div class="col-12 col-md-6">
+                                        <div class="details-wrapper">
+                                            <div class="details">
+                                                <div class="total-price" style="font-size: 0.9rem; color: #666;">
+                                                    Choose a plan to continue
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="details-btn-wrapper">
+                                            <button type="submit" class="btn-primary-custom">
+                                                Continue <i class='bx bx-right-arrow-alt'></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>

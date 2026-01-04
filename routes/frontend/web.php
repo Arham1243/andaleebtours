@@ -20,6 +20,14 @@ Route::name('frontend.')->group(function () {
         Route::post('/store', [CheckoutController::class, 'store'])->name('store');
     });
     
+    Route::get('/test-order/{id}', [IndexController::class, 'testOrder']);
+    
+    // Test routes for insurance email templates
+    Route::get('/test-insurance-success-user/{id}', [IndexController::class, 'testInsuranceSuccessUser']);
+    Route::get('/test-insurance-success-admin/{id}', [IndexController::class, 'testInsuranceSuccessAdmin']);
+    Route::get('/test-insurance-failed-user/{id}', [IndexController::class, 'testInsuranceFailedUser']);
+    Route::get('/test-insurance-failed-admin/{id}', [IndexController::class, 'testInsuranceFailedAdmin']);
+
     Route::post('/subscribe-newsletter', [IndexController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
 
     Route::get('/uae-services', [TourController::class, 'uae_services'])->name('uae-services');
@@ -73,8 +81,6 @@ Route::name('frontend.')->group(function () {
         Route::get('/success', [CheckoutController::class, 'paymentSuccess'])->name('success');
         Route::get('/failed', [CheckoutController::class, 'paymentFailed'])->name('failed');
     });
-
-    Route::get('/test-order/{id}', [IndexController::class, 'testOrder']);
 
     Route::prefix('flights')->name('flights.')->group(function () {
         Route::get('/', [FlightController::class, 'index'])->name('index');

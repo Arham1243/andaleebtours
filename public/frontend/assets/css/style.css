@@ -3622,6 +3622,7 @@ body .skeleton {
 .plan-card-inner .price-tag {
     font-size: 1.25rem;
     font-weight: 800;
+    text-align: right;
     color: #1a1a1a;
 }
 
