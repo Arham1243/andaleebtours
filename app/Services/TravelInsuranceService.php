@@ -185,6 +185,7 @@ class TravelInsuranceService
         $paymentReference = 'Test_Ref_' . rand(100000, 999999);
 
         $insuranceData = [
+            'user_id' => auth()->id() ?? null,
             'insurance_number' => TravelInsurance::generateInsuranceNumber(),
             'plan_title' => $data['plan_title'] ?? null,
             'plan_code' => $data['plan_code'],

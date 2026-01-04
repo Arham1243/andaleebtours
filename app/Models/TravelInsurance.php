@@ -53,6 +53,11 @@ class TravelInsurance extends Model
         return $this->hasMany(TravelInsurancePassenger::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public static function generateInsuranceNumber()
     {
         return 'TI-' . strtoupper(uniqid()) . '-' . rand(1000, 9999);
