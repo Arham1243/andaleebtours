@@ -73,16 +73,8 @@
                                                         @if($insurance->total_infants > 0), {{ $insurance->total_infants }} Infant(s)@endif
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td><strong>Base Premium:</strong></td>
-                                                    <td class="text-end">{{ number_format($insurance->total_premium, 2) }} {{ $insurance->currency }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Commission ({{ ($commissionPercentage * 100) }}%):</strong></td>
-                                                    <td class="text-end">{{ number_format($insurance->total_premium * $commissionPercentage, 2) }} {{ $insurance->currency }}</td>
-                                                </tr>
                                                 <tr class="table-success">
-                                                    <td><strong>Total Amount (with Commission):</strong></td>
+                                                    <td><strong>Total Premium:</strong></td>
                                                     <td class="text-end"><strong style="font-size: 1.2em;">{{ number_format($insurance->total_premium + ($insurance->total_premium * $commissionPercentage), 2) }} {{ $insurance->currency }}</strong></td>
                                                 </tr>
                                                 @if($insurance->booking_confirmed)

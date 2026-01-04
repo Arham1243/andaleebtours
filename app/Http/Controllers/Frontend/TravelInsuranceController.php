@@ -113,7 +113,41 @@ class TravelInsuranceController extends Controller
                 'lead.email' => 'required|email',
                 'lead.number' => 'required|string',
                 'lead.country_of_residence' => 'required|string',
+                'adult.*.dob' => 'required|date|before:today',
+                'child.*.dob' => 'required|date|before:today',
+                'infant.*.dob' => 'required|date|before:today',
             ]);
+
+            $adultCount = $request->input('adult_count', 0);
+            $childCount = $request->input('children_count', 0);
+            $infantCount = $request->input('infant_count', 0);
+
+            if ($adultCount > 0 && $request->has('adult')) {
+                foreach ($request->input('adult.dob', []) as $index => $dob) {
+                    $age = \Carbon\Carbon::parse($dob)->age;
+                    if ($age < 18) {
+                        return back()->with('error', 'Adult passenger #' . ($index + 1) . ' must be 18 years or older.');
+                    }
+                }
+            }
+
+            if ($childCount > 0 && $request->has('child')) {
+                foreach ($request->input('child.dob', []) as $index => $dob) {
+                    $age = \Carbon\Carbon::parse($dob)->age;
+                    if ($age < 2 || $age >= 18) {
+                        return back()->with('error', 'Child passenger #' . ($index + 1) . ' must be between 2 and 17 years old.');
+                    }
+                }
+            }
+
+            if ($infantCount > 0 && $request->has('infant')) {
+                foreach ($request->input('infant.dob', []) as $index => $dob) {
+                    $age = \Carbon\Carbon::parse($dob)->age;
+                    if ($age >= 2) {
+                        return back()->with('error', 'Infant passenger #' . ($index + 1) . ' must be under 2 years old.');
+                    }
+                }
+            }
 
             $data = $request->all();
             $data['total_premium'] = $request->input('total_premium', 0);
