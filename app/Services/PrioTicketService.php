@@ -305,7 +305,6 @@ class PrioTicketService
                     'distributor_id' => $this->distributorId,
                     'from_date'      => $date,
                 ]);
-                
             if (! $response->successful()) {
                 return [
                     'success' => false,

@@ -399,7 +399,7 @@
                                                                 class="qty-btn" type="button"><i
                                                                     class="bx bx-minus"></i></button>
                                                             <input type="number" class="counter-input qty-input"
-                                                                value="1" readonly min="{{ $tour->min_qty }}"
+                                                                value="0" readonly min="{{ $tour->min_qty > 1 ? $tour->min_qty : 0}}"
                                                                 max="{{ $tour->max_qty }}"
                                                                 name="{{ strtolower($type['product_type_label']) }}_qty">
                                                             <button
@@ -836,7 +836,7 @@
                 const qtyInput = qtyControl.find('.qty-input');
                 const decreaseBtn = qtyControl.find('.qty-btn').eq(0);
                 const increaseBtn = qtyControl.find('.qty-btn').eq(1);
-                const minQty = parseInt(qtyInput.attr('min')) || 1;
+                const minQty = parseInt(qtyInput.attr('min')) || 0;
                 const maxQty = parseInt(qtyInput.attr('max')) || Infinity;
 
                 function updateButtonStates() {
