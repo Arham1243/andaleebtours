@@ -194,22 +194,59 @@ class PrioTicketService
                 throw new \Exception('Failed to get PrioTicket access token');
             }
 
-            foreach ($order->orderItems as $orderItem) {
-                if (empty($orderItem->reservation_data)) {
-                    continue;
-                }
+            if (empty($order->reservation_data)) {
+                Log::warning('No reservation data found for order', [
+                    'order_id' => $order->id
+                ]);
+                return;
+            }
 
-                $reservationData = json_decode($orderItem->reservation_data, true);
+            $reservationData = json_decode($order->reservation_data, true);
 
-                if (!isset($reservationData['data']['reservation']['reservation_reference'])) {
-                    Log::warning('Missing reservation reference for order item', [
-                        'order_item_id' => $orderItem->id
+            if (!isset($reservationData['data']['reservation'])) {
+                Log::warning('Invalid reservation data structure', [
+                    'order_id' => $order->id
+                ]);
+                return;
+            }
+
+            $reservation = $reservationData['data']['reservation'];
+            $reservationDetails = $reservation['reservation_details'] ?? [];
+
+            $orderItemsGrouped = $order->orderItems->groupBy('product_id_prio');
+
+            $allOrderResponses = [];
+
+            foreach ($orderItemsGrouped as $productId => $items) {
+                $firstItem = $items->first();
+                
+                $reservationDetail = collect($reservationDetails)->firstWhere('booking_product_id', $productId);
+                
+                if (!$reservationDetail) {
+                    Log::warning('No reservation detail found for product', [
+                        'order_id' => $order->id,
+                        'product_id' => $productId
                     ]);
                     continue;
                 }
 
-                $reservationReference = $reservationData['data']['reservation']['reservation_reference'];
-                $externalReference = $reservationData['data']['reservation']['reservation_external_reference'] ?? null;
+                $reservationReference = $reservationDetail['booking_reservation_reference'] ?? null;
+                $externalReference = $reservation['reservation_external_reference'] ?? null;
+
+                if (!$reservationReference) {
+                    Log::warning('Missing reservation reference for product', [
+                        'order_id' => $order->id,
+                        'product_id' => $productId
+                    ]);
+                    continue;
+                }
+
+                $country = Country::where('name', $order->passenger_country)
+                    ->orWhere('sb_iso_code', $order->passenger_country)
+                    ->first();
+
+                $countryName = $country->name ?? $order->passenger_country;
+                $countryCode = $country->sb_iso_code ?? 'AE';
 
                 $orderData = [
                     'data' => [
@@ -228,12 +265,12 @@ class PrioTicketService
                                     'contact_phone' => $order->passenger_phone,
                                     'contact_mobile' => $order->passenger_phone,
                                     'contact_address' => [
-                                        'name' => $order->passenger_address,
-                                        'city' => $order->passenger_country,
+                                        'name' => $order->passenger_address ?? '',
+                                        'city' => $countryName,
                                         'postal_code' => '00000',
-                                        'region' => $order->passenger_country,
-                                        'country' => $order->passenger_country,
-                                        'country_code' => 'AE'
+                                        'region' => $countryName,
+                                        'country' => $countryName,
+                                        'country_code' => $countryCode
                                     ]
                                 ]
                             ],
@@ -267,21 +304,35 @@ class PrioTicketService
                 ])->post($this->baseUrl . '/orders', $orderData);
 
                 if ($response->successful()) {
-                    $orderItem->update([
-                        'order_data' => $response->body()
-                    ]);
+                    $responseBody = $response->body();
+                    $allOrderResponses[] = json_decode($responseBody, true);
+
+                    foreach ($items as $orderItem) {
+                        $orderItem->update([
+                            'order_data' => $responseBody
+                        ]);
+                    }
 
                     Log::info('PrioTicket order confirmed successfully', [
-                        'order_item_id' => $orderItem->id,
+                        'order_id' => $order->id,
+                        'product_id' => $productId,
                         'reservation_reference' => $reservationReference
                     ]);
                 } else {
                     Log::error('PrioTicket order confirmation failed', [
-                        'order_item_id' => $orderItem->id,
+                        'order_id' => $order->id,
+                        'product_id' => $productId,
                         'response' => $response->body()
                     ]);
                 }
             }
+
+            if (!empty($allOrderResponses)) {
+                $order->update([
+                    'prio_order_response' => json_encode($allOrderResponses)
+                ]);
+            }
+
         } catch (\Exception $e) {
             Log::error('PrioTicket Order Confirmation Error', [
                 'order_id' => $order->id,

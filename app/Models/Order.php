@@ -31,6 +31,8 @@ class Order extends Model
         'status',
         'reservation_reference',
         'reservation_data',
+        'prio_order_response',
+        'prio_booking_reference',
     ];
 
     protected $casts = [
