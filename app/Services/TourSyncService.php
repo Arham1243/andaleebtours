@@ -44,21 +44,15 @@ class TourSyncService
 
         $items = data_get($productsResponse->json(), 'data.items', []);
 
-        // Mark all tours inactive before sync
-        Tour::query()->update(['status' => 'inactive']);
-
         $today = Carbon::now();
 
         foreach ($items as $item) {
 
-            if (($item['product_status'] ?? '') !== 'ACTIVE') {
-                continue;
-            }
+            $status = ($item['product_status'] ?? '') === 'ACTIVE' ? 'active' : 'inactive';
 
             $seasons = $item['product_type_seasons'] ?? [];
             $currentSeason = null;
 
-            // Find the season that contains today
             foreach ($seasons as $season) {
                 $start = Carbon::parse($season['product_type_season_start_date']);
                 $end = Carbon::parse($season['product_type_season_end_date']);
@@ -68,7 +62,6 @@ class TourSyncService
                 }
             }
 
-            // If no current season, use the last season
             if (!$currentSeason && !empty($seasons)) {
                 $currentSeason = end($seasons);
             }
@@ -112,7 +105,7 @@ class TourSyncService
                     'excludes' => data_get($item, 'product_content.product_excludes'),
                     'product_type_seasons' => $item['product_type_seasons'] ?? null,
 
-                    'status' => ($item['product_status'] == 'ACTIVE') ? 'active' : 'inactive',
+                    'status' => $status,
                 ]
             );
         }
