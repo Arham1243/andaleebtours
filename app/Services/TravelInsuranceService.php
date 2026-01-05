@@ -495,6 +495,7 @@ class TravelInsuranceService
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $tabbyApiKey,
+            'Accept' => 'application/json',
             'Content-Type' => 'application/json',
         ])->post($this->tabbyApiUrl . '/checkout', $requestData);
 
@@ -550,6 +551,7 @@ class TravelInsuranceService
             $base64Signature = base64_encode($signature);
 
             $response = Http::withHeaders([
+                'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'Content-Language' => 'en',
                 'Partner-Id' => $this->paybyPartnerId,

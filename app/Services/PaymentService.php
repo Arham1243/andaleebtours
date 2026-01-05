@@ -237,6 +237,7 @@ class PaymentService
         ];
 
         $response = Http::withHeaders([
+            'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $tabbyApiKey,
             'Content-Type' => 'application/json',
         ])->post('https://api.tabby.ai/api/v2/checkout', $requestData);

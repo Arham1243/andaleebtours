@@ -141,7 +141,7 @@ class PrioTicketService
         foreach ($orderItems as $index => $item) {
             // Generate unique booking_external_reference for each item
             $bookingReference = $baseReference . '-' . ($index + 1);
-            
+
             $reservationDetails[] = [
                 'booking_external_reference' => $bookingReference,
                 'booking_language' => 'en',
@@ -233,9 +233,8 @@ class PrioTicketService
 
             foreach ($orderItemsGrouped as $productId => $items) {
                 $firstItem = $items->first();
-                
-                $reservationDetail = collect($reservationDetails)->firstWhere('booking_product_id', $productId);
-                
+                $reservationDetail = collect($reservationDetails)->firstWhere('product_id', $productId);
+
                 if (!$reservationDetail) {
                     $hasFailures = true;
                     $errorDetails[] = "No reservation detail found for product ID: {$productId}";
@@ -260,12 +259,11 @@ class PrioTicketService
                 }
 
                 $country = Country::where('name', $order->passenger_country)
-                    ->orWhere('sb_iso_code', $order->passenger_country)
+                    ->orWhere('iso_code', $order->passenger_country)
                     ->first();
 
                 $countryName = $country->name ?? $order->passenger_country;
-                $countryCode = $country->sb_iso_code ?? 'AE';
-
+                $countryCode = $country->iso_code ?? 'AE';
                 $orderData = [
                     'data' => [
                         'order' => [
@@ -309,7 +307,7 @@ class PrioTicketService
                             'order_bookings' => [
                                 [
                                     'booking_option_type' => 'CONFIRM_RESERVATION',
-                                    'reservation_reference' => $reservationReference
+                                    'reservation_reference' =>  preg_replace('/\D/', '', $reservationReference)
                                 ]
                             ]
                         ]
@@ -319,6 +317,7 @@ class PrioTicketService
                 $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Bearer ' . $token,
+                    'Accept' => 'application/json',
                 ])->post($this->baseUrl . '/orders', $orderData);
 
                 if ($response->successful()) {
@@ -341,7 +340,7 @@ class PrioTicketService
                     $hasFailures = true;
                     $errorBody = $response->body();
                     $errorDetails[] = "Product ID {$productId}: HTTP {$response->status()} - {$errorBody}";
-                    
+
                     Log::error('PrioTicket order confirmation failed', [
                         'order_id' => $order->id,
                         'product_id' => $productId,
@@ -372,7 +371,6 @@ class PrioTicketService
                 'success_count' => $successCount,
                 'total_count' => $totalProducts
             ];
-
         } catch (\Exception $e) {
             $error = $e->getMessage();
             Log::error('PrioTicket Order Confirmation Error', [
