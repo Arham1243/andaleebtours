@@ -589,7 +589,11 @@ class CheckoutController extends Controller
     protected function processPrioTicketOrder(Order $order)
     {
         $prioTicketService = new PrioTicketService();
-        $prioTicketService->confirmOrder($order);
+        $result = $prioTicketService->confirmOrder($order);
+
+        if (!$result['success']) {
+            $this->sendPrioOrderFailedEmail($order, $result['error'] ?? 'Unknown error');
+        }
     }
 
     protected function sendOrderCreatedEmails(Order $order)
@@ -667,6 +671,32 @@ class CheckoutController extends Controller
             ]);
         } catch (\Exception $e) {
             Log::error('Failed to send payment failed emails', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    protected function sendPrioOrderFailedEmail(Order $order, string $errorDetails)
+    {
+        try {
+            $order->load('orderItems');
+
+            Mail::send('emails.prio-order-failed-admin', [
+                'order' => $order,
+                'errorDetails' => $errorDetails
+            ], function ($message) use ($order) {
+                $message->to($this->adminEmail)
+                    ->subject('⚠️ URGENT: Prio Order Failed - ' . $order->order_number);
+            });
+
+            Log::info('Prio order failed email sent to admin', [
+                'order_id' => $order->id,
+                'order_number' => $order->order_number,
+                'error' => $errorDetails
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send Prio order failed email', [
                 'order_id' => $order->id,
                 'error' => $e->getMessage()
             ]);

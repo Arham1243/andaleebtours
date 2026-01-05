@@ -187,27 +187,39 @@ class PrioTicketService
      */
     public function confirmOrder($order)
     {
+        $hasFailures = false;
+        $errorDetails = [];
+
         try {
             $token = $this->getAccessToken();
 
             if (!$token) {
-                throw new \Exception('Failed to get PrioTicket access token');
+                $error = 'Failed to get PrioTicket access token';
+                Log::error($error, ['order_id' => $order->id]);
+                return [
+                    'success' => false,
+                    'error' => $error
+                ];
             }
 
             if (empty($order->reservation_data)) {
-                Log::warning('No reservation data found for order', [
-                    'order_id' => $order->id
-                ]);
-                return;
+                $error = 'No reservation data found for order';
+                Log::warning($error, ['order_id' => $order->id]);
+                return [
+                    'success' => false,
+                    'error' => $error
+                ];
             }
 
             $reservationData = json_decode($order->reservation_data, true);
 
             if (!isset($reservationData['data']['reservation'])) {
-                Log::warning('Invalid reservation data structure', [
-                    'order_id' => $order->id
-                ]);
-                return;
+                $error = 'Invalid reservation data structure';
+                Log::warning($error, ['order_id' => $order->id]);
+                return [
+                    'success' => false,
+                    'error' => $error
+                ];
             }
 
             $reservation = $reservationData['data']['reservation'];
@@ -216,6 +228,8 @@ class PrioTicketService
             $orderItemsGrouped = $order->orderItems->groupBy('product_id_prio');
 
             $allOrderResponses = [];
+            $successCount = 0;
+            $totalProducts = $orderItemsGrouped->count();
 
             foreach ($orderItemsGrouped as $productId => $items) {
                 $firstItem = $items->first();
@@ -223,6 +237,8 @@ class PrioTicketService
                 $reservationDetail = collect($reservationDetails)->firstWhere('booking_product_id', $productId);
                 
                 if (!$reservationDetail) {
+                    $hasFailures = true;
+                    $errorDetails[] = "No reservation detail found for product ID: {$productId}";
                     Log::warning('No reservation detail found for product', [
                         'order_id' => $order->id,
                         'product_id' => $productId
@@ -234,6 +250,8 @@ class PrioTicketService
                 $externalReference = $reservation['reservation_external_reference'] ?? null;
 
                 if (!$reservationReference) {
+                    $hasFailures = true;
+                    $errorDetails[] = "Missing reservation reference for product ID: {$productId}";
                     Log::warning('Missing reservation reference for product', [
                         'order_id' => $order->id,
                         'product_id' => $productId
@@ -286,7 +304,7 @@ class PrioTicketService
                                 ],
                                 'price_on_voucher' => true
                             ],
-                            'order_activity_url' => url('/orders/' . $order->order_number),
+                            'order_activity_url' => url('/admin/orders/' . $order->id),
                             'order_view_type' => 'DISTRIBUTOR',
                             'order_bookings' => [
                                 [
@@ -306,6 +324,7 @@ class PrioTicketService
                 if ($response->successful()) {
                     $responseBody = $response->body();
                     $allOrderResponses[] = json_decode($responseBody, true);
+                    $successCount++;
 
                     foreach ($items as $orderItem) {
                         $orderItem->update([
@@ -319,10 +338,15 @@ class PrioTicketService
                         'reservation_reference' => $reservationReference
                     ]);
                 } else {
+                    $hasFailures = true;
+                    $errorBody = $response->body();
+                    $errorDetails[] = "Product ID {$productId}: HTTP {$response->status()} - {$errorBody}";
+                    
                     Log::error('PrioTicket order confirmation failed', [
                         'order_id' => $order->id,
                         'product_id' => $productId,
-                        'response' => $response->body()
+                        'status' => $response->status(),
+                        'response' => $errorBody
                     ]);
                 }
             }
@@ -333,12 +357,34 @@ class PrioTicketService
                 ]);
             }
 
+            if ($hasFailures) {
+                return [
+                    'success' => false,
+                    'partial' => $successCount > 0,
+                    'error' => implode(' | ', $errorDetails),
+                    'success_count' => $successCount,
+                    'total_count' => $totalProducts
+                ];
+            }
+
+            return [
+                'success' => true,
+                'success_count' => $successCount,
+                'total_count' => $totalProducts
+            ];
+
         } catch (\Exception $e) {
+            $error = $e->getMessage();
             Log::error('PrioTicket Order Confirmation Error', [
                 'order_id' => $order->id,
-                'error' => $e->getMessage(),
+                'error' => $error,
                 'trace' => $e->getTraceAsString()
             ]);
+
+            return [
+                'success' => false,
+                'error' => $error
+            ];
         }
     }
 

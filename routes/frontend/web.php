@@ -20,8 +20,6 @@ Route::name('frontend.')->group(function () {
         Route::post('/store', [CheckoutController::class, 'store'])->name('store');
     });
     
-    Route::get('/test-order/{id}', [IndexController::class, 'testOrder']);
-    
     // Test routes for insurance email templates
     Route::get('/test-insurance-success-user/{id}', [IndexController::class, 'testInsuranceSuccessUser']);
     Route::get('/test-insurance-success-admin/{id}', [IndexController::class, 'testInsuranceSuccessAdmin']);
@@ -76,7 +74,7 @@ Route::name('frontend.')->group(function () {
         Route::get('/extras', [HotelController::class, 'extras'])->name('extras');
         Route::get('/checkout', [HotelController::class, 'checkout'])->name('checkout');
     });
-
+    
     Route::prefix('payment')->name('payment.')->group(function () {
         Route::get('/success', [CheckoutController::class, 'paymentSuccess'])->name('success');
         Route::get('/failed', [CheckoutController::class, 'paymentFailed'])->name('failed');

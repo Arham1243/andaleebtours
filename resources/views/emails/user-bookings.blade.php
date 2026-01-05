@@ -263,7 +263,8 @@
                 <tr>
                     <td align="center">
                         <img src="{{ asset('frontend/assets/images/email-template-logo.png') }}"
-                            alt="Andaleeb Travel Agency" width="100%" style="display: block; border: 0;" />
+                            alt="Andaleeb Travel Agency" width="200"
+                            style="display: block; border: 0; max-width: 200px;" />
                     </td>
                 </tr>
             </table>
