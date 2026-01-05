@@ -353,12 +353,29 @@
                                 @endif
 
                                 <hr class="divider">
-                                @if (isset($tour->product_type_seasons[0]['product_type_season_details']))
+
+                                @php
+                                    $selectedDate = \Carbon\Carbon::parse(request('date') ?? now());
+                                    $currentSeason = collect($tour->product_type_seasons)->first(function (
+                                        $season,
+                                    ) use ($selectedDate) {
+                                        $start = \Carbon\Carbon::parse($season['product_type_season_start_date']);
+                                        $end = \Carbon\Carbon::parse($season['product_type_season_end_date']);
+                                        return $selectedDate->between($start, $end);
+                                    });
+
+                                    // fallback to last season if no match
+                                    if (!$currentSeason) {
+                                        $currentSeason = collect($tour->product_type_seasons)->last();
+                                    }
+                                @endphp
+
+                                @if ($currentSeason && isset($currentSeason['product_type_season_details']))
                                     @if ($isTourAvailableAndHasSlots)
                                         <div class="pax-section mb-4">
                                             <label class="form-label mb-3">Select Pax</label>
 
-                                            @foreach ($tour->product_type_seasons[0]['product_type_season_details'] as $type)
+                                            @foreach ($currentSeason['product_type_season_details'] as $type)
                                                 <div class="pax-row">
                                                     <div class="pax-info">
                                                         <span class="pax-type">{{ $type['product_type_label'] }}</span>
