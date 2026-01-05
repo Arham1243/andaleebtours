@@ -149,7 +149,7 @@
                             </div>
                         </div>
                         <div class="faq-wrapper">
-                            <div class="faq-item">
+                            <div class="faq-item active">
                                 <div class="faq-header">
                                     <span class="faq-question"> Overview</span>
                                     <i class='bx bx-chevron-down faq-icon'></i>
