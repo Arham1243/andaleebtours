@@ -7,6 +7,8 @@ use App\Models\Tour;
 use App\Models\Package;
 use App\Models\Inquiry;
 use App\Models\Newsletter;
+use App\Models\Order;
+
 use App\Models\TravelInsurance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,6 +25,12 @@ class IndexController extends Controller
     public function privacy_policy()
     {
         return view('frontend.privacy-policy');
+    }
+
+    public function test($id)
+    {
+        $order = Order::findOrFail($id);
+        return view('emails.booking-confirmed-user', compact('order'));
     }
 
     public function testInsuranceSuccessUser($id)

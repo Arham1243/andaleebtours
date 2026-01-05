@@ -287,7 +287,7 @@
                     setTimeout(function() {
                         errorAlert.remove();
                     }, 500);
-                }, 5000);
+                }, 15000);
             }
         });
     </script>

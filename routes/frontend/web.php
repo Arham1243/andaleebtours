@@ -84,6 +84,7 @@ Route::name('frontend.')->group(function () {
         Route::get('/', [FlightController::class, 'index'])->name('index');
     });
 
+    Route::get('/test-email/{id}', [IndexController::class, 'test']);
     Route::post('/load/tour/blocks', [TourController::class, 'loadTourBlocks'])->name('load.tour.blocks');
 
 

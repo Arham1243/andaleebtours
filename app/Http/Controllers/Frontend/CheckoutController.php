@@ -122,8 +122,8 @@ class CheckoutController extends Controller
             ]);
 
             return redirect()
-                ->route('frontend.payment.failed')
-                ->with('notify_error', 'Failed to create order. Please try again.');
+                ->route('frontend.checkout.index')
+                ->with('notify_error', $e->getMessage());
         }
     }
 
@@ -257,7 +257,7 @@ class CheckoutController extends Controller
             Log::error('PrioTicket: Access token missing', [
                 'order_id' => $order->id
             ]);
-            return;
+            throw new \Exception('Unable to connect to booking system. Please try again later.');
         }
 
         // VALIDATE PRODUCTS
@@ -273,7 +273,7 @@ class CheckoutController extends Controller
                     'order_id' => $order->id,
                     'product_id' => $item['product_id_prio'],
                 ]);
-                return;
+                throw new \Exception('One or more tours in your cart are no longer available. Please refresh and try again.');
             }
 
             if (($product['product_status'] ?? null) !== 'ACTIVE') {
@@ -282,7 +282,7 @@ class CheckoutController extends Controller
                     'product_id' => $item['product_id_prio'],
                     'status' => $product['product_status'] ?? null,
                 ]);
-                return;
+                throw new \Exception('One or more tours in your cart are no longer available. Please refresh and try again.');
             }
         }
 
@@ -322,6 +322,9 @@ class CheckoutController extends Controller
             'order_id' => $order->id,
             'error' => $reservationResponse['error']
         ]);
+
+        // Throw exception with user-friendly error message
+        throw new \Exception($reservationResponse['error'] ?? 'Unable to create reservation. Please try again.');
     }
 
     private function validateCartAvailability(array $cartData): array
@@ -553,7 +556,19 @@ class CheckoutController extends Controller
             'status' => 'confirmed'
         ]);
 
-        $this->processPrioTicketOrder($order);
+        // Process Prio order confirmation
+        $prioResult = $this->processPrioTicketOrder($order);
+
+        // If Prio order confirmation failed, show failure page
+        if ($prioResult && !$prioResult['success']) {
+            return $this->handlePaymentFailure(
+                $order,
+                'Booking Confirmation Failed',
+                'Your payment was successful, but we could not confirm your booking with our provider.',
+                $prioResult['error'] ?? 'Unable to confirm booking. Our team has been notified and will contact you shortly.'
+            );
+        }
+
         $this->sendPaymentSuccessEmails($order);
 
         session()->forget('cart');
@@ -598,7 +613,11 @@ class CheckoutController extends Controller
 
         if (!$result['success']) {
             $this->sendPrioOrderFailedEmail($order, $result['error'] ?? 'Unknown error');
+        } else {
+            $this->sendBookingConfirmedEmail($order);
         }
+
+        return $result;
     }
 
     protected function sendOrderCreatedEmails(Order $order)
@@ -702,6 +721,29 @@ class CheckoutController extends Controller
             ]);
         } catch (\Exception $e) {
             Log::error('Failed to send Prio order failed email', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    protected function sendBookingConfirmedEmail(Order $order)
+    {
+        try {
+            $order->load('orderItems');
+
+            Mail::send('emails.booking-confirmed-user', ['order' => $order], function ($message) use ($order) {
+                $message->to($order->passenger_email)
+                    ->subject('Booking Confirmed - ' . $order->order_number);
+            });
+
+            Log::info('Booking confirmation email sent to customer', [
+                'order_id' => $order->id,
+                'order_number' => $order->order_number,
+                'customer_email' => $order->passenger_email
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send booking confirmation email', [
                 'order_id' => $order->id,
                 'error' => $e->getMessage()
             ]);

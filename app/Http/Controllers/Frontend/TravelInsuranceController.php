@@ -222,7 +222,7 @@ class TravelInsuranceController extends Controller
                         'error_messages' => json_encode($purchaseResponse['ErrorMessage'] ?? []),
                         'booking_confirmed' => $isConfirmed,
                         'confirmation_response' => json_encode($confirmData),
-                        'status' => $isConfirmed ? 'confirmed' : 'pending',
+                        'status' => $isConfirmed ? 'confirmed' : 'failed',
                     ]);
 
                     // Update passenger policy details
@@ -257,14 +257,41 @@ class TravelInsuranceController extends Controller
                         'proposal_state' => $proposalState,
                         'booking_confirmed' => $isConfirmed
                     ]);
+
+                    // If not confirmed, show failure page
+                    if (!$isConfirmed) {
+                        $errorMessage = is_array($purchaseResponse['ErrorMessage'] ?? null) 
+                            ? implode(', ', $purchaseResponse['ErrorMessage']) 
+                            : ($purchaseResponse['ErrorMessage'] ?? 'Insurance confirmation failed');
+
+                        $insurance->update([
+                            'payment_status' => 'paid',
+                            'status' => 'failed'
+                        ]);
+
+                        $this->sendFailureEmails($insurance);
+
+                        return redirect()->route('frontend.travel-insurance.payment.failed')
+                            ->with('notify_error', 'Your payment was successful, but insurance confirmation failed: ' . $errorMessage);
+                    }
                 } else {
                     Log::warning('Travel Insurance Confirmation Failed', [
                         'insurance_id' => $insurance->id,
                         'error' => $confirmResult['error'] ?? 'Unknown error'
                     ]);
+
+                    $insurance->update([
+                        'payment_status' => 'paid',
+                        'status' => 'failed'
+                    ]);
+
+                    $this->sendFailureEmails($insurance);
+
+                    return redirect()->route('frontend.travel-insurance.payment.failed')
+                        ->with('notify_error', 'Your payment was successful, but we could not confirm your insurance: ' . ($confirmResult['error'] ?? 'Unknown error'));
                 }
 
-                // Send success emails
+                // Send success emails only if confirmed
                 $this->sendSuccessEmails($insurance);
 
                 return view('frontend.travel-insurance.payment-success', compact('insurance'));

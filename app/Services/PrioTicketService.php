@@ -105,6 +105,14 @@ class PrioTicketService
                 ];
             }
 
+            $errorBody = $response->json();
+            $errorMessage = $errorBody['error_description'] ?? $errorBody['error_message'] ?? 'Failed to create reservation';
+            
+            // If there are specific errors array, use those
+            if (!empty($errorBody['errors']) && is_array($errorBody['errors'])) {
+                $errorMessage = implode(' ', $errorBody['errors']);
+            }
+
             Log::error('PrioTicket: Failed to create reservation', [
                 'status' => $response->status(),
                 'body' => $response->body()
@@ -112,7 +120,8 @@ class PrioTicketService
 
             return [
                 'success' => false,
-                'error' => $response->body()
+                'error' => $errorMessage,
+                'error_details' => $errorBody
             ];
         } catch (\Exception $e) {
             Log::error('PrioTicket: Exception creating reservation', [
