@@ -338,6 +338,7 @@
                                                             data-start-time="{{ $slot['start_time'] }}"
                                                             data-end-time="{{ $slot['end_time'] }}">
                                                             {{ $slot['start_time'] }} - {{ $slot['end_time'] }}
+                                                            
                                                             ({{ $slot['open_spots'] }}
                                                             {{ Str::plural('Spot', $slot['open_spots']) }}
                                                             left)

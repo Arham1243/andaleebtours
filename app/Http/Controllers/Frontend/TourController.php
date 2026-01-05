@@ -112,24 +112,27 @@ class TourController extends Controller
             'Authorization' => 'Bearer ' . $accessToken,
             'Accept' => 'application/json',
         ])->get("https://distributor-api.prioticket.com/v3.5/distributor/products/{$tourId}/availability?distributor_id=49670&from_date={$date}");
-
         if ($response->successful()) {
             $data = $response->json();
             $rawSlots = $data['data']['items'] ?? [];
 
-            $formattedSlots = collect($rawSlots)
-                ->filter(fn($slot) => isset($slot['availability_spots']['availability_spots_open']) && $slot['availability_spots']['availability_spots_open'] > 0)
-                ->map(function ($slot) {
-                    return [
-                        'id' => $slot['availability_id'] ?? null,
-                        'start_time' => isset($slot['availability_from_date_time']) ? \Carbon\Carbon::parse($slot['availability_from_date_time'])->format('h:i A') : null,
-                        'end_time' => isset($slot['availability_to_date_time']) ? \Carbon\Carbon::parse($slot['availability_to_date_time'])->format('h:i A') : null,
-                        'open_spots' => $slot['availability_spots']['availability_spots_open'] ?? 0,
-                    ];
-                })
-                ->toArray();
+            if ($response->successful()) {
+                $data = $response->json();
+                $rawSlots = $data['data']['items'] ?? [];
 
-            return $formattedSlots;
+                $formattedSlots = collect($rawSlots)
+                    ->map(function ($slot) {
+                        return [
+                            'id' => $slot['availability_id'] ?? null,
+                            'start_time' => isset($slot['availability_from_date_time']) ? \Carbon\Carbon::parse($slot['availability_from_date_time'])->format('h:i A') : null,
+                            'end_time' => isset($slot['availability_to_date_time']) ? \Carbon\Carbon::parse($slot['availability_to_date_time'])->format('h:i A') : null,
+                            'open_spots' => $slot['availability_spots']['availability_spots_open'] ?? 0,
+                        ];
+                    })
+                    ->toArray();
+
+                return $formattedSlots;
+            }
         }
 
         return [];
