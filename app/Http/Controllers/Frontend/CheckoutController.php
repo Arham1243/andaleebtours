@@ -480,6 +480,10 @@ class CheckoutController extends Controller
             // Fetch the order with items
             $order = Order::with('orderItems.tour')->findOrFail($request->query('order'));
 
+            if ($order->payment_status === 'paid') {
+                return redirect()->route('frontend.index');
+            }
+
             $paymentService = new PaymentService();
 
             switch ($order->payment_method) {

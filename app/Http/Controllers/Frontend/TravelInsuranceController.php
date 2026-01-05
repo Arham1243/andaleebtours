@@ -175,6 +175,10 @@ class TravelInsuranceController extends Controller
         try {
             $insurance = TravelInsurance::findOrFail($insurance);
 
+            if ($insurance->payment_status === 'paid') {
+                return redirect()->route('frontend.index');
+            }
+
             if ($insurance->payment_method === 'payby') {
                 $verification = $this->insuranceService->verifyPayByPayment($insurance);
             } else {
