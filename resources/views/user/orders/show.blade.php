@@ -290,7 +290,7 @@
                                         will be no refund.
                                     </p>
                                     <a href="{{ route('user.orders.cancel', $order->id) }}"
-                                        onsubmit="return confirm('Are you sure you want to cancel this booking? This action cannot be undone.');"
+                                        onclick="return confirm('Are you sure you want to cancel this booking? This action cannot be undone.');"
                                         class="themeBtn">Cancel Booking</a>
                                 </div>
                             </div>

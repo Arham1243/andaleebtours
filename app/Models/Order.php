@@ -33,6 +33,9 @@ class Order extends Model
         'reservation_data',
         'prio_order_response',
         'prio_booking_reference',
+        'cancelled_at',
+        'cancelled_by',
+        'prio_cancel_response',
     ];
 
     protected $casts = [
