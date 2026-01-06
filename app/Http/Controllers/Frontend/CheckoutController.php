@@ -602,7 +602,8 @@ class CheckoutController extends Controller
             ->route('frontend.payment.failed')
             ->with('error_title', $title)
             ->with('error_description', $description)
-            ->with('error_message', $message);
+            ->with('error_message', $message)
+            ->with('notify_error', $message);
     }
 
 

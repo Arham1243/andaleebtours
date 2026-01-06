@@ -208,7 +208,7 @@
                                             <div class="col-md-6 col-12 mb-3">
                                                 <div class="form-fields">
                                                     <label class="title">Policy Document:</label>
-                                                    <a href="{{ $passenger->policy_url_link }}" target="_blank" class="btn btn-sm btn-primary">
+                                                    <a href="{{ $passenger->policy_url_link }}" target="_blank" class="themeBtn">
                                                         <i class='bx bx-download'></i> Download Policy PDF
                                                     </a>
                                                 </div>

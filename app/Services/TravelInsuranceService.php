@@ -21,7 +21,15 @@ class TravelInsuranceService
     public $paybyPartnerId = '200009116289';
     public $paybyApiUrl = 'https://api.payby.com/sgs/api/acquire2';
     public $paybyPrivateKey = 'admin/assets/files/payby-private-key.pem';
-    
+
+    // Insurance API Configuration
+    // For Production: Use 'https://zeus.tune2protect.com/ZeusAPI/v5/Zeus.asmx', 'andleb_prod', 'rgJp8jgH1Clw', 'IBE_ADDAE'
+    // For UAT: Use 'https://uat-tpe.tune2protect.com/ZeusAPI/Zeus.asmx', 'UAT_DEMO', 'ypHALsJ3EG3p', 'IBE_B2BAE'
+    private $insuranceApiUrl = 'https://zeus.tune2protect.com/ZeusAPI/v5/Zeus.asmx';
+    private $insuranceUsername = 'andleb_prod';
+    private $insurancePassword = 'rgJp8jgH1Clw';
+    private $insuranceChannel = 'IBE_ADDAE';
+
     public function getAvailablePlans(array $params)
     {
         $originCountry = Country::where('name', 'LIKE', '%' . $params['origin'] . '%')->first();
@@ -31,7 +39,7 @@ class TravelInsuranceService
             throw new Exception('Origin or destination country not found');
         }
 
-        $url = "https://zeus.tune2protect.com/ZeusAPI/v5/Zeus.asmx";
+        $url = $this->insuranceApiUrl;
 
         $headers = [
             "Content-Type: text/xml; charset=utf-8",
@@ -48,11 +56,11 @@ class TravelInsuranceService
               <web:GetAvailablePlansOTAWithRiders>
                  <web:GenericRequestOTALite>
                     <web:Authentication>
-                       <web:Username>andleb_prod</web:Username>
-                       <web:Password>rgJp8jgH1Clw</web:Password>
+                       <web:Username>' . $this->insuranceUsername . '</web:Username>
+                       <web:Password>' . $this->insurancePassword . '</web:Password>
                     </web:Authentication>
                     <web:Header>
-                       <web:Channel>IBE_ADDAE</web:Channel>
+                       <web:Channel>' . $this->insuranceChannel . '</web:Channel>
                        <web:Currency>AED</web:Currency>
                        <web:CountryCode>AE</web:CountryCode>
                        <web:CultureCode>EN</web:CultureCode>
@@ -179,7 +187,7 @@ class TravelInsuranceService
         $originCountry = Country::where('name', 'LIKE', '%' . $data['origin'] . '%')->first();
         $destinationCountry = Country::where('name', 'LIKE', '%' . $data['destination'] . '%')->first();
 
-        $channel = 'IBE_ADDAE';
+        $channel = $this->insuranceChannel;
         $currency = 'AED';
         $pnr = 'TP_Test_' . rand(100000, 999999);
         $paymentReference = 'Test_Ref_' . rand(100000, 999999);
@@ -634,19 +642,37 @@ class TravelInsuranceService
         }
     }
 
+    function mapGenderForSoap($gender)
+    {
+        $gender = strtolower(trim((string) $gender));
+
+        if (in_array($gender, ['male', 'm'])) {
+            return 'Male';
+        }
+
+        if (in_array($gender, ['female', 'f'])) {
+            return 'Female';
+        }
+
+        // fallback
+        return 'Male';
+    }
+
     /**
      * Confirm Purchase with Insurance API after successful payment
      */
     public function confirmPurchase(TravelInsurance $insurance): array
     {
         try {
-            $requestData = json_decode($insurance->request_data, true);
-            
+            $requestData = is_string($insurance->request_data)
+                ? json_decode($insurance->request_data, true)
+                : $insurance->request_data;
+
             $residenceCountry = Country::where('iso_code', $requestData['residence_country'])->first();
             $originCountry = Country::where('name', 'LIKE', '%' . $requestData['origin'] . '%')->first();
             $destinationCountry = Country::where('name', 'LIKE', '%' . $requestData['destination'] . '%')->first();
 
-            $channel = 'IBE_ADDAE';
+            $channel = $this->insuranceChannel;
             $currency = 'AED';
             $cultureCode = 'EN';
             $totalAdults = (int)($requestData['adult_count'] ?? 0);
@@ -657,9 +683,9 @@ class TravelInsuranceService
             $paymentMethod = 'Tap Pay';
             $paymentReference = $insurance->payment_reference;
 
-            $departCountryCode = $originCountry->sb_iso_code ?? '';
+            $departCountryCode = $originCountry->iso_code ?? '';
             $departStationCode = '';
-            $arrivalCountryCode = $destinationCountry->sb_iso_code ?? '';
+            $arrivalCountryCode = $destinationCountry->iso_code ?? '';
             $arrivalStationCode = '';
             $departDateTime = date('Y-m-d', strtotime($requestData['start_date']));
             $returnDateTime = date('Y-m-d', strtotime($requestData['return_date']));
@@ -687,14 +713,14 @@ class TravelInsuranceService
                         <web:IsInfant>0</web:IsInfant>
                         <web:FirstName>' . htmlspecialchars($requestData['adult']['fname'][$i] ?? '') . '</web:FirstName>
                         <web:LastName>' . htmlspecialchars($requestData['adult']['lname'][$i] ?? '') . '</web:LastName>
-                        <web:Gender>' . htmlspecialchars($requestData['adult']['gender'][$i] ?? '') . '</web:Gender>
+                        <web:Gender>' . $this->mapGenderForSoap($requestData['adult']['gender'][$i] ?? '') . '</web:Gender>
                         <web:DOB>' . htmlspecialchars($requestData['adult']['dob'][$i] ?? '') . '</web:DOB>
                         <web:Age>' . $age . '</web:Age>
                         <web:IdentityType>Passport</web:IdentityType>
                         <web:IdentityNo>' . htmlspecialchars($requestData['adult']['passport'][$i] ?? '') . '</web:IdentityNo>
                         <web:IsQualified>1</web:IsQualified>
-                        <web:Nationality>' . ($nationalityCountry->sb_iso_code ?? '') . '</web:Nationality>
-                        <web:CountryOfResidence>' . ($residenceCountryPassenger->sb_iso_code ?? '') . '</web:CountryOfResidence>
+                        <web:Nationality>' . ($nationalityCountry->iso_code ?? '') . '</web:Nationality>
+                        <web:CountryOfResidence>' . ($residenceCountryPassenger->iso_code ?? '') . '</web:CountryOfResidence>
                         <web:SelectedPlanCode>' . htmlspecialchars($selectedPlanCode) . '</web:SelectedPlanCode>
                         <web:SelectedSSRFeeCode>' . htmlspecialchars($selectedSSRFeeCode) . '</web:SelectedSSRFeeCode>
                         <web:CurrencyCode>' . $currency . '</web:CurrencyCode>
@@ -723,14 +749,14 @@ class TravelInsuranceService
                         <web:IsInfant>0</web:IsInfant>
                         <web:FirstName>' . htmlspecialchars($requestData['child']['fname'][$i] ?? '') . '</web:FirstName>
                         <web:LastName>' . htmlspecialchars($requestData['child']['lname'][$i] ?? '') . '</web:LastName>
-                        <web:Gender>' . htmlspecialchars($requestData['child']['gender'][$i] ?? '') . '</web:Gender>
+                        <web:Gender>' . $this->mapGenderForSoap($requestData['child']['gender'][$i] ?? '') . '</web:Gender>
                         <web:DOB>' . htmlspecialchars($requestData['child']['dob'][$i] ?? '') . '</web:DOB>
                         <web:Age>' . $age . '</web:Age>
                         <web:IdentityType>Passport</web:IdentityType>
                         <web:IdentityNo>' . htmlspecialchars($requestData['child']['passport'][$i] ?? '') . '</web:IdentityNo>
                         <web:IsQualified>1</web:IsQualified>
-                        <web:Nationality>' . ($nationalityCountry->sb_iso_code ?? '') . '</web:Nationality>
-                        <web:CountryOfResidence>' . ($residenceCountryPassenger->sb_iso_code ?? '') . '</web:CountryOfResidence>
+                        <web:Nationality>' . ($nationalityCountry->iso_code ?? '') . '</web:Nationality>
+                        <web:CountryOfResidence>' . ($residenceCountryPassenger->iso_code ?? '') . '</web:CountryOfResidence>
                         <web:SelectedPlanCode>' . htmlspecialchars($selectedPlanCode) . '</web:SelectedPlanCode>
                         <web:SelectedSSRFeeCode>' . htmlspecialchars($selectedSSRFeeCode) . '</web:SelectedSSRFeeCode>
                         <web:CurrencyCode>' . $currency . '</web:CurrencyCode>
@@ -759,14 +785,14 @@ class TravelInsuranceService
                         <web:IsInfant>1</web:IsInfant>
                         <web:FirstName>' . htmlspecialchars($requestData['infant']['fname'][$i] ?? '') . '</web:FirstName>
                         <web:LastName>' . htmlspecialchars($requestData['infant']['lname'][$i] ?? '') . '</web:LastName>
-                        <web:Gender>' . htmlspecialchars($requestData['infant']['gender'][$i] ?? '') . '</web:Gender>
+                        <web:Gender>' . $this->mapGenderForSoap($requestData['infant']['gender'][$i] ?? '') . '</web:Gender>
                         <web:DOB>' . htmlspecialchars($requestData['infant']['dob'][$i] ?? '') . '</web:DOB>
                         <web:Age>' . $age . '</web:Age>
                         <web:IdentityType>Passport</web:IdentityType>
                         <web:IdentityNo>' . htmlspecialchars($requestData['infant']['passport'][$i] ?? '') . '</web:IdentityNo>
                         <web:IsQualified>1</web:IsQualified>
-                        <web:Nationality>' . ($nationalityCountry->sb_iso_code ?? '') . '</web:Nationality>
-                        <web:CountryOfResidence>' . ($residenceCountryPassenger->sb_iso_code ?? '') . '</web:CountryOfResidence>
+                        <web:Nationality>' . ($nationalityCountry->iso_code ?? '') . '</web:Nationality>
+                        <web:CountryOfResidence>' . ($residenceCountryPassenger->iso_code ?? '') . '</web:CountryOfResidence>
                         <web:SelectedPlanCode>' . htmlspecialchars($selectedPlanCode) . '</web:SelectedPlanCode>
                         <web:SelectedSSRFeeCode>' . htmlspecialchars($selectedSSRFeeCode) . '</web:SelectedSSRFeeCode>
                         <web:CurrencyCode>' . $currency . '</web:CurrencyCode>
@@ -789,8 +815,8 @@ class TravelInsuranceService
         <web:ConfirmPurchase>
             <web:GenericRequest>
                 <web:Authentication>
-                    <web:Username>andleb_prod</web:Username>
-                    <web:Password>rgJp8jgH1Clw</web:Password>
+                    <web:Username>' . $this->insuranceUsername . '</web:Username>
+                    <web:Password>' . $this->insurancePassword . '</web:Password>
                 </web:Authentication>
                 <web:Header>
                     <web:Channel>' . htmlspecialchars($channel) . '</web:Channel>
@@ -802,7 +828,7 @@ class TravelInsuranceService
                     <web:FeeDescription></web:FeeDescription>
                     <web:Currency>' . htmlspecialchars($currency) . '</web:Currency>
                     <web:TotalPremium>' . htmlspecialchars($totalPremium) . '</web:TotalPremium>
-                    <web:CountryCode>' . ($residenceCountry->sb_iso_code ?? 'AE') . '</web:CountryCode>
+                    <web:CountryCode>' . ($residenceCountry->iso_code ?? 'AE') . '</web:CountryCode>
                     <web:CultureCode>' . htmlspecialchars($cultureCode) . '</web:CultureCode>
                     <web:TotalAdults>' . $totalAdults . '</web:TotalAdults>
                     <web:TotalChild>' . $totalChild . '</web:TotalChild>
@@ -853,8 +879,8 @@ class TravelInsuranceService
     </soapenv:Body>
 </soapenv:Envelope>';
 
-            $url = "https://zeus.tune2protect.com/ZeusAPI/v5/Zeus.asmx";
-            
+            $url = $this->insuranceApiUrl;
+
             $response = Http::withHeaders([
                 'Content-Type' => 'text/xml; charset=utf-8',
                 'SOAPAction' => 'http://ZEUSTravelInsuranceGateway/WebServices/ConfirmPurchase',
@@ -867,7 +893,7 @@ class TravelInsuranceService
             }
 
             $responseBody = $response->body();
-            
+
             // Remove BOM and trim
             $responseBody = preg_replace('/^\xEF\xBB\xBF/', '', $responseBody);
             $responseBody = trim($responseBody);
@@ -876,13 +902,13 @@ class TravelInsuranceService
             if (preg_match('/<soap:Body[^>]*>(.*?)<\/soap:Body>/is', $responseBody, $matches)) {
                 $bodyXml = $matches[1];
                 $xml = simplexml_load_string($bodyXml, 'SimpleXMLElement', LIBXML_NOCDATA);
-                
+
                 if ($xml === false) {
                     throw new \Exception('Error parsing XML response');
                 }
 
                 $array = json_decode(json_encode($xml), true);
-                
+
                 return [
                     'success' => true,
                     'data' => $array
@@ -890,7 +916,6 @@ class TravelInsuranceService
             }
 
             throw new \Exception('No SOAP Body found in response');
-
         } catch (\Exception $e) {
             Log::error('Insurance Confirm Purchase Error', [
                 'insurance_id' => $insurance->id,

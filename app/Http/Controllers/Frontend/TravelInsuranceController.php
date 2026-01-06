@@ -43,7 +43,7 @@ class TravelInsuranceController extends Controller
                 ];
 
                 $data = $this->insuranceService->getAvailablePlans($params);
-                
+
                 return view('frontend.travel-insurance.index', compact('data'));
             } catch (\Exception $e) {
                 return back()->with('notify_error', 'Failed to fetch insurance plans: ' . $e->getMessage());
@@ -80,14 +80,16 @@ class TravelInsuranceController extends Controller
                 // Find the selected plan from available plans or upsell plans
                 $allPlans = array_merge(
                     $data['available_plans'] ?? [],
-                    array_map(function($group) {
+                    array_map(function ($group) {
                         return $group['UpsellPlans']['UpsellPlan'] ?? [];
                     }, $data['available_upsell_plans'] ?? [])
                 );
 
                 foreach ($allPlans as $plan) {
-                    if (isset($plan['PlanCode']) && $plan['PlanCode'] === $planCode && 
-                        isset($plan['SSRFeeCode']) && $plan['SSRFeeCode'] === $ssrFeeCode) {
+                    if (
+                        isset($plan['PlanCode']) && $plan['PlanCode'] === $planCode &&
+                        isset($plan['SSRFeeCode']) && $plan['SSRFeeCode'] === $ssrFeeCode
+                    ) {
                         $selectedPlanData = $plan;
                         break;
                     }
@@ -187,7 +189,7 @@ class TravelInsuranceController extends Controller
 
             if ($verification['success']) {
                 $paymentData = $verification['data'];
-                
+
                 // Save PayBy specific data
                 if ($insurance->payment_method === 'payby') {
                     $insurance->update([
@@ -196,7 +198,7 @@ class TravelInsuranceController extends Controller
                         'payby_payment_response' => json_encode($paymentData),
                     ]);
                 }
-                
+
                 // Update payment status
                 $insurance->update([
                     'payment_status' => 'paid',
@@ -209,7 +211,7 @@ class TravelInsuranceController extends Controller
                 if ($confirmResult['success']) {
                     $confirmData = $confirmResult['data'];
                     $purchaseResponse = $confirmData['PurchaseResponse'] ?? $confirmData['ConfirmPurchaseResponse'] ?? [];
-                    
+
                     $proposalState = $purchaseResponse['ProposalState'] ?? null;
                     $isConfirmed = $proposalState === 'CONFIRMED';
                     $errorCode = $purchaseResponse['ErrorCode'] ?? null;
@@ -228,7 +230,7 @@ class TravelInsuranceController extends Controller
                     // Update passenger policy details
                     if ($isConfirmed && isset($purchaseResponse['ConfirmedPassengers']['ConfirmedPassenger'])) {
                         $confirmedPassengers = $purchaseResponse['ConfirmedPassengers']['ConfirmedPassenger'];
-                        
+
                         // Handle single passenger (not array of arrays)
                         if (isset($confirmedPassengers['FirstName'])) {
                             $confirmedPassengers = [$confirmedPassengers];
@@ -260,8 +262,8 @@ class TravelInsuranceController extends Controller
 
                     // If not confirmed, show failure page
                     if (!$isConfirmed) {
-                        $errorMessage = is_array($purchaseResponse['ErrorMessage'] ?? null) 
-                            ? implode(', ', $purchaseResponse['ErrorMessage']) 
+                        $errorMessage = is_array($purchaseResponse['ErrorMessage'] ?? null)
+                            ? implode(', ', $purchaseResponse['ErrorMessage'])
                             : ($purchaseResponse['ErrorMessage'] ?? 'Insurance confirmation failed');
 
                         $insurance->update([
@@ -271,7 +273,8 @@ class TravelInsuranceController extends Controller
 
                         $this->sendFailureEmails($insurance);
 
-                        return redirect()->route('frontend.travel-insurance.payment.failed')
+                        return view('frontend.travel-insurance.payment-failed', compact('insurance'))
+                            ->with('error', 'Your payment was successful, but insurance confirmation failed: ' . $errorMessage)
                             ->with('notify_error', 'Your payment was successful, but insurance confirmation failed: ' . $errorMessage);
                     }
                 } else {
@@ -287,8 +290,11 @@ class TravelInsuranceController extends Controller
 
                     $this->sendFailureEmails($insurance);
 
-                    return redirect()->route('frontend.travel-insurance.payment.failed')
-                        ->with('notify_error', 'Your payment was successful, but we could not confirm your insurance: ' . ($confirmResult['error'] ?? 'Unknown error'));
+                    $errorMessage = 'Your payment was successful, but we could not confirm your insurance: ' . ($confirmResult['error'] ?? 'Unknown error');
+                    
+                    return view('frontend.travel-insurance.payment-failed', compact('insurance'))
+                        ->with('error', $errorMessage)
+                        ->with('notify_error', $errorMessage);
                 }
 
                 // Send success emails only if confirmed
@@ -304,8 +310,11 @@ class TravelInsuranceController extends Controller
                 // Send failure emails
                 $this->sendFailureEmails($insurance);
 
-                return redirect()->route('frontend.travel-insurance.payment.failed')
-                    ->with('notify_error', 'Payment verification failed: ' . ($verification['error'] ?? 'Unknown error'));
+                $errorMessage = 'Payment verification failed: ' . ($verification['error'] ?? 'Unknown error');
+                
+                return view('frontend.travel-insurance.payment-failed', compact('insurance'))
+                    ->with('error', $errorMessage)
+                    ->with('notify_error', $errorMessage);
             }
         } catch (\Exception $e) {
             Log::error('Travel Insurance Payment Success Error', [
@@ -313,8 +322,11 @@ class TravelInsuranceController extends Controller
                 'error' => $e->getMessage()
             ]);
 
-            return redirect()->route('frontend.travel-insurance.payment.failed')
-                ->with('notify_error', 'An error occurred while verifying your payment.');
+            $errorMessage = 'An error occurred while verifying your payment: ' . $e->getMessage();
+            
+            return view('frontend.travel-insurance.payment-failed', ['insurance' => null])
+                ->with('error', $errorMessage)
+                ->with('notify_error', $errorMessage);
         }
     }
 
