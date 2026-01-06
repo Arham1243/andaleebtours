@@ -452,4 +452,101 @@ class PrioTicketService
             ];
         }
     }
+
+    public function cancelOrder($order)
+    {
+        try {
+            $token = $this->getAccessToken();
+
+            if (!$token) {
+                $error = 'Failed to get PrioTicket access token';
+                Log::error($error, ['order_id' => $order->id]);
+                return [
+                    'success' => false,
+                    'error' => $error
+                ];
+            }
+
+            $prioOrderResponse = is_string($order->prio_order_response) 
+                ? json_decode($order->prio_order_response, true) 
+                : $order->prio_order_response;
+
+            if (empty($prioOrderResponse)) {
+                $error = 'No PrioTicket order data found';
+                Log::warning($error, ['order_id' => $order->id]);
+                return [
+                    'success' => false,
+                    'error' => $error
+                ];
+            }
+
+            $allCancelResponses = [];
+            $hasFailures = false;
+            $errorDetails = [];
+
+            foreach ($prioOrderResponse as $prioOrder) {
+                $orderData = $prioOrder['data']['order'] ?? [];
+                $orderReference = $orderData['order_reference'] ?? null;
+
+                if (!$orderReference) {
+                    $hasFailures = true;
+                    $errorDetails[] = "Missing order reference in PrioTicket data";
+                    continue;
+                }
+
+                $response = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                    'Authorization' => 'Bearer ' . $token,
+                ])->delete($this->baseUrl . '/orders/' . $orderReference);
+
+                if ($response->successful()) {
+                    $responseBody = $response->json();
+                    $allCancelResponses[] = $responseBody;
+
+                    Log::info('PrioTicket order cancelled successfully', [
+                        'order_id' => $order->id,
+                        'order_reference' => $orderReference
+                    ]);
+                } else {
+                    $hasFailures = true;
+                    $errorBody = $response->body();
+                    $errorDetails[] = "Order Reference {$orderReference}: HTTP {$response->status()} - {$errorBody}";
+                    
+                    Log::error('PrioTicket order cancellation failed', [
+                        'order_id' => $order->id,
+                        'order_reference' => $orderReference,
+                        'status' => $response->status(),
+                        'response' => $errorBody
+                    ]);
+                }
+            }
+
+            if ($hasFailures) {
+                return [
+                    'success' => false,
+                    'error' => implode(' | ', $errorDetails),
+                    'cancel_responses' => $allCancelResponses
+                ];
+            }
+
+            return [
+                'success' => true,
+                'cancel_responses' => $allCancelResponses
+            ];
+
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            Log::error('PrioTicket Order Cancellation Error', [
+                'order_id' => $order->id,
+                'error' => $error,
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return [
+                'success' => false,
+                'error' => $error
+            ];
+        }
+    }
 }

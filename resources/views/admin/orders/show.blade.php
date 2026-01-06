@@ -91,7 +91,7 @@
                                 </div>
                             </div>
 
-                            
+
                             @if (!empty($order->applied_coupons))
                                 <div class="form-box">
                                     <div class="form-box__header">
@@ -124,7 +124,7 @@
                                 </div>
                             @endif
 
-                            
+
                             @foreach ($order->orderItems as $index => $item)
                                 <div class="form-box">
                                     <div class="form-box__header">
@@ -205,7 +205,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                            
+
                             <div class="form-box">
                                 <div class="form-box__header">
                                     <div class="title">Billing Details</div>
@@ -272,30 +272,32 @@
                                     </span>
                                 </div>
                                 <div class="form-box__body">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment_status"
-                                            id="paid" value="paid"
-                                            {{ old('payment_status', $order->payment_status ?? '') == 'paid' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="paid">
-                                            Paid
-                                        </label>
-                                    </div>
-                                    <div class="form-check mt-2">
-                                        <input class="form-check-input" type="radio" name="payment_status"
-                                            id="payment_pending" value="pending"
-                                            {{ old('payment_status', $order->payment_status ?? '') == 'pending' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="payment_pending">
-                                            Pending
-                                        </label>
-                                    </div>
-                                    <div class="form-check mt-2">
-                                        <input class="form-check-input" type="radio" name="payment_status"
-                                            id="payment_failed" value="failed"
-                                            {{ old('payment_status', $order->payment_status ?? '') == 'failed' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="payment_failed">
-                                            Failed
-                                        </label>
-                                    </div>
+                                    @if ($order->status !== 'cancelled')
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment_status"
+                                                id="paid" value="paid"
+                                                {{ old('payment_status', $order->payment_status ?? '') == 'paid' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="paid">
+                                                Paid
+                                            </label>
+                                        </div>
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="radio" name="payment_status"
+                                                id="payment_pending" value="pending"
+                                                {{ old('payment_status', $order->payment_status ?? '') == 'pending' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="payment_pending">
+                                                Pending
+                                            </label>
+                                        </div>
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="radio" name="payment_status"
+                                                id="payment_failed" value="failed"
+                                                {{ old('payment_status', $order->payment_status ?? '') == 'failed' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="payment_failed">
+                                                Failed
+                                            </label>
+                                        </div>
+                                    @endif
                                     <div class="form-check mt-2">
                                         <input class="form-check-input" type="radio" name="payment_status"
                                             id="payment_refunded" value="refunded"
@@ -316,30 +318,24 @@
                                     </span>
                                 </div>
                                 <div class="form-box__body">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="confirmed"
-                                            value="confirmed"
-                                            {{ old('status', $order->status ?? '') == 'confirmed' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="confirmed">
-                                            Confirmed
-                                        </label>
-                                    </div>
-                                    <div class="form-check mt-2">
-                                        <input class="form-check-input" type="radio" name="status" id="pending"
-                                            value="pending"
-                                            {{ old('status', $order->status ?? '') == 'pending' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="pending">
-                                            Pending
-                                        </label>
-                                    </div>
-                                    <div class="form-check mt-2">
-                                        <input class="form-check-input" type="radio" name="status" id="cancelled"
-                                            value="cancelled"
-                                            {{ old('status', $order->status ?? '') == 'cancelled' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="cancelled">
-                                            Cancelled
-                                        </label>
-                                    </div>
+                                    @if ($order->status !== 'cancelled')
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status" id="confirmed"
+                                                value="confirmed"
+                                                {{ old('status', $order->status ?? '') == 'confirmed' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="confirmed">
+                                                Confirmed
+                                            </label>
+                                        </div>
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="radio" name="status" id="pending"
+                                                value="pending"
+                                                {{ old('status', $order->status ?? '') == 'pending' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="pending">
+                                                Pending
+                                            </label>
+                                        </div>
+                                    @endif
                                     <div class="form-check mt-2">
                                         <input class="form-check-input" type="radio" name="status" id="refunded"
                                             value="refunded"
@@ -348,17 +344,38 @@
                                             Refunded
                                         </label>
                                     </div>
-                                    <div class="form-check mt-2">
-                                        <input class="form-check-input" type="radio" name="status" id="completed"
-                                            value="completed"
-                                            {{ old('status', $order->status ?? '') == 'completed' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="completed">
-                                            Completed
-                                        </label>
-                                    </div>
+                                    @if ($order->status !== 'cancelled')
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="radio" name="status" id="completed"
+                                                value="completed"
+                                                {{ old('status', $order->status ?? '') == 'completed' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="completed">
+                                                Completed
+                                            </label>
+                                        </div>
+                                    @endif
                                     <button class="themeBtn ms-auto mt-4">Update Order</button>
                                 </div>
                             </div>
+
+                            @if ($order->status === 'confirmed' && $order->payment_status === 'paid')
+                                <div class="form-box mt-3">
+                                    <div class="form-box__header">
+                                        <div class="title">Cancel Booking</div>
+                                    </div>
+                                    <div class="form-box__body">
+                                        <p style="margin-bottom: 15px; color: #666;">
+                                            <strong>Note:</strong> The amount will be refunded in 10-15 working days if the
+                                            booking is refundable.
+                                            In case of Non-Refundable Booking or Booking within Cancellation Deadline, there
+                                            will be no refund.
+                                        </p>
+                                        <a href="{{ route('admin.orders.cancel', $order->id) }}"
+                                            onclick="return confirm('Are you sure you want to cancel this booking? This action cannot be undone.');"
+                                            class="themeBtn">Cancel Booking</a>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

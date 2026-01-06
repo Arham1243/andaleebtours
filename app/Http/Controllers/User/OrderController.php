@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Country;
+use App\Models\Config;
 use Carbon\Carbon;
 use App\Models\UserCoupon;
 use App\Services\PrioTicketService;
@@ -12,9 +13,17 @@ use App\Services\PaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
+    protected $adminEmail;
+    public function __construct()
+    {
+        $config = Config::pluck('config_value', 'config_key')->toArray();
+        $this->adminEmail = $config['ADMINEMAIL'] ?? 'info@andaleebtours.com';
+    }
+
     public function index()
     {
         $user = auth()->user();
@@ -395,5 +404,93 @@ class OrderController extends Controller
         $order->update([
             'status' => $allConfirmed ? 'confirmed' : 'partial',
         ]);
+    }
+
+    public function cancel($id)
+    {
+        try {
+            $user = auth()->user();
+
+            $order = Order::with('orderItems.tour')
+                ->where(function ($query) use ($user) {
+                    $query->where('user_id', $user->id)
+                        ->orWhere('passenger_email', $user->email);
+                })
+                ->findOrFail($id);
+
+            if ($order->status === 'cancelled') {
+                return redirect()->back()->with('notify_error', 'This order is already cancelled.');
+            }
+
+            if ($order->payment_status !== 'paid') {
+                return redirect()->back()->with('notify_error', 'Only paid orders can be cancelled.');
+            }
+
+            $prioService = new PrioTicketService();
+            $result = $prioService->cancelOrder($order);
+
+            if (!$result['success']) {
+                return redirect()->back()->with('notify_error', 'Failed to cancel order: ' . ($result['error'] ?? 'Unknown error'));
+            }
+
+            $order->update([
+                'status' => 'cancelled',
+                'prio_cancel_response' => json_encode($result['cancel_responses'] ?? []),
+                'cancelled_at' => now(),
+                'cancelled_by' => 'user'
+            ]);
+
+            $order->orderItems()->update([
+                'status' => 'cancelled'
+            ]);
+
+            $this->sendCancellationEmails($order);
+
+            Log::info('Order cancelled by user', [
+                'order_id' => $order->id,
+                'order_number' => $order->order_number,
+                'user_id' => $user->id
+            ]);
+
+            return redirect()->route('user.orders.show', $id)->with('notify_success', 'Order cancelled successfully.');
+
+        } catch (\Exception $e) {
+            Log::error('Order cancellation failed', [
+                'order_id' => $id,
+                'error' => $e->getMessage()
+            ]);
+
+            return redirect()->back()->with('notify_error', 'Failed to cancel order: ' . $e->getMessage());
+        }
+    }
+
+    protected function sendCancellationEmails(Order $order)
+    {
+        try {
+            $order->load('orderItems');
+
+            // Send email to user
+            Mail::send('emails.booking-cancelled-user', ['order' => $order], function ($message) use ($order) {
+                $message->to($order->passenger_email)
+                    ->subject('Booking Cancelled - ' . $order->order_number);
+            });
+
+            // Send email to admin
+            Mail::send('emails.booking-cancelled-admin', ['order' => $order], function ($message) use ($order) {
+                $message->to($this->adminEmail)
+                    ->subject('Order Cancelled by User - ' . $order->order_number);
+            });
+
+            Log::info('Cancellation emails sent', [
+                'order_id' => $order->id,
+                'customer_email' => $order->passenger_email,
+                'admin_email' => $this->adminEmail
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send cancellation emails', [
+                'order_id' => $order->id,
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }

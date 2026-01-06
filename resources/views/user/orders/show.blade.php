@@ -277,6 +277,24 @@
                             </div>
                         </div>
 
+                        @if ($order->status === 'confirmed' && $order->payment_status === 'paid')
+                            <div class="form-box mt-3">
+                                <div class="form-box__header">
+                                    <div class="title">Cancel Booking</div>
+                                </div>
+                                <div class="form-box__body">
+                                    <p style="margin-bottom: 15px; color: #666;">
+                                        <strong>Note:</strong> The amount will be refunded in 10-15 working days if the
+                                        booking is refundable.
+                                        In case of Non-Refundable Booking or Booking within Cancellation Deadline, there
+                                        will be no refund.
+                                    </p>
+                                    <a href="{{ route('user.orders.cancel', $order->id) }}"
+                                        onsubmit="return confirm('Are you sure you want to cancel this booking? This action cannot be undone.');"
+                                        class="themeBtn">Cancel Booking</a>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

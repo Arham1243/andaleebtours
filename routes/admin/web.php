@@ -79,6 +79,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('tour-reviews', TourReviewController::class);
 
+    Route::get('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::resource('orders', OrderController::class)->only(['index', 'show', 'update']);
 
     Route::resource('travel-insurances', TravelInsuranceController::class)->only(['index', 'show', 'update']);

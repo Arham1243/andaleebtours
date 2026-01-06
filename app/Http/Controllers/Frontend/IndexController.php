@@ -30,7 +30,7 @@ class IndexController extends Controller
     public function test($id)
     {
         $order = Order::findOrFail($id);
-        return view('emails.booking-confirmed-user', compact('order'));
+        return view('emails.booking-cancelled-admin', compact('order'));
     }
 
     public function testInsuranceSuccessUser($id)

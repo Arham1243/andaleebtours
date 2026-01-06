@@ -32,6 +32,7 @@ Route::middleware(['auth', 'check_user_status'])->prefix('user')->name('user.')-
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
     Route::delete('/orders/destroy/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+    Route::get('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::get('/orders/pay-again/{id}', [OrderController::class, 'payAgain'])->name('orders.pay-again');
     Route::post('/orders/pay-again/{id}', [OrderController::class, 'proceedPayAgain'])->name('orders.pay-again.proceed');
 
