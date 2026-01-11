@@ -52,7 +52,7 @@
                                         <select name="province_id" class="field select2-select" data-error="Province"
                                             data-required>
                                             <option value="" selected disabled>Select Province</option>
-                                            @foreach ($locations as $p)
+                                            @foreach ($provinces as $p)
                                                 <option value="{{ $p->id }}"
                                                     {{ old('province_id', $location->province_id) == $p->id ? 'selected' : '' }}>
                                                     {{ $p->name }}</option>

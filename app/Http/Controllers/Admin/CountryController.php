@@ -85,18 +85,20 @@ class CountryController extends Controller
         $newCount = 0;
 
         foreach ($countries as $country) {
-            $existing = Country::where('yalago_id', $country['CountryId'])->first();
+                $existing = Country::where('yalago_id', $country['CountryId'])
+                       ->orWhere('iso_code', $country['CountryCode'])
+                       ->first();
 
             if ($existing) {
                 $existing->update([
-                    'code' => $country['CountryCode'],
+                    'iso_code' => $country['CountryCode'],
                     'name' => $country['Title'],
                     'status' => 'active',
                 ]);
             } else {
                 Country::create([
                     'yalago_id' => $country['CountryId'],
-                    'code' => $country['CountryCode'],
+                    'iso_code' => $country['CountryCode'],
                     'name' => $country['Title'],
                     'status' => 'active',
                 ]);

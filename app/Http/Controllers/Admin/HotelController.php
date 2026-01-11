@@ -179,6 +179,7 @@ class HotelController extends Controller
                 'description'       => $h['Description']['en'] ?? null,
                 'summary'           => $h['Summary']['en'] ?? null,
                 'images'            => json_encode($h['Images'] ?? []),
+                'facilities'            => json_encode($h['Facilities'] ?? []),
                 'status'            => 'active',
             ];
 
@@ -276,6 +277,7 @@ class HotelController extends Controller
                 'description'       => $h['Description']['en'] ?? null,
                 'summary'           => $h['Summary']['en'] ?? null,
                 'images'            => json_encode($h['Images'] ?? []),
+                'facilities'        => json_encode($h['Facilities'] ?? []),
                 'status'            => 'active',
             ];
 

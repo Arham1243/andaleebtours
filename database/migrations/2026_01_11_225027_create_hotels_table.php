@@ -32,6 +32,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('summary')->nullable();
             $table->text('images')->nullable();
+            $table->text('facilities')->nullable();
             $table->string('status')->default('active');
 
             $table->timestamps();

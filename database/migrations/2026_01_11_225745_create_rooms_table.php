@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('hotel_id')->constrained('hotels')->cascadeOnDelete();
             $table->string('name')->nullable();
-            $table->json('description')->nullable();
+            $table->text('description')->nullable();
             $table->text('image')->nullable();
             $table->string('status')->default('active');
             $table->timestamps();

@@ -121,7 +121,7 @@ class ProvinceController extends Controller
             }
         }
 
-        return redirect()->route('admin.countries.index')
+        return redirect()->route('admin.provinces.index')
             ->with('notify_success', "{$newCount} Provinces synced");
     }
 }

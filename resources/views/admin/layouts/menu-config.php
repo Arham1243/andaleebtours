@@ -41,11 +41,6 @@ return [
         'icon'  => 'bx bx-restaurant',
         'submenu' => [
             [
-                'title' => 'All Hotels',
-                'icon'  => 'bx bx-restaurant',
-                'route' => route('admin.hotels.index'),
-            ],
-            [
                 'title' => 'Manage Countries',
                 'icon'  => 'bx bx-map',
                 'route' => route('admin.countries.index'),
@@ -61,9 +56,9 @@ return [
                 'route' => route('admin.locations.index'),
             ],
             [
-                'title' => 'Sync Hotels',
-                'icon'  => 'bx bx-refresh',
-                'route' => '',
+                'title' => 'All Hotels',
+                'icon'  => 'bx bx-restaurant',
+                'route' => route('admin.hotels.index'),
             ],
         ],
     ],
