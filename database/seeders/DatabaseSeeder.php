@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminsTableSeeder::class,
-            CountriesSeeder::class,
         ]);
     }
 }

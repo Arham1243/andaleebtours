@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BulkActionController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PackageCategoryController;
+use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\TourCategoryController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PackageInquiryController;
@@ -86,6 +87,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('coupons', CouponController::class);
     Route::get('coupons/change-status/{coupon}', [CouponController::class, 'changeStatus'])->name('coupons.change-status');
+
+    Route::get('countries/sync', [CountryController::class, 'sync'])->name('countries.sync');
+    Route::resource('countries', CountryController::class);
 
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
     Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');

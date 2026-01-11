@@ -155,3 +155,18 @@ Breadcrumbs::for('admin.travel-insurances.show', function (BreadcrumbTrail $trai
     $trail->parent('admin.travel-insurances.index');
     $trail->push('Insurance ' . $insurance->insurance_number, route('admin.travel-insurances.show', $insurance->id));
 });
+
+Breadcrumbs::for('admin.countries.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Countries', route('admin.countries.index'));
+});
+
+Breadcrumbs::for('admin.countries.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.countries.index');
+    $trail->push('Add New Country', route('admin.countries.create'));
+});
+
+Breadcrumbs::for('admin.countries.edit', function (BreadcrumbTrail $trail, $country) {
+    $trail->parent('admin.countries.index');
+    $trail->push('Edit Country', route('admin.countries.edit', $country));
+});

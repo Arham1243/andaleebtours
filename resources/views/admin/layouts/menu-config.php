@@ -37,6 +37,37 @@ return [
         'route' => route('admin.travel-insurances.index'),
     ],
     [
+        'title' => 'Hotels',
+        'icon'  => 'bx bx-restaurant',
+        'submenu' => [
+            [
+                'title' => 'All Hotels',
+                'icon'  => 'bx bx-restaurant',
+                'route' => '',
+            ],
+            [
+                'title' => 'Manage Countries',
+                'icon'  => 'bx bx-map',
+                'route' => route('admin.countries.index'),
+            ],
+            [
+                'title' => 'Manage Provinces',
+                'icon'  => 'bx bx-map-alt',
+                'route' => '',
+            ],
+            [
+                'title' => 'Manage Locations',
+                'icon'  => 'bx bx-location-plus',
+                'route' => '',
+            ],
+            [
+                'title' => 'Sync Hotels',
+                'icon'  => 'bx bx-refresh',
+                'route' => '',
+            ],
+        ],
+    ],
+    [
         'title' => 'Tours',
         'icon' => 'bx bx-world',
         'submenu' => [
@@ -55,7 +86,7 @@ return [
                 'icon' => 'bx bxs-star',
                 'route' => route('admin.tour-reviews.index'),
             ],
-             [
+            [
                 'title' => 'Coupons',
                 'icon' => 'bx bxs-coupon',
                 'route' => route('admin.coupons.index'),
