@@ -12,4 +12,14 @@ class Province extends Model
     {
         return $this->belongsTo(Country::class);
     }
+    
+    public function hotels()
+    {
+        return $this->hasMany(Hotel::class);
+    }
+
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
 }
