@@ -652,7 +652,7 @@
     </section>
 
 
-    <section class="travel-stories-pro mar-y">
+    {{-- <section class="travel-stories-pro mar-y">
         <div class="container">
 
             <div class="ts-header">
@@ -768,7 +768,7 @@
             </div>
 
         </div>
-    </section>
+    </section> --}}
 
     <section class="newsletter mar-y">
         <div class="container">

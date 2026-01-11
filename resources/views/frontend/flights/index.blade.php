@@ -263,7 +263,7 @@
     </section>
 
 
-    <section class="travel-stories-pro mar-y py-5 bg-light">
+    {{-- <section class="travel-stories-pro mar-y py-5 bg-light">
         <div class="container">
 
             <div class="ts-header">
@@ -379,7 +379,7 @@
             </div>
 
         </div>
-    </section>
+    </section> --}}
 
     <section class="section-values py-5">
         <div class="container">
