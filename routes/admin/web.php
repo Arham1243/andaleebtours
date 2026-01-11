@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\TourReviewController;
 use App\Http\Controllers\Admin\TerminalController;
 use App\Http\Controllers\Admin\ProvinceController;
 use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\HotelController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\TravelInsuranceController;
@@ -98,6 +99,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('locations/{country}/{province}/sync', [LocationController::class, 'sync'])->name('locations.sync');
     Route::resource('locations', LocationController::class);
+
+    Route::get('hotels/{country}/{province}/{location}/sync', [HotelController::class, 'sync'])->name('hotels.sync');
+    Route::resource('hotels', HotelController::class);
 
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
     Route::post('logo-management', [ConfigController::class, 'saveLogo'])->name('settings.logo');

@@ -2,8 +2,8 @@
 @section('content')
     <div class="col-md-12">
         <div class="dashboard-content">
-            {{ Breadcrumbs::render('admin.locations.index') }}
-            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'locations']) }}">
+            {{ Breadcrumbs::render('admin.hotels.index') }}
+            <form id="bulkActionForm" method="POST" action="{{ route('admin.bulk-actions', ['resource' => 'hotels']) }}">
                 @csrf
                 <div class="table-container universal-table">
                     <div class="custom-sec">
@@ -11,7 +11,7 @@
                             <div class="section-content">
                                 <h3 class="heading">{{ $title }}</h3>
                             </div>
-                            <a href="{{ route('admin.locations.create') }}" class="themeBtn">Add New</a>
+                            <a href="{{ route('admin.hotels.create') }}" class="themeBtn">Add New</a>
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-5">
@@ -41,44 +41,39 @@
                                         <th>Name</th>
                                         <th>Country</th>
                                         <th>Province</th>
+                                        <th>Location</th>
                                         <th>Status</th>
                                         <th>Created At</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($locations as $location)
+                                    @foreach ($hotels as $hotel)
                                         <tr>
                                             <td>
                                                 <div class="selection item-select-container"><input type="checkbox"
-                                                        class="bulk-item" name="bulk_select[]" value="{{ $location->id }}">
+                                                        class="bulk-item" name="bulk_select[]" value="{{ $hotel->id }}">
                                                 </div>
                                             </td>
-                                            <td>{{ $location->yalago_id ?? 'N/A' }}
+                                            <td>{{ $hotel->yalago_id ?? 'N/A' }}
                                             </td>
                                             <td>
-                                                <a class="blue-link"
-                                                    href="{{ route('admin.locations.edit', $location->id) }}">
-                                                    {{ $location->name ?? 'N/A' }}
+                                                <a class="blue-link" href="{{ route('admin.hotels.edit', $hotel->id) }}">
+                                                    {{ $hotel->name ?? 'N/A' }}
                                                 </a>
                                             </td>
-                                            <td>{{ $location->country->name ?? 'N/A' }}
+                                            <td>{{ $hotel->country->name ?? 'N/A' }}
                                             </td>
-                                            <td>{{ $location->province->name ?? 'N/A' }}
+                                            <td>{{ $hotel->province->name ?? 'N/A' }}
+                                            </td>
+                                            <td>{{ $hotel->location->name ?? 'N/A' }}
                                             </td>
                                             <td>
                                                 <span
-                                                    class="badge rounded-pill bg-{{ $location->status === 'active' ? 'success' : 'danger' }}">
-                                                    {{ ucfirst($location->status) }}
+                                                    class="badge rounded-pill bg-{{ $hotel->status === 'active' ? 'success' : 'danger' }}">
+                                                    {{ ucfirst($hotel->status) }}
                                                 </span>
                                             </td>
-                                            <td>{{ formatDateTime($location->created_at) }}</td>
-                                            <td>
-                                                <a onclick="return confirm('Are you sure you want to sync?')"
-                                                    style="white-space: nowrap;"
-                                                    href="{{ route('admin.hotels.sync', [$location->country, $location->province, $location]) }}"
-                                                    class="themeBtn"><i class='bx bx-refresh'></i>Import Hotels</a>
-                                            </td>
+                                            <td>{{ formatDateTime($hotel->created_at) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

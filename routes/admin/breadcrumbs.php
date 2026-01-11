@@ -200,3 +200,18 @@ Breadcrumbs::for('admin.locations.edit', function (BreadcrumbTrail $trail, $loca
     $trail->parent('admin.locations.index');
     $trail->push('Edit Location', route('admin.locations.edit', $location));
 });
+
+Breadcrumbs::for('admin.hotels.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Hotels', route('admin.hotels.index'));
+});
+
+Breadcrumbs::for('admin.hotels.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.hotels.index');
+    $trail->push('Add New Hotel', route('admin.hotels.create'));
+});
+
+Breadcrumbs::for('admin.hotels.edit', function (BreadcrumbTrail $trail, $hotel) {
+    $trail->parent('admin.hotels.index');
+    $trail->push('Edit Hotel', route('admin.hotels.edit', $hotel));
+});

@@ -43,7 +43,7 @@ return [
             [
                 'title' => 'All Hotels',
                 'icon'  => 'bx bx-restaurant',
-                'route' => '',
+                'route' => route('admin.hotels.index'),
             ],
             [
                 'title' => 'Manage Countries',
