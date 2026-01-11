@@ -17,7 +17,7 @@
                                     <div class="form-fields">
                                         <label class="title">Category <span class="text-danger">*</span></label>
                                         <select name="package_category_id" class="field select2-select"
-                                            data-error="Category" required>
+                                            data-error="Category" data-required>
                                             <option value="" selected disabled>Select Category</option>
                                             @foreach ($categories as $id => $name)
                                                 <option value="{{ $id }}"

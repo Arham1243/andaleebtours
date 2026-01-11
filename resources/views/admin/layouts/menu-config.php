@@ -53,7 +53,7 @@ return [
             [
                 'title' => 'Manage Provinces',
                 'icon'  => 'bx bx-map-alt',
-                'route' => '',
+                'route' => route('admin.provinces.index'),
             ],
             [
                 'title' => 'Manage Locations',

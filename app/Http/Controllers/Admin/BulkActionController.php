@@ -8,6 +8,7 @@ use App\Models\Tour;
 use App\Models\TourCategory;
 use App\Models\Package;
 use App\Models\Country;
+use App\Models\Province;
 use App\Models\PackageCategory;
 use App\Models\PackageInquiry;
 use App\Models\User;
@@ -83,6 +84,11 @@ class BulkActionController extends Controller
                 $modelClass = Country::class;
                 $column = 'id';
                 $redirectRoute = 'admin.countries.index';
+                break;
+            case 'provinces':
+                $modelClass = Province::class;
+                $column = 'id';
+                $redirectRoute = 'admin.provinces.index';
                 break;
             default:
                 return Redirect::back()->with('notify_error', 'Resource not found.');
