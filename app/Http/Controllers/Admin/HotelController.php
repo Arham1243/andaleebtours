@@ -212,4 +212,101 @@ class HotelController extends Controller
         return redirect()->route('admin.hotels.index')
             ->with('notify_success', "{$newCount} Hotels synced");
     }
+
+    public function syncDiff()
+    {
+        // 1. Use a dynamic recent date to keep payload small (e.g., last 24 hours)
+        $date = gmdate('Y-m-d\TH:i:s\Z', strtotime('-1 day'));
+
+        $payload = [
+            "UpdatesAfter" => $date,
+            "Languages"    => ["en"],
+        ];
+
+        $response = Http::withHeaders([
+            'x-api-key' => $this->apiKey,
+            'Content-Type' => 'application/json',
+            'Connection' => 'keep-alive',
+            'Accept' => 'application/json',
+            'Accept-Encoding' => 'application/gzip',
+        ])->post('https://api.yalago.com/hotels/Inventory/GetEstablishmentDiff', $payload);
+
+        if ($response->failed()) {
+            return redirect()->back()
+                ->with('notify_error', 'Failed to fetch hotel updates from Yalago.');
+        }
+
+        $responseData = $response->json();
+
+        // 2. Mark deleted hotels as inactive
+        if (!empty($responseData['Deleted'])) {
+            foreach ($responseData['Deleted'] as $establishmentId) {
+                $hotel = Hotel::where('yalago_id', $establishmentId)->first();
+                if ($hotel) {
+                    $hotel->update(['status' => 'inactive']);
+                }
+            }
+        }
+
+        // 3. Insert/update changed or new hotels
+        $hotels = $responseData['Establishments'] ?? [];
+        $newCount = 0;
+
+        foreach ($hotels as $h) {
+            // Find location, province, country from your DB
+            $location = Location::where('yalago_id', $h['LocationId'])->first();
+            if (!$location) continue; // skip if location not found
+            $province = $location->province;
+            $country  = $province->country;
+
+            $hotelData = [
+                'country_id'        => $country->id,
+                'province_id'       => $province->id,
+                'location_id'       => $location->id,
+                'yalago_id'         => $h['EstablishmentId'],
+                'name'              => $h['Title'] ?? null,
+                'rating'            => $h['Rating'] ?? null,
+                'address'           => $h['Address'] ?? null,
+                'postal_code'       => $h['PostalCode'] ?? null,
+                'phone'             => $h['PhoneNumber'] ?? null,
+                'email'             => $h['Email'] ?? null,
+                'longitude'         => $h['Longitude'] ?? null,
+                'latitude'          => $h['Latitude'] ?? null,
+                'geo_code_accuracy' => $h['GeocodeAccuracy'] ?? null,
+                'description'       => $h['Description']['en'] ?? null,
+                'summary'           => $h['Summary']['en'] ?? null,
+                'images'            => json_encode($h['Images'] ?? []),
+                'status'            => 'active',
+            ];
+
+            $hotel = Hotel::updateOrCreate(
+                ['yalago_id' => $h['EstablishmentId']],
+                $hotelData
+            );
+
+            // sync hotel rooms
+            if (!empty($h['RoomTypes'])) {
+                foreach ($h['RoomTypes'] as $r) {
+                    Room::updateOrCreate(
+                        [
+                            'hotel_id' => $hotel->id,
+                            'name'     => $r['Title']['en'] ?? null
+                        ],
+                        [
+                            'hotel_id'     => $hotel->id,
+                            'name'         => $r['Title']['en'] ?? null,
+                            'description'  => $r['Description']['en'] ?? null,
+                            'image'        => $r['ImageUrl'] ?? null,
+                            'status'       => 'active',
+                        ]
+                    );
+                }
+            }
+
+            $newCount++;
+        }
+
+        return redirect()->route('admin.hotels.index')
+            ->with('notify_success', "{$newCount} Hotels updated/added from diff");
+    }
 }

@@ -28,6 +28,11 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="col-md-5">
+                                <a onclick="return confirm('Are you sure you want to sync?')"
+                                    href="{{ route('admin.hotels.sync.diff') }}" class="themeBtn">Sync Hotels from
+                                    Yalago</a>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="data-table">

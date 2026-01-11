@@ -101,6 +101,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('locations', LocationController::class);
 
     Route::get('hotels/{country}/{province}/{location}/sync', [HotelController::class, 'sync'])->name('hotels.sync');
+    Route::get('hotels/sync', [HotelController::class, 'syncDiff'])->name('hotels.sync.diff');
     Route::resource('hotels', HotelController::class);
 
     Route::get('logo-management', [ConfigController::class, 'logoManagement'])->name('settings.logo');
