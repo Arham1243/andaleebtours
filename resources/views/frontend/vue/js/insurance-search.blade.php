@@ -63,7 +63,7 @@
                 if (urlParams.origin) {
                     insuranceFromInputValue.value = urlParams.origin;
                     const countries = await getInsuranceCountries(urlParams.origin);
-                    const match = countries.find(c => c.yalago_countries_title.toLowerCase() === urlParams.origin.toLowerCase());
+                    const match = countries.find(c => c.name.toLowerCase() === urlParams.origin.toLowerCase());
                     if (match) {
                         selectedInsuranceFrom.value = match;
                     }
@@ -73,7 +73,7 @@
                 if (urlParams.destination) {
                     insuranceToInputValue.value = urlParams.destination;
                     const countries = await getInsuranceCountries(urlParams.destination);
-                    const match = countries.find(c => c.yalago_countries_title.toLowerCase() === urlParams.destination.toLowerCase());
+                    const match = countries.find(c => c.name.toLowerCase() === urlParams.destination.toLowerCase());
                     if (match) {
                         selectedInsuranceTo.value = match;
                     }
@@ -83,7 +83,7 @@
                 if (urlParams.residence_country) {
                     insuranceResidenceInputValue.value = urlParams.residence_country;
                     const countries = await getInsuranceCountries(urlParams.residence_country);
-                    const match = countries.find(c => c.yalago_countries_title.toLowerCase() === urlParams.residence_country.toLowerCase());
+                    const match = countries.find(c => c.name.toLowerCase() === urlParams.residence_country.toLowerCase());
                     if (match) {
                         selectedInsuranceResidence.value = match;
                     }
@@ -246,7 +246,7 @@
                 const filteredCountries = computed(() => {
                     if (!query.value) return countries.value;
                     return countries.value.filter(c =>
-                        c.yalago_countries_title.toLowerCase().includes(query.value.toLowerCase())
+                        c.name.toLowerCase().includes(query.value.toLowerCase())
                     );
                 });
 
@@ -261,7 +261,7 @@
 
                 const selectCountry = (country, toggleDropdownfn) => {
                     selected.value = country;
-                    inputValue.value = country.yalago_countries_title;
+                    inputValue.value = country.name;
                     query.value = '';
                     toggleDropdownfn();
                 };

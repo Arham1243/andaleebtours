@@ -40,41 +40,36 @@
                     <div class="options-dropdown__body p-0">
                         <ul class="options-dropdown-list">
                             <li class="options-dropdown-list__item" v-for="item in hotelDestinations.countries"
-                                :key="'country-' + item.yalago_countries_id"
-                                @click="selectHotelDestination(item.yalago_countries_title)">
+                                :key="'country-' + item.id" @click="selectHotelDestination(item.name)">
                                 <div class="icon">
                                     <i class='bx bx-map'></i>
                                 </div>
                                 <div class="info">
-                                    <div class="name">@{{ item.yalago_countries_title }}</div>
+                                    <div class="name">@{{ item.name }}</div>
                                 </div>
                             </li>
                             <li class="options-dropdown-list__item" v-for="item in hotelDestinations.provinces"
-                                :key="'province-' + item.yalago_provinces_id"
-                                @click="selectHotelDestination(item.yalago_provinces_title)">
+                                :key="'province-' + item.id" @click="selectHotelDestination(item.name)">
                                 <div class="icon">
                                     <i class='bx bx-map'></i>
                                 </div>
                                 <div class="info">
-                                    <div class="name">@{{ item.yalago_provinces_title }}</div>
-                                    <span class="sub-text">@{{ item.yalago_provinces_ctitle }}</span>
+                                    <div class="name">@{{ item.name }}</div>
+                                    <span class="sub-text">@{{ item.country_name }}</span>
                                 </div>
                             </li>
                             <li class="options-dropdown-list__item" v-for="item in hotelDestinations.locations"
-                                :key="'location-' + item.yalago_locations_id"
-                                @click="selectHotelDestination(item.yalago_locations_title)">
+                                :key="'location-' + item.id" @click="selectHotelDestination(item.name)">
                                 <div class="icon">
                                     <i class='bx bx-map'></i>
                                 </div>
                                 <div class="info">
-                                    <div class="name">@{{ item.yalago_locations_title }}</div>
-                                    <span class="sub-text"
-                                        v-if="item.yalago_locations_ptitle || item.yalago_locations_ctitle">
-                                        @{{ item.yalago_locations_ptitle + (item.yalago_locations_ctitle ? ', ' +
-    item.yalago_locations_ctitle : '') }}
+                                    <div class="name">@{{ item.name }}</div>
+                                    <span class="sub-text" v-if="item.province_name || item.country_name">
+                                        @{{ [item.province_name, item.country_name].filter(Boolean).join(', ') }}
                                     </span>
                                     <span class="sub-text" v-else>
-                                        @{{ item.yalago_provinces_ctitle }}
+                                        @{{ item.country_name }}
                                     </span>
                                 </div>
                             </li>
@@ -90,14 +85,15 @@
                     <div class="options-dropdown__body p-0">
                         <ul class="options-dropdown-list">
                             <li class="options-dropdown-list__item" v-for="item in hotelHotels"
-                                :key="'hotel-' + item.id" @click="selectHotelDestination(item.yalago_hotel_title)">
+                                :key="'hotel-' + item.id" @click="selectHotelDestination(item.name)">
                                 <div class="icon">
                                     <i class='bx bx-building'></i>
                                 </div>
+
                                 <div class="info">
-                                    <div class="name">@{{ item.yalago_hotel_title }}</div>
-                                    <span class="sub-text">@{{ item.yalago_hotel_location_title }}, @{{ item.yalago_hotel_province_title }},
-                                        @{{ item.yalago_hotel_country_title }}</span>
+                                    <div class="name">@{{ item.name }}</div>
+                                    <span class="sub-text">@{{ item.location_name }}, @{{ item.province_name }},
+                                        @{{ item.country_name }}</span>
                                 </div>
                             </li>
                         </ul>
@@ -195,7 +191,7 @@
                                     <li class="paxs-item">
                                         <div class="info">
                                             <div class="name">Children</div>
-                                            <span>0-17 years</span>
+                                            <span>1-17 years</span>
                                         </div>
                                         <div class="quantity-counter">
                                             <button type="button" class="quantity-counter__btn"
@@ -221,8 +217,8 @@
                                             :name="'room_' + (roomIndex + 1) + '_child_age_' + (childIndex + 1)"
                                             class="form-control">
                                             <option value="">Select</option>
-                                            <option v-for="n in 18" :key="n" :value="n - 1">
-                                                @{{ n - 1 }}
+                                            <option v-for="n in 17" :key="n" :value="n">
+                                                @{{ n }}
                                             </option>
                                         </select>
                                     </div>

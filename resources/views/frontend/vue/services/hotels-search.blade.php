@@ -1,8 +1,8 @@
 <script>
     const hotelsDataPromise = Promise.all([
-        fetch("{{ url('/') }}" + "/public/frontend/mocks/yalago_countries.json").then(r => r.json()),
-        fetch("{{ url('/') }}" + "/public/frontend/mocks/yalago_provinces.json").then(r => r.json()),
-        fetch("{{ url('/') }}" + "/public/frontend/mocks/yalago_locations.json").then(r => r.json())
+        fetch("{{ asset('frontend/mocks/yalago_countries.json') }}").then(r => r.json()),
+        fetch("{{ asset('frontend/mocks/yalago_provinces.json') }}").then(r => r.json()),
+        fetch("{{ asset('frontend/mocks/yalago_locations.json') }}").then(r => r.json())
     ]).then(([countries, provinces, locations]) => ({
         countries,
         provinces,
@@ -43,13 +43,12 @@
             locations
         } = await hotelsDataPromise;
 
-        // Exact country match
-        const cMatch = exactMatch(countries, 'yalago_countries_title', q);
+        const cMatch = exactMatch(countries, 'name', q);
         if (cMatch) {
-            const provs = byField(provinces, 'yalago_provinces_cid', cMatch.yalago_countries_id);
+            const provs = byField(provinces, 'country_id', cMatch.id);
             provs.unshift({
                 ...cMatch,
-                yalago_provinces_title: cMatch.yalago_countries_title
+                name: cMatch.name
             });
             return formatHotels({
                 countries: [],
@@ -59,13 +58,12 @@
             });
         }
 
-        // Exact province match
-        const pMatch = exactMatch(provinces, 'yalago_provinces_title', q);
+        const pMatch = exactMatch(provinces, 'name', q);
         if (pMatch) {
-            const locs = byField(locations, 'yalago_locations_pid', pMatch.yalago_provinces_id);
+            const locs = byField(locations, 'province_id', pMatch.id);
             locs.unshift({
                 ...pMatch,
-                yalago_locations_title: pMatch.yalago_provinces_title
+                name: pMatch.name
             });
             return formatHotels({
                 countries: [],
@@ -75,19 +73,20 @@
             });
         }
 
-        // Exact location match
-        const lMatch = exactMatch(locations, 'yalago_locations_title', q);
+        const lMatch = exactMatch(locations, 'name', q);
         if (lMatch) {
             try {
-                // TODO: add api call here
+                const {
+                    data: hotelsForLocation
+                } = await axios.get(`{{ url('hotels/search-hotels') }}?location_id=${lMatch.id}`);
                 return formatHotels({
                     countries: [],
                     provinces: [],
                     locations: [lMatch],
-                    hotels: []
+                    hotels: hotelsForLocation
                 });
             } catch (error) {
-                console.error('Error fetching hotels:', error);
+                console.error('Error fetching hotels for location:', error);
                 return formatHotels({
                     countries: [],
                     provinces: [],
@@ -97,17 +96,18 @@
             }
         }
 
+
         // Check for partial matches
-        const cs = startsWith(countries, 'yalago_countries_title', q);
-        const ps = startsWith(provinces, 'yalago_provinces_title', q);
-        const ls = startsWith(locations, 'yalago_locations_title', q);
+        const cs = startsWith(countries, 'name', q);
+        const ps = startsWith(provinces, 'name', q);
+        const ls = startsWith(locations, 'name', q);
 
         // If no geo data matches, search hotels directly
         if (!cs.length && !ps.length && !ls.length) {
             try {
                 const {
                     data
-                } = await axios.get(`/hotels/ajax_search_hotels?q=${q}`);
+                } = await axios.get(`{{ url('hotels/search-hotels') }}?q=${q}`);
                 return formatHotels({
                     countries: [],
                     provinces: [],

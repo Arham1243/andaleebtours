@@ -2,6 +2,7 @@
     @include('frontend.vue.views.' . $appComponent)
 </div>
 @section('vue-js')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     @if (env('APP_MODE') && env('APP_MODE') === 'production')
         <script src="frontend/assets/js/vue@3-prod.js"></script>
     @else

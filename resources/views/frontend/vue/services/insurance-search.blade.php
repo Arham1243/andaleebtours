@@ -1,6 +1,6 @@
 <script>
     const countriesDataPromise = fetch(
-        "{{ url('/') }}" + "/public/frontend/mocks/yalago_countries.json"
+        "{{ asset('frontend/mocks/yalago_countries.json') }}"
     ).then((r) => r.json());
 
     const formatCountries = (countries) => ({
@@ -15,12 +15,12 @@
 
         const countries = await countriesDataPromise;
 
-        const cMatch = exactMatch(countries, "yalago_countries_title", q);
+        const cMatch = exactMatch(countries, "name", q);
         if (cMatch) {
             return formatCountries([cMatch]);
         }
 
-        const cs = startsWith(countries, "yalago_countries_title", q);
+        const cs = startsWith(countries, "name", q);
         return formatCountries(cs);
     };
 </script>

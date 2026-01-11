@@ -112,7 +112,11 @@
             };
 
             watch(hotelDestinationQuery, (newQuery) => {
-                loadHotelDestinations(newQuery);
+                if (!newQuery) {
+                    loadHotelDestinations('a');
+                } else {
+                    loadHotelDestinations(newQuery);
+                }
             });
 
             // Watch room count changes
@@ -128,6 +132,10 @@
                 } else if (newCount < oldCount) {
                     hotelRooms.value.splice(newCount);
                 }
+            });
+
+            onBeforeMount(async () => {
+                loadHotelDestinations('a');
             });
 
             const incrementHotelGuests = (roomIndex, key) => {

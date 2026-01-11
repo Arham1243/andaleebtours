@@ -70,6 +70,7 @@ Route::name('frontend.')->group(function () {
     Route::prefix('hotels')->name('hotels.')->group(function () {
         Route::get('/', [HotelController::class, 'index'])->name('index');
         Route::get('/search', [HotelController::class, 'search'])->name('search');
+        Route::get('/search-hotels', [HotelController::class, 'searchHotels'])->name('search.hotels');
         Route::get('/details', [HotelController::class, 'details'])->name('details');
         Route::get('/extras', [HotelController::class, 'extras'])->name('extras');
         Route::get('/checkout', [HotelController::class, 'checkout'])->name('checkout');

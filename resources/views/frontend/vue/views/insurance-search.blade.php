@@ -8,7 +8,7 @@
                     @input="insuranceFromQuery = insuranceFromInputValue" placeholder="Select Origin"
                     ref="insuranceFromInputRef" name="origin">
                 <div class="search-box__label">
-                    @{{ selectedInsuranceFrom?.yalago_countries_title || '' }}
+                    @{{ selectedInsuranceFrom?.name || '' }}
                 </div>
             </div>
 
@@ -34,11 +34,11 @@
                             </li>
                             <!-- Items -->
                             <li v-else class="options-dropdown-list__item"
-                                v-for="country in filteredInsuranceFromCountries" :key="country.yalago_countries_id"
+                                v-for="country in filteredInsuranceFromCountries" :key="country.id"
                                 @click="selectInsuranceFrom(country, toggleInsuranceFromDropdown)">
                                 <div class="icon"><i class="bx bx-map"></i></div>
                                 <div class="info">
-                                    <div class="name">@{{ country.yalago_countries_title }}</div>
+                                    <div class="name">@{{ country.name }}</div>
                                 </div>
                             </li>
                         </ul>
@@ -55,7 +55,7 @@
                     @input="insuranceToQuery = insuranceToInputValue" placeholder="Select Destination"
                     ref="insuranceToInputRef" name="destination">
                 <div class="search-box__label">
-                    @{{ selectedInsuranceTo?.yalago_countries_title || '' }}
+                    @{{ selectedInsuranceTo?.name || '' }}
                 </div>
             </div>
 
@@ -78,11 +78,11 @@
                                     Found</span>
                             </li>
                             <li v-else class="options-dropdown-list__item"
-                                v-for="country in filteredInsuranceToCountries" :key="country.yalago_countries_id"
+                                v-for="country in filteredInsuranceToCountries" :key="country.id"
                                 @click="selectInsuranceTo(country, toggleInsuranceToDropdown)">
                                 <div class="icon"><i class="bx bx-map"></i></div>
                                 <div class="info">
-                                    <div class="name">@{{ country.yalago_countries_title }}</div>
+                                    <div class="name">@{{ country.name }}</div>
                                 </div>
                             </li>
                         </ul>
@@ -120,7 +120,7 @@
                     @input="insuranceResidenceQuery = insuranceResidenceInputValue" placeholder="Residence"
                     ref="insuranceResidenceInputRef" name="residence_country">
                 <div class="search-box__label">
-                    @{{ selectedInsuranceResidence?.yalago_countries_title || '' }}
+                    @{{ selectedInsuranceResidence?.name || '' }}
                 </div>
             </div>
 
@@ -144,11 +144,11 @@
                             </li>
                             <li v-else class="options-dropdown-list__item"
                                 v-for="country in filteredInsuranceResidenceCountries"
-                                :key="country.yalago_countries_id"
+                                :key="country.id"
                                 @click="selectInsuranceResidence(country, toggleInsuranceResidenceDropdown)">
                                 <div class="icon"><i class="bx bx-map"></i></div>
                                 <div class="info">
-                                    <div class="name">@{{ country.yalago_countries_title }}</div>
+                                    <div class="name">@{{ country.name }}</div>
                                 </div>
                             </li>
                         </ul>

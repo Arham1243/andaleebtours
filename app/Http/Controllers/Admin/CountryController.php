@@ -117,7 +117,7 @@ class CountryController extends Controller
         $countries = Country::all()
             ->sortBy('name')
             ->values()
-            ->map(fn($country) => ['name' => $country->name]);
+            ->map(fn($country) => ['id' => $country->id, 'name' => $country->name]);
 
         file_put_contents(public_path('frontend/mocks/yalago_countries.json'), $countries->toJson(JSON_PRETTY_PRINT));
     }
