@@ -300,7 +300,7 @@
                                 <div class="row g-0">
 
                                     <div class="col-md-4">
-                                        <a href="{{ route('frontend.hotels.details', $hotel['id']) }}"
+                                        <a href="{{ route('frontend.hotels.details', ['id' => $hotel['id']]) . '?' . http_build_query($query) }}"
                                             class="event-card__img">
                                             <img data-src="{{ $hotel['image'] ?? asset('frontend/images/placeholder.png') }}"
                                                 class="imgFluid lazyload" alt="{{ $hotel['name'] }}" />
@@ -309,7 +309,7 @@
 
                                     <div class="col-md-5">
                                         <div class="event-card__content">
-                                            <a href="{{ route('frontend.hotels.details', $hotel['id']) }}"
+                                            <a href="{{ route('frontend.hotels.details', ['id' => $hotel['id']]) . '?' . http_build_query($query) }}"
                                                 class="title">
                                                 {{ $hotel['name'] }}
                                             </a>
@@ -367,7 +367,7 @@
                                                 </div>
                                             @endif
 
-                                            <a href="{{ route('frontend.hotels.details', $hotel['id']) }}"
+                                            <a href="{{ route('frontend.hotels.details', ['id' => $hotel['id']]) . '?' . http_build_query($query) }}"
                                                 class="themeBtn mt-3">
                                                 View More
                                             </a>

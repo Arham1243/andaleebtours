@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Country;
 use App\Models\Hotel;
+use App\Models\Config;
 use App\Models\Province;
 use App\Models\Location;
 use Illuminate\Http\Request;
@@ -15,6 +16,13 @@ use Carbon\Carbon;
 
 class HotelController extends Controller
 {
+    protected $hotelCommissionPercentage;
+    public function __construct()
+    {
+        $config = Config::pluck('config_value', 'config_key')->toArray();
+        $this->hotelCommissionPercentage = $config['HOTEL_COMMISSION_PERCENTAGE'] ?? 10;
+    }
+
     public function index()
     {
         $banner = Banner::where('page', 'hotels-listing')->where('status', 'active')->first();
@@ -246,6 +254,7 @@ class HotelController extends Controller
             $boards = collect($item['Rooms'])
                 ->flatMap(fn($room) => $room['Boards']);
 
+
             $cheapestBoard = $boards
                 ->sortBy('NetCost.Amount')
                 ->first();
@@ -263,7 +272,7 @@ class HotelController extends Controller
 
                 'image' => data_get($localHotel?->images, '0.Url'),
 
-                'price' => data_get($cheapestBoard, 'NetCost.Amount'),
+                'price' => calculatePriceWithCommission(data_get($cheapestBoard, 'NetCost.Amount'), $this->hotelCommissionPercentage),
                 'currency' => data_get($cheapestBoard, 'NetCost.Currency', 'AED'),
 
                 'boards' => $boards
@@ -274,10 +283,86 @@ class HotelController extends Controller
         });
     }
 
-    public function details()
+    public function details(Request $request, $id)
     {
-        return view('frontend.hotels.details');
+        $hotel = Hotel::where('id', $id)->with(['province', 'location'])
+            ->firstOrFail();
+
+        $data = [];
+        $data['hotel_info'] = $hotel;
+
+        // Show extras logic
+        $data['show_extras'] =  $hotel->country->iso_code == 'ML' ? true : false;
+
+        // 2. Parse check-in/out dates
+        $startDate = Carbon::parse($request->check_in)->format('Y-m-d');
+        $endDate   = Carbon::parse($request->check_out)->format('Y-m-d');
+
+        // 3. Build rooms array dynamically
+        $rooms = $this->buildRoomsArray($request);
+
+        // 4. Fetch availability from Yalago API
+        $availabilityPayload = [
+            "CheckInDate"       => $startDate,
+            "CheckOutDate"      => $endDate,
+            "EstablishmentIds"  => [$hotel->yalago_id],
+            "Rooms"             => $rooms,
+            "Culture"           => "en-GB",
+            "GetPackagePrice"   => false,
+            "IsPackage"         => false,
+            "GetTaxBreakdown"   => true,
+            "GetLocalCharges"   => true,
+            "IsBindingPrice"    => true,
+        ];
+
+        $availability = Http::withHeaders([
+            'x-api-key' => '93082895-c45f-489f-ae10-bed9eaae161e',
+            'Accept'    => 'application/json',
+        ])->post('https://api.yalago.com/hotels/availability/get', $availabilityPayload)
+            ->json('Establishments', []);
+
+        $data['available_list'] = collect($availability);
+
+        if ($data['available_list']->isEmpty()) {
+            return redirect()->route('frontend.hotels.search')
+                ->with('error', 'No Hotel Found! Please try again.');
+        }
+
+        // 5. Fetch detailed hotel info
+        $firstRoom = $data['available_list'][0]['Rooms'][0] ?? null;
+        $detailPayload = [
+            "CheckInDate"      => $startDate,
+            "CheckOutDate"     => $endDate,
+            "EstablishmentId"  => [$hotel->yalago_id],
+            "Rooms"            => [
+                [
+                    "Adults"     => $rooms[0]['Adults'] ?? 1,
+                    "ChildAges"  => $rooms[0]['ChildAges'] ?? [],
+                    "RoomCode"   => $firstRoom['Code'] ?? '',
+                    "BoardCode"  => $firstRoom['Boards'][0]['Code'] ?? ''
+                ]
+            ],
+            "Culture"          => "en-GB",
+            "GetPackagePrice"  => false,
+            "GetTaxBreakdown"  => true,
+            "GetLocalCharges"  => true,
+            "GetBoardBasis"    => true,
+            "CurrencyCode"     => "AED"
+        ];
+
+        $details = Http::withHeaders([
+            'x-api-key' => '93082895-c45f-489f-ae10-bed9eaae161e',
+            'Accept'    => 'application/json',
+        ])->post('https://api.yalago.com/hotels/details/get', $detailPayload)
+            ->json();
+
+        $data['info_items']  = $details['InfoItems'] ?? [];
+        $data['total_rooms'] = count($rooms);
+
+        // 6. Return the details view
+        return view('frontend.hotels.details', $data);
     }
+
 
     public function checkout()
     {

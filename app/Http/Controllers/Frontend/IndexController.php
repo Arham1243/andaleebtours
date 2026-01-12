@@ -8,8 +8,6 @@ use App\Models\Package;
 use App\Models\Inquiry;
 use App\Models\Newsletter;
 use App\Models\Order;
-
-use App\Models\TravelInsurance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -22,6 +20,7 @@ class IndexController extends Controller
         $featuredPackages = Package::where('status', 'active')->where('is_featured', 1)->latest()->get();
         return view('frontend.home', compact('banner', 'featuredTours', 'featuredPackages'));
     }
+
     public function privacy_policy()
     {
         return view('frontend.privacy-policy');
@@ -32,34 +31,7 @@ class IndexController extends Controller
         $order = Order::findOrFail($id);
         return view('emails.booking-cancelled-admin', compact('order'));
     }
-
-    public function testInsuranceSuccessUser($id)
-    {
-        $insurance = TravelInsurance::with('passengers')->findOrFail($id);
-        $commissionPercentage = 0.30;
-        return view('emails.insurance-success-user', compact('insurance', 'commissionPercentage'));
-    }
-
-    public function testInsuranceSuccessAdmin($id)
-    {
-        $insurance = TravelInsurance::with('passengers')->findOrFail($id);
-        $commissionPercentage = 0.30;
-        return view('emails.insurance-success-admin', compact('insurance', 'commissionPercentage'));
-    }
-
-    public function testInsuranceFailedUser($id)
-    {
-        $insurance = TravelInsurance::with('passengers')->findOrFail($id);
-        $commissionPercentage = 0.30;
-        return view('emails.insurance-failed-user', compact('insurance', 'commissionPercentage'));
-    }
-
-    public function testInsuranceFailedAdmin($id)
-    {
-        $insurance = TravelInsurance::with('passengers')->findOrFail($id);
-        $commissionPercentage = 0.30;
-        return view('emails.insurance-failed-admin', compact('insurance', 'commissionPercentage'));
-    }
+    
     public function terms_and_conditions()
     {
         return view('frontend.terms-conditions');

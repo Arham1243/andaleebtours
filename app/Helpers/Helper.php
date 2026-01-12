@@ -74,3 +74,8 @@ if (! function_exists('sanitizeBulletText')) {
         return $html;
     }
 }
+
+function calculatePriceWithCommission($basePrice, $commissionPercentage = 10)
+{
+    return $basePrice + ($commissionPercentage / 100) * $basePrice;
+}

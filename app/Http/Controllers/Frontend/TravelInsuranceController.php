@@ -8,7 +8,6 @@ use App\Models\Country;
 use App\Models\TravelInsurance;
 use App\Models\TravelInsurancePassenger;
 use App\Services\TravelInsuranceService;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -17,12 +16,14 @@ class TravelInsuranceController extends Controller
 {
     protected $insuranceService;
     protected $adminEmail;
+    protected $insuranceCommissionPercentage;
 
     public function __construct(TravelInsuranceService $insuranceService)
     {
         $this->insuranceService = $insuranceService;
         $config = Config::pluck('config_value', 'config_key')->toArray();
         $this->adminEmail = $config['ADMINEMAIL'] ?? 'info@andaleebtours.com';
+        $this->insuranceCommissionPercentage = $config['INSURANCE_COMMISSION_PERCENTAGE'] ?? 30;
     }
 
     public function index(Request $request)
@@ -291,7 +292,7 @@ class TravelInsuranceController extends Controller
                     $this->sendFailureEmails($insurance);
 
                     $errorMessage = 'Your payment was successful, but we could not confirm your insurance: ' . ($confirmResult['error'] ?? 'Unknown error');
-                    
+
                     return view('frontend.travel-insurance.payment-failed', compact('insurance'))
                         ->with('error', $errorMessage)
                         ->with('notify_error', $errorMessage);
@@ -311,7 +312,7 @@ class TravelInsuranceController extends Controller
                 $this->sendFailureEmails($insurance);
 
                 $errorMessage = 'Payment verification failed: ' . ($verification['error'] ?? 'Unknown error');
-                
+
                 return view('frontend.travel-insurance.payment-failed', compact('insurance'))
                     ->with('error', $errorMessage)
                     ->with('notify_error', $errorMessage);
@@ -323,7 +324,7 @@ class TravelInsuranceController extends Controller
             ]);
 
             $errorMessage = 'An error occurred while verifying your payment: ' . $e->getMessage();
-            
+
             return view('frontend.travel-insurance.payment-failed', ['insurance' => null])
                 ->with('error', $errorMessage)
                 ->with('notify_error', $errorMessage);
@@ -354,7 +355,7 @@ class TravelInsuranceController extends Controller
     protected function sendSuccessEmails(TravelInsurance $insurance)
     {
         try {
-            $commissionPercentage = 0.30;
+            $commissionPercentage = $this->insuranceCommissionPercentage / 100;
 
             // Send email to user
             Mail::send('emails.insurance-success-user', compact('insurance', 'commissionPercentage'), function ($message) use ($insurance) {
@@ -400,7 +401,7 @@ class TravelInsuranceController extends Controller
     protected function sendFailureEmails(TravelInsurance $insurance)
     {
         try {
-            $commissionPercentage = 0.30;
+            $commissionPercentage = $this->insuranceCommissionPercentage / 100;
 
             // Send email to user
             Mail::send('emails.insurance-failed-user', compact('insurance', 'commissionPercentage'), function ($message) use ($insurance) {

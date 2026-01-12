@@ -4,11 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\TravelInsurance;
-use App\Models\Country;
+use App\Models\Config;
 use Illuminate\Http\Request;
 
 class TravelInsuranceController extends Controller
 {
+
+    protected $insuranceCommissionPercentage;
+
+    public function __construct()
+    {
+        $config = Config::pluck('config_value', 'config_key')->toArray();
+        $this->insuranceCommissionPercentage = $config['INSURANCE_COMMISSION_PERCENTAGE'] ?? 30;
+    }
+
     public function index()
     {
         $insurances = TravelInsurance::with('passengers', 'user')
@@ -21,8 +30,8 @@ class TravelInsuranceController extends Controller
     public function show($id)
     {
         $insurance = TravelInsurance::with('passengers', 'user')->findOrFail($id);
-        
-        $commissionPercentage = 0.30;
+
+        $commissionPercentage = $this->insuranceCommissionPercentage / 100;
 
         return view('admin.travel-insurances.show', compact('insurance', 'commissionPercentage'))->with('title', 'Insurance ' . $insurance->insurance_number);
     }

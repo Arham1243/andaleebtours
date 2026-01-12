@@ -126,6 +126,36 @@
 
                     <div class="form-box">
                         <div class="form-box__header">
+                            <div class="title">Commission</div>
+                        </div>
+                        <div class="form-box__body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-fields">
+                                        <label class="title">Hotel Commission In Percent</label>
+                                        <div class="relative-div">
+                                            <input type="number" name="HOTEL_COMMISSION_PERCENTAGE" class="field"
+                                                value="{{ $config['HOTEL_COMMISSION_PERCENTAGE'] ?? '10' }}"
+                                                placeholder="Enter Hotel Commission In Percent" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="form-fields">
+                                        <label class="title">Insurance Commission In Percent</label>
+                                        <div class="relative-div">
+                                            <input type="number" name="INSURANCE_COMMISSION_PERCENTAGE" class="field"
+                                                value="{{ $config['INSURANCE_COMMISSION_PERCENTAGE'] ?? '30' }}"
+                                                placeholder="Enter Insurance Commission In Percent" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-box">
+                        <div class="form-box__header">
                             <div class="title">Taxes</div>
                         </div>
                         <div class="form-box__body">
@@ -135,8 +165,8 @@
                                         <label class="title">Vat Percentage</label>
                                         <div class="relative-div">
                                             <input type="number" name="VAT_PERCENTAGE" class="field"
-                                                value="{{ $config['VAT_PERCENTAGE'] ?? '' }}" placeholder="Enter Vat Percentage"
-                                                required>
+                                                value="{{ $config['VAT_PERCENTAGE'] ?? '' }}"
+                                                placeholder="Enter Vat Percentage" required>
                                         </div>
                                     </div>
                                 </div>
@@ -146,8 +176,8 @@
                                         <label class="title">Service Tax Percentage</label>
                                         <div class="relative-div">
                                             <input type="number" name="SERVICE_TAX_PERCENTAGE" class="field"
-                                                value="{{ $config['SERVICE_TAX_PERCENTAGE'] ?? '' }}" placeholder="Enter Service Tax Percentage"
-                                                required>
+                                                value="{{ $config['SERVICE_TAX_PERCENTAGE'] ?? '' }}"
+                                                placeholder="Enter Service Tax Percentage" required>
                                         </div>
                                     </div>
                                 </div>

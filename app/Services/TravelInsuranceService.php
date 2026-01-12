@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Country;
 use App\Models\TravelInsurance;
 use App\Models\TravelInsurancePassenger;
+use App\Models\Config;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -12,7 +13,7 @@ use DateTime;
 
 class TravelInsuranceService
 {
-    public $commissionPercentage = 0.30;
+    public $commissionPercentage;
 
     public $tabbyApiKey = 'pk_03168c56-d196-4e58-a72a-48dbebb88b87';
     public $tabbyMerchantCode = 'ATA';
@@ -29,6 +30,12 @@ class TravelInsuranceService
     private $insuranceUsername = 'andleb_prod';
     private $insurancePassword = 'rgJp8jgH1Clw';
     private $insuranceChannel = 'IBE_ADDAE';
+
+    public function __construct()
+    {
+        $config = Config::pluck('config_value', 'config_key')->toArray();
+        $this->commissionPercentage = ($config['INSURANCE_COMMISSION_PERCENTAGE'] ?? 30) / 100;
+    }
 
     public function getAvailablePlans(array $params)
     {
