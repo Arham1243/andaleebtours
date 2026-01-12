@@ -362,8 +362,7 @@
                                         <div class="event-card__content event-card__content--price">
                                             @if ($hotel['price'])
                                                 <span class="subtitle">Total price from</span>
-                                                <div class="price">
-                                                    <span class="dirham">D</span>{{ number_format($hotel['price'], 2) }}
+                                                <div class="price">{{ formatPrice($hotel['price']) }}
                                                 </div>
                                             @endif
 

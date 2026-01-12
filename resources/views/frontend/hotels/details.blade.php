@@ -22,7 +22,7 @@
                     </li>
 
                     <li class="breadcrumb-item active">
-                        Le Meridien Dubai Hotel & Conference Centre
+                        {{ $hotel['name'] }}
                     </li>
                 </ul>
             </nav>
@@ -36,116 +36,111 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="hotels-lg-img-wrapper">
-                            <div class="hotels-lg-img-list">
-                                <div class="hotels-lg-img-item">
-                                    <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/0.jpg"
-                                        class="imgFluid lazyload" alt="Image" />
-                                </div>
-                                <div class="hotels-lg-img-item">
-                                    <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/1.jpg"
-                                        class="imgFluid lazyload" alt="Image" />
-                                </div>
-                                <div class="hotels-lg-img-item">
-                                    <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/2.jpg"
-                                        class="imgFluid lazyload" alt="Image" />
-                                </div>
-                                <div class="hotels-lg-img-item">
-                                    <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/3.jpg"
-                                        class="imgFluid lazyload" alt="Image" />
-                                </div>
-                                <div class="hotels-lg-img-item">
-                                    <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/4.jpg"
-                                        class="imgFluid lazyload" alt="Image" />
-                                </div>
-                                <div class="hotels-lg-img-item">
-                                    <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/5.jpg"
-                                        class="imgFluid lazyload" alt="Image" />
-                                </div>
-                            </div>
-                            <div class="action-btns">
-                                <div class="event-slider-actions">
-                                    <button type="button" class="event-slider-actions__arrow event-slider-prev">
-                                        <i class="bx bx-chevron-left"></i>
-                                    </button>
-                                    <div class="event-slider-actions__progress"></div>
-                                    <button type="button" class="event-slider-actions__arrow event-slider-next">
-                                        <i class="bx bx-chevron-right"></i>
-                                    </button>
-                                </div>
-                                <button class="full-screen"><i class='bx bx-fullscreen'></i>Full screen</button>
-                            </div>
-                        </div>
-                        <div class="hotels-sm-img-list hotels-sm-img-list-slider">
-                            <div class="hotels-sm-img-item">
-                                <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/0.jpg"
-                                    class="imgFluid lazyload" alt="Image" />
-                            </div>
-                            <div class="hotels-sm-img-item">
-                                <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/1.jpg"
-                                    class="imgFluid lazyload" alt="Image" />
-                            </div>
-                            <div class="hotels-sm-img-item">
-                                <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/2.jpg"
-                                    class="imgFluid lazyload" alt="Image" />
-                            </div>
-                            <div class="hotels-sm-img-item">
-                                <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/3.jpg"
-                                    class="imgFluid lazyload" alt="Image" />
-                            </div>
-                            <div class="hotels-sm-img-item">
-                                <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/4.jpg"
-                                    class="imgFluid lazyload" alt="Image" />
-                                <div class="hotels-sm-img-item">
-                                    <img data-src="https://images.dnatatravel.com/ei/2/0/4/1/8/8/7/4.jpg"
-                                        class="imgFluid lazyload" alt="Image" />
-                                </div>
-                            </div>
-                        </div>
+    <div class="hotels-lg-img-list">
+        @foreach($hotel['images'] as $img)
+            <div class="hotels-lg-img-item">
+                <img data-src="{{ $img['Url'] ?? asset('frontend/images/placeholder.png') }}"
+                     class="imgFluid lazyload" alt="Image" />
+            </div>
+        @endforeach
+    </div>
+
+    <div class="action-btns">
+        <div class="event-slider-actions">
+            <button type="button" class="event-slider-actions__arrow event-slider-prev">
+                <i class="bx bx-chevron-left"></i>
+            </button>
+            <div class="event-slider-actions__progress"></div>
+            <button type="button" class="event-slider-actions__arrow event-slider-next">
+                <i class="bx bx-chevron-right"></i>
+            </button>
+        </div>
+        <button class="full-screen"><i class='bx bx-fullscreen'></i>Full screen</button>
+    </div>
+</div>
+
+<div class="hotels-sm-img-list hotels-sm-img-list-slider">
+    @foreach($hotel['images'] as $img)
+        <div class="hotels-sm-img-item">
+            <img data-src="{{ $img['Url'] ?? asset('frontend/images/placeholder.png') }}"
+                 class="imgFluid lazyload" alt="Image" />
+        </div>
+    @endforeach
+</div>
+
                     </div>
                     <div class="col-md-4">
                         <div class="event-card event-card--details">
                             <div class="event-card__content">
-                                <div class="title">Marriott Executive Apartments Dubai Creek</div>
+                                <div class="title">{{ $hotel['name'] }}</div>
                                 <div class="details">
                                     <div class="icon"><i class="bx bx-map"></i></div>
-                                    <div class="content">Riggat Albuteen Str, Po Box 81148, Dubai</div>
-                                </div>
-                                <div class="rating mb-0">
-                                    <div class="stars">
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                        <i class="bx bxs-star" style="color: #f2ac06"></i>
-                                    </div>
+                                    <div class="content">{{ $hotel['address'] }}</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="event-card event-card--details">
-                            <div class="event-card__content">
-                                <span class="subtitle">Price from</span>
-                                <div class="price"><span class="dirham">D</span>1431.42</div>
-                                <span class="subtitle d-block mb-2">(Per person)</span>
-                                <div class="details">
-                                    <div class="icon"><i class="bx bxs-moon"></i></div>
-                                    <div class="content">13 Jan 2026 - 15 Jan 2026 | 2 nights at hotel</div>
-                                </div>
-                                <div class="details">
-                                    <div class="icon"><i class='bx bxs-group'></i></div>
-                                    <div class="content">1 Adults, 0 Child, 1 Rooms </div>
-                                </div>
+                      <div class="event-card event-card--details">
+    <div class="event-card__content">
+        <span class="subtitle">Price from</span>
+        <div class="price">{{ formatPrice($hotel['price']) }}
+        </div>
+        <span class="subtitle d-block mb-2">(Per person)</span>
 
-                            </div>
-                        </div>
+        {{-- Dates and nights --}}
+        @php
+            $checkIn = request()->get('check_in');
+            $checkOut = request()->get('check_out');
+
+            if ($checkIn && $checkOut) {
+                $startDate = \Carbon\Carbon::parse(urldecode($checkIn));
+                $endDate = \Carbon\Carbon::parse(urldecode($checkOut));
+                $nights = $startDate->diffInDays($endDate);
+                $nights = $nights ?: 1; // at least 1 night if same-day
+            }
+        @endphp
+
+        <div class="details">
+            <div class="icon"><i class="bx bxs-moon"></i></div>
+            <div class="content">
+                {{ $startDate->format('d M Y') ?? '' }} - {{ $endDate->format('d M Y') ?? '' }} | {{ $nights ?? 0 }} nights at hotel
+            </div>
+        </div>
+
+        {{-- Room details --}}
+        @php
+    $roomsRequest = $rooms_request ?? [];
+
+    $roomCount = count($roomsRequest) ?: 1;
+    $adults = collect($roomsRequest)->sum('Adults') ?: 1;
+
+    // Count all children by summing the length of ChildAges arrays
+    $children = collect($roomsRequest)
+        ->flatMap(fn($room) => $room['ChildAges'] ?? [])
+        ->count();
+@endphp
+
+<div class="details">
+    <div class="icon"><i class='bx bxs-group'></i></div>
+    <div class="content">
+        {{ $adults }} Adults, {{ $children }} Child{{ $children > 1 ? 'ren' : '' }}, {{ $roomCount }} Room{{ $roomCount > 1 ? 's' : '' }}
+    </div>
+</div>
+
+    </div>
+</div>
+
                         <div class="event-card">
                             <div class="event-card__content">
                                 <div class="hotel-detail__reviews m-0 p-0">
                                     <div class="review-header mb-0">
-                                        <div class="rating">
-                                            5.0 </div>
+                                        <div class="rating">{{ number_format($hotel['rating'], 1) }}</div>
                                         <div class="details">
-                                            <div class="client-name">Spectacular</div>
+                                            <div class="client-name">{{ $hotel['rating_text'] }}</div>
                                             <div class="checkin-time">Based on customer reviews</div>
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                            <i class="bx bxs-star"
+                                                                style="color: {{ $i <= $hotel['rating'] ? '#f2ac06' : '#ccc' }}"></i>
+                                                        @endfor
                                         </div>
                                     </div>
                                 </div>
@@ -185,44 +180,13 @@
                         <div class="col-md-8">
                             <div class="hotel-detail-box text-document">
                                 <h3 class="heading mt-0">Hotel Information</h3>
-                                <p>Cheval Maison, The Palm Dubai is an all-apartment boutique property providing the ideal
-                                    base from
-                                    which to explore all that Dubai has to offer. Located on the iconic Palm Jumeirah, 131
-                                    contemporary apartments provide the freedom, flexibility and space to create your own
-                                    personal
-                                    sanctuary, but still with easy access to the vibrant sights and sounds of this unique
-                                    city.<br><br>The combination of 1-, 2- and 3-bedroom apartments, plus a stunning
-                                    3-bedroom
-                                    penthouse, provide all the facilities needed for an indulgent sunshine getaway, or a
-                                    longer-
-                                    term stay. Each apartment is stylishly designed, with the attention to detail and
-                                    quality you
-                                    would expect from Cheval. Fully equipped kitchens can be found in all, and most feature
-                                    their
-                                    own terrace or balcony, providing the perfect place to unwind with a long, cool drink
-                                    and watch
-                                    the sun set over the iconic Dubai Skyline. A 24-hour gym and rooftop pool provide an
-                                    alternative
-                                    for guests looking for something more active in their downtime.<br><br>The apartments
-                                    are part
-                                    of the Golden Mile residential complex, situated on the western trunk of Palm Jumeirah
-                                    and
-                                    ideally located to explore the city. Underground parking is available to guests. The
-                                    Palm
-                                    Monorail, just one minutes walk from the apartments, connects the key landmarks of the
-                                    Palm
-                                    Jumeirah and is easily accessible from Nakheel Mall. It also provides easy access to the
-                                    metro
-                                    system for those looking to connect with the rest of the city. For those looking to stay
-                                    closer
-                                    to home, the Nakheel Mall, with 300 retail outlets, is just next door, and top visitor
-                                    attractions such as AquaVenture Waterpark and Pointe Palm are all close by.</p>
+                                {!! $hotel['description'] !!}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="hotel-map">
                                 <iframe
-                                    src="https://maps.google.com/maps?q='+The Walk, Jumeirah Beach Residence, P.O. Box 2431, Dubai, United Arab Emirates+'&amp;output=embed"
+                                    src="https://maps.google.com/maps?q={{ $hotel['address'] }}&output=embed"
                                     width="100%" height="490" frameborder="0" style="border:0;"
                                     allowfullscreen=""></iframe>
                             </div>
@@ -598,74 +562,16 @@
                     tabindex="0">
                     <div class="hotel-detail-box editorial-section">
                         <div class="notice-wrapper">
-
-                            <!-- Item 1 -->
-                            <div class="notice-item">
-                                <div class="notice-number">01</div>
-                                <div class="notice-text">
-                                    <p>Please be informed that there will be an all-day dining cafe serving hot
-                                        breakfast daily and a selection of snacks, drinks, and light bites during the
-                                        day.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 2 -->
-                            <div class="notice-item">
-                                <div class="notice-number">02</div>
-                                <div class="notice-text">
-                                    <p>Please note that as Dubai continues to enhance itself as a holiday destination,
-                                        there are many exciting hotel and leisure infrastructure developments currently
-                                        underway. Areas including Dubai Marina, Downtown Dubai, Habtoor City, JBR, and
-                                        The Palm are part of an evolving landscape.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 3 -->
-                            <div class="notice-item">
-                                <div class="notice-number">03</div>
-                                <div class="notice-text">
-                                    <p>Children under the age of 5 are only allowed to use main swimming pools with the
-                                        mandatory presence of an adult guardian inside the pool. Children must wear
-                                        swimming vests.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 4 -->
-                            <div class="notice-item">
-                                <div class="notice-number">04</div>
-                                <div class="notice-text">
-                                    <p>Please be advised that there will be a Tourism Tax payable per room, per night at
-                                        the hotel.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 5 -->
-                            <div class="notice-item">
-                                <div class="notice-number">05</div>
-                                <div class="notice-text">
-                                    <p>Please ensure you select the room type and board basis you wish to avail for the
-                                        duration of your stay.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 6 -->
-                            <div class="notice-item">
-                                <div class="notice-number">06</div>
-                                <div class="notice-text">
-                                    <p>Travelling during Ramadan: Ramadan is a culturally wonderful time to visit.
-                                        Visitors are advised to respect those fasting by refraining from eating,
-                                        drinking, or smoking in public during daylight hours.</p>
-                                </div>
-                            </div>
-
-                            <!-- Item 7 -->
-                            <div class="notice-item">
-                                <div class="notice-number">07</div>
-                                <div class="notice-text">
-                                    <p>Please be informed that in the event of cancellation of existing bookings, there
-                                        will be no reconfirmation under the same guest’s name.</p>
-                                </div>
-                            </div>
+@foreach($info_items as $index => $item)
+    <div class="notice-item">
+        <div class="notice-number">
+            {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+        </div>
+        <div class="notice-text">
+            <p>{!! $item['Description'] !!}</p>
+        </div>
+    </div>
+@endforeach
 
                         </div>
                     </div>
