@@ -194,8 +194,14 @@
                         @endif
 
                         {{-- Flight Details --}}
-                        @php $flight = $booking->flight_details; @endphp
-                        @if (!empty($flight))
+                        @php
+                            $flight = $booking->flight_details;
+
+                            // Flatten both outbound and inbound arrays and check if any value is not null
+                            $hasFlight = collect($flight)->flatten()->filter()->isNotEmpty();
+                        @endphp
+
+                        @if ($hasFlight)
                             <div class="form-box mb-4">
                                 <div class="form-box__header">
                                     <div class="title">Flight Details</div>
@@ -232,7 +238,7 @@
                                     <p><strong>Note:</strong> Refunds may take 10-15 working days if the booking is
                                         refundable. Non-refundable bookings or bookings within cancellation deadline have no
                                         refund.</p>
-                                    <button class="themeBtn cancel-booking-btn" data-booking-id="{{ $booking->id }}">
+                                    <button type="button" class="themeBtn cancel-booking-btn" data-booking-id="{{ $booking->id }}">
                                         Cancel Booking
                                     </button>
                                 </div>

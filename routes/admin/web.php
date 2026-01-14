@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\ProvinceController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\HotelController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\HotelBookingController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\TravelInsuranceController;
 use Illuminate\Support\Facades\Route;
@@ -85,6 +86,20 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::resource('orders', OrderController::class)->only(['index', 'show', 'update']);
+
+    Route::get(
+        'hotel-bookings/{hotel}/cancel',
+        [HotelBookingController::class, 'cancel']
+    )->name('hotel-bookings.cancel');
+
+    Route::resource(
+        'hotel-bookings',
+        HotelBookingController::class
+    )->only(['index', 'show', 'update']);
+    Route::post(
+        '/hotels/cancellation-charges',
+        [HotelBookingController::class, 'getCancellationCharges']
+    )->name('hotels.cancellation.charges');
 
     Route::resource('travel-insurances', TravelInsuranceController::class)->only(['index', 'show', 'update']);
 

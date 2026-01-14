@@ -46,10 +46,7 @@ class HotelController extends Controller
         })
             ->findOrFail($id);
 
-        // Get config for tax percentages
-        $config = \Illuminate\Support\Facades\View::shared('config', []);
-
-        return view('user.hotels.show', compact('booking', 'config'))->with('title', 'Booking ' . $booking->booking_number);
+        return view('user.hotels.show', compact('booking'))->with('title', 'Booking ' . $booking->booking_number);
     }
 
     public function destroy($id)
@@ -112,7 +109,7 @@ class HotelController extends Controller
         $response = $hotelService->getCancellationCharges($booking);
 
         return view(
-            'user.hotels.partials.cancellation-charges',
+            'frontend.partials.cancellation-charges',
             compact('booking', 'response')
         );
     }

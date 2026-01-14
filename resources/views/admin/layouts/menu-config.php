@@ -37,6 +37,11 @@ return [
         'route' => route('admin.travel-insurances.index'),
     ],
     [
+        'title' => 'Hotel Bookings',
+        'icon'  => 'bx bx-restaurant',
+        'route' => route('admin.hotel-bookings.index')
+    ],
+    [
         'title' => 'Hotels',
         'icon'  => 'bx bx-restaurant',
         'submenu' => [
