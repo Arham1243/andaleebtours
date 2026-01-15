@@ -363,7 +363,6 @@ class HotelController extends Controller
             ->json('Establishments', []);
 
         $availableList = collect($availability);
-        dd($availableList);
 
         if ($availableList->isEmpty()) {
             return redirect()->route('frontend.hotels.search')

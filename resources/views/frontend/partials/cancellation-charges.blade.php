@@ -1,4 +1,10 @@
-@if ($response['IsCancellable'])
+@if (!($charges['IsCancellable'] ?? false))
+    <p class="text-danger">This booking is not cancellable.</p>
+@else
+    <h6 class="mb-3">
+        Cancellation Policy - {{ $charges['CancellationPolicyStatic'][0]['RoomName'] }}
+    </h6>
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -10,29 +16,29 @@
         </thead>
         <tbody>
             @php
-                $today = now();
-                $buttonShown = false;
+                $today = now()->toDateString();
+                $actionShown = false;
             @endphp
 
-            @foreach ($response['CancellationPolicyStatic'][0]['CancellationCharges'] as $charge)
+            @foreach ($charges['CancellationPolicyStatic'][0]['CancellationCharges'] as $charge)
                 @php
-                    $expiry = \Carbon\Carbon::parse($charge['ExpiryDate']);
-                    $isActive = $today->lte($expiry) && !$buttonShown;
+                    $expiry = substr($charge['ExpiryDate'], 0, 10);
+                    $isCurrent = $today <= $expiry && !$actionShown;
                 @endphp
-                <tr class="{{ $isActive ? 'table-warning fw-bold' : '' }}">
+
+                <tr @if ($isCurrent) class="table-warning fw-bold" @endif>
                     <td>{{ $charge['Charge']['Amount'] }}</td>
                     <td>{{ $charge['Charge']['Currency'] }}</td>
-                    <td>{{ $expiry->format('d M Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($expiry)->format('d M Y') }}</td>
                     <td>
-                        @if ($isActive)
+                        @if ($isCurrent)
                             <form method="POST" action="{{ route('user.hotels.cancel', $booking->id) }}">
                                 @csrf
-                                <button class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Are you sure you want to cancel this booking?');">
+                                <button class="btn btn-danger btn-sm">
                                     Cancel Booking
                                 </button>
                             </form>
-                            @php $buttonShown = true; @endphp
+                            @php $actionShown = true; @endphp
                         @else
                             —
                         @endif
@@ -41,6 +47,4 @@
             @endforeach
         </tbody>
     </table>
-@else
-    <p>This booking is not cancellable.</p>
 @endif

@@ -63,6 +63,7 @@ class HotelBooking extends Model
         'flight_details' => 'array',
         'availability_request' => 'array',
         'availability_response' => 'array',
+        'cancel_response' => 'array',
         'booking_request' => 'array',
         'booking_response' => 'array',
         'rooms_total' => 'decimal:2',
@@ -137,7 +138,7 @@ class HotelBooking extends Model
     {
         return $query->where(function ($q) use ($user) {
             $q->where('user_id', $user->id)
-              ->orWhere('lead_email', $user->email);
+                ->orWhere('lead_email', $user->email);
         });
     }
 

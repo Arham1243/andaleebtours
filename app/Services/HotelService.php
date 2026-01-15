@@ -731,39 +731,70 @@ class HotelService
     public function getCancellationCharges(HotelBooking $booking): array
     {
         $response = Http::withHeaders([
-            'x-api-key' => $this->yalagoApiKey,
-            'Accept' => 'application/json',
+            'x-api-key'   => $this->yalagoApiKey,
+            'Accept'      => 'application/json',
             'Content-Type' => 'application/json',
         ])->post(
             'https://api.yalago.com/hotels/bookings/getcancellationcharges',
             [
-                'BookingRef' => $booking->yalago_booking_reference,
+                'BookingRef'      => $booking->yalago_booking_reference,
                 'GetTaxBreakdown' => true,
             ]
         );
 
         if (!$response->successful()) {
-            throw new \Exception('Failed to fetch cancellation charges');
+            Log::error('Yalago getCancellationCharges failed', [
+                'booking_id' => $booking->id,
+                'response'   => $response->body(),
+            ]);
+
+            throw new \Exception('Unable to fetch cancellation charges');
         }
 
         return $response->json();
     }
 
-    public function cancelYalagoBooking(HotelBooking $booking): array
+    public function cancelYalagoBooking(HotelBooking $booking, array $charges): array
     {
-        // TODO: Integrate Yalago cancel booking API here
-        // This is a mocked response for now
-        Log::info('Mock: cancelling Yalago hotel booking', [
-            'booking_id'   => $booking->id,
-            'booking_ref'  => $booking->supplier_booking_ref ?? null,
-        ]);
+        if (!($charges['IsCancellable'] ?? false)) {
+            throw new \Exception('Booking is not cancellable');
+        }
 
-        return [
-            'status'        => 'SUCCESS',
-            'refundAmount'  => 0.00,
-            'currency'      => $booking->currency ?? 'USD',
-            'message'       => 'Booking cancelled successfully (mock)',
-            'cancelledAt'   => now()->toDateTimeString(),
-        ];
+        $today = now()->toDateString();
+        $currentCharge = null;
+
+        foreach ($charges['CancellationPolicyStatic'][0]['CancellationCharges'] as $charge) {
+            if ($today <= substr($charge['ExpiryDate'], 0, 10)) {
+                $currentCharge = $charge['Charge'];
+                break;
+            }
+        }
+
+        if (!$currentCharge) {
+            throw new \Exception('No valid cancellation charge found');
+        }
+
+        $response = Http::withHeaders([
+            'x-api-key'    => $this->yalagoApiKey,
+            'Accept'       => 'application/json',
+            'Content-Type' => 'application/json',
+        ])->post(
+            'https://api.yalago.com/hotels/bookings/cancel',
+            [
+                'BookingRef' => $booking->yalago_booking_reference,
+                'ExpectedCharge' => [
+                    'Charge' => [
+                        'Amount'   => $currentCharge['Amount'],
+                        'Currency' => $currentCharge['Currency'],
+                    ],
+                ],
+            ]
+        );
+
+        if (!$response->successful()) {
+            throw new \Exception('Supplier cancellation failed');
+        }
+
+        return $response->json();
     }
 }

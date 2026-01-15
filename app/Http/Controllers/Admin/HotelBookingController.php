@@ -80,18 +80,26 @@ class HotelBookingController extends Controller
 
             DB::beginTransaction();
 
-            // 🔥 Cancel booking at supplier (mocked or real)
-            $hotelService->cancelYalagoBooking($booking);
+            // 1️⃣ Fetch latest cancellation charges
+            $charges = $hotelService->getCancellationCharges($booking);
 
-            // 🔄 Update local booking
+            // 2️⃣ Cancel at supplier with ExpectedCharge
+            $cancelResponse = $hotelService->cancelYalagoBooking(
+                $booking,
+                $charges
+            );
+
+            // 3️⃣ Update local booking
             $booking->update([
-                'booking_status' => 'cancelled',
-                'cancelled_at'   => now(),
-                'cancelled_by'   => 'admin',
+                'booking_status'  => 'cancelled',
+                'cancelled_at'    => now(),
+                'cancelled_by'    => 'admin',
+                'cancel_response' => $cancelResponse,
             ]);
 
             DB::commit();
 
+            // 4️⃣ Email user only
             $this->sendCancellationEmailToUser($booking);
 
             Log::info('Hotel booking cancelled by admin', [
@@ -121,25 +129,26 @@ class HotelBookingController extends Controller
     /**
      * Send cancellation email to user only (Admin)
      */
-    protected function sendCancellationEmailToUser(HotelBooking $booking)
+    protected function sendCancellationEmailToUser(HotelBooking $booking): void
     {
         try {
-            $booking->loadMissing('orderItems');
-
             Mail::send(
                 'emails.hotel-booking-cancelled-user',
-                ['order' => $booking],
+                ['booking' => $booking],
                 function ($message) use ($booking) {
                     $message->to($booking->lead_email)
-                        ->subject('Booking Cancelled by Admin - ' . $booking->booking_number);
+                        ->subject(
+                            'Booking Cancelled by Admin - ' . $booking->booking_number
+                        );
                 }
             );
 
             Log::info('Admin cancellation email sent', [
-                'booking_id'  => $booking->id,
-                'user_email'  => $booking->lead_email,
+                'booking_id' => $booking->id,
+                'user_email' => $booking->lead_email,
             ]);
         } catch (\Throwable $e) {
+
             Log::error('Failed to send admin cancellation email', [
                 'booking_id' => $booking->id,
                 'error'      => $e->getMessage(),
