@@ -47,6 +47,7 @@
                                         <th>Country</th>
                                         <th>Province</th>
                                         <th>Location</th>
+                                        {{-- <th>Is Featured</th> --}}
                                         <th>Status</th>
                                         <th>Created At</th>
                                     </tr>
@@ -72,6 +73,12 @@
                                             </td>
                                             <td>{{ $hotel->location->name ?? 'N/A' }}
                                             </td>
+                                            {{-- <td>
+                                                <span
+                                                    class="badge rounded-pill bg-{{ $hotel->is_featured ? 'success' : 'danger' }}">
+                                                    {{ $hotel->is_featured ? 'Yes' : 'No' }}
+                                                </span>
+                                            </td> --}}
                                             <td>
                                                 <span
                                                     class="badge rounded-pill bg-{{ $hotel->status === 'active' ? 'success' : 'danger' }}">

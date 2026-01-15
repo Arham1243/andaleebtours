@@ -55,6 +55,7 @@ class HotelController extends Controller
             'summary'     => 'nullable|string',
             'images'      => 'nullable|string',
             'status'      => 'required|in:active,inactive',
+            'is_featured' => 'nullable|boolean',
         ]);
 
         Hotel::create($request->only([
@@ -74,7 +75,8 @@ class HotelController extends Controller
             'description',
             'summary',
             'images',
-            'status'
+            'status',
+            'is_featured'
         ]));
 
         return redirect()
@@ -112,6 +114,7 @@ class HotelController extends Controller
             'summary'     => 'nullable|string',
             'images'      => 'nullable|string',
             'status'      => 'required|in:active,inactive',
+            'is_featured' => 'nullable|boolean',
         ]);
 
         $hotel->update($request->only([
@@ -131,7 +134,8 @@ class HotelController extends Controller
             'description',
             'summary',
             'images',
-            'status'
+            'status',
+            'is_featured'
         ]));
 
         return redirect()
