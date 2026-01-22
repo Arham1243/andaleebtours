@@ -2141,11 +2141,6 @@ body .daterangepicker.single {
     padding: 0.7rem;
 }
 
-body .daterangepicker.single td.active,
-body .daterangepicker.single td.active:hover {
-    background-color: var(--color-primary);
-    color: #fff !important;
-}
 body .daterangepicker {
     background: #f2f2f2;
     border-radius: 1rem;
@@ -2173,6 +2168,12 @@ body .daterangepicker td.off,
 body .daterangepicker td.off.start-date,
 .daterangepicker td.off.end-date {
     color: #6c6f7082 !important;
+}
+
+body .daterangepicker.single td.active,
+body .daterangepicker.single td.active:hover {
+    background-color: var(--color-primary);
+    color: #fff !important;
 }
 body .daterangepicker .drp-calendar {
     max-width: 100%;

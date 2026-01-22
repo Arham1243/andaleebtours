@@ -134,8 +134,102 @@
                 }
             });
 
+            function waitForPicker(selector, retries = 15) {
+                return new Promise(resolve => {
+                    const interval = setInterval(() => {
+                        const picker = $(selector).data('daterangepicker');
+                        if (picker || retries <= 0) {
+                            clearInterval(interval);
+                            resolve(picker);
+                        }
+                        retries--;
+                    }, 100);
+                });
+            }
+
+            function getUrlParams() {
+                const params = new URLSearchParams(window.location.search);
+                const obj = {};
+
+                for (const [key, value] of params.entries()) {
+                    obj[key] = value;
+                }
+
+                return obj;
+            }
+
             onBeforeMount(async () => {
                 loadHotelDestinations('a');
+
+                const urlParams = getUrlParams();
+
+                /* =========================
+                   DESTINATION
+                ========================= */
+                if (urlParams.destination) {
+                    hotelDestinationInputValue.value = urlParams.destination;
+                    selectedHotelDestination.value = urlParams.destination;
+                }
+
+                /* =========================
+                   ROOMS
+                ========================= */
+                const roomCount = parseInt(urlParams.room_count || 1);
+                hotelRoomCount.value = roomCount;
+
+                await nextTick();
+
+                for (let i = 0; i < roomCount; i++) {
+                    const room = hotelRooms.value[i];
+
+                    room.adults = parseInt(urlParams[`room_${i + 1}_adults`] || 1);
+                    room.children = parseInt(urlParams[`room_${i + 1}_children`] || 0);
+
+                    await nextTick();
+
+                    for (let c = 0; c < room.children; c++) {
+                        const ageKey = `room_${i + 1}_child_age_${c + 1}`;
+                        room.childAges[c] = urlParams[ageKey] || '';
+                    }
+                }
+
+                /* =========================
+                   DATES (SYNCED)
+                ========================= */
+                const checkInMoment = urlParams.check_in ?
+                    moment(urlParams.check_in, 'MMM D, YYYY') :
+                    null;
+
+                const checkOutMoment = urlParams.check_out ?
+                    moment(urlParams.check_out, 'MMM D, YYYY') :
+                    null;
+
+                const checkInPicker = await waitForPicker('#hotel-checkin-input');
+                const checkOutPicker = await waitForPicker('#hotel-checkout-input');
+
+                if (checkInMoment?.isValid() && checkInPicker) {
+                    $('#hotel-checkin-input').val(checkInMoment.format('MMM D, YYYY'));
+                    $('#hotel-checkin-day').text(checkInMoment.format('dddd'));
+                    checkInPicker.setStartDate(checkInMoment);
+
+                    hotelCheckInDate.value = checkInMoment.clone();
+
+                    if (checkOutPicker) {
+                        checkOutPicker.minDate = checkInMoment.clone();
+                        checkOutPicker.setStartDate(
+                            checkOutMoment?.isValid() && checkOutMoment.isSameOrAfter(
+                                checkInMoment) ?
+                            checkOutMoment :
+                            checkInMoment.clone()
+                        );
+                    }
+                }
+
+                if (checkOutMoment?.isValid() && checkOutPicker) {
+                    $('#hotel-checkout-input').val(checkOutMoment.format('MMM D, YYYY'));
+                    $('#hotel-checkout-day').text(checkOutMoment.format('dddd'));
+                    hotelCheckOutDate.value = checkOutMoment.clone();
+                }
             });
 
             const incrementHotelGuests = (roomIndex, key) => {

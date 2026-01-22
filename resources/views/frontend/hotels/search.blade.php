@@ -26,6 +26,17 @@
 
     <div class="hotets-listing">
         <div class="container">
+            <div class="row justify-content-center mb-5 pb-2">
+                <div class="col-md-10">
+                    <div class="main-page-search">
+                        @include('frontend.vue.main', [
+                            'appId' => 'hotels-search',
+                            'appComponent' => 'hotels-search',
+                            'appJs' => 'hotels-search',
+                        ])
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="row justify-content-between">

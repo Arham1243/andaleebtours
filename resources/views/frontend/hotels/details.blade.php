@@ -28,8 +28,19 @@
         </div>
     </div>
 
-
     <div class="container">
+        <div class="row justify-content-center mb-5 pb-2">
+            <div class="col-md-10">
+                <div class="main-page-search">
+                    @include('frontend.vue.main', [
+                        'appId' => 'hotels-search',
+                        'appComponent' => 'hotels-search',
+                        'appJs' => 'hotels-search',
+                    ])
+                </div>
+            </div>
+        </div>
+
         <div class="hotel-detail">
             <div class="hotel-info">
                 <div class="row">
@@ -168,8 +179,9 @@
                         type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Rooms</button>
                 </li>
                 <li role="presentation">
-                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
-                        type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Information
+                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
+                        aria-selected="false">Information
                         Items</button>
                 </li>
             </ul>
