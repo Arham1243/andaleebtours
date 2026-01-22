@@ -96,15 +96,6 @@
                                 <a href="mailto:info@andaleebtours.com">info@andaleebtours.com</a>
                             </p>
                         </div>
-
-                        <div class="mt-4">
-                            <a href="{{ route('frontend.hotels.index') }}" class="btn-primary-custom">
-                                <i class='bx bx-search'></i> Search Again
-                            </a>
-                            <a href="{{ route('frontend.index') }}" class="btn-secondary-custom ms-2">
-                                <i class='bx bx-home'></i> Back to Home
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

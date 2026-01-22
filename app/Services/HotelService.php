@@ -579,7 +579,7 @@ class HotelService
                 'x-api-key' => $this->yalagoApiKey,
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-            ])->post($this->yalagoApiUrl . '/booking/create', $requestData);
+            ])->post($this->yalagoApiUrl . '/bookings/create', $requestData);
 
             if (!$response->successful()) {
                 throw new Exception('Yalago booking API request failed: ' . $response->body());
@@ -798,3 +798,102 @@ class HotelService
         return $response->json();
     }
 }
+
+
+
+
+
+// {
+//     "AffiliateRef": "S1769027327-2026-697136fff135a",
+//     "CheckInDate": "2026-03-15",
+//     "CheckOutDate": "2026-03-16",
+//     "Culture": "en-GB",
+//     "EstablishmentId": "6851451",
+//     "SourceMarket": "AE",
+//     "GetTaxBreakdown": true,
+//     "ContactDetails": {
+//         "Title": "Ms",
+//         "FirstName": "Charde Solis",
+//         "LastName": "Drake Grant",
+//         "Address1": "hiqu@mailinator.com",
+//         "Town": "Frankfurt",
+//         "Country": "Germany",
+//         "EmailAddress": "huvyzyr@mailinator.com",
+//         "HomeTel": "+1 (381) 419-2128",
+//         "MobileTel": "+1 (381) 419-2128"
+//     },
+//     "Rooms": [
+//         {
+//             "AffiliateRoomRef": "S1769027327-2026-697136fff135a02993",
+//             "RoomCode": "CGISBzg1ODMxNzIaBzE0MTAyOTM=",
+//             "BoardCode": "CgE1",
+//             "ExpectedNetCost": {
+//                 "Amount": "2641.07",
+//                 "Currency": "AED"
+//             },
+//             "Extras": [
+//                 {
+//                     "ExtraId": "45",
+//                     "OptionId": "56",
+//                     "ExpectedNetCost": {
+//                         "Amount": "2802.09",
+//                         "Currency": "AED"
+//                     }
+//                 }
+//             ],
+//             "Guests": [
+//                 {
+//                     "Title": "Mrs",
+//                     "FirstName": "Raven Oneal",
+//                     "LastName": "Ferdinand Rhodes",
+//                     "Age": "23"
+//                 }
+//             ]
+//         },
+//         {
+//             "AffiliateRoomRef": "S1769027327-2026-697136fff135a14875",
+//             "RoomCode": "CGISBzg1ODMxNzIaBzE0MTAyOTQ=",
+//             "BoardCode": "CgE1",
+//             "ExpectedNetCost": {
+//                 "Amount": "2986.12",
+//                 "Currency": "AED"
+//             },
+//             "Extras": [
+//                 {
+//                     "ExtraId": "45",
+//                     "OptionId": "56",
+//                     "ExpectedNetCost": {
+//                         "Amount": "2802.09",
+//                         "Currency": "AED"
+//                     }
+//                 }
+//             ],
+//             "Guests": [
+//                 {
+//                     "Title": "Dr",
+//                     "FirstName": "Dacey Crane",
+//                     "LastName": "Cara Hull",
+//                     "Age": "23"
+//                 }
+//             ]
+//         }
+//     ],
+//     "FlightDetails": [
+//         {
+//             "IsFlightOutbound": "true",
+//             "ArriveDate": "2026-03-15T14:15:00",
+//             "DepartDate": "2026-03-15T00:00:00",
+//             "Number": "260",
+//             "From": "",
+//             "To": ""
+//         },
+//         {
+//             "IsFlightOutbound": "false",
+//             "ArriveDate": "2026-03-16T20:45:00",
+//             "DepartDate": "2026-03-16T00:00:00",
+//             "Number": "155",
+//             "From": "",
+//             "To": ""
+//         }
+//     ]
+// }
