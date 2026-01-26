@@ -47,6 +47,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($provinces as $province)
+                                    @if($province->country)
                                         <tr>
                                             <td>
                                                 <div class="selection item-select-container"><input type="checkbox"
@@ -75,6 +76,7 @@
                                                         class='bx bx-refresh'></i>Import Locations</a>
                                             </td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

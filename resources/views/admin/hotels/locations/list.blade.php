@@ -48,6 +48,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($locations as $location)
+                                    @if($location->country && $location->province)
                                         <tr>
                                             <td>
                                                 <div class="selection item-select-container"><input type="checkbox"
@@ -78,6 +79,7 @@
                                                     class="themeBtn"><i class='bx bx-refresh'></i>Import Hotels</a>
                                             </td>
                                         </tr>
+                                    @endif
                                     @endforeach
                                 </tbody>
                             </table>
