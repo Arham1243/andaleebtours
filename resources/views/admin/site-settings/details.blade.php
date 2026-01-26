@@ -196,7 +196,7 @@
                                         <label class="title">Copyright Text</label>
                                         <input type="text" name="COPYRIGHT" class="field"
                                             value="{{ $config['COPYRIGHT'] ?? '' }}"
-                                            placeholder="e.g., © 2025 Andaleeb Travel Agency. All Rights Reserved.">
+                                            placeholder="e.g., © {{date('Y')}} Andaleeb Travel Agency. All Rights Reserved.">
                                     </div>
                                 </div>
 
