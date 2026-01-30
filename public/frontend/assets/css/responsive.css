@@ -16,7 +16,6 @@
     }
     .banner__img {
         border-radius: 0;
-        height: 140px;
     }
     .footer-disclaimer {
         padding-inline: 1rem;
@@ -244,5 +243,15 @@
     }
     section.page-header .search-button {
         margin: 0;
+    }
+    .page-header {
+        height: auto !important;
+        padding: 2rem 0 !important;
+    }
+    .page-header .row.mt-5 {
+        margin-top: 0 !important;
+    }
+    div#hotels-search .search-options-wrapper {
+        margin-bottom: 0 !important;
     }
 }
