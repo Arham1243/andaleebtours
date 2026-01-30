@@ -36,7 +36,7 @@ class TourCategoryController extends Controller
         ]);
 
         // Use custom slug if provided, otherwise generate from name
-        $slug = $request->filled('slug') 
+        $slug = $request->filled('slug')
             ? $this->generateUniqueSlug($request->slug, TourCategory::class)
             : $this->generateUniqueSlug($request->name, TourCategory::class);
 
@@ -50,6 +50,7 @@ class TourCategoryController extends Controller
             'slug' => $slug,
             'image' => $imagePath,
             'status' => $request->status,
+            'is_featured' => $request->is_featured,
         ]);
 
         return redirect()->route('admin.tour-categories.index')->with('notify_success', 'Tour Category created successfully!');
@@ -86,6 +87,7 @@ class TourCategoryController extends Controller
             'slug' => $slug,
             'image' => $imagePath,
             'status' => $request->status,
+            'is_featured' => $request->is_featured,
         ]);
 
         return redirect()->route('admin.tour-categories.index')->with('notify_success', 'Tour Category updated successfully!');
