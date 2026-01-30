@@ -197,7 +197,7 @@
                             United
                             Arab Emirates.
                         </p>
-                        <a href="#" class="themeBtn">
+                        <a href="{{ route('frontend.uae-services') }}" class="themeBtn">
                             View All Attractions <i class='bx bx-right-arrow-alt'></i>
                         </a>
                     </div>
@@ -208,7 +208,7 @@
                     <div class="pro-list-container">
 
                         <!-- Item 01: Downtown -->
-                        <a href="#" class="pro-item">
+                        <a href="{{ route('frontend.uae-services') }}" class="pro-item">
                             <span class="pro-num">01</span>
                             <div class="pro-info">
                                 <h3 class="pro-city">Downtown Dubai</h3>
@@ -227,7 +227,7 @@
                         </a>
 
                         <!-- Item 02: The Palm -->
-                        <a href="#" class="pro-item">
+                        <a href="{{ route('frontend.uae-services') }}" class="pro-item">
                             <span class="pro-num">02</span>
                             <div class="pro-info">
                                 <h3 class="pro-city">Palm Jumeirah</h3>
@@ -245,7 +245,7 @@
                         </a>
 
                         <!-- Item 03: Dubai Marina -->
-                        <a href="#" class="pro-item">
+                        <a href="{{ route('frontend.uae-services') }}" class="pro-item">
                             <span class="pro-num">03</span>
                             <div class="pro-info">
                                 <h3 class="pro-city">Dubai Marina</h3>
@@ -263,7 +263,7 @@
                         </a>
 
                         <!-- Item 04: Desert Safari -->
-                        <a href="#" class="pro-item">
+                        <a href="{{ route('frontend.uae-services') }}" class="pro-item">
                             <span class="pro-num">04</span>
                             <div class="pro-info">
                                 <h3 class="pro-city">Arabian Desert</h3>
