@@ -101,87 +101,31 @@
             </div>
         </div>
     </div>
-    {{-- <section class="categories categories--padd">
+    
+    <section class="categories categories--padd">
         <div class="container">
             <div class="section-content mb-4">
                 <h3 class="heading">Best Cities to Visit</h3>
             </div>
             <div class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-3">
+                @foreach ($featuredCategories as $featuredCategory)
                 <div class="col">
                     <a href="#" class="category-card">
                         <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
+                            <img data-src={{ asset($featuredCategory->image) }}"
+                                alt="{{ $featuredCategory->name }}" class="imgFluid lazyload">
                         </div>
                         <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-1">United Arab Emirates</div>
+                            <div class="title line-clamp-1">{{ $featuredCategory->name }}</div>
+                            <div class="desc line-clamp-1">{{ $featuredCategory->tours->count() }}
+                                            {{ Str::plural('Activity', $featuredCategory->tours->count()) }}</div>
                         </div>
                     </a>
                 </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Singapore</div>
-                            <div class="desc line-clamp-1">United Arab Emirates</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13236/abu-dhabi.jpg?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Abu Dhabi</div>
-                            <div class="desc line-clamp-1">United Arab Emirates</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/14644/ras-al-khaimah-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Ras al Khaimah</div>
-                            <div class="desc line-clamp-1">United Arab Emirates</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/23726/singapore-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Singapore</div>
-                            <div class="desc line-clamp-1">United Arab Emirates</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#" class="category-card">
-                        <div class="category-card__img">
-                            <img data-src="https://res.cloudinary.com/dzsl8v8yw/image/fetch/e_vibrance:100/c_limit,w_1920/f_auto/q_auto/v20428/https://d31sl6cu4pqx6g.cloudfront.net/City-Images/13668/dubai-city.png?_a=BAVAZGE70"
-                                alt="Dubai" class="imgFluid lazyload">
-                        </div>
-                        <div class="category-card__content">
-                            <div class="title line-clamp-1">Things to do in Dubai</div>
-                            <div class="desc line-clamp-1">United Arab Emirates</div>
-                        </div>
-                    </a>
-                </div>
+                @endforeach
             </div>
         </div>
-    </section> --}}
+    </section>
 
     <section class="pro-dest-section py-5">
         <div class="container">

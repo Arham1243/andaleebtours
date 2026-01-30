@@ -69,6 +69,12 @@
                                             Inactive
                                         </label>
                                     </div>
+
+                                    <div class="form-check form-switch mt-4">
+                                        <input class="form-check-input" type="checkbox" name="is_featured"
+                                            id="is_featured" value="1" {{ old('is_featured',$tourCategory->is_featured) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="is_featured">Is Featured</label>
+                                    </div>
                                     <div class="text-end mt-3">
                                         <button class="themeBtn" type="submit">Update Category</button>
                                     </div>

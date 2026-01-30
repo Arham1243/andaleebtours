@@ -30,6 +30,7 @@ class TourCategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:tour_categories,name',
             'slug' => 'nullable|string|max:255',
+            'is_featured' => 'nullable|boolean',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'status' => 'required|in:active,inactive',
         ]);
@@ -65,6 +66,7 @@ class TourCategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:tour_categories,name,' . $tourCategory->id,
             'slug' => 'nullable|string|max:255',
+            'is_featured' => 'nullable|boolean',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'status' => 'required|in:active,inactive',
         ]);

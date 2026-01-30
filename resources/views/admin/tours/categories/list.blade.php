@@ -37,6 +37,7 @@
                                         </th>
                                         <th>Image</th>
                                         <th>Name</th>
+                                        <th>Is Featured</th>
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th>Actions</th>
@@ -61,6 +62,12 @@
                                                 <a class="blue-link" href="{{ route('admin.tour-categories.edit', $category->id) }}">
                                                     {{ $category->name ?? 'N/A' }}
                                                 </a>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="badge rounded-pill bg-{{ $category->is_featured ? 'success' : 'danger' }}">
+                                                    {{ $category->is_featured ? 'Yes' : 'No' }}
+                                                </span>
                                             </td>
                                             <td>
                                                 <span class="badge rounded-pill bg-{{ $category->status === 'active' ? 'success' : 'danger' }}">
