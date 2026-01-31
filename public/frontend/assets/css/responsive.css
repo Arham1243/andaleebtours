@@ -241,7 +241,8 @@
         left: 0;
         z-index: 99;
     }
-    section.page-header .search-button {
+    section.page-header .search-button,
+    .holidays-search-form .search-button {
         margin: 0;
     }
     .page-header {
