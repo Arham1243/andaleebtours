@@ -32,6 +32,17 @@ class PackageController extends Controller
         return view('frontend.packages.category', compact('category', 'packages', 'banner'));
     }
 
+    public function search()
+    {
+        $search = request('search', '');
+        $title = 'Search Packages';
+        $packages = Package::where('status', 'active')
+            ->where('name', 'like', '%' . $search . '%')
+            ->latest()
+            ->get();
+        return view('frontend.packages.search', compact('title', 'packages'));
+    }
+
     public function details($slug)
     {
         $banner = Banner::where('page', 'packages-details')->where('status', 'active')->first();

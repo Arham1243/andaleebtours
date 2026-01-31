@@ -47,7 +47,12 @@
                             <li role="presentation">
                                 <button class="search-pill" id="pills-holidays-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-holidays" type="button" role="tab"
-                                    aria-controls="pills-holidays" aria-selected="false">Holidays</button>
+                                    aria-controls="pills-holidays" aria-selected="false">Activities</button>
+                            </li>
+                            <li role="presentation">
+                                <button class="search-pill" id="pills-pkgs-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-pkgs" type="button" role="tab"
+                                    aria-controls="pills-pkgs" aria-selected="false">Holidays </button>
                             </li>
                             <li role="presentation">
                                 <button class="search-pill" id="pills-profile-tab" data-bs-toggle="pill"
@@ -71,12 +76,20 @@
                                     'appJs' => 'flight-search',
                                 ])
                             </div>
+                            <div class="tab-pane" id="pills-pkgs" role="tabpanel" aria-labelledby="pills-pkgs-tab"
+                                tabindex="0">
+                                @include('frontend.vue.main', [
+                                    'appId' => 'packages-search',
+                                    'appComponent' => 'packages-search',
+                                    'appJs' => 'packages-search',
+                                ])
+                            </div>
                             <div class="tab-pane" id="pills-holidays" role="tabpanel" aria-labelledby="pills-holidays-tab"
                                 tabindex="0">
                                 @include('frontend.vue.main', [
-                                    'appId' => 'holidays-search',
-                                    'appComponent' => 'holidays-search',
-                                    'appJs' => 'holidays-search',
+                                    'appId' => 'activities-search',
+                                    'appComponent' => 'activities-search',
+                                    'appJs' => 'activities-search',
                                 ])
                             </div>
                             <div class="tab-pane global-search-content " id="pills-profile" role="tabpanel"

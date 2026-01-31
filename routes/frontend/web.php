@@ -62,6 +62,7 @@ Route::name('frontend.')->group(function () {
 
     Route::prefix('packages')->name('packages.')->group(function () {
         Route::get('/', [PackageController::class, 'index'])->name('index');
+        Route::get('/search', [PackageController::class, 'search'])->name('search');
         Route::get('/category/{slug}', [PackageController::class, 'category'])->name('category');
         Route::get('/{slug}', [PackageController::class, 'details'])->name('details');
         Route::post('/inquiry', [PackageController::class, 'submitInquiry'])->name('inquiry.submit');

@@ -1,13 +1,13 @@
 <script>
-    const GlobalSearch = createApp({
+    const PackagesSearch = createApp({
         setup() {
             const activitySearchQuery = ref('');
 
             return {
-                // Holidays
+                // Packages
                 activitySearchQuery,
             };
         },
     });
-    GlobalSearch.mount('#holidays-search');
+    PackagesSearch.mount('#packages-search');
 </script>
