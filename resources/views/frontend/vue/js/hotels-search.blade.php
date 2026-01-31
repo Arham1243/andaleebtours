@@ -39,12 +39,8 @@
             // Hotel Search Logic
             const hotelCheckInDate = ref(null);
             const hotelCheckOutDate = ref(null);
-            const hotelRoomCount = ref(1);
-            const hotelRooms = ref([{
-                adults: 1,
-                children: 0,
-                childAges: []
-            }]);
+            const hotelRoomCount = ref(0);
+            const hotelRooms = ref([]);
 
             const {
                 open: hotelRoomsOpen,
@@ -70,6 +66,9 @@
             const loadingHotelDestination = ref(false);
 
             const totalHotelGuestsText = computed(() => {
+                if (hotelRoomCount.value === 0) {
+                    return 'Select Rooms & Guests';
+                }
                 const totalAdults = hotelRooms.value.reduce((sum, room) => sum + room.adults, 0);
                 const totalChildren = hotelRooms.value.reduce((sum, room) => sum + room.children, 0);
                 const totalGuests = totalAdults + totalChildren;
@@ -174,7 +173,7 @@
                 /* =========================
                    ROOMS
                 ========================= */
-                const roomCount = parseInt(urlParams.room_count || 1);
+                const roomCount = parseInt(urlParams.room_count || 0);
                 hotelRoomCount.value = roomCount;
 
                 await nextTick();
