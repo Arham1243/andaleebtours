@@ -17,7 +17,7 @@ class ProvinceController extends Controller
     public function index()
     {
         $title = 'Manage Provinces';
-        $provinces = Province::latest()->get();
+        $provinces = Province::latest()->paginate(10);
         return view('admin.hotels.provinces.list', compact('provinces', 'title'));
     }
 

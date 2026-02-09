@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="data-table">
+                            <table class="custom-table">
                                 <thead>
                                     <tr>
                                         <th class="no-sort">
@@ -80,6 +80,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                             <div class="mt-4">
+                                {{ $hotels->links('pagination::bootstrap-5') }}
+                            </div>
                         </div>
                     </div>
                 </div>
