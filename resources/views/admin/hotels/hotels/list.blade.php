@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table>
+                            <table class="custom-table">
                                 <thead>
                                     <tr>
                                         <th class="no-sort">
@@ -91,7 +91,7 @@
                                 </tbody>
                             </table>
                             <div class="mt-4">
-                                {{ $hotels->links() }}
+                                {{ $hotels->links('pagination::bootstrap-5') }}
                             </div>
                         </div>
                     </div>
