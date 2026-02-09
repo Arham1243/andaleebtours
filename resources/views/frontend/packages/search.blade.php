@@ -5,14 +5,11 @@
         <div class="container">
             <div class="row justify-content-center mt-5 pt-5">
                 <div class="col-md-6">
-                    <form action="{{ route('frontend.packages.search') }}"
-                        class="holidays-search-form holidays-search-form--normal" method="GET">
-                        <input type="text" name="search" class="holidays-search-form__input" placeholder="Search Packages"
-                            value="{{ request('search') }}">
-                        <div class="search-button">
-                            <button type="submit" class="themeBtn themeBtn--primary">Search</button>
-                        </div>
-                    </form>
+                    @include('frontend.vue.main', [
+                        'appId' => 'packages-search',
+                        'appComponent' => 'packages-search',
+                        'appJs' => 'packages-search',
+                    ])
                 </div>
             </div>
         </div>

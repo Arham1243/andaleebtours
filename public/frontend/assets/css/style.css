@@ -26,7 +26,7 @@
     --radius-md: 12px;
     --radius-sm: 8px;
     --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.09);
-    
+
     --color-success: #198754;
     --color-error: #dc3545;
 }
@@ -124,6 +124,8 @@ i.bx {
     align-items: center;
     justify-content: center;
     gap: 0.35rem;
+    position: relative;
+    z-index: 1;
 }
 .themeBtn--primary {
     color: #fff;
@@ -2104,8 +2106,8 @@ button.slick-prev.slick-arrow::before {
     padding-inline: 3rem;
 }
 
-.holidays-search-form__input {
-    width: 100%;
+body .holidays-search-form__input {
+    width: 100% !important;
     border: none;
     outline: none;
     background: none;
@@ -5779,17 +5781,17 @@ body.fancybox-active.compensate-for-scrollbar {
     background-color: rgba(220, 53, 69, 0.1);
     color: var(--color-error);
 }
-.notify-success{
+.notify-success {
     background-color: rgba(25, 135, 84, 0.1);
     color: var(--color-success);
 }
 
 /* Payment Status Pages */
-.validation-error{
+.validation-error {
     font-size: 0.85rem;
     font-weight: 500;
 }
-.w-fit{
+.w-fit {
     width: fit-content;
 }
 .delete-price {
@@ -5801,3 +5803,160 @@ body.fancybox-active.compensate-for-scrollbar {
     background: #1a1e26;
     color: #fff;
 }
+.highlighted {
+    background-color: #ff901c96;
+    font-weight: 600;
+    color: #000;
+}
+
+/* Select 2 */
+body span.select2.select2-container.select2-container--default {
+    width: 100% !important;
+}
+
+span.selection {
+    width: 100%;
+    display: block;
+}
+
+span.select2-selection.select2-selection--multiple {
+    width: 110%;
+    display: block;
+    border: none !important;
+}
+
+body input.select2-search__field {
+    width: 100% !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    height: 100% !important;
+    padding: 1rem 0 !important;
+}
+li.select2-search.select2-search--inline {
+    width: 100%;
+    height: 100%;
+}
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
+    padding: 0 !important;
+
+    line-height: 1.15 !important;
+}
+
+.select2-selection--single {
+    border: none !important;
+    background: none !important;
+    width: 100% !important;
+}
+
+.select2-hidden-accessible {
+    width: 100% !important;
+    outline: none !important;
+}
+
+.select2-selection__arrow {
+    display: none;
+}
+
+.select2-selection--single {
+    height: auto !important;
+}
+
+span.select2-dropdown.select2-dropdown--below {
+    border: 1px solid #dee2e6 !important;
+    width: 100% !important;
+    background: #ededed;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    padding: 0.5rem 1rem;
+    outline: none !important;
+    font-size: 0.84rem;
+}
+
+.select2-results__option {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.84rem;
+    color: #000;
+    font-weight: 500;
+}
+
+.select2-results__option.select2-results__option span {
+    color: inherit !important;
+    font: inherit;
+}
+
+.select2-results__option:not(:last-child) {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.select2-container--default
+    .select2-results__option--highlighted[aria-selected] {
+    background: var(--color-primary) !important;
+}
+
+.select2-results__options::-webkit-scrollbar {
+    width: 7px;
+}
+
+.select2-results__options::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.select2-results__options::-webkit-scrollbar-thumb {
+    background: #8989899c;
+    border-radius: 100px;
+}
+
+.banner-search .select2-container {
+    top: 100% !important;
+    display: block !important;
+    width: 100%;
+    left: 0 !important;
+}
+.holidays-search-form {
+    position: relative;
+}
+
+.holidays-search-form span.select2-selection.select2-selection--multiple {
+    background: none;
+    border: none !important;
+    outline: none !important;
+    height: 100% !important;
+}
+
+.holidays-search-form span.select2-selection__choice__remove {
+    font-size: 1.3rem !important;
+    position: relative;
+    top: 2px;
+    line-height: 0;
+}
+
+.holidays-search-form li.select2-search.select2-search--inline:nth-child(2) {
+    display: none;
+}
+
+.holidays-search-form input.select2-search__field {
+    margin: 5px 0 0 !important;
+}
+.holidays-search-form .select2-container {
+    width: 100% !important;
+    top: 100% !important;
+    left: 0 !important;
+}
+li.select2-selection__choice {
+    width: fit-content;
+    white-space: break-spaces;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice {
+    background: #fff;
+    border: none;
+}
+/* Select 2 */

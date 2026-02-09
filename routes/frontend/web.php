@@ -29,6 +29,7 @@ Route::name('frontend.')->group(function () {
     Route::post('/subscribe-newsletter', [IndexController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
 
     Route::get('/uae-services', [TourController::class, 'uae_services'])->name('uae-services');
+    Route::get('/uae-services/search', [TourController::class, 'search_uae_services'])->name('uae-services.search');
     Route::get('/privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
     Route::get('/terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
     Route::get('/company-profile', [IndexController::class, 'company_profile'])->name('company-profile');
@@ -63,6 +64,7 @@ Route::name('frontend.')->group(function () {
     Route::prefix('packages')->name('packages.')->group(function () {
         Route::get('/', [PackageController::class, 'index'])->name('index');
         Route::get('/search', [PackageController::class, 'search'])->name('search');
+        Route::get('/searchNames', [PackageController::class, 'searchNames'])->name('searchNames');
         Route::get('/category/{slug}', [PackageController::class, 'category'])->name('category');
         Route::get('/{slug}', [PackageController::class, 'details'])->name('details');
         Route::post('/inquiry', [PackageController::class, 'submitInquiry'])->name('inquiry.submit');

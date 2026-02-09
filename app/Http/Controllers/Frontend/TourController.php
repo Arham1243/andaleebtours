@@ -57,7 +57,23 @@ class TourController extends Controller
             compact('banner', 'categories', 'tours', 'packageCategories', 'total_tours')
         );
     }
+    public function search_uae_services(Request $request)
+    {
+        $query = $request->input('q', '');
 
+        $tours = Tour::where('status', 'active')
+            ->where('name', 'like', '%' . $query . '%')
+            ->latest()
+            ->get()
+            ->map(function ($tour) {
+                return [
+                    'id' => $tour->id,
+                    'text' => $tour->name
+                ];
+            });
+
+        return response()->json(['results' => $tours]);
+    }
 
     public function details($slug)
     {

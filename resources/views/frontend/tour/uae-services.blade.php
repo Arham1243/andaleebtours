@@ -10,14 +10,11 @@
     <div class="container">
         <div class="row justify-content-center mt-5 pt-5">
             <div class="col-md-6">
-                <form action="{{ route('frontend.uae-services') }}#tours"
-                    class="holidays-search-form holidays-search-form--normal" method="GET">
-                    <input type="text" name="search" class="holidays-search-form__input" placeholder="Search Activities"
-                        value="{{ request('search') }}">
-                    <div class="search-button">
-                        <button type="submit" class="themeBtn themeBtn--primary">Search</button>
-                    </div>
-                </form>
+                @include('frontend.vue.main', [
+                    'appId' => 'activities-search',
+                    'appComponent' => 'activities-search',
+                    'appJs' => 'activities-search',
+                ])
             </div>
         </div>
     </div>

@@ -255,4 +255,14 @@
     .page-header--uae {
         background-position: 13% !important;
     }
+    .holidays-search-form .search-button .themeBtn {
+        height: 40px;
+        padding: 0 1.5rem;
+    }
+    body input.select2-search__field {
+        padding: 0 !important;
+    }
+    .holidays-search-form {
+        padding:  0.65rem;
+    }
 }
