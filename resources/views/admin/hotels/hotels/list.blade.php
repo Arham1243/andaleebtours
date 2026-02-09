@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="data-table">
+                            <table>
                                 <thead>
                                     <tr>
                                         <th class="no-sort">
@@ -90,6 +90,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="mt-4">
+                                {{ $hotels->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>

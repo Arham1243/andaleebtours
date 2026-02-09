@@ -20,7 +20,8 @@ class HotelController extends Controller
     public function index()
     {
         $title = 'Manage Hotels';
-        $hotels = Hotel::latest()->get();
+
+        $hotels = Hotel::latest()->paginate(10);
 
         return view('admin.hotels.hotels.list', compact('hotels', 'title'));
     }
