@@ -120,6 +120,11 @@ return [
         ],
     ],
     [
+        'title' => 'Flights',
+        'icon' => 'bx bxs-plane-alt',
+        'route' => route('admin.flights.index'),
+    ],
+    [
         'title' => 'Layout',
         'icon' => 'bx bxs-cog',
         'submenu' => [

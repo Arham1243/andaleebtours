@@ -72,6 +72,21 @@ Breadcrumbs::for('admin.tour-categories.edit', function (BreadcrumbTrail $trail,
     $trail->push('Edit Tour Category', route('admin.tour-categories.edit', $tourCategory));
 });
 
+Breadcrumbs::for('admin.flights.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Manage Flights', route('admin.flights.index'));
+});
+
+Breadcrumbs::for('admin.flights.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.flights.index');
+    $trail->push('Add New Flight', route('admin.flights.create'));
+});
+
+Breadcrumbs::for('admin.flights.edit', function (BreadcrumbTrail $trail, $flight) {
+    $trail->parent('admin.flights.index');
+    $trail->push('Edit Flight', route('admin.flights.edit', $flight));
+});
+
 Breadcrumbs::for('admin.package-categories.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Manage Package Categories', route('admin.package-categories.index'));

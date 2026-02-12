@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\PackageCategoryController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\TourCategoryController;
+use App\Http\Controllers\Admin\FlightController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PackageInquiryController;
 use App\Http\Controllers\Admin\DBConsoleController;
@@ -73,6 +74,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('tour-categories', TourCategoryController::class);
     Route::get('tour-categories/change-status/{tourCategory}', [TourCategoryController::class, 'changeStatus'])->name('tour-categories.change-status');
+
+    Route::resource('flights', FlightController::class);
+    Route::get('flights/change-status/{flight}', [FlightController::class, 'changeStatus'])->name('flights.change-status');
 
     Route::resource('package-categories', PackageCategoryController::class);
     Route::get('package-categories/change-status/{packageCategory}', [PackageCategoryController::class, 'changeStatus'])->name('package-categories.change-status');

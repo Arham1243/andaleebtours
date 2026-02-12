@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Tour;
 use App\Models\TourCategory;
+use App\Models\Flight;
 use App\Models\Package;
 use App\Models\Country;
 use App\Models\Province;
@@ -71,6 +72,11 @@ class BulkActionController extends Controller
                 $modelClass = TourCategory::class;
                 $column = 'id';
                 $redirectRoute = 'admin.tour-categories.index';
+                break;
+            case 'flights':
+                $modelClass = Flight::class;
+                $column = 'id';
+                $redirectRoute = 'admin.flights.index';
                 break;
             case 'tour-reviews':
                 $modelClass = TourReview::class;

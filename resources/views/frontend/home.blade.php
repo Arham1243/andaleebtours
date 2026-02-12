@@ -372,139 +372,51 @@
                 </div>
             </div>
             <div class="row g-4">
+                @forelse ($featuredFlights as $flight)
+                    <div class="col-md-6 col-lg-3">
+                        <a href="#" class="flight-card">
+                            <img data-src="{{ asset($flight->image) }}"
+                                alt="{{ $flight->destination_name }}" class="card-img lazyload">
 
-                <div class="col-md-6 col-lg-3">
-                    <a href="#" class="flight-card">
-                        <img data-src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="London" class="card-img lazyload">
+                            @if($flight->badge)
+                                <div class="card-badge"><i class="bx bxs-hot"></i>{{ $flight->badge }}</div>
+                            @endif
 
-                        <div class="card-badge"><i class="bx bxs-hot"></i>Trending</div>
-
-                        <div class="card-content">
-                            <div class="route-box">
-                                <span class="code">DXB</span>
-                                <div class="flight-line">
-                                    <i class='bx bxs-plane-alt plane-icon'></i>
+                            <div class="card-content">
+                                <div class="route-box">
+                                    <span class="code">{{ $flight->origin_code }}</span>
+                                    <div class="flight-line">
+                                        <i class='bx bxs-plane-alt plane-icon'></i>
+                                    </div>
+                                    <span class="code">{{ $flight->destination_code }}</span>
                                 </div>
-                                <span class="code">LHR</span>
-                            </div>
 
-                            <div class="text-white mb-3">
-                                <h5 class="fw-bold mb-0">London</h5>
-                                <small class="opacity-75"><i class='bx bx-calendar'></i> 20 Oct • 7h 10m</small>
-                            </div>
-
-                            <div
-                                class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
-                                <div>
-                                    <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 1,850</span>
+                                <div class="text-white mb-3">
+                                    <h5 class="fw-bold mb-0">{{ $flight->destination_name }}</h5>
+                                    @if($flight->departure_date || $flight->duration)
+                                        <small class="opacity-75">
+                                            <i class='bx bx-calendar'></i> 
+                                            {{ $flight->departure_date }}@if($flight->departure_date && $flight->duration) • @endif{{ $flight->duration }}
+                                        </small>
+                                    @endif
                                 </div>
-                                <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
 
-                <div class="col-md-6 col-lg-3">
-                    <a href="#" class="flight-card">
-                        <img data-src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="New York" class="card-img lazyload">
-
-
-                        <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
-
-                        <div class="card-content">
-                            <div class="route-box">
-                                <span class="code">DXB</span>
-                                <div class="flight-line">
-                                    <i class='bx bxs-plane-alt plane-icon'></i>
+                                <div
+                                    class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
+                                    <div>
+                                        <small class="text-white d-block" style="font-size: 0.75rem;">{{ $flight->class }} from</small>
+                                        <span class="fw-bold text-white fs-5"><span class="dirham">D</span> {{ number_format($flight->price, 0) }}</span>
+                                    </div>
+                                    <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
                                 </div>
-                                <span class="code">JFK</span>
                             </div>
-
-                            <div class="text-white mb-3">
-                                <h5 class="fw-bold mb-0">New York</h5>
-                                <small class="opacity-75"><i class='bx bx-calendar'></i> 15 Nov • 14h 20m</small>
-                            </div>
-
-                            <div
-                                class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
-                                <div>
-                                    <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 3,200</span>
-                                </div>
-                                <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <a href="#" class="flight-card">
-                        <img data-src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Paris" class="card-img lazyload">
-
-                        <div class="card-badge"><i class="bx bxs-hot"></i> Trending</div>
-
-                        <div class="card-content">
-                            <div class="route-box">
-                                <span class="code">DXB</span>
-                                <div class="flight-line">
-                                    <i class='bx bxs-plane-alt plane-icon'></i>
-                                </div>
-                                <span class="code">CDG</span>
-                            </div>
-
-                            <div class="text-white mb-3">
-                                <h5 class="fw-bold mb-0">Paris</h5>
-                                <small class="opacity-75"><i class='bx bx-calendar'></i> 05 Dec • 7h 25m</small>
-                            </div>
-
-                            <div
-                                class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
-                                <div>
-                                    <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 1,650</span>
-                                </div>
-                                <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <a href="#" class="flight-card">
-                        <img data-src="https://images.unsplash.com/photo-1527838832700-5059252407fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Istanbul" class="card-img lazyload">
-
-                        <div class="card-badge"><i class="bx bxs-hot"></i> Best Deal</div>
-
-                        <div class="card-content">
-                            <div class="route-box">
-                                <span class="code">DXB</span>
-                                <div class="flight-line">
-                                    <i class='bx bxs-plane-alt plane-icon'></i>
-                                </div>
-                                <span class="code">IST</span>
-                            </div>
-
-                            <div class="text-white mb-3">
-                                <h5 class="fw-bold mb-0">Istanbul</h5>
-                                <small class="opacity-75"><i class='bx bx-calendar'></i> 12 Jan • 4h 50m</small>
-                            </div>
-
-                            <div
-                                class="d-flex justify-content-between align-items-end border-top border-white border-opacity-25 pt-3">
-                                <div>
-                                    <small class="text-white d-block" style="font-size: 0.75rem;">Economy from</small>
-                                    <span class="fw-bold text-white fs-5"><span class="dirham">D</span> 1,100</span>
-                                </div>
-                                <div class="btn-action"><i class='bx bx-right-arrow-alt'></i></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <p class="text-center text-muted">No featured flights available at the moment.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>

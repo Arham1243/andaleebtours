@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Banner;
 use App\Models\Tour;
 use App\Models\TourCategory;
+use App\Models\Flight;
 use App\Models\Package;
 use App\Models\Inquiry;
 use App\Models\Newsletter;
@@ -20,7 +21,8 @@ class IndexController extends Controller
         $featuredTours = Tour::where('status', 'active')->where('is_featured', 1)->latest()->get();
         $featuredCategories = TourCategory::where('status', 'active')->where('is_featured', 1)->latest()->get();
         $featuredPackages = Package::where('status', 'active')->where('is_featured', 1)->latest()->get();
-        return view('frontend.home', compact('banners', 'featuredTours', 'featuredPackages','featuredCategories'));
+        $featuredFlights = Flight::where('status', 'active')->where('is_featured', 1)->latest()->get();
+        return view('frontend.home', compact('banners', 'featuredTours', 'featuredPackages','featuredCategories', 'featuredFlights'));
     }
 
     public function privacy_policy()
