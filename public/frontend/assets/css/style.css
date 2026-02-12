@@ -5969,7 +5969,7 @@ li.select2-selection__choice {
     border-radius: 100%;
     position: fixed;
     font-size: 1.85rem;
-    left: 1.25rem;
+    right: 1.25rem;
     bottom: 1.25rem;
     z-index: 120;
     width: 50px;
