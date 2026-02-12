@@ -361,6 +361,7 @@
         </section>
     @endif
 
+    @if($featuredFlights->isNotEmpty())
     <section class="section-flight-offers mar-y">
         <div class="container">
             <div class="row align-items-end mb-2">
@@ -420,6 +421,7 @@
             </div>
         </div>
     </section>
+    @endif
     
 {{-- 
     <section class="section-hotel-offers py-5 bg-light">
