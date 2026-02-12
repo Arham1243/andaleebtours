@@ -335,7 +335,7 @@
                                     <a href="{{ route('frontend.packages.details', $horizontalPackageCard->slug) }}" class="promo-card h-240">
                                         <img data-src="{{ asset($horizontalPackageCard->image) }}"
                                             alt="{{ $horizontalPackageCard->name }}" class="lazyload">
-                                        <span class="duration-badge">{{ horizontalPackageCard->nights }}
+                                        <span class="duration-badge">{{ $horizontalPackageCard->nights }}
                                             {{ Str::plural('Night', $horizontalPackageCard->nights) }} /
                                             {{ $horizontalPackageCard->days }}
                                             {{ Str::plural('Day', $horizontalPackageCard->days) }}</span>
